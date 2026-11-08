@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>What If P-POP Was Bigger Than K-POP?</title>
+<meta name="description" content="A 3-minute real-time 3D animated musical starring HIRAYA, the biggest fictional girl group on Earth.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=DM+Mono:wght@500&family=DM+Sans:ital,wght@0,500;0,600;0,700;1,500&family=Pacifico&display=swap">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body class="intro">
+<div id="player">
+  <div id="frame">
+    <canvas id="view" aria-label="HIRAYA animated musical"></canvas>
+    <div class="layer">
+      <div id="chyron" class="chyron"></div>
+      <div id="live"><span class="pill"><i></i>LIVE</span><span class="where">HIRAYA DOME · MANILA</span><span class="count">WATCHING <span id="viewers">2,148,000,000</span></span></div>
+      <div id="namecard"></div>
+      <div id="captions" class="captions"></div>
+      <div id="ticker"><span class="lbl"><i></i>ALT-EARTH NEWS</span><span class="track"><span id="ticker-text"></span></span></div>
+      <div id="fade"></div>
+    </div>
+  </div>
+  <div id="controls">
+    <button id="play" class="ctrl" type="button" aria-label="Play" data-state="play"><svg class="i-play" viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z"/></svg><svg class="i-pause" viewBox="0 0 16 16"><path d="M4 2h3v12H4zM9 2h3v12H9z"/></svg></button>
+    <span id="time">0:00 / 3:00</span>
+    <div class="scrubwrap"><input id="scrub" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek"><div id="marks"></div></div>
+    <button id="cc" class="ctrl" type="button" aria-label="Captions" aria-pressed="true"><svg viewBox="0 0 16 16"><path d="M1 3h14v10H1zm2 2v6h10V5zm1 1h3v1.2H5.3v1.6H7V10H4zm5 0h3v1.2h-1.7v1.6H12V10H9z"/></svg></button>
+    <button id="mute" class="ctrl" type="button" aria-label="Mute" aria-pressed="false"><svg viewBox="0 0 16 16"><path d="M2 6h3l4-3v10L5 10H2zm9 .2 1-1A4 4 0 0 1 12 11l-1-1a2.6 2.6 0 0 0 0-3.8z"/></svg></button>
+    <select id="quality" aria-label="Quality">
+      <option value="high">High · 100k fans</option>
+      <option value="medium">Medium · 50k fans</option>
+      <option value="low">Low · 20k fans</option>
+    </select>
+    <button id="fs" class="ctrl" type="button" aria-label="Fullscreen"><svg viewBox="0 0 16 16"><path d="M1 1h5v2H3v3H1zm9 0h5v5h-2V3h-3zM1 10h2v3h3v2H1zm12 0h2v5h-5v-2h3z"/></svg></button>
+  </div>
+  <section id="intro" aria-labelledby="intro-title">
+    <div class="kicker">An alternate-reality musical · 3:00</div>
+    <h1 id="intro-title">What if P-POP was bigger than K-POP?</h1>
+    <p class="sub">Manila, 2026. Five Filipina fashion dolls called HIRAYA are the biggest girl group on Earth, and tonight 100,000 fans are waiting.</p>
+    <ul class="members">
+      <li style="--mc:#ff8fbf"><b>AMARA</b><span>Leader &amp; Main Vocalist</span></li>
+      <li style="--mc:#a66bff"><b>YZEL</b><span>Main Dancer</span></li>
+      <li style="--mc:#7fd4ff"><b>LIWAY</b><span>Vocalist</span></li>
+      <li style="--mc:#ff3b55"><b>SAYA</b><span>Rapper</span></li>
+      <li style="--mc:#ffd25a"><b>TALA</b><span>Center</span></li>
+    </ul>
+    <button id="start" class="cta" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play the film</button>
+    <div class="note">Sound on · Original song “KILIG (Worldwide)” · Space to pause · C for captions</div>
+  </section>
+  <section id="endscreen" aria-label="Film finished">
+    <h2>Salamat, Earth!</h2>
+    <p>That was HIRAYA, live at Hiraya Dome.</p>
+    <button id="replay" class="cta" type="button"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3a5 5 0 1 1-4.6 3H1.8A6.5 6.5 0 1 0 8 1.5V0L5 2.5 8 5z" fill="currentColor"/></svg>Watch again</button>
+  </section>
+</div>
+<script type="module" src="src/main.js"></script>
+</body>
+</html>
