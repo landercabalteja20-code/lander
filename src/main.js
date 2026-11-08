@@ -263,7 +263,10 @@ document.getElementById('mute').addEventListener('click', (e) => { muted = !mute
 document.getElementById('fs').addEventListener('click', () => { const el = document.getElementById('player'); if (document.fullscreenElement) document.exitFullscreen(); else el.requestFullscreen?.().catch(() => {}); });
 const qSel = document.getElementById('quality');
 qSel.value = qName;
-qSel.addEventListener('change', () => { try { localStorage.setItem('hiraya-quality', qSel.value); } catch (e) { /* */ } const u = new URL(location.href); u.searchParams.set('q', qSel.value); location.href = u.toString(); });
+qSel.addEventListener('change', () => {
+  try { localStorage.setItem('hiraya-quality', qSel.value); } catch (e) { /* storage blocked: URL param still works */ }
+  if (params.has('q')) { const u = new URL(location.href); u.searchParams.set('q', qSel.value); location.href = u.toString(); } else location.reload();
+});
 window.addEventListener('keydown', (e) => {
   if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT' && e.target.type !== 'range') return;
   if (e.code === 'Space') { e.preventDefault(); state.mode === 'playing' ? pause() : play(); }
