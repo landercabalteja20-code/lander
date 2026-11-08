@@ -1,0 +1,79 @@
+[
+  {
+    "text": "Welcome",
+    "startMs": 500,
+    "endMs": 950,
+    "timestampMs": 725,
+    "confidence": 1
+  },
+  {
+    "text": " to",
+    "startMs": 950,
+    "endMs": 1400,
+    "timestampMs": 1175,
+    "confidence": 1
+  },
+  {
+    "text": " your",
+    "startMs": 1400,
+    "endMs": 1850,
+    "timestampMs": 1625,
+    "confidence": 1
+  },
+  {
+    "text": " first",
+    "startMs": 1850,
+    "endMs": 2300,
+    "timestampMs": 2075,
+    "confidence": 1
+  },
+  {
+    "text": " 3D",
+    "startMs": 2300,
+    "endMs": 2750,
+    "timestampMs": 2525,
+    "confidence": 1
+  },
+  {
+    "text": " animation",
+    "startMs": 2750,
+    "endMs": 3200,
+    "timestampMs": 2975,
+    "confidence": 1
+  },
+  {
+    "text": " built",
+    "startMs": 3200,
+    "endMs": 3650,
+    "timestampMs": 3425,
+    "confidence": 1
+  },
+  {
+    "text": " with",
+    "startMs": 3650,
+    "endMs": 4100,
+    "timestampMs": 3875,
+    "confidence": 1
+  },
+  {
+    "text": " Three.js",
+    "startMs": 4100,
+    "endMs": 4550,
+    "timestampMs": 4325,
+    "confidence": 1
+  },
+  {
+    "text": " and",
+    "startMs": 4550,
+    "endMs": 5000,
+    "timestampMs": 4775,
+    "confidence": 1
+  },
+  {
+    "text": " Remotion",
+    "startMs": 5000,
+    "endMs": 5450,
+    "timestampMs": 5225,
+    "confidence": 1
+  }
+]
