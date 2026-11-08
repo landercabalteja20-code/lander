@@ -49,3 +49,24 @@ your audio, add `@remotion/install-whisper-cpp` and use its `toCaptions()` helpe
 - Drive all motion from `useCurrentFrame()` (plus `interpolate` / `spring`). **Don't** use
   r3f's `useFrame()` or `clock` — renders must be deterministic, frame by frame.
 - 3D models: put `.glb` files in `public/` and load with drei's `useGLTF(staticFile("model.glb"))`.
+
+## Video editing toolkit
+
+Working folders: `raw/` (source footage) → `references/` (inspiration) → `done/` (finished exports).
+Media files in these folders are git-ignored.
+
+```bash
+python3 -m venv .venv && .venv/bin/pip install -r requirements.txt   # faster-whisper, yt-dlp
+npm install                                                          # Remotion, HyperFrames
+```
+
+| Tool | Use | Command |
+| --- | --- | --- |
+| FFmpeg (libass) | cut, convert, burn `.ass`/`.srt` subtitles | `ffmpeg -i in.mp4 -vf "ass=subs.ass" out.mp4` |
+| faster-whisper | transcribe with word timestamps | `.venv/bin/python` → `WhisperModel("base")` |
+| yt-dlp | download references | `.venv/bin/yt-dlp -o "references/%(title)s.%(ext)s" URL` |
+| Remotion | React/Three.js video rendering | `npm run render` |
+| HyperFrames | HTML + GSAP video rendering | `npx hyperframes init` / `npx hyperframes render` |
+
+Note: YouTube/Vimeo block downloads from cloud servers ("confirm you're not a bot");
+pass `--cookies` or run yt-dlp locally. TikTok, archive.org and direct links work.

@@ -2,3 +2,13 @@ node_modules
 out
 .DS_Store
 .env
+.venv
+__pycache__
+renders
+# media in the working folders stays local (large / not ours to commit)
+raw/*
+references/*
+done/*
+!raw/.gitkeep
+!references/.gitkeep
+!done/.gitkeep
