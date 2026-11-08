@@ -2,3 +2,6 @@ faster-whisper==1.2.1
 # PyAV 16+ removed the `metadata_errors` arg faster-whisper 1.2.1 passes to av.open()
 av<16
 yt-dlp==2026.10.26
+scipy
+kokoro-onnx==0.6.1
+soundfile

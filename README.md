@@ -70,3 +70,20 @@ npm install                                                          # Remotion,
 
 Note: YouTube/Vimeo block downloads from cloud servers ("confirm you're not a bot");
 pass `--cookies` or run yt-dlp locally. TikTok, archive.org and direct links work.
+
+## Episode: "What if humans shrank to the size of ants overnight?"
+
+9:16, 1080×1920, 30fps, ~64 s. Composition id: `WhatIfAnts`.
+
+```bash
+npm run ants:audio     # Kokoro TTS narration → faster-whisper word timings → synth score + SFX → public/ants/mix.mp3
+npm run ants:preview   # one still per scene into out/preview/
+npm run ants:render    # final video → done/what-if-humans-shrank-to-ants.mp4 (~75 min on 4 CPU cores, software WebGL)
+```
+
+- Script, stats and clock times: `src/ants/script.json` (edit this, then re-run `ants:audio`).
+- Generated timings (beats, caption words, rain-impact frames): `src/ants/timeline.json`.
+- Scenes are procedural Three.js at true scale (1 unit = 1 mm; people are 1.8 units tall):
+  `src/ants/scenes/{Bedroom,Floor,Outside}.tsx`, shared models in `src/ants/three/`.
+- Overlays (captions, HUD clock + stat + scale ruler, hook title, outro): `src/ants/Overlays.tsx`.
+- Kokoro voice model goes in `.models/` (git-ignored), see `tools/ants/build_audio.py`.
