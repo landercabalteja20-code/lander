@@ -7,39 +7,43 @@
     "narrator": {
       "voice": "af_heart",
       "lang": "en-us",
-      "speed": 1.0
+      "speed": 1.0,
+      "engine": "kokoro"
     },
     "migo": {
-      "voice": "am_puck",
-      "lang": "en-us",
-      "speed": 1.06
+      "engine": "chatterbox",
+      "ref": "en-PH-JamesNeural",
+      "emotion": 0.7
     },
     "lola": {
-      "voice": "ef_dora",
-      "lang": "es",
-      "speed": 0.92
+      "engine": "edge",
+      "voice": "fil-PH-BlessicaNeural",
+      "rate": "-12%",
+      "pitchHz": "-10Hz"
     },
     "vendor": {
-      "voice": "em_santa",
-      "lang": "es",
-      "speed": 1.1,
-      "pitch": 1.08
+      "engine": "edge",
+      "voice": "fil-PH-AngeloNeural",
+      "rate": "+6%",
+      "pitchHz": "-4Hz"
     },
     "officer": {
       "voice": "em_alex",
       "lang": "es",
-      "speed": 1.0
+      "speed": 1.0,
+      "engine": "kokoro"
     },
     "friar": {
       "voice": "em_santa",
       "lang": "es",
-      "speed": 0.9
+      "speed": 0.9,
+      "engine": "kokoro"
     },
     "kid": {
-      "voice": "ef_dora",
-      "lang": "es",
-      "speed": 1.05,
-      "pitch": 1.28
+      "engine": "edge",
+      "voice": "fil-PH-BlessicaNeural",
+      "rate": "+10%",
+      "pitchHz": "+35Hz"
     }
   },
   "names": {
@@ -64,7 +68,8 @@
     {
       "scene": "shop",
       "speaker": "migo",
-      "text": "Ate, large, fifty percent sugar, extra pearls, please!"
+      "text": "Ate! Large, fifty percent sugar, extra pearls, please!",
+      "emotion": 0.6
     },
     {
       "scene": "warp",
@@ -79,7 +84,8 @@
     {
       "scene": "plaza",
       "speaker": "migo",
-      "text": "Okay. Is this, like, a cosplay event? Because the vibes are immaculate."
+      "text": "Wait... WHAT? Is this, like, a cosplay event?! Because the vibes are immaculate!",
+      "emotion": 0.85
     },
     {
       "scene": "plaza",
@@ -89,8 +95,8 @@
     {
       "scene": "jeans",
       "speaker": "lola",
-      "text": "Ay, kawawa naman ang batang ito. Punit-punit ang pantalon!",
-      "translation": "Oh, you poor child. Your pants are all torn!"
+      "text": "Ay! Kawawa naman ang batang ito... Punit-punit ang pantalon!",
+      "translation": "Oh no! You poor child... your pants are all torn!"
     },
     {
       "scene": "jeans",
@@ -100,7 +106,8 @@
     {
       "scene": "jeans",
       "speaker": "migo",
-      "text": "Lola, no! These cost three thousand pesos!"
+      "text": "Lola, NO! These cost three thousand pesos!",
+      "emotion": 0.9
     },
     {
       "scene": "phone",
@@ -110,7 +117,8 @@
     {
       "scene": "phone",
       "speaker": "migo",
-      "text": "Forty-five years without a charger? I'm literally gonna die."
+      "text": "Forty-five YEARS without a charger?! I'm literally gonna die.",
+      "emotion": 0.95
     },
     {
       "scene": "market",
@@ -120,7 +128,8 @@
     {
       "scene": "market",
       "speaker": "migo",
-      "text": "Lodi! Sana all! No cap, this market is so aesthetic."
+      "text": "Lodi! Sana all! No cap, this market is SO aesthetic!",
+      "emotion": 0.8
     },
     {
       "scene": "market",
@@ -136,7 +145,8 @@
     {
       "scene": "food",
       "speaker": "migo",
-      "text": "Wait. This actually slaps."
+      "text": "Wait. Wait wait wait... this actually slaps!",
+      "emotion": 0.75
     },
     {
       "scene": "food",
@@ -157,7 +167,8 @@
     {
       "scene": "police",
       "speaker": "migo",
-      "text": "Uh... Migo? Just Migo."
+      "text": "Uh... Migo? Just... Migo?",
+      "emotion": 0.6
     },
     {
       "scene": "catalog",
@@ -173,7 +184,8 @@
     {
       "scene": "catalog",
       "speaker": "migo",
-      "text": "I got renamed... by a book?"
+      "text": "I got renamed... by a BOOK?!",
+      "emotion": 0.85
     },
     {
       "scene": "polo",
@@ -183,7 +195,8 @@
     {
       "scene": "polo",
       "speaker": "migo",
-      "text": "Wait. So it's basically an unpaid internship?"
+      "text": "Hold up. So it's basically an unpaid internship?!",
+      "emotion": 0.8
     },
     {
       "scene": "polo",
@@ -198,13 +211,14 @@
     {
       "scene": "night",
       "speaker": "lola",
-      "text": "Pakuluan mo muna ang tubig, anak.",
-      "translation": "Boil the water first, child."
+      "text": "Pakuluan mo muna ang tubig, anak, ha?",
+      "translation": "Boil the water first, child, okay?"
     },
     {
       "scene": "night",
       "speaker": "migo",
-      "text": "Lola, you're literally my only mutual here."
+      "text": "Lola... you're literally my only mutual here.",
+      "emotion": 0.4
     },
     {
       "scene": "friar",
@@ -214,7 +228,8 @@
     {
       "scene": "friar",
       "speaker": "migo",
-      "text": "Okay, spoiler alert! In forty-eight years, you guys declare independence!"
+      "text": "Okay, spoiler alert! In forty-eight years, you guys declare independence!",
+      "emotion": 0.85
     },
     {
       "scene": "friar",
@@ -230,12 +245,14 @@
     {
       "scene": "friar",
       "speaker": "migo",
-      "text": "I said... I love pandesal! Haha."
+      "text": "I said... I love pandesal! Hehe... ha.",
+      "emotion": 0.7
     },
     {
       "scene": "river",
       "speaker": "migo",
-      "text": "Wait. Where's Rizal? I need to meet Rizal."
+      "text": "Wait. Where's Rizal? I NEED to meet Rizal!",
+      "emotion": 0.75
     },
     {
       "scene": "river",
@@ -256,7 +273,8 @@
     {
       "scene": "ending",
       "speaker": "migo",
-      "text": "Okay... do I go back to twenty twenty-six? Or stay for the bibingka?"
+      "text": "Okay... do I go back to twenty twenty-six? Or... stay for the bibingka?",
+      "emotion": 0.5
     },
     {
       "scene": "outro",
@@ -367,5 +385,10 @@
     "Rizal": "Ree-sahl",
     "tindera": "teen-deh-rah",
     "cuadrilleros": "cuadrilyeros"
+  },
+  "pronChatterbox": {
+    "Ate": "Ahteh",
+    "bibingka": "bee-bing-kah",
+    "pandesal": "pan de sal"
   }
 }

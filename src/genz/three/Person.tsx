@@ -1,5 +1,6 @@
 import { random } from "remotion";
-import { DoubleSide } from "three";
+import { DoubleSide, LatheGeometry, Vector2 } from "three";
+import { faceTexture } from "./robloxFace";
 import { fabric, type Pattern } from "./patterns";
 
 type V3 = [number, number, number];
@@ -200,179 +201,74 @@ const Cap: React.FC<{ r: number; len: number; y: number; children: React.ReactNo
   </mesh>
 );
 
-/* ---------------------------------------------------------------- face */
-const Face: React.FC<{ spec: Spec; expr: Expr; t: number; mouth: number; look: [number, number]; detail: boolean }> = ({ spec, expr, t, mouth, look, detail }) => {
-  const s = spec.seed;
-  // blink: every 2.5-5 s, 0.12 s long
-  const period = 2.5 + random(`${s}-blink`) * 2.5;
-  const bt = (t + random(`${s}-bo`) * period) % period;
-  const blink = bt < 0.12 ? 1 : 0;
-  const lid = Math.max(blink, expr === "smug" ? 0.45 : expr === "sad" ? 0.3 : 0);
-  const wide = expr === "shock" ? 1.25 : 1;
-  const brow = { neutral: [0, 0], happy: [0.15, 0.004], laugh: [0.2, 0.008], shock: [0.1, 0.022], worried: [-0.45, 0.012], smug: [0.25, -0.004], angry: [0.55, -0.008], sad: [-0.5, 0.006] }[expr];
-  const skinDark = spec.skin;
-  const iris = spec.eyes ?? "#3b2416";
-  const talking = mouth > 0.05;
+/* ---------------------------------------------------------------- roblox-style head */
+export const HEAD_R = 0.136; // radius
+export const HEAD_HH = 0.12; // half height
+const HEAD_RC = 0.045; // edge rounding
+const FACE_ARC = 1.92; // radians of the front covered by the face decal
+const FACE_HALF = HEAD_HH - HEAD_RC; // decal sits on the straight part only
 
-  const mouthEl = (() => {
-    if (talking || expr === "shock") {
-      const o = expr === "shock" ? Math.max(0.75, mouth) : 0.15 + mouth * 0.85;
-      return (
-        <group>
-          <mesh scale={[0.026 * (expr === "laugh" || expr === "happy" ? 1.2 : 1), 0.022 * o + 0.004, 0.012]}>
-            <sphereGeometry args={[1, 16, 10]} />
-            <meshStandardMaterial color="#3a0f12" roughness={0.6} />
-          </mesh>
-          {o > 0.4 ? (
-            <mesh position={[0, -0.012 * o, 0.004]} scale={[0.014, 0.008, 0.008]}>
-              <sphereGeometry args={[1, 10, 8]} />
-              <meshStandardMaterial color="#d9606a" roughness={0.5} />
-            </mesh>
-          ) : null}
-          {o > 0.3 ? (
-            <mesh position={[0, 0.016 * o, 0.006]} scale={[0.02, 0.005, 0.006]}>
-              <sphereGeometry args={[1, 10, 6]} />
-              <meshStandardMaterial color="#fffaf0" />
-            </mesh>
-          ) : null}
-        </group>
-      );
+const headGeo = (() => {
+  const pts: Vector2[] = [new Vector2(0, -HEAD_HH)];
+  const arc = (cx: number, cy: number, a0: number, a1: number) => {
+    for (let i = 0; i <= 8; i++) {
+      const a = a0 + ((a1 - a0) * i) / 8;
+      pts.push(new Vector2(cx + Math.cos(a) * HEAD_RC, cy + Math.sin(a) * HEAD_RC));
     }
-    if (expr === "laugh" || expr === "happy") {
-      return (
-        <group rotation={[0, 0, Math.PI]}>
-          <mesh position={[0, -0.004, 0]}>
-            <circleGeometry args={[expr === "laugh" ? 0.03 : 0.024, 20, 0, Math.PI]} />
-            <meshStandardMaterial color="#3a0f12" side={DoubleSide} />
-          </mesh>
-          <mesh position={[0, -0.0, 0.001]} scale={[1, 0.25, 1]}>
-            <circleGeometry args={[expr === "laugh" ? 0.026 : 0.02, 20, 0, Math.PI]} />
-            <meshStandardMaterial color="#fffaf0" side={DoubleSide} />
-          </mesh>
-        </group>
-      );
-    }
-    const frown = expr === "sad" || expr === "worried" || expr === "angry";
-    return (
-      <mesh rotation={[0, 0, frown ? 0 : Math.PI]} position={[expr === "smug" ? 0.008 : 0, frown ? -0.012 : 0.008, 0]} scale={[1, expr === "neutral" ? 0.35 : 0.7, 1]}>
-        <torusGeometry args={[0.022, 0.0055, 6, 16, Math.PI]} />
-        <meshStandardMaterial color="#5a1d1f" roughness={0.6} />
-      </mesh>
-    );
-  })();
+  };
+  arc(HEAD_R - HEAD_RC, -HEAD_HH + HEAD_RC, -Math.PI / 2, 0);
+  arc(HEAD_R - HEAD_RC, HEAD_HH - HEAD_RC, 0, Math.PI / 2);
+  pts.push(new Vector2(0, HEAD_HH));
+  return new LatheGeometry(pts, 40);
+})();
 
-  return (
-    <group>
-      {/* eyes */}
-      {[1, -1].map((side) => (
-        <group key={side} position={[side * 0.05, 0.012, 0.1]} rotation={[0, side * 0.14, 0]} scale={[wide * 1.12, wide * 1.12, wide * 1.12]}>
-          <mesh>
-            <sphereGeometry args={[0.031, 18, 14]} />
-            <meshStandardMaterial color="#fbfbf8" roughness={0.25} />
-          </mesh>
-          {detail ? (
-            <group rotation={[look[1], look[0], 0]}>
-              <mesh position={[0, 0, 0.022]} scale={[1, 1, 0.45]}>
-                <sphereGeometry args={[0.019, 16, 12]} />
-                <meshStandardMaterial color={iris} roughness={0.2} />
-              </mesh>
-              <mesh position={[0, 0, 0.0295]} scale={[1, 1, 0.4]}>
-                <sphereGeometry args={[0.0105, 12, 10]} />
-                <meshStandardMaterial color="#080605" roughness={0.1} />
-              </mesh>
-              <mesh position={[0.007, 0.008, 0.032]}>
-                <sphereGeometry args={[0.0045, 8, 6]} />
-                <meshBasicMaterial color="#ffffff" />
-              </mesh>
-            </group>
-          ) : (
-            <mesh position={[0, 0, 0.026]} scale={[1, 1, 0.4]}>
-              <sphereGeometry args={[0.016, 10, 8]} />
-              <meshStandardMaterial color="#120c08" />
-            </mesh>
-          )}
-          {/* lids */}
-          <mesh rotation={[-0.15 + (1 - lid) * -1.25 + lid * 1.75 - 0.0, 0, 0]}>
-            <sphereGeometry args={[0.0335, 16, 8, 0, Math.PI * 2, 0, Math.PI / 2]} />
-            <meshStandardMaterial color={skinDark} roughness={0.6} side={DoubleSide} />
-          </mesh>
-          {/* brow */}
-          <mesh position={[0, 0.047 + brow[1] + (expr === "shock" ? 0.006 : 0), 0.018]} rotation={[0, 0, side * brow[0] * -0.6 + side * 0.08]}>
-            <capsuleGeometry args={[0.0065, 0.036, 3, 6]} />
-            <meshStandardMaterial color={spec.hairColor === "#d8d4cc" ? "#9a958c" : spec.hairColor} roughness={0.9} />
-          </mesh>
-        </group>
-      ))}
-      {/* nose */}
-      <mesh position={[0, -0.018, 0.128]} scale={[1, 0.85, 0.8]}>
-        <sphereGeometry args={[0.017, 12, 10]} />
-        <meshStandardMaterial color={spec.skin} roughness={0.55} />
-      </mesh>
-      {/* mouth */}
-      <group position={[0, -0.058, 0.113]} rotation={[-0.25, 0, 0]}>{mouthEl}</group>
-      {/* blush */}
-      {detail
-        ? [1, -1].map((side) => (
-            <mesh key={side} position={[side * 0.07, -0.03, 0.098]} rotation={[0, side * 0.55, 0]}>
-              <circleGeometry args={[0.022, 16]} />
-              <meshBasicMaterial color="#ff6b7a" transparent opacity={expr === "laugh" || expr === "happy" ? 0.4 : 0.2} />
-            </mesh>
-          ))
-        : null}
-      {/* beard */}
-      {spec.beard === "mustache" ? (
-        <mesh position={[0, -0.04, 0.122]} rotation={[0, 0, Math.PI / 2]}>
-          <capsuleGeometry args={[0.009, 0.045, 3, 8]} />
-          <meshStandardMaterial color={spec.hairColor} roughness={0.9} />
-        </mesh>
-      ) : spec.beard === "full" ? (
-        <mesh position={[0, -0.065, 0.06]} scale={[1, 0.8, 0.85]} rotation={[0.3, 0, 0]}>
-          <sphereGeometry args={[0.105, 18, 12, 0, Math.PI * 2, Math.PI * 0.45, Math.PI * 0.55]} />
-          <meshStandardMaterial color={spec.hairColor} roughness={0.95} side={DoubleSide} />
-        </mesh>
-      ) : null}
-      {spec.glasses ? (
-        <group position={[0, 0.015, 0.132]}>
-          {[1, -1].map((side) => (
-            <mesh key={side} position={[side * 0.046, 0, 0]}>
-              <torusGeometry args={[0.03, 0.004, 6, 20]} />
-              <meshStandardMaterial color="#2a2018" metalness={0.4} roughness={0.3} />
-            </mesh>
-          ))}
-          <mesh>
-            <boxGeometry args={[0.03, 0.004, 0.004]} />
-            <meshStandardMaterial color="#2a2018" />
-          </mesh>
-        </group>
-      ) : null}
-    </group>
-  );
+const blinkAt = (seed: string, t: number) => {
+  const period = 2.6 + random(`${seed}-blink`) * 2.4;
+  return (t + random(`${seed}-bo`) * period) % period < 0.13;
 };
 
-/* ---------------------------------------------------------------- hair & hats */
-const HairMesh: React.FC<{ spec: Spec }> = ({ spec }) => {
+const RHair: React.FC<{ spec: Spec }> = ({ spec }) => {
   const c = spec.hairColor;
-  const mat = <meshStandardMaterial color={c} roughness={0.85} side={DoubleSide} />;
-  const capR = 0.137;
-  const cap = (tilt = -0.6, len = 0.51) => (
-    <mesh rotation={[tilt, 0, 0]} castShadow>
-      <sphereGeometry args={[capR, 22, 14, 0, Math.PI * 2, 0, Math.PI * len]} />
-      {mat}
+  const mat = <meshStandardMaterial color={c} roughness={0.8} />;
+  const R = HEAD_R + 0.012;
+  const hatted = !!spec.hat && spec.hat !== "veil";
+  // short cap: crown + band down to the hairline, plus the back of the head
+  const cap = (low = 0.062) => (
+    <group>
+      <mesh position={[0, HEAD_HH + 0.004, 0]} scale={[1, 0.32, 1]} castShadow>
+        <sphereGeometry args={[R, 28, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        {mat}
+      </mesh>
+      <mesh position={[0, (HEAD_HH + low) / 2, 0]} castShadow>
+        <cylinderGeometry args={[R, R, HEAD_HH - low, 28, 1, true]} />
+        <meshStandardMaterial color={c} roughness={0.8} side={DoubleSide} />
+      </mesh>
+      <mesh position={[0, -0.01, 0]} castShadow>
+        <cylinderGeometry args={[R, R * 0.97, HEAD_HH * 2 - 0.05, 28, 1, true, Math.PI * 0.62, Math.PI * 0.76]} />
+        <meshStandardMaterial color={c} roughness={0.8} side={DoubleSide} />
+      </mesh>
+    </group>
+  );
+  const blob = (p: V3, r: number, col = c, k = 0) => (
+    <mesh key={k} position={p} castShadow>
+      <sphereGeometry args={[r, 12, 10]} />
+      <meshStandardMaterial color={col} roughness={0.8} />
     </mesh>
   );
   switch (spec.hair) {
     case "none":
+      return null;
     case "bald":
-      return spec.hair === "bald" ? (
-        <mesh position={[0, -0.01, -0.02]} rotation={[Math.PI / 2 - 0.2, 0, 0]}>
-          <torusGeometry args={[0.122, 0.022, 8, 24, Math.PI * 1.2]} />
-          {mat}
+      return (
+        <mesh position={[0, -0.005, 0]} castShadow>
+          <cylinderGeometry args={[R, R, 0.07, 28, 1, true, Math.PI * 0.45, Math.PI * 1.1]} />
+          <meshStandardMaterial color={c} roughness={0.85} side={DoubleSide} />
         </mesh>
-      ) : null;
+      );
     case "tonsure":
       return (
-        <mesh position={[0, 0.045, 0]} rotation={[Math.PI / 2 + 0.1, 0, 0]}>
-          <torusGeometry args={[0.112, 0.03, 8, 28]} />
+        <mesh position={[0, 0.07, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow>
+          <torusGeometry args={[HEAD_R + 0.004, 0.024, 8, 32]} />
           {mat}
         </mesh>
       );
@@ -380,91 +276,71 @@ const HairMesh: React.FC<{ spec: Spec }> = ({ spec }) => {
       return (
         <group>
           {cap()}
-          <mesh position={[0, 0.07, -0.04]} castShadow>
-            <sphereGeometry args={[0.2, 20, 16]} />
-            {mat}
-          </mesh>
+          {blob([0, 0.1, -0.03], 0.2)}
         </group>
       );
     case "curly":
     case "fluffy": {
-      const n = spec.hair === "curly" ? 34 : 22;
+      const curly = spec.hair === "curly";
+      const n = curly ? 22 : 12;
       return (
         <group>
-          {cap(-0.55, 0.47)}
-          {Array.from({ length: n }).map((_, i) => {
-            const a = random(`${spec.seed}-h${i}`) * Math.PI * 2;
-            const e = 0.15 + random(`${spec.seed}-he${i}`) * 0.75;
-            const r = capR + 0.012;
-            const x = Math.cos(a) * Math.sin(e) * r;
-            const z = Math.sin(a) * Math.sin(e) * r - 0.01;
-            const y = Math.cos(e) * r + 0.01;
-            if (z > 0.08 && y < 0.07) return null; // keep the face clear
-            if (spec.hat && y > 0.07) return null; // hidden under the hat
-            const sz = spec.hair === "curly" ? 0.038 : 0.05;
-            return (
-              <mesh key={i} position={[x, y, z]} castShadow>
-                <sphereGeometry args={[sz, 10, 8]} />
-                <meshStandardMaterial color={spec.hairTips && y > 0.11 ? spec.hairTips : c} roughness={0.85} />
-              </mesh>
-            );
-          })}
-          {spec.hair === "fluffy"
-            ? [1, -1].map((side) => (
-                <mesh key={side} position={[side * 0.065, spec.hat ? 0.085 : 0.09, 0.1]} rotation={[0.5, 0, side * 0.6]} scale={[1, 0.5, 0.5]} castShadow>
-                  <sphereGeometry args={[0.06, 12, 10]} />
-                  <meshStandardMaterial color={side > 0 && spec.hairTips ? spec.hairTips : c} roughness={0.85} />
-                </mesh>
-              ))
-            : null}
+          {cap()}
+          {hatted
+            ? null
+            : Array.from({ length: n }).map((_, i) => {
+                const a = (i / n) * Math.PI * 2 + random(`${spec.seed}-ha${i}`) * 0.4;
+                const rr = (0.45 + random(`${spec.seed}-hr${i}`) * 0.55) * R;
+                const top = spec.hairTips && i % 3 === 0 ? spec.hairTips : c;
+                return blob([Math.sin(a) * rr, HEAD_HH + 0.02 + random(`${spec.seed}-hy${i}`) * 0.03, Math.cos(a) * rr - 0.01], curly ? 0.042 : 0.055, top, i);
+              })}
+          {/* fringe swoop over the forehead */}
+          <mesh position={[0.02, 0.085, HEAD_R - 0.005]} rotation={[0.35, 0.15, -0.35]} scale={[1.5, 0.45, 0.5]} castShadow>
+            <sphereGeometry args={[0.055, 14, 10]} />
+            <meshStandardMaterial color={spec.hairTips ?? c} roughness={0.8} />
+          </mesh>
         </group>
       );
     }
     case "bun":
       return (
         <group>
-          {cap(-0.6, 0.52)}
-          <mesh position={[0, 0.06, -0.14]} castShadow>
-            <sphereGeometry args={[0.065, 14, 12]} />
-            {mat}
-          </mesh>
+          {cap()}
+          {hatted ? null : blob([0, 0.11, -0.12], 0.065)}
         </group>
       );
     case "long":
       return (
         <group>
-          {cap(-0.6, 0.52)}
-          <mesh position={[0, -0.12, -0.06]} scale={[1, 1, 0.55]} castShadow>
-            <cylinderGeometry args={[0.13, 0.15, 0.3, 16, 1, true]} />
-            {mat}
+          {cap()}
+          <mesh position={[0, -0.1, -0.06]} scale={[1, 1, 0.6]} castShadow>
+            <cylinderGeometry args={[R, R + 0.02, 0.3, 24, 1, true, Math.PI * 0.55, Math.PI * 0.9]} />
+            <meshStandardMaterial color={c} roughness={0.8} side={DoubleSide} />
           </mesh>
         </group>
       );
     case "braid":
-    case "queue":
+    case "queue": {
+      const q = spec.hair === "queue";
       return (
         <group>
-          {spec.hair === "queue" ? (
-            <mesh rotation={[-1.25, 0, 0]} castShadow>
-              <sphereGeometry args={[capR, 20, 12, 0, Math.PI * 2, 0, Math.PI * 0.45]} />
-              {mat}
+          {q ? (
+            <mesh position={[0, 0.0, 0]} castShadow>
+              <cylinderGeometry args={[R, R, HEAD_HH * 2 - 0.02, 28, 1, true, Math.PI * 0.6, Math.PI * 0.8]} />
+              <meshStandardMaterial color={c} roughness={0.8} side={DoubleSide} />
             </mesh>
           ) : (
-            cap(-0.6, 0.52)
+            cap()
           )}
-          {Array.from({ length: spec.hair === "queue" ? 9 : 6 }).map((_, i) => (
-            <mesh key={i} position={[0, -0.04 - i * 0.055, -0.14 - Math.min(i, 2) * 0.012]} castShadow>
-              <sphereGeometry args={[0.03 - i * 0.0015, 10, 8]} />
-              {mat}
-            </mesh>
-          ))}
+          {Array.from({ length: q ? 10 : 6 }).map((_, i) => blob([0, -0.06 - i * 0.055, -R - 0.005 - Math.min(i, 2) * 0.01], 0.03 - i * 0.0012, c, i))}
         </group>
       );
+    }
     case "ponytail":
       return (
         <group>
-          {cap(-0.6, 0.52)}
-          <mesh position={[0, 0.0, -0.17]} rotation={[0.35, 0, 0]} castShadow>
+          {cap()}
+          <mesh position={[0, 0.02, -R - 0.03]} rotation={[0.35, 0, 0]} castShadow>
             <capsuleGeometry args={[0.04, 0.16, 4, 10]} />
             {mat}
           </mesh>
@@ -475,15 +351,65 @@ const HairMesh: React.FC<{ spec: Spec }> = ({ spec }) => {
   }
 };
 
+const RobloxHead: React.FC<{ spec: Spec; expr: Expr; t: number; mouth: number }> = ({ spec, expr, t, mouth }) => {
+  const m = mouth < 0.1 ? 0 : mouth < 0.4 ? 1 : mouth < 0.7 ? 2 : 3;
+  const browCol = spec.hairColor === "#d8d4cc" || spec.hairColor === "#9d978f" ? "#8a847b" : spec.hair === "tonsure" ? "#5a3d26" : spec.hairColor;
+  const face = faceTexture({
+    skin: spec.skin,
+    brow: browCol,
+    expr,
+    blink: blinkAt(spec.seed, t),
+    mouth: m as 0 | 1 | 2 | 3,
+    beard: spec.beard,
+    beardColor: spec.hairColor,
+    kid: spec.kid,
+  });
+  return (
+    <group>
+      <mesh geometry={headGeo} castShadow>
+        <meshStandardMaterial color={spec.skin} roughness={0.55} emissive={spec.skin} emissiveIntensity={0.04} />
+      </mesh>
+      <mesh>
+        <cylinderGeometry args={[HEAD_R + 0.0015, HEAD_R + 0.0015, FACE_HALF * 2, 32, 1, true, -FACE_ARC / 2, FACE_ARC]} />
+        <meshStandardMaterial map={face} roughness={0.55} emissive={spec.skin} emissiveIntensity={0.04} />
+      </mesh>
+      {spec.glasses ? (
+        <group position={[0, 0.012, HEAD_R + 0.012]}>
+          {[1, -1].map((sd) => (
+            <mesh key={sd} position={[sd * 0.036, 0, 0]}>
+              <torusGeometry args={[0.03, 0.0045, 6, 20]} />
+              <meshStandardMaterial color="#2a2018" metalness={0.4} roughness={0.3} />
+            </mesh>
+          ))}
+          <mesh>
+            <boxGeometry args={[0.014, 0.004, 0.004]} />
+            <meshStandardMaterial color="#2a2018" />
+          </mesh>
+        </group>
+      ) : null}
+      {spec.earbuds
+        ? [1, -1].map((sd) => (
+            <mesh key={sd} position={[sd * (HEAD_R + 0.004), -0.01, 0.0]}>
+              <sphereGeometry args={[0.016, 10, 8]} />
+              <meshStandardMaterial color="#ffffff" roughness={0.2} />
+            </mesh>
+          ))
+        : null}
+      <RHair spec={spec} />
+      <HatMesh spec={spec} />
+    </group>
+  );
+};
+
 const HatMesh: React.FC<{ spec: Spec }> = ({ spec }) => {
   const c = spec.hatColor ?? "#d8b36a";
-  const map = fabric(c, spec.hatPattern ?? (spec.hat === "salakot" || spec.hat === "straw" ? { kind: "weave", colors: [c, "#b98b45"] } : undefined), [4, 4]);
+  const map = fabric(c, spec.hatPattern ?? (spec.hat === "salakot" || spec.hat === "straw" ? { kind: "weave", colors: [c, "#b98b45"] } : undefined), spec.hatPattern ? [1.5, 1] : [2.5, 2.5]);
   switch (spec.hat) {
     case "salakot":
       return (
-        <group position={[0, 0.13, -0.01]} rotation={[-0.15, 0, 0]}>
+        <group position={[0, 0.115, -0.005]} rotation={[-0.12, 0, 0]}>
           <mesh position={[0, 0.03, 0]} castShadow>
-            <coneGeometry args={[0.3, 0.17, 24, 1, true]} />
+            <coneGeometry args={[0.31, 0.17, 24, 1, true]} />
             <M c={c} map={map} r={0.9} side />
           </mesh>
           <mesh position={[0, 0.125, 0]}>
@@ -496,50 +422,50 @@ const HatMesh: React.FC<{ spec: Spec }> = ({ spec }) => {
       return (
         <group position={[0, 0.1, 0]}>
           <mesh castShadow>
-            <cylinderGeometry args={[0.27, 0.27, 0.01, 24]} />
+            <cylinderGeometry args={[0.28, 0.28, 0.01, 24]} />
             <M c={c} map={map} r={0.9} />
           </mesh>
           <mesh position={[0, 0.05, 0]} castShadow>
-            <cylinderGeometry args={[0.1, 0.13, 0.1, 18]} />
+            <cylinderGeometry args={[0.13, 0.15, 0.1, 18]} />
             <M c={c} map={map} r={0.9} />
           </mesh>
         </group>
       );
     case "bucket":
       return (
-        <group position={[0, 0.13, -0.01]} rotation={[-0.22, 0, 0]}>
+        <group position={[0, 0.125, -0.005]} rotation={[-0.16, 0, 0]}>
           <mesh castShadow>
-            <cylinderGeometry args={[0.125, 0.15, 0.1, 24]} />
+            <cylinderGeometry args={[0.14, 0.153, 0.1, 28]} />
             <M c={c} map={map} r={0.85} />
           </mesh>
           <mesh position={[0, -0.05, 0]} castShadow>
-            <cylinderGeometry args={[0.15, 0.2, 0.035, 24, 1, true]} />
+            <cylinderGeometry args={[0.153, 0.21, 0.035, 28, 1, true]} />
             <M c={c} map={map} r={0.85} side />
           </mesh>
         </group>
       );
     case "kepi":
       return (
-        <group position={[0, 0.1, 0]} rotation={[-0.1, 0, 0]}>
+        <group position={[0, 0.12, 0]} rotation={[-0.08, 0, 0]}>
           <mesh castShadow>
-            <cylinderGeometry args={[0.11, 0.13, 0.13, 20]} />
+            <cylinderGeometry args={[0.135, 0.15, 0.14, 24]} />
             <M c={c} r={0.6} />
           </mesh>
-          <mesh position={[0, -0.04, 0]}>
-            <cylinderGeometry args={[0.132, 0.132, 0.03, 20]} />
+          <mesh position={[0, -0.045, 0]}>
+            <cylinderGeometry args={[0.152, 0.152, 0.035, 24]} />
             <M c="#c8202e" r={0.6} />
           </mesh>
-          <mesh position={[0, -0.06, 0.1]} rotation={[-0.25, 0, 0]} scale={[1, 1, 0.6]}>
-            <cylinderGeometry args={[0.12, 0.12, 0.012, 20, 1, false, -Math.PI / 2, Math.PI]} />
+          <mesh position={[0, -0.065, 0.12]} rotation={[-0.25, 0, 0]} scale={[1, 1, 0.6]}>
+            <cylinderGeometry args={[0.13, 0.13, 0.012, 20, 1, false, -Math.PI / 2, Math.PI]} />
             <M c="#111" r={0.3} />
           </mesh>
         </group>
       );
     case "tophat":
       return (
-        <group position={[0, 0.12, 0]}>
+        <group position={[0, 0.2, 0]}>
           <mesh castShadow>
-            <cylinderGeometry args={[0.12, 0.115, 0.22, 20]} />
+            <cylinderGeometry args={[0.15, 0.145, 0.22, 24]} />
             <M c={c} r={0.4} />
           </mesh>
           <mesh position={[0, -0.1, 0]}>
@@ -550,28 +476,28 @@ const HatMesh: React.FC<{ spec: Spec }> = ({ spec }) => {
       );
     case "cap":
       return (
-        <group position={[0, 0.06, 0]} rotation={[-0.15, 0, 0]}>
+        <group position={[0, 0.095, 0]} rotation={[-0.12, 0, 0]}>
           <mesh castShadow>
-            <sphereGeometry args={[0.142, 20, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
+            <sphereGeometry args={[0.155, 24, 12, 0, Math.PI * 2, 0, Math.PI / 2]} />
             <M c={c} r={0.7} />
           </mesh>
-          <mesh position={[0, 0, 0.14]} rotation={[0.15, 0, 0]} scale={[1, 1, 0.7]}>
-            <cylinderGeometry args={[0.11, 0.11, 0.012, 20, 1, false, -Math.PI / 2, Math.PI]} />
+          <mesh position={[0, 0, 0.15]} rotation={[0.15, 0, 0]} scale={[1, 1, 0.7]}>
+            <cylinderGeometry args={[0.12, 0.12, 0.012, 20, 1, false, -Math.PI / 2, Math.PI]} />
             <M c={c} r={0.7} />
           </mesh>
         </group>
       );
     case "skullcap":
       return (
-        <mesh position={[0, 0.035, 0]} rotation={[-0.2, 0, 0]} castShadow>
-          <sphereGeometry args={[0.142, 20, 10, 0, Math.PI * 2, 0, Math.PI * 0.38]} />
+        <mesh position={[0, 0.075, 0]} rotation={[-0.1, 0, 0]} castShadow>
+          <sphereGeometry args={[0.152, 24, 10, 0, Math.PI * 2, 0, Math.PI * 0.42]} />
           <M c={c} r={0.6} />
         </mesh>
       );
     case "veil":
       return (
-        <mesh position={[0, -0.02, -0.02]} rotation={[-0.25, 0, 0]} castShadow>
-          <sphereGeometry args={[0.16, 20, 14, 0, Math.PI * 2, 0, Math.PI * 0.62]} />
+        <mesh position={[0, 0.02, -0.02]} rotation={[-0.3, 0, 0]} castShadow>
+          <sphereGeometry args={[0.175, 24, 14, 0, Math.PI * 2, 0, Math.PI * 0.62]} />
           <M c={c} r={0.8} side o={0.85} />
         </mesh>
       );
@@ -701,6 +627,10 @@ export const Person: React.FC<{
 }> = ({ spec, pose = "idle", expr = "neutral", t, mouth = 0, look = [0, 0], headTurn = 0, position = [0, 0, 0], rotation = 0, detail = true }) => {
   const ph = random(`${spec.seed}-ph`) * 6.28;
   const j = joints(pose, t, ph);
+  if (spec.outfit === "baro" || spec.outfit === "dress" || spec.outfit === "friar") {
+    // small steps under long skirts so legs never poke through the fabric
+    j.legs = j.legs.map((l) => ({ lift: l.lift * 0.28, spread: Math.min(l.spread, 0.04), knee: l.knee * 0.3 })) as J["legs"];
+  }
   const kid = !!spec.kid;
   const s = spec.height / (kid ? 1.25 : 1.7);
   const head = kid ? 1.12 : 1;
@@ -929,27 +859,7 @@ export const Person: React.FC<{
             {armMesh(1)}
             {/* head */}
             <group position={[0, headY, 0]} rotation={[j.pitch, j.yaw + headTurn, j.roll]} scale={head}>
-              <mesh scale={[1, 1.06, 0.98]} castShadow>
-                <sphereGeometry args={[0.13, 28, 22]} />
-                {skin}
-              </mesh>
-              {[1, -1].map((sd) => (
-                <mesh key={sd} position={[sd * 0.128, 0, -0.005]} scale={[0.5, 1, 0.8]}>
-                  <sphereGeometry args={[0.032, 10, 8]} />
-                  {skin}
-                </mesh>
-              ))}
-              {spec.earbuds
-                ? [1, -1].map((sd) => (
-                    <mesh key={sd} position={[sd * 0.138, -0.01, 0.01]}>
-                      <sphereGeometry args={[0.014, 8, 6]} />
-                      <M c="#ffffff" r={0.2} />
-                    </mesh>
-                  ))
-                : null}
-              <Face spec={spec} expr={expr} t={t} mouth={mouth} look={look} detail={detail} />
-              <HairMesh spec={spec} />
-              <HatMesh spec={spec} />
+              <RobloxHead spec={spec} expr={expr} t={t} mouth={mouth} />
             </group>
           </group>
         </group>

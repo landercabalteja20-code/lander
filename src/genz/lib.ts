@@ -86,3 +86,23 @@ export const path = (pts: V3[], t: number): V3 => {
   const u = t * (pts.length - 1) - seg;
   return mixV(pts[seg], pts[seg + 1], u * u * (3 - 2 * u));
 };
+
+/**
+ * Walk back and forth between a and b at `speed` m/s, turning around smoothly at each end.
+ * Returns position, facing (rotation y) and whether the walker is mid-stride.
+ */
+export const pingPong = (a: V3, b: V3, t: number, speed = 1.0, turn = 0.8) => {
+  const len = Math.hypot(b[0] - a[0], b[2] - a[2]);
+  const leg = len / speed;
+  const period = 2 * (leg + turn);
+  const ph = ((t % period) + period) % period;
+  const yaw = Math.atan2(b[0] - a[0], b[2] - a[2]);
+  if (ph < leg) return { p: mixV(a, b, ph / leg), rot: yaw, moving: true, back: false };
+  if (ph < leg + turn) {
+    const k = (ph - leg) / turn;
+    return { p: b, rot: yaw + Math.PI * (k * k * (3 - 2 * k)), moving: false, back: false };
+  }
+  if (ph < 2 * leg + turn) return { p: mixV(b, a, (ph - leg - turn) / leg), rot: yaw + Math.PI, moving: true, back: true };
+  const k = (ph - 2 * leg - turn) / turn;
+  return { p: a, rot: yaw + Math.PI + Math.PI * (k * k * (3 - 2 * k)), moving: false, back: true };
+};

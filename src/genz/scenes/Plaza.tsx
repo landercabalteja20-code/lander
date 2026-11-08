@@ -1,6 +1,6 @@
 import { useCurrentFrame } from "remotion";
 import { crowd1850, cuadrillero, FRIAR, KID, LOLA, MIGO, OFFICER, TINDERA, VENDOR } from "../cast";
-import { FPS, PING_FRAME, lineLocal, mix, mouthAt, path, prog, sceneById, shotIndex, wordLocal, type Scene, type V3 } from "../lib";
+import { FPS, PING_FRAME, lineLocal, mix, mouthAt, path, pingPong, prog, sceneById, shotIndex, wordLocal, type Scene, type V3 } from "../lib";
 import { Cam, Clouds, Sky, Stage, drawPlaza, useTex } from "../three/kit";
 import { Person, type Expr, type Pose, type Spec } from "../three/Person";
 import { BahayNaBato, Banana, Banderitas, Banga, Calesa, Carabao, Church, Dog, Farol, Fire, Palayok, Palm, Rooster, Stall } from "../three/props1850";
@@ -59,14 +59,14 @@ export const Crowd: React.FC<{ t: number; stare?: number; focus?: V3; skip?: num
     {CROWD.map((c, i) => {
       if (skip.includes(i)) return null;
       const spec = crowd1850(i);
-      const base = faceTo(c.p, [0, 0, 0]) + (i % 2 ? 0.5 : -0.5);
+      const walker = c.pose === "walk" && stare < 0.5;
+      const pp = pingPong([c.p[0] - 3.5, 0, c.p[2]], [c.p[0] + 3.5, 0, c.p[2]], t + i * 1.7, 0.9);
+      const base = walker ? pp.rot : faceTo(c.p, [0, 0, 0]) + (i % 2 ? 0.5 : -0.5);
       const look = faceTo(c.p, focus);
       const rot = mix(base, look, stare * 0.6);
-      const pose: Pose = stare > 0.5 && (c.pose === "walk" || c.pose === "talk") ? (shock && i % 3 === 0 ? "shock" : "idle") : c.pose;
-      const walkOff = c.pose === "walk" && stare < 0.5 ? (((t * 0.9 + i) % 8) - 4) : 0;
-      const pos: V3 = c.pose === "walk" && stare < 0.5 ? [c.p[0] + walkOff * Math.sin(base), 0, c.p[2] + walkOff * Math.cos(base)] : c.p;
+      const pose: Pose = stare > 0.5 && (c.pose === "walk" || c.pose === "talk") ? (shock && i % 3 === 0 ? "shock" : "idle") : walker && !pp.moving ? "idle" : c.pose;
+      const pos: V3 = walker ? pp.p : c.p;
       const expr: Expr = stare > 0.5 ? (shock ? (i % 2 ? "shock" : "worried") : i % 3 === 0 ? "shock" : i % 3 === 1 ? "smug" : "worried") : i % 2 ? "happy" : "neutral";
-      const dist = Math.hypot(c.p[0], c.p[2]);
       return (
         <Person
           key={i}
@@ -78,7 +78,6 @@ export const Crowd: React.FC<{ t: number; stare?: number; focus?: V3; skip?: num
           position={pos}
           rotation={rot}
           headTurn={stare > 0.5 ? clampTurn(look - rot) : 0}
-          detail={dist < 8}
         />
       );
     })}
@@ -131,7 +130,7 @@ export const PlazaSet: React.FC<{ t: number; tod?: TOD; calesa?: boolean; animal
           <Dog position={[1.6, 0, 5.2]} rotation={-0.4} t={t} />
         </group>
       ) : null}
-      {calesa ? <Calesa position={[-26 + ((t * 2.4) % 52), 0, -14]} rotation={Math.PI / 2} t={t} /> : null}
+      {calesa ? <Calesa position={[-40 + ((t * 2.4) % 80), 0, -30]} rotation={Math.PI / 2} t={t} /> : null}
       {night
         ? [[-6, 3.2, -6], [6, 3.2, -6], [-6, 3.2, 6], [6, 3.2, 6], [0, 3.6, -12]].map((p, i) => <Farol key={i} position={p as V3} lit color={["#ffd27a", "#ff9ec4", "#a8e6ff", "#ffd27a", "#d7ff3a"][i]} />)
         : null}
@@ -285,7 +284,7 @@ export const PhoneScene: React.FC = () => {
         spec={{ ...MIGO, prop: phase === 1 ? null : "phone" }}
         t={t}
         pose={phase === 2 ? "facepalm" : "phoneUp"}
-        expr={phase === 2 ? "sad" : dead ? "shock" : "worried"}
+        expr={phase === 2 ? "shock" : dead ? "shock" : "worried"}
         mouth={mouthAt("migo", abs)}
         position={[0, 0, 0]}
         rotation={phase === 2 ? 0.3 : 0}

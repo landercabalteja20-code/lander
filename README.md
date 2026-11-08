@@ -93,12 +93,14 @@ npm run ants:render    # final video → done/what-if-humans-shrank-to-ants.mp4 
 9:16, 1080×1920, 30fps, ~3 min 23 s. Composition id: `WhatIfGenZ1850` (dev: `GenZLineup` shows the cast).
 
 ```bash
+.venv-tts/bin/python tools/genz/tts_expressive.py   # Migo: Chatterbox (emotional, cloned en-PH voice); Lola/Mang Tomas/Buboy: native fil-PH neural voices
 npm run genz:audio    # multi-voice Kokoro TTS (EN narrator + Gen Z, ES/TL locals) → whisper word timings → rondalla score + SFX → public/genz/mix.mp3
 npm run genz:still -- 600,900 0.4 '{"withAudio":false}'   # preview frames
 npm run genz:render   # → done/what-if-genz-1850.mp4 (~75 min on 4 CPU cores)
 ```
 
 - Script, characters' voices, pronunciation respellings, per-scene HUD values: `src/genz/script.json`
-- Character generator (faces, lip-sync, blinking, hair, period outfits, poses): `src/genz/three/Person.tsx`, cast + 1850 crowd generator: `src/genz/cast.ts`
+- Roblox-style heads (rounded cylinder + 2D face decal per expression / blink / lip-sync level): `src/genz/three/robloxFace.ts`
+- Character generator (lip-sync, blinking, hair, period outfits, poses): `src/genz/three/Person.tsx`, cast + 1850 crowd generator: `src/genz/cast.ts`
 - 1850 Manila kit (bahay na bato, Binondo church, stalls, calesa, carabao, nipa hut, bancas…): `src/genz/three/props1850.tsx`
 - Scenes: `src/genz/scenes/{Plaza,Other}.tsx`; overlays (captions, chat bubbles with translations, battery + survival HUD, fact chips, outro poll): `src/genz/Overlays.tsx`

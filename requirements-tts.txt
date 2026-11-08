@@ -1,0 +1,7 @@
+# Expressive voices for the Gen Z episode — separate Python 3.11 env:
+#   python3.11 -m venv .venv-tts
+#   .venv-tts/bin/pip install torch==2.6.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+#   .venv-tts/bin/pip install -r requirements-tts.txt
+chatterbox-tts==0.1.7
+edge-tts==7.3.1
+soundfile

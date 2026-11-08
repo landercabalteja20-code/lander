@@ -1,80 +1,80 @@
 {
- "totalMs": 202702,
+ "totalMs": 222830,
  "scenes": [
   {
    "id": "shop",
    "startMs": 0,
-   "endMs": 15704
+   "endMs": 16989
   },
   {
    "id": "warp",
-   "startMs": 15704,
-   "endMs": 18516
+   "startMs": 16989,
+   "endMs": 19801
   },
   {
    "id": "plaza",
-   "startMs": 18516,
-   "endMs": 35568
+   "startMs": 19801,
+   "endMs": 38215
   },
   {
    "id": "jeans",
-   "startMs": 35568,
-   "endMs": 46718
+   "startMs": 38215,
+   "endMs": 53082
   },
   {
    "id": "phone",
-   "startMs": 46718,
-   "endMs": 61029
+   "startMs": 53082,
+   "endMs": 68628
   },
   {
    "id": "market",
-   "startMs": 61029,
-   "endMs": 77300
+   "startMs": 68628,
+   "endMs": 87402
   },
   {
    "id": "food",
-   "startMs": 77300,
-   "endMs": 95565
+   "startMs": 87402,
+   "endMs": 107794
   },
   {
    "id": "police",
-   "startMs": 95565,
-   "endMs": 104751
+   "startMs": 107794,
+   "endMs": 117883
   },
   {
    "id": "catalog",
-   "startMs": 104751,
-   "endMs": 119024
+   "startMs": 117883,
+   "endMs": 132569
   },
   {
    "id": "polo",
-   "startMs": 119024,
-   "endMs": 136824
+   "startMs": 132569,
+   "endMs": 151128
   },
   {
    "id": "night",
-   "startMs": 136824,
-   "endMs": 153151
+   "startMs": 151128,
+   "endMs": 168543
   },
   {
    "id": "friar",
-   "startMs": 153151,
-   "endMs": 173526
+   "startMs": 168543,
+   "endMs": 192478
   },
   {
    "id": "river",
-   "startMs": 173526,
-   "endMs": 181423
+   "startMs": 192478,
+   "endMs": 200981
   },
   {
    "id": "ending",
-   "startMs": 181423,
-   "endMs": 195733
+   "startMs": 200981,
+   "endMs": 215861
   },
   {
    "id": "outro",
-   "startMs": 195733,
-   "endMs": 202702
+   "startMs": 215861,
+   "endMs": 222830
   }
  ],
  "lines": [
@@ -84,6 +84,7 @@
    "speaker": "narrator",
    "voiceStartMs": 300,
    "voiceEndMs": 5434,
+   "mouth": "14995941585224687779985457662011155542111445221059786513158665433254201330269940597115444104756611122211222342000000000000004997348841346977115751102221100",
    "words": [
     {
      "text": "What",
@@ -170,8 +171,7 @@
      "startMs": 4934,
      "endMs": 5180
     }
-   ],
-   "mouth": "14995941585224687779985457662011155542111445221059786513158665433254201330269940597115444104756611122211222342000000000000004997348841346977115751102221100"
+   ]
   },
   {
    "i": 1,
@@ -179,6 +179,7 @@
    "speaker": "narrator",
    "voiceStartMs": 5854,
    "voiceEndMs": 11664,
+   "mouth": "0799830289775156533330000000000046887532678665444542212111000000000129999886510311776511014434535432103200000000000499975998865856630057666762498653010432544541125135432211100",
    "words": [
     {
      "text": "Meet",
@@ -265,2789 +266,2823 @@
      "startMs": 11294,
      "endMs": 11514
     }
-   ],
-   "mouth": "0799830289775156533330000000000046887532678665444542212111000000000129999886510311776511014434535432103200000000000499975998865856630057666762498653010432544541125135432211100"
+   ]
   },
   {
    "i": 2,
    "scene": "shop",
    "speaker": "migo",
    "voiceStartMs": 12084,
-   "voiceEndMs": 15254,
+   "voiceEndMs": 16539,
+   "mouth": "02420027786531000000000000000000000399998722121100000174115303963368631223731465421000000000000002841321692001689998321001455442221100",
    "words": [
     {
-     "text": "Ate,",
+     "text": "Ate!",
      "startMs": 12084,
-     "endMs": 12384
+     "endMs": 12404
     },
     {
-     "text": "large,",
-     "startMs": 12384,
-     "endMs": 12724
+     "text": "Large,",
+     "startMs": 12884,
+     "endMs": 13504
     },
     {
      "text": "fifty",
-     "startMs": 12724,
-     "endMs": 12899
+     "startMs": 13784,
+     "endMs": 13892
     },
     {
      "text": "percent",
-     "startMs": 12899,
-     "endMs": 13144
+     "startMs": 13892,
+     "endMs": 14044
     },
     {
      "text": "sugar,",
-     "startMs": 13464,
-     "endMs": 13824
+     "startMs": 14344,
+     "endMs": 14704
     },
     {
      "text": "extra",
-     "startMs": 14024,
-     "endMs": 14264
+     "startMs": 15244,
+     "endMs": 15564
     },
     {
      "text": "pearls,",
-     "startMs": 14264,
-     "endMs": 14624
+     "startMs": 15564,
+     "endMs": 15904
     },
     {
      "text": "please!",
-     "startMs": 14764,
-     "endMs": 14944
+     "startMs": 16124,
+     "endMs": 16244
     }
-   ],
-   "mouth": "035769999965689998784121001940027403853356431223742243321024402201411155544322101124432111111100"
+   ]
   },
   {
    "i": 3,
    "scene": "warp",
    "speaker": "narrator",
-   "voiceStartMs": 15924,
-   "voiceEndMs": 18066,
+   "voiceStartMs": 17209,
+   "voiceEndMs": 19351,
+   "mouth": "00781479876402443100000899961139998744767764125643665422111144200",
    "words": [
     {
      "text": "He",
-     "startMs": 15924,
-     "endMs": 16024
+     "startMs": 17209,
+     "endMs": 17309
     },
     {
      "text": "blinks.",
-     "startMs": 16024,
-     "endMs": 16424
+     "startMs": 17309,
+     "endMs": 17709
     },
     {
      "text": "And",
-     "startMs": 16424,
-     "endMs": 16764
+     "startMs": 17709,
+     "endMs": 18049
     },
     {
      "text": "the",
-     "startMs": 16764,
-     "endMs": 16864
+     "startMs": 18049,
+     "endMs": 18149
     },
     {
      "text": "whole",
-     "startMs": 16864,
-     "endMs": 17064
+     "startMs": 18149,
+     "endMs": 18349
     },
     {
      "text": "world",
-     "startMs": 17064,
-     "endMs": 17364
+     "startMs": 18349,
+     "endMs": 18649
     },
     {
      "text": "rewinds.",
-     "startMs": 17364,
-     "endMs": 18044
+     "startMs": 18649,
+     "endMs": 19329
     }
-   ],
-   "mouth": "00781479876402443100000899961139998744767764125643665422111144200"
+   ]
   },
   {
    "i": 4,
    "scene": "plaza",
    "speaker": "narrator",
-   "voiceStartMs": 18736,
-   "voiceEndMs": 21347,
+   "voiceStartMs": 20021,
+   "voiceEndMs": 22632,
+   "mouth": "1779999897667765655444542222210000000000474368865365832552445653115621113211100",
    "words": [
     {
      "text": "Binondo,",
-     "startMs": 18736,
-     "endMs": 19136
+     "startMs": 20021,
+     "endMs": 20421
     },
     {
      "text": "Manila.",
-     "startMs": 19296,
-     "endMs": 19656
+     "startMs": 20581,
+     "endMs": 20941
     },
     {
      "text": "The",
-     "startMs": 20076,
-     "endMs": 20156
+     "startMs": 21361,
+     "endMs": 21441
     },
     {
      "text": "year",
-     "startMs": 20156,
-     "endMs": 20336
+     "startMs": 21441,
+     "endMs": 21621
     },
     {
      "text": "is",
-     "startMs": 20336,
-     "endMs": 20496
+     "startMs": 21621,
+     "endMs": 21781
     },
     {
      "text": "eighteen",
-     "startMs": 20496,
-     "endMs": 20853
+     "startMs": 21781,
+     "endMs": 22138
     },
     {
      "text": "fifty.",
-     "startMs": 20853,
-     "endMs": 21076
+     "startMs": 22138,
+     "endMs": 22361
     }
-   ],
-   "mouth": "1779999897667765655444542222210000000000474368865365832552445653115621113211100"
+   ]
   },
   {
    "i": 5,
    "scene": "plaza",
    "speaker": "migo",
-   "voiceStartMs": 21767,
-   "voiceEndMs": 25357,
+   "voiceStartMs": 23052,
+   "voiceEndMs": 28004,
+   "mouth": "02764200010000003996200000000000003532573313640000000001115952100045664125653201100000000000000003401662134101899975221000001797754558996001254454200",
    "words": [
     {
-     "text": "Okay.",
-     "startMs": 21767,
-     "endMs": 22067
+     "text": "Wait...",
+     "startMs": 23052,
+     "endMs": 23272
+    },
+    {
+     "text": "WHAT?",
+     "startMs": 23532,
+     "endMs": 23712
     },
     {
      "text": "Is",
-     "startMs": 22287,
-     "endMs": 22407
+     "startMs": 24172,
+     "endMs": 24292
     },
     {
      "text": "this,",
-     "startMs": 22407,
-     "endMs": 22567
+     "startMs": 24292,
+     "endMs": 24432
     },
     {
      "text": "like,",
-     "startMs": 22567,
-     "endMs": 22807
+     "startMs": 24432,
+     "endMs": 24652
     },
     {
      "text": "a",
-     "startMs": 22807,
-     "endMs": 22887
+     "startMs": 24652,
+     "endMs": 24832
     },
     {
      "text": "cosplay",
-     "startMs": 22887,
-     "endMs": 23247
+     "startMs": 24832,
+     "endMs": 25212
     },
     {
-     "text": "event?",
-     "startMs": 23247,
-     "endMs": 23687
+     "text": "event?!",
+     "startMs": 25212,
+     "endMs": 25632
     },
     {
      "text": "Because",
-     "startMs": 23687,
-     "endMs": 24047
+     "startMs": 26012,
+     "endMs": 26452
     },
     {
      "text": "the",
-     "startMs": 24047,
-     "endMs": 24247
+     "startMs": 26452,
+     "endMs": 26632
     },
     {
      "text": "vibes",
-     "startMs": 24247,
-     "endMs": 24547
+     "startMs": 26632,
+     "endMs": 26932
     },
     {
      "text": "are",
-     "startMs": 24547,
-     "endMs": 24767
+     "startMs": 26932,
+     "endMs": 27292
     },
     {
-     "text": "immaculate.",
-     "startMs": 24767,
-     "endMs": 25247
+     "text": "immaculate!",
+     "startMs": 27292,
+     "endMs": 27892
     }
-   ],
-   "mouth": "058721239999974464311799443475213212278733101566663235443211100013138431363267876553123444444445530022222210"
+   ]
   },
   {
    "i": 6,
    "scene": "plaza",
    "speaker": "narrator",
-   "voiceStartMs": 25777,
-   "voiceEndMs": 35118,
+   "voiceStartMs": 28424,
+   "voiceEndMs": 37765,
+   "mouth": "19335399977500122576434201132112210000000000000027114986930149999861258631196654541056567786540113876655443334211562577776643410001236777523877376223564321112331000000000000005998699963159876655663000000000799988242226777860105766634566326545441276554555433434644206553000022100100",
    "words": [
     {
      "text": "It's",
-     "startMs": 25777,
-     "endMs": 25977
+     "startMs": 28424,
+     "endMs": 28624
     },
     {
      "text": "not",
-     "startMs": 25977,
-     "endMs": 26137
+     "startMs": 28624,
+     "endMs": 28784
     },
     {
      "text": "cosplay.",
-     "startMs": 26137,
-     "endMs": 26637
+     "startMs": 28784,
+     "endMs": 29284
     },
     {
      "text": "The",
-     "startMs": 27317,
-     "endMs": 27457
+     "startMs": 29964,
+     "endMs": 30104
     },
     {
      "text": "Philippines",
-     "startMs": 27457,
-     "endMs": 27857
+     "startMs": 30104,
+     "endMs": 30504
     },
     {
      "text": "has",
-     "startMs": 27857,
-     "endMs": 28177
+     "startMs": 30504,
+     "endMs": 30824
     },
     {
      "text": "been",
-     "startMs": 28177,
-     "endMs": 28337
+     "startMs": 30824,
+     "endMs": 30984
     },
     {
      "text": "a",
-     "startMs": 28337,
-     "endMs": 28437
+     "startMs": 30984,
+     "endMs": 31084
     },
     {
      "text": "Spanish",
-     "startMs": 28437,
-     "endMs": 28777
+     "startMs": 31084,
+     "endMs": 31424
     },
     {
      "text": "colony",
-     "startMs": 28777,
-     "endMs": 29317
+     "startMs": 31424,
+     "endMs": 31964
     },
     {
      "text": "for",
-     "startMs": 29317,
-     "endMs": 29597
+     "startMs": 31964,
+     "endMs": 32244
     },
     {
      "text": "almost",
-     "startMs": 29597,
-     "endMs": 29937
+     "startMs": 32244,
+     "endMs": 32584
     },
     {
      "text": "three",
-     "startMs": 29937,
-     "endMs": 30129
+     "startMs": 32584,
+     "endMs": 32776
     },
     {
      "text": "hundred",
-     "startMs": 30129,
-     "endMs": 30397
+     "startMs": 32776,
+     "endMs": 33044
     },
     {
      "text": "years.",
-     "startMs": 30397,
-     "endMs": 30937
+     "startMs": 33044,
+     "endMs": 33584
     },
     {
      "text": "And",
-     "startMs": 31517,
-     "endMs": 31697
+     "startMs": 34164,
+     "endMs": 34344
     },
     {
      "text": "right",
-     "startMs": 31697,
-     "endMs": 31897
+     "startMs": 34344,
+     "endMs": 34544
     },
     {
      "text": "now,",
-     "startMs": 31897,
-     "endMs": 32217
+     "startMs": 34544,
+     "endMs": 34864
     },
     {
      "text": "the",
-     "startMs": 32557,
-     "endMs": 32697
+     "startMs": 35204,
+     "endMs": 35344
     },
     {
      "text": "entire",
-     "startMs": 32697,
-     "endMs": 33117
+     "startMs": 35344,
+     "endMs": 35764
     },
     {
      "text": "plaza",
-     "startMs": 33117,
-     "endMs": 33597
+     "startMs": 35764,
+     "endMs": 36244
     },
     {
      "text": "is",
-     "startMs": 33597,
-     "endMs": 33817
+     "startMs": 36244,
+     "endMs": 36464
     },
     {
      "text": "staring",
-     "startMs": 33817,
-     "endMs": 34157
+     "startMs": 36464,
+     "endMs": 36804
     },
     {
      "text": "at",
-     "startMs": 34157,
-     "endMs": 34417
+     "startMs": 36804,
+     "endMs": 37064
     },
     {
      "text": "his",
-     "startMs": 34417,
-     "endMs": 34537
+     "startMs": 37064,
+     "endMs": 37184
     },
     {
      "text": "outfit.",
-     "startMs": 34537,
-     "endMs": 34877
+     "startMs": 37184,
+     "endMs": 37524
     }
-   ],
-   "mouth": "19335399977500122576434201132112210000000000000027114986930149999861258631196654541056567786540113876655443334211562577776643410001236777523877376223564321112331000000000000005998699963159876655663000000000799988242226777860105766634566326545441276554555433434644206553000022100100"
+   ]
   },
   {
    "i": 7,
    "scene": "jeans",
    "speaker": "lola",
-   "voiceStartMs": 35788,
-   "voiceEndMs": 39194,
+   "voiceStartMs": 38435,
+   "voiceEndMs": 44059,
+   "mouth": "0476555532100000000000000000000000000000016979999999995456556764124453289840043211210014321100000000000000000000000000000005767730000577556510134310764201996445655322100",
    "words": [
     {
-     "text": "Ay,",
-     "startMs": 35788,
-     "endMs": 35968
+     "text": "Ay!",
+     "startMs": 38435,
+     "endMs": 38695
     },
     {
-     "text": "kawawa",
-     "startMs": 35968,
-     "endMs": 36368
+     "text": "Kawawa",
+     "startMs": 39735,
+     "endMs": 40275
     },
     {
      "text": "naman",
-     "startMs": 36368,
-     "endMs": 36688
+     "startMs": 40275,
+     "endMs": 40595
     },
     {
      "text": "ang",
-     "startMs": 36688,
-     "endMs": 36828
+     "startMs": 40595,
+     "endMs": 40715
     },
     {
      "text": "batang",
-     "startMs": 36828,
-     "endMs": 37340
+     "startMs": 40715,
+     "endMs": 41115
     },
     {
-     "text": "ito.",
-     "startMs": 37340,
-     "endMs": 37595
+     "text": "ito...",
+     "startMs": 41115,
+     "endMs": 41515
     },
     {
      "text": "Punit-punit",
-     "startMs": 37595,
-     "endMs": 38448
+     "startMs": 42455,
+     "endMs": 43195
     },
     {
      "text": "ang",
-     "startMs": 38448,
-     "endMs": 38528
+     "startMs": 43195,
+     "endMs": 43295
     },
     {
      "text": "pantalon!",
-     "startMs": 38528,
-     "endMs": 39028
+     "startMs": 43295,
+     "endMs": 43835
     }
-   ],
-   "mouth": "2799961014966997696546644554443431564013433333101243421000000004666512101555641343310443201444322111100"
+   ]
   },
   {
    "i": 8,
    "scene": "jeans",
    "speaker": "narrator",
-   "voiceStartMs": 39614,
-   "voiceEndMs": 43665,
+   "voiceStartMs": 44479,
+   "voiceEndMs": 48530,
+   "mouth": "13693599887775310227860012003577766558751101865323222112200000000000007999999887104166301158652331044023253012532210144310",
    "words": [
     {
      "text": "To",
-     "startMs": 39614,
-     "endMs": 39734
+     "startMs": 44479,
+     "endMs": 44599
     },
     {
      "text": "them,",
-     "startMs": 39734,
-     "endMs": 39954
+     "startMs": 44599,
+     "endMs": 44819
     },
     {
      "text": "ripped",
-     "startMs": 40214,
-     "endMs": 40394
+     "startMs": 45079,
+     "endMs": 45259
     },
     {
      "text": "jeans",
-     "startMs": 40394,
-     "endMs": 40714
+     "startMs": 45259,
+     "endMs": 45579
     },
     {
      "text": "aren't",
-     "startMs": 40714,
-     "endMs": 41014
+     "startMs": 45579,
+     "endMs": 45879
     },
     {
      "text": "fashion.",
-     "startMs": 41014,
-     "endMs": 41354
+     "startMs": 45879,
+     "endMs": 46219
     },
     {
      "text": "They",
-     "startMs": 41854,
-     "endMs": 41994
+     "startMs": 46719,
+     "endMs": 46859
     },
     {
      "text": "mean",
-     "startMs": 41994,
-     "endMs": 42154
+     "startMs": 46859,
+     "endMs": 47019
     },
     {
      "text": "you're",
-     "startMs": 42154,
-     "endMs": 42354
+     "startMs": 47019,
+     "endMs": 47219
     },
     {
      "text": "too",
-     "startMs": 42354,
-     "endMs": 42474
+     "startMs": 47219,
+     "endMs": 47339
     },
     {
      "text": "poor",
-     "startMs": 42474,
-     "endMs": 42694
+     "startMs": 47339,
+     "endMs": 47559
     },
     {
      "text": "to",
-     "startMs": 42694,
-     "endMs": 42834
+     "startMs": 47559,
+     "endMs": 47699
     },
     {
      "text": "fix",
-     "startMs": 42834,
-     "endMs": 43034
+     "startMs": 47699,
+     "endMs": 47899
     },
     {
      "text": "your",
-     "startMs": 43034,
-     "endMs": 43174
+     "startMs": 47899,
+     "endMs": 48039
     },
     {
      "text": "pants.",
-     "startMs": 43174,
-     "endMs": 43394
+     "startMs": 48039,
+     "endMs": 48259
     }
-   ],
-   "mouth": "13693599887775310227860012003577766558751101865323222112200000000000007999999887104166301158652331044023253012532210144310"
+   ]
   },
   {
    "i": 9,
    "scene": "jeans",
    "speaker": "migo",
-   "voiceStartMs": 44085,
-   "voiceEndMs": 46268,
+   "voiceStartMs": 48950,
+   "voiceEndMs": 52632,
+   "mouth": "012489745897200000000001245899987531000000000000013643200169621000000000356544000998752354210599642114421111100",
    "words": [
     {
      "text": "Lola,",
-     "startMs": 44085,
-     "endMs": 44365
+     "startMs": 48950,
+     "endMs": 49350
     },
     {
-     "text": "no!",
-     "startMs": 44365,
-     "endMs": 44505
+     "text": "NO!",
+     "startMs": 49590,
+     "endMs": 49990
     },
     {
      "text": "These",
-     "startMs": 44505,
-     "endMs": 44745
+     "startMs": 50510,
+     "endMs": 50750
     },
     {
      "text": "cost",
-     "startMs": 44745,
-     "endMs": 44965
+     "startMs": 50750,
+     "endMs": 51030
     },
     {
      "text": "three",
-     "startMs": 44965,
-     "endMs": 45203
+     "startMs": 51030,
+     "endMs": 51368
     },
     {
      "text": "thousand",
-     "startMs": 45203,
-     "endMs": 45585
+     "startMs": 51368,
+     "endMs": 51910
     },
     {
      "text": "pesos!",
-     "startMs": 45585,
-     "endMs": 45865
+     "startMs": 51910,
+     "endMs": 52250
     }
-   ],
-   "mouth": "048998997798787523643115973310025661058765234421345542222211111100"
+   ]
   },
   {
    "i": 10,
    "scene": "phone",
    "speaker": "narrator",
-   "voiceStartMs": 46938,
-   "voiceEndMs": 57098,
+   "voiceStartMs": 53302,
+   "voiceEndMs": 63462,
+   "mouth": "01698924778998765775344444532000000000008865310987654334310000004899874444474113322220000000000489999859877651117644444442100167767778756556300326443322211100000000000000000049999999879964999731244551186302445553143100776433224544763001252024431265420245444204312643454104653033377655444322200442211110000",
    "words": [
     {
      "text": "Problem",
-     "startMs": 46938,
-     "endMs": 47238
+     "startMs": 53302,
+     "endMs": 53602
     },
     {
      "text": "number",
-     "startMs": 47238,
-     "endMs": 47498
+     "startMs": 53602,
+     "endMs": 53862
     },
     {
      "text": "one:",
-     "startMs": 47498,
-     "endMs": 47818
+     "startMs": 53862,
+     "endMs": 54182
     },
     {
      "text": "his",
-     "startMs": 48218,
-     "endMs": 48358
+     "startMs": 54582,
+     "endMs": 54722
     },
     {
      "text": "phone.",
-     "startMs": 48358,
-     "endMs": 48778
+     "startMs": 54722,
+     "endMs": 55142
     },
     {
      "text": "No",
-     "startMs": 49098,
-     "endMs": 49238
+     "startMs": 55462,
+     "endMs": 55602
     },
     {
      "text": "signal.",
-     "startMs": 49238,
-     "endMs": 49618
+     "startMs": 55602,
+     "endMs": 55982
     },
     {
      "text": "No",
-     "startMs": 50138,
-     "endMs": 50278
+     "startMs": 56502,
+     "endMs": 56642
     },
     {
      "text": "WiFi.",
-     "startMs": 50278,
-     "endMs": 50838
+     "startMs": 56642,
+     "endMs": 57202
     },
     {
      "text": "And",
-     "startMs": 50838,
-     "endMs": 51218
+     "startMs": 57202,
+     "endMs": 57582
     },
     {
      "text": "no",
-     "startMs": 51218,
-     "endMs": 51398
+     "startMs": 57582,
+     "endMs": 57762
     },
     {
      "text": "electricity.",
-     "startMs": 51398,
-     "endMs": 51958
+     "startMs": 57762,
+     "endMs": 58322
     },
     {
      "text": "Manila",
-     "startMs": 52498,
-     "endMs": 53098
+     "startMs": 58862,
+     "endMs": 59462
     },
     {
      "text": "won't",
-     "startMs": 53098,
-     "endMs": 53418
+     "startMs": 59462,
+     "endMs": 59782
     },
     {
      "text": "switch",
-     "startMs": 53418,
-     "endMs": 53678
+     "startMs": 59782,
+     "endMs": 60042
     },
     {
      "text": "on",
-     "startMs": 53678,
-     "endMs": 53938
+     "startMs": 60042,
+     "endMs": 60302
     },
     {
      "text": "its",
-     "startMs": 53938,
-     "endMs": 54078
+     "startMs": 60302,
+     "endMs": 60442
     },
     {
      "text": "first",
-     "startMs": 54078,
-     "endMs": 54318
+     "startMs": 60442,
+     "endMs": 60682
     },
     {
      "text": "electric",
-     "startMs": 54318,
-     "endMs": 54858
+     "startMs": 60682,
+     "endMs": 61222
     },
     {
      "text": "street",
-     "startMs": 54858,
-     "endMs": 55198
+     "startMs": 61222,
+     "endMs": 61562
     },
     {
      "text": "lights",
-     "startMs": 55198,
-     "endMs": 55558
+     "startMs": 61562,
+     "endMs": 61922
     },
     {
      "text": "until",
-     "startMs": 55558,
-     "endMs": 55858
+     "startMs": 61922,
+     "endMs": 62222
     },
     {
      "text": "eighteen",
-     "startMs": 55858,
-     "endMs": 56231
+     "startMs": 62222,
+     "endMs": 62595
     },
     {
      "text": "ninety-five.",
-     "startMs": 56231,
-     "endMs": 56698
+     "startMs": 62595,
+     "endMs": 63062
     }
-   ],
-   "mouth": "01698924778998765775344444532000000000008865310987654334310000004899874444474113322220000000000489999859877651117644444442100167767778756556300326443322211100000000000000000049999999879964999731244551186302445553143100776433224544763001252024431265420245444204312643454104653033377655444322200442211110000"
+   ]
   },
   {
    "i": 11,
    "scene": "phone",
    "speaker": "migo",
-   "voiceStartMs": 57518,
-   "voiceEndMs": 60579,
+   "voiceStartMs": 63882,
+   "voiceEndMs": 68178,
+   "mouth": "006786342000099897541111112333343221000000000241069993551012225877412476410000000000000006865544386356424316646621000399888652100",
    "words": [
     {
      "text": "Forty-five",
-     "startMs": 57518,
-     "endMs": 57878
+     "startMs": 63882,
+     "endMs": 64422
     },
     {
-     "text": "years",
-     "startMs": 57878,
-     "endMs": 58258
+     "text": "YEARS",
+     "startMs": 64422,
+     "endMs": 64942
     },
     {
      "text": "without",
-     "startMs": 58258,
-     "endMs": 58578
+     "startMs": 64942,
+     "endMs": 65582
     },
     {
      "text": "a",
-     "startMs": 58578,
-     "endMs": 58718
+     "startMs": 65582,
+     "endMs": 65822
     },
     {
-     "text": "charger?",
-     "startMs": 58718,
-     "endMs": 59118
+     "text": "charger?!",
+     "startMs": 65822,
+     "endMs": 66202
     },
     {
      "text": "I'm",
-     "startMs": 59458,
-     "endMs": 59618
+     "startMs": 66682,
+     "endMs": 67002
     },
     {
      "text": "literally",
-     "startMs": 59618,
-     "endMs": 59838
+     "startMs": 67002,
+     "endMs": 67262
     },
     {
      "text": "gonna",
-     "startMs": 59838,
-     "endMs": 60098
+     "startMs": 67262,
+     "endMs": 67662
     },
     {
      "text": "die.",
-     "startMs": 60098,
-     "endMs": 60418
+     "startMs": 67662,
+     "endMs": 67942
     }
-   ],
-   "mouth": "01799795119999831246786544133166543014246665411133221000003566666764545420354431144543211110"
+   ]
   },
   {
    "i": 12,
    "scene": "market",
    "speaker": "narrator",
-   "voiceStartMs": 61249,
-   "voiceEndMs": 72608,
+   "voiceStartMs": 68848,
+   "voiceEndMs": 80207,
+   "mouth": "01498933788999774750351656532310000000775304741133122454112311233210000000000000064335996188788895200116755202665434324532554210023431000000000000004632999838854301166553100000000006998998744229998896299555411455433420452023204776133212333100000000000028999999989501788853335888622553676665555111145555566537621103655535455553123322111133310",
    "words": [
     {
      "text": "Problem",
-     "startMs": 61249,
-     "endMs": 61549
+     "startMs": 68848,
+     "endMs": 69148
     },
     {
      "text": "number",
-     "startMs": 61549,
-     "endMs": 61809
+     "startMs": 69148,
+     "endMs": 69408
     },
     {
      "text": "two:",
-     "startMs": 61809,
-     "endMs": 62169
+     "startMs": 69408,
+     "endMs": 69768
     },
     {
      "text": "he",
-     "startMs": 62489,
-     "endMs": 62569
+     "startMs": 70088,
+     "endMs": 70168
     },
     {
      "text": "speaks",
-     "startMs": 62569,
-     "endMs": 62849
+     "startMs": 70168,
+     "endMs": 70448
     },
     {
      "text": "Taglish.",
-     "startMs": 62849,
-     "endMs": 63309
+     "startMs": 70448,
+     "endMs": 70908
     },
     {
      "text": "The",
-     "startMs": 63949,
-     "endMs": 64009
+     "startMs": 71548,
+     "endMs": 71608
     },
     {
      "text": "Tagalog",
-     "startMs": 64009,
-     "endMs": 64429
+     "startMs": 71608,
+     "endMs": 72028
     },
     {
      "text": "part",
-     "startMs": 64429,
-     "endMs": 64789
+     "startMs": 72028,
+     "endMs": 72388
     },
     {
      "text": "mostly",
-     "startMs": 64789,
-     "endMs": 65129
+     "startMs": 72388,
+     "endMs": 72728
     },
     {
      "text": "works.",
-     "startMs": 65129,
-     "endMs": 65509
+     "startMs": 72728,
+     "endMs": 73108
     },
     {
      "text": "The",
-     "startMs": 66149,
-     "endMs": 66249
+     "startMs": 73748,
+     "endMs": 73848
     },
     {
      "text": "English",
-     "startMs": 66249,
-     "endMs": 66509
+     "startMs": 73848,
+     "endMs": 74108
     },
     {
      "text": "part?",
-     "startMs": 66509,
-     "endMs": 66889
+     "startMs": 74108,
+     "endMs": 74488
     },
     {
      "text": "Almost",
-     "startMs": 67229,
-     "endMs": 67549
+     "startMs": 74828,
+     "endMs": 75148
     },
     {
      "text": "nobody",
-     "startMs": 67549,
-     "endMs": 68069
+     "startMs": 75148,
+     "endMs": 75668
     },
     {
      "text": "here",
-     "startMs": 68069,
-     "endMs": 68329
+     "startMs": 75668,
+     "endMs": 75928
     },
     {
      "text": "speaks",
-     "startMs": 68329,
-     "endMs": 68549
+     "startMs": 75928,
+     "endMs": 76148
     },
     {
      "text": "English.",
-     "startMs": 68549,
-     "endMs": 68989
+     "startMs": 76148,
+     "endMs": 76588
     },
     {
      "text": "The",
-     "startMs": 69629,
-     "endMs": 69729
+     "startMs": 77228,
+     "endMs": 77328
     },
     {
      "text": "Americans",
-     "startMs": 69729,
-     "endMs": 70129
+     "startMs": 77328,
+     "endMs": 77728
     },
     {
      "text": "won't",
-     "startMs": 70129,
-     "endMs": 70609
+     "startMs": 77728,
+     "endMs": 78208
     },
     {
      "text": "arrive",
-     "startMs": 70609,
-     "endMs": 70929
+     "startMs": 78208,
+     "endMs": 78528
     },
     {
      "text": "for",
-     "startMs": 70929,
-     "endMs": 71209
+     "startMs": 78528,
+     "endMs": 78808
     },
     {
      "text": "another",
-     "startMs": 71209,
-     "endMs": 71429
+     "startMs": 78808,
+     "endMs": 79028
     },
     {
      "text": "forty-eight",
-     "startMs": 71429,
-     "endMs": 71989
+     "startMs": 79028,
+     "endMs": 79588
     },
     {
      "text": "years.",
-     "startMs": 71989,
-     "endMs": 72329
+     "startMs": 79588,
+     "endMs": 79928
     }
-   ],
-   "mouth": "01498933788999774750351656532310000000775304741133122454112311233210000000000000064335996188788895200116755202665434324532554210023431000000000000004632999838854301166553100000000006998998744229998896299555411455433420452023204776133212333100000000000028999999989501788853335888622553676665555111145555566537621103655535455553123322111133310"
+   ]
   },
   {
    "i": 13,
    "scene": "market",
    "speaker": "migo",
-   "voiceStartMs": 73028,
-   "voiceEndMs": 75687,
+   "voiceStartMs": 80627,
+   "voiceEndMs": 84922,
+   "mouth": "015988621331100000000111155437989999664200000000001368710116997200000000000015332024899300441024323222223797654223231017653420000",
    "words": [
     {
      "text": "Lodi!",
-     "startMs": 73028,
-     "endMs": 73288
+     "startMs": 80627,
+     "endMs": 81007
     },
     {
      "text": "Sana",
-     "startMs": 73288,
-     "endMs": 73608
+     "startMs": 81327,
+     "endMs": 81607
     },
     {
      "text": "all!",
-     "startMs": 73608,
-     "endMs": 73848
+     "startMs": 81607,
+     "endMs": 81927
     },
     {
      "text": "No",
-     "startMs": 73968,
-     "endMs": 74068
+     "startMs": 82267,
+     "endMs": 82447
     },
     {
      "text": "cap,",
-     "startMs": 74068,
-     "endMs": 74268
+     "startMs": 82447,
+     "endMs": 82707
     },
     {
      "text": "this",
-     "startMs": 74428,
-     "endMs": 74528
+     "startMs": 83147,
+     "endMs": 83287
     },
     {
      "text": "market",
-     "startMs": 74528,
-     "endMs": 74808
+     "startMs": 83287,
+     "endMs": 83647
     },
     {
      "text": "is",
-     "startMs": 74808,
-     "endMs": 74988
+     "startMs": 83647,
+     "endMs": 83907
     },
     {
-     "text": "so",
-     "startMs": 74988,
-     "endMs": 75088
+     "text": "SO",
+     "startMs": 83907,
+     "endMs": 84247
     },
     {
-     "text": "aesthetic.",
-     "startMs": 75088,
-     "endMs": 75388
+     "text": "aesthetic!",
+     "startMs": 84247,
+     "endMs": 84627
     }
-   ],
-   "mouth": "05999799844489899966778654446774024986200264314666620243333254442310354332110000"
+   ]
   },
   {
    "i": 14,
    "scene": "market",
    "speaker": "vendor",
-   "voiceStartMs": 76107,
-   "voiceEndMs": 76850,
+   "voiceStartMs": 85342,
+   "voiceEndMs": 86952,
+   "mouth": "0038764100000000000000000000000000058999699765200",
    "words": [
     {
      "text": "Ha?",
-     "startMs": 76107,
-     "endMs": 76287
+     "startMs": 85342,
+     "endMs": 85542
     },
     {
      "text": "Ano",
-     "startMs": 76287,
-     "endMs": 76557
+     "startMs": 86282,
+     "endMs": 86682
     },
     {
      "text": "raw?",
-     "startMs": 76557,
-     "endMs": 76827
+     "startMs": 86682,
+     "endMs": 86802
     }
-   ],
-   "mouth": "27742388889922576632100"
+   ]
   },
   {
    "i": 15,
    "scene": "food",
    "speaker": "narrator",
-   "voiceStartMs": 77520,
-   "voiceEndMs": 87561,
+   "voiceStartMs": 87622,
+   "voiceEndMs": 97663,
+   "mouth": "16306885511698339987653111345200000000000003999998999860112525554444204510455444133377720217654455303222212100000000000000003994001000011299971034279730115554100023599301215617743796699971775564034243223322223100000000001686221797443203666267554213544434210001158894113777736656555555433554222210245300",
    "words": [
     {
      "text": "But",
-     "startMs": 77520,
-     "endMs": 77640
+     "startMs": 87622,
+     "endMs": 87742
     },
     {
      "text": "there's",
-     "startMs": 77640,
-     "endMs": 77840
+     "startMs": 87742,
+     "endMs": 87942
     },
     {
      "text": "good",
-     "startMs": 77840,
-     "endMs": 78000
+     "startMs": 87942,
+     "endMs": 88102
     },
     {
      "text": "news.",
-     "startMs": 78000,
-     "endMs": 78320
+     "startMs": 88102,
+     "endMs": 88422
     },
     {
      "text": "No",
-     "startMs": 78960,
-     "endMs": 79120
+     "startMs": 89062,
+     "endMs": 89222
     },
     {
      "text": "milk",
-     "startMs": 79120,
-     "endMs": 79360
+     "startMs": 89222,
+     "endMs": 89462
     },
     {
      "text": "tea,",
-     "startMs": 79360,
-     "endMs": 79680
+     "startMs": 89462,
+     "endMs": 89782
     },
     {
      "text": "but",
-     "startMs": 79840,
-     "endMs": 79940
+     "startMs": 89942,
+     "endMs": 90042
     },
     {
      "text": "there's",
-     "startMs": 79940,
-     "endMs": 80200
+     "startMs": 90042,
+     "endMs": 90302
     },
     {
      "text": "tsokolate.",
-     "startMs": 80200,
-     "endMs": 80820
+     "startMs": 90302,
+     "endMs": 90922
     },
     {
      "text": "Thick,",
-     "startMs": 81380,
-     "endMs": 81880
+     "startMs": 91482,
+     "endMs": 91982
     },
     {
      "text": "hot",
-     "startMs": 82040,
-     "endMs": 82240
+     "startMs": 92142,
+     "endMs": 92342
     },
     {
      "text": "chocolate,",
-     "startMs": 82240,
-     "endMs": 82720
+     "startMs": 92342,
+     "endMs": 92822
     },
     {
      "text": "whipped",
-     "startMs": 82720,
-     "endMs": 83100
+     "startMs": 92822,
+     "endMs": 93202
     },
     {
      "text": "with",
-     "startMs": 83100,
-     "endMs": 83340
+     "startMs": 93202,
+     "endMs": 93442
     },
     {
      "text": "a",
-     "startMs": 83340,
-     "endMs": 83440
+     "startMs": 93442,
+     "endMs": 93542
     },
     {
      "text": "wooden",
-     "startMs": 83440,
-     "endMs": 83620
+     "startMs": 93542,
+     "endMs": 93722
     },
     {
      "text": "batirol.",
-     "startMs": 83620,
-     "endMs": 84720
+     "startMs": 93722,
+     "endMs": 94822
     },
     {
      "text": "And",
-     "startMs": 84720,
-     "endMs": 84960
+     "startMs": 94822,
+     "endMs": 95062
     },
     {
      "text": "fresh",
-     "startMs": 84960,
-     "endMs": 85240
+     "startMs": 95062,
+     "endMs": 95342
     },
     {
      "text": "bibingka,",
-     "startMs": 85240,
-     "endMs": 85900
+     "startMs": 95342,
+     "endMs": 96002
     },
     {
      "text": "baked",
-     "startMs": 85900,
-     "endMs": 86380
+     "startMs": 96002,
+     "endMs": 96482
     },
     {
      "text": "on",
-     "startMs": 86380,
-     "endMs": 86600
+     "startMs": 96482,
+     "endMs": 96702
     },
     {
      "text": "banana",
-     "startMs": 86600,
-     "endMs": 86900
+     "startMs": 96702,
+     "endMs": 97002
     },
     {
      "text": "leaves.",
-     "startMs": 86900,
-     "endMs": 87340
+     "startMs": 97002,
+     "endMs": 97442
     }
-   ],
-   "mouth": "16306885511698339987653111345200000000000003999998999860112525554444204510455444133377720217654455303222212100000000000000003994001000011299971034279730115554100023599301215617743796699971775564034243223322223100000000001686221797443203666267554213544434210001158894113777736656555555433554222210245300"
+   ]
   },
   {
    "i": 16,
    "scene": "food",
    "speaker": "migo",
-   "voiceStartMs": 87981,
-   "voiceEndMs": 89215,
+   "voiceStartMs": 98083,
+   "voiceEndMs": 101443,
+   "mouth": "04653000000000017997531000000489843100000000000199984200000000002763210488312233343322138988401221100",
    "words": [
     {
      "text": "Wait.",
-     "startMs": 87981,
-     "endMs": 88101
+     "startMs": 98083,
+     "endMs": 98303
     },
     {
-     "text": "This",
-     "startMs": 88241,
-     "endMs": 88321
+     "text": "Wait",
+     "startMs": 98503,
+     "endMs": 98803
+    },
+    {
+     "text": "wait",
+     "startMs": 99043,
+     "endMs": 99243
+    },
+    {
+     "text": "wait...",
+     "startMs": 99583,
+     "endMs": 99783
+    },
+    {
+     "text": "this",
+     "startMs": 100063,
+     "endMs": 100343
     },
     {
      "text": "actually",
-     "startMs": 88321,
-     "endMs": 88621
+     "startMs": 100343,
+     "endMs": 100783
     },
     {
-     "text": "slaps.",
-     "startMs": 88621,
-     "endMs": 89041
+     "text": "slaps!",
+     "startMs": 100783,
+     "endMs": 101263
     }
-   ],
-   "mouth": "0579732693299721255652213555431011100"
+   ]
   },
   {
    "i": 17,
    "scene": "food",
    "speaker": "narrator",
-   "voiceStartMs": 89635,
-   "voiceEndMs": 95115,
+   "voiceStartMs": 101863,
+   "voiceEndMs": 107344,
+   "mouth": "194336997632251114666536200034652112432211222100000000018234199999599877688862254331236754311022210000000000039987531005898899889887766454335764156211287532111223200",
    "words": [
     {
      "text": "He",
-     "startMs": 89635,
-     "endMs": 89715
+     "startMs": 101863,
+     "endMs": 101943
     },
     {
      "text": "tries",
-     "startMs": 89715,
-     "endMs": 89935
+     "startMs": 101943,
+     "endMs": 102163
     },
     {
      "text": "to",
-     "startMs": 89935,
-     "endMs": 90115
+     "startMs": 102163,
+     "endMs": 102343
     },
     {
      "text": "pay",
-     "startMs": 90115,
-     "endMs": 90315
+     "startMs": 102343,
+     "endMs": 102543
     },
     {
      "text": "with",
-     "startMs": 90315,
-     "endMs": 90475
+     "startMs": 102543,
+     "endMs": 102703
     },
     {
      "text": "GCash.",
-     "startMs": 90475,
-     "endMs": 91095
+     "startMs": 102703,
+     "endMs": 103323
     },
     {
      "text": "The",
-     "startMs": 91455,
-     "endMs": 91555
+     "startMs": 103683,
+     "endMs": 103783
     },
     {
      "text": "tindera",
-     "startMs": 91555,
-     "endMs": 92090
+     "startMs": 103783,
+     "endMs": 104318
     },
     {
      "text": "just",
-     "startMs": 92090,
-     "endMs": 92395
+     "startMs": 104318,
+     "endMs": 104623
     },
     {
      "text": "laughs.",
-     "startMs": 92395,
-     "endMs": 92635
+     "startMs": 104623,
+     "endMs": 104863
     },
     {
      "text": "Here,",
-     "startMs": 93175,
-     "endMs": 93415
+     "startMs": 105403,
+     "endMs": 105643
     },
     {
      "text": "money",
-     "startMs": 93595,
-     "endMs": 93815
+     "startMs": 105823,
+     "endMs": 106043
     },
     {
      "text": "means",
-     "startMs": 93815,
-     "endMs": 94115
+     "startMs": 106043,
+     "endMs": 106343
     },
     {
      "text": "silver",
-     "startMs": 94115,
-     "endMs": 94455
+     "startMs": 106343,
+     "endMs": 106683
     },
     {
      "text": "coins.",
-     "startMs": 94455,
-     "endMs": 94815
+     "startMs": 106683,
+     "endMs": 107043
     }
-   ],
-   "mouth": "194336997632251114666536200034652112432211222100000000018234199999599877688862254331236754311022210000000000039987531005898899889887766454335764156211287532111223200"
+   ]
   },
   {
    "i": 18,
    "scene": "police",
    "speaker": "narrator",
-   "voiceStartMs": 95785,
-   "voiceEndMs": 100014,
+   "voiceStartMs": 108014,
+   "voiceEndMs": 112243,
+   "mouth": "1399999931217779326865765666566543454245433221221000000000002715378898851145354323134310000001999875348911011793341233211223310",
    "words": [
     {
      "text": "Then",
-     "startMs": 95785,
-     "endMs": 95945
+     "startMs": 108014,
+     "endMs": 108174
     },
     {
      "text": "the",
-     "startMs": 95945,
-     "endMs": 96065
+     "startMs": 108174,
+     "endMs": 108294
     },
     {
      "text": "cuadrilleros",
-     "startMs": 96065,
-     "endMs": 96845
+     "startMs": 108294,
+     "endMs": 109074
     },
     {
      "text": "arrive.",
-     "startMs": 96845,
-     "endMs": 97285
+     "startMs": 109074,
+     "endMs": 109514
     },
     {
      "text": "The",
-     "startMs": 97785,
-     "endMs": 97865
+     "startMs": 110014,
+     "endMs": 110094
     },
     {
      "text": "town",
-     "startMs": 97865,
-     "endMs": 98105
+     "startMs": 110094,
+     "endMs": 110334
     },
     {
      "text": "police.",
-     "startMs": 98105,
-     "endMs": 98445
+     "startMs": 110334,
+     "endMs": 110674
     },
     {
      "text": "And",
-     "startMs": 98905,
-     "endMs": 98985
+     "startMs": 111134,
+     "endMs": 111214
     },
     {
      "text": "they",
-     "startMs": 98985,
-     "endMs": 99085
+     "startMs": 111214,
+     "endMs": 111314
     },
     {
      "text": "have",
-     "startMs": 99085,
-     "endMs": 99285
+     "startMs": 111314,
+     "endMs": 111514
     },
     {
      "text": "questions.",
-     "startMs": 99285,
-     "endMs": 99505
+     "startMs": 111514,
+     "endMs": 111734
     }
-   ],
-   "mouth": "1399999931217779326865765666566543454245433221221000000000002715378898851145354323134310000001999875348911011793341233211223310"
+   ]
   },
   {
    "i": 19,
    "scene": "police",
    "speaker": "officer",
-   "voiceStartMs": 100434,
-   "voiceEndMs": 102648,
+   "voiceStartMs": 112663,
+   "voiceEndMs": 114877,
+   "mouth": "3996101992012965781047522687645543543002420136850045312344421221100",
    "words": [
     {
      "text": "\u00a1Alto!",
-     "startMs": 100434,
-     "endMs": 100654
+     "startMs": 112663,
+     "endMs": 112883
     },
     {
      "text": "\u00bfC\u00f3mo",
-     "startMs": 100654,
-     "endMs": 100994
+     "startMs": 112883,
+     "endMs": 113223
     },
     {
      "text": "te",
-     "startMs": 100994,
-     "endMs": 101174
+     "startMs": 113223,
+     "endMs": 113403
     },
     {
      "text": "llamas?",
-     "startMs": 101174,
-     "endMs": 101694
+     "startMs": 113403,
+     "endMs": 113923
     },
     {
      "text": "\u00bfY",
-     "startMs": 101694,
-     "endMs": 101814
+     "startMs": 113923,
+     "endMs": 114043
     },
     {
      "text": "tu",
-     "startMs": 101814,
-     "endMs": 101954
+     "startMs": 114043,
+     "endMs": 114183
     },
     {
      "text": "apellido?",
-     "startMs": 101954,
-     "endMs": 102514
+     "startMs": 114183,
+     "endMs": 114743
     }
-   ],
-   "mouth": "3996101992012965781047522687645543543002420136850045312344421221100"
+   ]
   },
   {
    "i": 20,
    "scene": "police",
    "speaker": "migo",
-   "voiceStartMs": 103068,
-   "voiceEndMs": 104301,
+   "voiceStartMs": 115297,
+   "voiceEndMs": 117433,
+   "mouth": "02789887655431134676439983100000000158532100000000013456548996200",
    "words": [
     {
      "text": "Uh...",
-     "startMs": 103068,
-     "endMs": 103215
+     "startMs": 115297,
+     "endMs": 115577
     },
     {
      "text": "Migo?",
-     "startMs": 103215,
-     "endMs": 103508
+     "startMs": 115877,
+     "endMs": 116137
     },
     {
-     "text": "Just",
-     "startMs": 103648,
-     "endMs": 103768
+     "text": "Just...",
+     "startMs": 116437,
+     "endMs": 116637
     },
     {
-     "text": "Migo.",
-     "startMs": 103768,
-     "endMs": 104128
+     "text": "Migo?",
+     "startMs": 116637,
+     "endMs": 117317
     }
-   ],
-   "mouth": "0332267986239973135432035432144432100"
+   ]
   },
   {
    "i": 21,
    "scene": "catalog",
    "speaker": "narrator",
-   "voiceStartMs": 104971,
-   "voiceEndMs": 114236,
+   "voiceStartMs": 118103,
+   "voiceEndMs": 127368,
+   "mouth": "04988999853698863433221100000000000000000001459854317998534651554434410000000022999349998447988997202168952487665565653104888487311176666655566443310116753430643466664444444343202241331771143101744354344446778532112224410000000001799962088882117525775550135301124562532232111110",
    "words": [
     {
      "text": "Wrong",
-     "startMs": 104971,
-     "endMs": 105211
+     "startMs": 118103,
+     "endMs": 118343
     },
     {
      "text": "answer.",
-     "startMs": 105211,
-     "endMs": 105631
+     "startMs": 118343,
+     "endMs": 118763
     },
     {
      "text": "Just",
-     "startMs": 106391,
-     "endMs": 106591
+     "startMs": 119523,
+     "endMs": 119723
     },
     {
      "text": "months",
-     "startMs": 106591,
-     "endMs": 106851
+     "startMs": 119723,
+     "endMs": 119983
     },
     {
      "text": "ago,",
-     "startMs": 106851,
-     "endMs": 107191
+     "startMs": 119983,
+     "endMs": 120323
     },
     {
      "text": "Governor-General",
-     "startMs": 107611,
-     "endMs": 108191
+     "startMs": 120743,
+     "endMs": 121323
     },
     {
      "text": "Claver\u00eda",
-     "startMs": 108191,
-     "endMs": 108851
+     "startMs": 121323,
+     "endMs": 121983
     },
     {
      "text": "ordered",
-     "startMs": 108851,
-     "endMs": 109191
+     "startMs": 121983,
+     "endMs": 122323
     },
     {
      "text": "families",
-     "startMs": 109191,
-     "endMs": 109691
+     "startMs": 122323,
+     "endMs": 122823
     },
     {
      "text": "across",
-     "startMs": 109691,
-     "endMs": 110011
+     "startMs": 122823,
+     "endMs": 123143
     },
     {
      "text": "the",
-     "startMs": 110011,
-     "endMs": 110311
+     "startMs": 123143,
+     "endMs": 123443
     },
     {
      "text": "islands",
-     "startMs": 110311,
-     "endMs": 110671
+     "startMs": 123443,
+     "endMs": 123803
     },
     {
      "text": "to",
-     "startMs": 110671,
-     "endMs": 111011
+     "startMs": 123803,
+     "endMs": 124143
     },
     {
      "text": "take",
-     "startMs": 111011,
-     "endMs": 111251
+     "startMs": 124143,
+     "endMs": 124383
     },
     {
      "text": "official",
-     "startMs": 111251,
-     "endMs": 111611
+     "startMs": 124383,
+     "endMs": 124743
     },
     {
      "text": "surnames,",
-     "startMs": 111611,
-     "endMs": 112231
+     "startMs": 124743,
+     "endMs": 125363
     },
     {
      "text": "from",
-     "startMs": 112231,
-     "endMs": 112691
+     "startMs": 125363,
+     "endMs": 125823
     },
     {
      "text": "an",
-     "startMs": 112691,
-     "endMs": 112811
+     "startMs": 125823,
+     "endMs": 125943
     },
     {
      "text": "alphabetical",
-     "startMs": 112811,
-     "endMs": 113551
+     "startMs": 125943,
+     "endMs": 126683
     },
     {
      "text": "catalog.",
-     "startMs": 113551,
-     "endMs": 114211
+     "startMs": 126683,
+     "endMs": 127343
     }
-   ],
-   "mouth": "04988999853698863433221100000000000000000001459854317998534651554434410000000022999349998447988997202168952487665565653104888487311176666655566443310116753430643466664444444343202241331771143101744354344446778532112224410000000001799962088882117525775550135301124562532232111110"
+   ]
   },
   {
    "i": 22,
    "scene": "catalog",
    "speaker": "officer",
-   "voiceStartMs": 114656,
-   "voiceEndMs": 116779,
+   "voiceStartMs": 127788,
+   "voiceEndMs": 129911,
+   "mouth": "1894216987999941037522698744443233101356841583575310143233001110",
    "words": [
     {
      "text": "Desde",
-     "startMs": 114656,
-     "endMs": 114816
+     "startMs": 127788,
+     "endMs": 127948
     },
     {
      "text": "hoy,",
-     "startMs": 114816,
-     "endMs": 115116
+     "startMs": 127948,
+     "endMs": 128248
     },
     {
      "text": "te",
-     "startMs": 115116,
-     "endMs": 115296
+     "startMs": 128248,
+     "endMs": 128428
     },
     {
      "text": "llamas...",
-     "startMs": 115296,
-     "endMs": 115796
+     "startMs": 128428,
+     "endMs": 128928
     },
     {
      "text": "Migo",
-     "startMs": 115796,
-     "endMs": 116136
+     "startMs": 128928,
+     "endMs": 129268
     },
     {
      "text": "Bautista.",
-     "startMs": 116136,
-     "endMs": 116636
+     "startMs": 129268,
+     "endMs": 129768
     }
-   ],
-   "mouth": "1894216987999941037522698744443233101356841583575310143233001110"
+   ]
   },
   {
    "i": 23,
    "scene": "catalog",
    "speaker": "migo",
-   "voiceStartMs": 117199,
-   "voiceEndMs": 118574,
+   "voiceStartMs": 130331,
+   "voiceEndMs": 132119,
+   "mouth": "035417931333444545544100000000899767310000069972001100",
    "words": [
     {
      "text": "I",
-     "startMs": 117199,
-     "endMs": 117279
+     "startMs": 130331,
+     "endMs": 130451
     },
     {
      "text": "got",
-     "startMs": 117279,
-     "endMs": 117419
+     "startMs": 130451,
+     "endMs": 130551
     },
     {
      "text": "renamed...",
-     "startMs": 117419,
-     "endMs": 117739
+     "startMs": 130551,
+     "endMs": 130971
     },
     {
      "text": "by",
-     "startMs": 117739,
-     "endMs": 118079
+     "startMs": 130971,
+     "endMs": 131431
     },
     {
      "text": "a",
-     "startMs": 118079,
-     "endMs": 118199
+     "startMs": 131431,
+     "endMs": 131571
     },
     {
-     "text": "book?",
-     "startMs": 118199,
-     "endMs": 118339
+     "text": "BOOK?!",
+     "startMs": 131571,
+     "endMs": 131871
     }
-   ],
-   "mouth": "033199974789978766524310466762157521000000"
+   ]
   },
   {
    "i": 24,
    "scene": "polo",
    "speaker": "narrator",
-   "voiceStartMs": 119244,
-   "voiceEndMs": 128783,
+   "voiceStartMs": 132789,
+   "voiceEndMs": 142328,
+   "mouth": "07999999822998765203745542222585300055543212466775314158776555455434113432211111210000000000000000899597665128667786542046787544410000000049982599987552101777466437766764453110036653431145453044520565125432354322111000000000000006804502278892100111878678896368776554334436414544323211110",
    "words": [
     {
      "text": "And",
-     "startMs": 119244,
-     "endMs": 119364
+     "startMs": 132789,
+     "endMs": 132909
     },
     {
      "text": "Migo",
-     "startMs": 119364,
-     "endMs": 119684
+     "startMs": 132909,
+     "endMs": 133229
     },
     {
      "text": "is",
-     "startMs": 119684,
-     "endMs": 120004
+     "startMs": 133229,
+     "endMs": 133549
     },
     {
      "text": "a",
-     "startMs": 120004,
-     "endMs": 120104
+     "startMs": 133549,
+     "endMs": 133649
     },
     {
      "text": "healthy,",
-     "startMs": 120104,
-     "endMs": 120484
+     "startMs": 133649,
+     "endMs": 134029
     },
     {
      "text": "nineteen",
-     "startMs": 120484,
-     "endMs": 120964
+     "startMs": 134029,
+     "endMs": 134509
     },
     {
      "text": "year",
-     "startMs": 120964,
-     "endMs": 121324
+     "startMs": 134509,
+     "endMs": 134869
     },
     {
      "text": "old",
-     "startMs": 121324,
-     "endMs": 121504
+     "startMs": 134869,
+     "endMs": 135049
     },
     {
      "text": "man.",
-     "startMs": 121504,
-     "endMs": 121844
+     "startMs": 135049,
+     "endMs": 135389
     },
     {
      "text": "Under",
-     "startMs": 122484,
-     "endMs": 122644
+     "startMs": 136029,
+     "endMs": 136189
     },
     {
      "text": "Spanish",
-     "startMs": 122644,
-     "endMs": 123044
+     "startMs": 136189,
+     "endMs": 136589
     },
     {
      "text": "rule,",
-     "startMs": 123044,
-     "endMs": 123444
+     "startMs": 136589,
+     "endMs": 136989
     },
     {
      "text": "that",
-     "startMs": 123864,
-     "endMs": 123964
+     "startMs": 137409,
+     "endMs": 137509
     },
     {
      "text": "means",
-     "startMs": 123964,
-     "endMs": 124184
+     "startMs": 137509,
+     "endMs": 137729
     },
     {
      "text": "forty",
-     "startMs": 124184,
-     "endMs": 124544
+     "startMs": 137729,
+     "endMs": 138089
     },
     {
      "text": "days",
-     "startMs": 124544,
-     "endMs": 124844
+     "startMs": 138089,
+     "endMs": 138389
     },
     {
      "text": "of",
-     "startMs": 124844,
-     "endMs": 125044
+     "startMs": 138389,
+     "endMs": 138589
     },
     {
      "text": "forced",
-     "startMs": 125044,
-     "endMs": 125304
+     "startMs": 138589,
+     "endMs": 138849
     },
     {
      "text": "labor",
-     "startMs": 125304,
-     "endMs": 125664
+     "startMs": 138849,
+     "endMs": 139209
     },
     {
      "text": "every",
-     "startMs": 125664,
-     "endMs": 125984
+     "startMs": 139209,
+     "endMs": 139529
     },
     {
      "text": "year.",
-     "startMs": 125984,
-     "endMs": 126304
+     "startMs": 139529,
+     "endMs": 139849
     },
     {
      "text": "It's",
-     "startMs": 126804,
-     "endMs": 127064
+     "startMs": 140349,
+     "endMs": 140609
     },
     {
      "text": "called",
-     "startMs": 127064,
-     "endMs": 127244
+     "startMs": 140609,
+     "endMs": 140789
     },
     {
      "text": "polo",
-     "startMs": 127244,
-     "endMs": 127784
+     "startMs": 140789,
+     "endMs": 141329
     },
     {
      "text": "y",
-     "startMs": 127784,
-     "endMs": 128044
+     "startMs": 141329,
+     "endMs": 141589
     },
     {
      "text": "servicio.",
-     "startMs": 128044,
-     "endMs": 128404
+     "startMs": 141589,
+     "endMs": 141949
     }
-   ],
-   "mouth": "07999999822998765203745542222585300055543212466775314158776555455434113432211111210000000000000000899597665128667786542046787544410000000049982599987552101777466437766764453110036653431145453044520565125432354322111000000000000006804502278892100111878678896368776554334436414544323211110"
+   ]
   },
   {
    "i": 25,
    "scene": "polo",
    "speaker": "migo",
-   "voiceStartMs": 129203,
-   "voiceEndMs": 131387,
+   "voiceStartMs": 142748,
+   "voiceEndMs": 145691,
+   "mouth": "01999429851000000000000000001177210048853353136777743001577511577621113771287644599600000",
    "words": [
     {
-     "text": "Wait.",
-     "startMs": 129203,
-     "endMs": 129363
+     "text": "Hold",
+     "startMs": 142748,
+     "endMs": 142908
+    },
+    {
+     "text": "up.",
+     "startMs": 142908,
+     "endMs": 143148
     },
     {
      "text": "So",
-     "startMs": 129363,
-     "endMs": 129603
+     "startMs": 143548,
+     "endMs": 143768
     },
     {
      "text": "it's",
-     "startMs": 129603,
-     "endMs": 129763
+     "startMs": 143768,
+     "endMs": 143908
     },
     {
      "text": "basically",
-     "startMs": 129763,
-     "endMs": 130103
+     "startMs": 143908,
+     "endMs": 144288
     },
     {
      "text": "an",
-     "startMs": 130103,
-     "endMs": 130283
+     "startMs": 144288,
+     "endMs": 144508
     },
     {
      "text": "unpaid",
-     "startMs": 130283,
-     "endMs": 130623
+     "startMs": 144508,
+     "endMs": 144948
     },
     {
-     "text": "internship?",
-     "startMs": 130623,
-     "endMs": 130943
+     "text": "internship?!",
+     "startMs": 144948,
+     "endMs": 145368
     }
-   ],
-   "mouth": "058995213369971106986334211555545655513466544442113543212222100000"
+   ]
   },
   {
    "i": 26,
    "scene": "polo",
    "speaker": "narrator",
-   "voiceStartMs": 131807,
-   "voiceEndMs": 136374,
+   "voiceStartMs": 146111,
+   "voiceEndMs": 150678,
+   "mouth": "055329997777747766666553100065431540114445411100555552011461031106644432233221110000000000000069999615988752126444445466666865554432211100",
    "words": [
     {
      "text": "The",
-     "startMs": 131807,
-     "endMs": 131907
+     "startMs": 146111,
+     "endMs": 146211
     },
     {
      "text": "only",
-     "startMs": 131907,
-     "endMs": 132167
+     "startMs": 146211,
+     "endMs": 146471
     },
     {
      "text": "way",
-     "startMs": 132167,
-     "endMs": 132387
+     "startMs": 146471,
+     "endMs": 146691
     },
     {
      "text": "out",
-     "startMs": 132387,
-     "endMs": 132587
+     "startMs": 146691,
+     "endMs": 146891
     },
     {
      "text": "is",
-     "startMs": 132587,
-     "endMs": 132847
+     "startMs": 146891,
+     "endMs": 147151
     },
     {
      "text": "to",
-     "startMs": 132847,
-     "endMs": 132967
+     "startMs": 147151,
+     "endMs": 147271
     },
     {
      "text": "pay",
-     "startMs": 132967,
-     "endMs": 133147
+     "startMs": 147271,
+     "endMs": 147451
     },
     {
      "text": "a",
-     "startMs": 133147,
-     "endMs": 133287
+     "startMs": 147451,
+     "endMs": 147591
     },
     {
      "text": "fee",
-     "startMs": 133287,
-     "endMs": 133527
+     "startMs": 147591,
+     "endMs": 147831
     },
     {
      "text": "called",
-     "startMs": 133527,
-     "endMs": 133767
+     "startMs": 147831,
+     "endMs": 148071
     },
     {
      "text": "the",
-     "startMs": 133767,
-     "endMs": 133907
+     "startMs": 148071,
+     "endMs": 148211
     },
     {
      "text": "falla.",
-     "startMs": 133907,
-     "endMs": 134327
+     "startMs": 148211,
+     "endMs": 148631
     },
     {
      "text": "Migo",
-     "startMs": 134827,
-     "endMs": 135287
+     "startMs": 149131,
+     "endMs": 149591
     },
     {
      "text": "has",
-     "startMs": 135287,
-     "endMs": 135547
+     "startMs": 149591,
+     "endMs": 149851
     },
     {
      "text": "zero",
-     "startMs": 135547,
-     "endMs": 135907
+     "startMs": 149851,
+     "endMs": 150211
     },
     {
      "text": "money.",
-     "startMs": 135907,
-     "endMs": 136207
+     "startMs": 150211,
+     "endMs": 150511
     }
-   ],
-   "mouth": "055329997777747766666553100065431540114445411100555552011461031106644432233221110000000000000069999615988752126444445466666865554432211100"
+   ]
   },
   {
    "i": 27,
    "scene": "night",
    "speaker": "narrator",
-   "voiceStartMs": 137044,
-   "voiceEndMs": 147614,
+   "voiceStartMs": 151348,
+   "voiceEndMs": 161918,
+   "mouth": "089933899874100025699988687143463034366533222220000000000000797858415279316665539877451111387635222369888867416557318877851554347512563033465411464110332121000000000599995998743210677887777456534544422221100000000000000000012399988879973266677516960021013788887676898898314411116444444300000000488752256455114322111100",
    "words": [
     {
      "text": "That",
-     "startMs": 137044,
-     "endMs": 137184
+     "startMs": 151348,
+     "endMs": 151488
     },
     {
      "text": "night,",
-     "startMs": 137184,
-     "endMs": 137404
+     "startMs": 151488,
+     "endMs": 151708
     },
     {
      "text": "Lola",
-     "startMs": 137644,
-     "endMs": 137904
+     "startMs": 151948,
+     "endMs": 152208
     },
     {
      "text": "takes",
-     "startMs": 137904,
-     "endMs": 138184
+     "startMs": 152208,
+     "endMs": 152488
     },
     {
      "text": "him",
-     "startMs": 138184,
-     "endMs": 138364
+     "startMs": 152488,
+     "endMs": 152668
     },
     {
      "text": "in.",
-     "startMs": 138364,
-     "endMs": 138544
+     "startMs": 152668,
+     "endMs": 152848
     },
     {
      "text": "And",
-     "startMs": 139004,
-     "endMs": 139124
+     "startMs": 153308,
+     "endMs": 153428
     },
     {
      "text": "she",
-     "startMs": 139124,
-     "endMs": 139244
+     "startMs": 153428,
+     "endMs": 153548
     },
     {
      "text": "teaches",
-     "startMs": 139244,
-     "endMs": 139584
+     "startMs": 153548,
+     "endMs": 153888
     },
     {
      "text": "him",
-     "startMs": 139584,
-     "endMs": 139804
+     "startMs": 153888,
+     "endMs": 154108
     },
     {
      "text": "the",
-     "startMs": 139804,
-     "endMs": 139924
+     "startMs": 154108,
+     "endMs": 154228
     },
     {
      "text": "first",
-     "startMs": 139924,
-     "endMs": 140224
+     "startMs": 154228,
+     "endMs": 154528
     },
     {
      "text": "rule",
-     "startMs": 140224,
-     "endMs": 140544
+     "startMs": 154528,
+     "endMs": 154848
     },
     {
      "text": "of",
-     "startMs": 140544,
-     "endMs": 140704
+     "startMs": 154848,
+     "endMs": 155008
     },
     {
      "text": "survival",
-     "startMs": 140704,
-     "endMs": 141144
+     "startMs": 155008,
+     "endMs": 155448
     },
     {
      "text": "in",
-     "startMs": 141144,
-     "endMs": 141364
+     "startMs": 155448,
+     "endMs": 155668
     },
     {
      "text": "eighteen",
-     "startMs": 141364,
-     "endMs": 141807
+     "startMs": 155668,
+     "endMs": 156111
     },
     {
      "text": "fifty:",
-     "startMs": 141807,
-     "endMs": 142084
+     "startMs": 156111,
+     "endMs": 156388
     },
     {
      "text": "always",
-     "startMs": 142464,
-     "endMs": 142784
+     "startMs": 156768,
+     "endMs": 157088
     },
     {
      "text": "boil",
-     "startMs": 142784,
-     "endMs": 143204
+     "startMs": 157088,
+     "endMs": 157508
     },
     {
      "text": "your",
-     "startMs": 143204,
-     "endMs": 143444
+     "startMs": 157508,
+     "endMs": 157748
     },
     {
      "text": "water.",
-     "startMs": 143444,
-     "endMs": 143744
+     "startMs": 157748,
+     "endMs": 158048
     },
     {
      "text": "Cholera",
-     "startMs": 144364,
-     "endMs": 144864
+     "startMs": 158668,
+     "endMs": 159168
     },
     {
      "text": "has",
-     "startMs": 144864,
-     "endMs": 145064
+     "startMs": 159168,
+     "endMs": 159368
     },
     {
      "text": "swept",
-     "startMs": 145064,
-     "endMs": 145324
+     "startMs": 159368,
+     "endMs": 159628
     },
     {
      "text": "through",
-     "startMs": 145324,
-     "endMs": 145604
+     "startMs": 159628,
+     "endMs": 159908
     },
     {
      "text": "Manila",
-     "startMs": 145604,
-     "endMs": 146024
+     "startMs": 159908,
+     "endMs": 160328
     },
     {
      "text": "before,",
-     "startMs": 146024,
-     "endMs": 146384
+     "startMs": 160328,
+     "endMs": 160688
     },
     {
      "text": "and",
-     "startMs": 146884,
-     "endMs": 146944
+     "startMs": 161188,
+     "endMs": 161248
     },
     {
      "text": "it",
-     "startMs": 146944,
-     "endMs": 147044
+     "startMs": 161248,
+     "endMs": 161348
     },
     {
      "text": "will",
-     "startMs": 147044,
-     "endMs": 147164
+     "startMs": 161348,
+     "endMs": 161468
     },
     {
      "text": "again.",
-     "startMs": 147164,
-     "endMs": 147424
+     "startMs": 161468,
+     "endMs": 161728
     }
-   ],
-   "mouth": "089933899874100025699988687143463034366533222220000000000000797858415279316665539877451111387635222369888867416557318877851554347512563033465411464110332121000000000599995998743210677887777456534544422221100000000000000000012399988879973266677516960021013788887676898898314411116444444300000000488752256455114322111100"
+   ]
   },
   {
    "i": 28,
    "scene": "night",
    "speaker": "lola",
-   "voiceStartMs": 148034,
-   "voiceEndMs": 150158,
+   "voiceStartMs": 162338,
+   "voiceEndMs": 164942,
+   "mouth": "0851399999969956678666789876873445201797222775100000146554566400001123222222100",
    "words": [
     {
      "text": "Pakuluan",
-     "startMs": 148034,
-     "endMs": 148514
+     "startMs": 162338,
+     "endMs": 162858
     },
     {
      "text": "mo",
-     "startMs": 148514,
-     "endMs": 148694
+     "startMs": 162858,
+     "endMs": 162978
     },
     {
      "text": "muna",
-     "startMs": 148694,
-     "endMs": 149034
+     "startMs": 162978,
+     "endMs": 163318
     },
     {
      "text": "ang",
-     "startMs": 149034,
-     "endMs": 149194
+     "startMs": 163318,
+     "endMs": 163478
     },
     {
      "text": "tubig,",
-     "startMs": 149194,
-     "endMs": 149594
+     "startMs": 163478,
+     "endMs": 164018
     },
     {
-     "text": "anak.",
-     "startMs": 149594,
-     "endMs": 149834
+     "text": "anak,",
+     "startMs": 164218,
+     "endMs": 164358
+    },
+    {
+     "text": "ha?",
+     "startMs": 164358,
+     "endMs": 164758
     }
-   ],
-   "mouth": "0990004655699755567855556656752354520445225553102343344331000010"
+   ]
   },
   {
    "i": 29,
    "scene": "night",
    "speaker": "migo",
-   "voiceStartMs": 150578,
-   "voiceEndMs": 152701,
+   "voiceStartMs": 165362,
+   "voiceEndMs": 168093,
+   "mouth": "0269955421000000000000269954469302135444443467631014655444433334411213321001221100",
    "words": [
     {
-     "text": "Lola,",
-     "startMs": 150578,
-     "endMs": 150898
+     "text": "Lola...",
+     "startMs": 165362,
+     "endMs": 165662
     },
     {
      "text": "you're",
-     "startMs": 151078,
-     "endMs": 151198
+     "startMs": 165962,
+     "endMs": 166262
     },
     {
      "text": "literally",
-     "startMs": 151198,
-     "endMs": 151438
+     "startMs": 166262,
+     "endMs": 166642
     },
     {
      "text": "my",
-     "startMs": 151438,
-     "endMs": 151678
+     "startMs": 166642,
+     "endMs": 166922
     },
     {
      "text": "only",
-     "startMs": 151678,
-     "endMs": 151898
+     "startMs": 166922,
+     "endMs": 167262
     },
     {
      "text": "mutual",
-     "startMs": 151898,
-     "endMs": 152298
+     "startMs": 167262,
+     "endMs": 167642
     },
     {
      "text": "here.",
-     "startMs": 152298,
-     "endMs": 152578
+     "startMs": 167642,
+     "endMs": 167982
     }
-   ],
-   "mouth": "0389997799741002553257354454445543113444434344302312221102211100"
+   ]
   },
   {
    "i": 30,
    "scene": "friar",
    "speaker": "narrator",
-   "voiceStartMs": 153371,
-   "voiceEndMs": 158068,
+   "voiceStartMs": 168763,
+   "voiceEndMs": 173460,
+   "mouth": "057897213322988786544333000000179995179973377775677653334342343345232224656744446113301124222211100000000000000179987776543051114430243222110",
    "words": [
     {
      "text": "The",
-     "startMs": 153371,
-     "endMs": 153471
+     "startMs": 168763,
+     "endMs": 168863
     },
     {
      "text": "next",
-     "startMs": 153471,
-     "endMs": 153651
+     "startMs": 168863,
+     "endMs": 169043
     },
     {
      "text": "morning,",
-     "startMs": 153651,
-     "endMs": 154091
+     "startMs": 169043,
+     "endMs": 169483
     },
     {
      "text": "Migo",
-     "startMs": 154411,
-     "endMs": 154651
+     "startMs": 169803,
+     "endMs": 170043
     },
     {
      "text": "realizes",
-     "startMs": 154651,
-     "endMs": 155211
+     "startMs": 170043,
+     "endMs": 170603
     },
     {
      "text": "he",
-     "startMs": 155211,
-     "endMs": 155431
+     "startMs": 170603,
+     "endMs": 170823
     },
     {
      "text": "has",
-     "startMs": 155431,
-     "endMs": 155611
+     "startMs": 170823,
+     "endMs": 171003
     },
     {
      "text": "one",
-     "startMs": 155611,
-     "endMs": 155851
+     "startMs": 171003,
+     "endMs": 171243
     },
     {
      "text": "superpower.",
-     "startMs": 155851,
-     "endMs": 156291
+     "startMs": 171243,
+     "endMs": 171683
     },
     {
      "text": "He",
-     "startMs": 156991,
-     "endMs": 157151
+     "startMs": 172383,
+     "endMs": 172543
     },
     {
      "text": "knows",
-     "startMs": 157151,
-     "endMs": 157351
+     "startMs": 172543,
+     "endMs": 172743
     },
     {
      "text": "the",
-     "startMs": 157351,
-     "endMs": 157551
+     "startMs": 172743,
+     "endMs": 172943
     },
     {
      "text": "future.",
-     "startMs": 157551,
-     "endMs": 157791
+     "startMs": 172943,
+     "endMs": 173183
     }
-   ],
-   "mouth": "057897213322988786544333000000179995179973377775677653334342343345232224656744446113301124222211100000000000000179987776543051114430243222110"
+   ]
   },
   {
    "i": 31,
    "scene": "friar",
    "speaker": "migo",
-   "voiceStartMs": 158488,
-   "voiceEndMs": 162482,
+   "voiceStartMs": 173880,
+   "voiceEndMs": 178919,
+   "mouth": "01541116997410000001221000899956998754343310011000000000000013531006994457652013689864212100000000126741289997520032011356665101444231013544332110121100",
    "words": [
     {
      "text": "Okay,",
-     "startMs": 158488,
-     "endMs": 158748
+     "startMs": 173880,
+     "endMs": 174200
     },
     {
      "text": "spoiler",
-     "startMs": 158748,
-     "endMs": 159368
+     "startMs": 174560,
+     "endMs": 174920
     },
     {
      "text": "alert!",
-     "startMs": 159368,
-     "endMs": 159728
+     "startMs": 174920,
+     "endMs": 175320
     },
     {
      "text": "In",
-     "startMs": 159888,
-     "endMs": 159968
+     "startMs": 175860,
+     "endMs": 175980
     },
     {
      "text": "forty-eight",
-     "startMs": 159968,
-     "endMs": 160308
+     "startMs": 175980,
+     "endMs": 176380
     },
     {
      "text": "years,",
-     "startMs": 160308,
-     "endMs": 160788
+     "startMs": 176380,
+     "endMs": 176740
     },
     {
      "text": "you",
-     "startMs": 160788,
-     "endMs": 160948
+     "startMs": 177160,
+     "endMs": 177300
     },
     {
      "text": "guys",
-     "startMs": 160948,
-     "endMs": 161348
+     "startMs": 177300,
+     "endMs": 177540
     },
     {
      "text": "declare",
-     "startMs": 161348,
-     "endMs": 161688
+     "startMs": 177540,
+     "endMs": 177940
     },
     {
      "text": "independence!",
-     "startMs": 161688,
-     "endMs": 162308
+     "startMs": 177940,
+     "endMs": 178420
     }
-   ],
-   "mouth": "047501299999655301899987877764455543100000255211188976887521244544332212431156765542102201144443123323123554322111022210"
+   ]
   },
   {
    "i": 32,
    "scene": "friar",
    "speaker": "narrator",
-   "voiceStartMs": 162902,
-   "voiceEndMs": 168792,
+   "voiceStartMs": 179339,
+   "voiceEndMs": 185229,
+   "mouth": "035999999899977376126265432220000000006899728745446877740027974601226796654326345323431232654201651002211110000000000000047773079735434465665566784786116855524311116644422211110",
    "words": [
     {
      "text": "Rule",
-     "startMs": 162902,
-     "endMs": 163142
+     "startMs": 179339,
+     "endMs": 179579
     },
     {
      "text": "number",
-     "startMs": 163142,
-     "endMs": 163442
+     "startMs": 179579,
+     "endMs": 179879
     },
     {
      "text": "two:",
-     "startMs": 163442,
-     "endMs": 163802
+     "startMs": 179879,
+     "endMs": 180239
     },
     {
      "text": "never",
-     "startMs": 164202,
-     "endMs": 164362
+     "startMs": 180639,
+     "endMs": 180799
     },
     {
      "text": "shout",
-     "startMs": 164362,
-     "endMs": 164722
+     "startMs": 180799,
+     "endMs": 181159
     },
     {
      "text": "independence",
-     "startMs": 164722,
-     "endMs": 165322
+     "startMs": 181159,
+     "endMs": 181759
     },
     {
      "text": "in",
-     "startMs": 165322,
-     "endMs": 165622
+     "startMs": 181759,
+     "endMs": 182059
     },
     {
      "text": "eighteen",
-     "startMs": 165622,
-     "endMs": 166040
+     "startMs": 182059,
+     "endMs": 182477
     },
     {
      "text": "fifty.",
-     "startMs": 166040,
-     "endMs": 166302
+     "startMs": 182477,
+     "endMs": 182739
     },
     {
      "text": "Especially",
-     "startMs": 166882,
-     "endMs": 167242
+     "startMs": 183319,
+     "endMs": 183679
     },
     {
      "text": "not",
-     "startMs": 167242,
-     "endMs": 167722
+     "startMs": 183679,
+     "endMs": 184159
     },
     {
      "text": "in",
-     "startMs": 167722,
-     "endMs": 167902
+     "startMs": 184159,
+     "endMs": 184339
     },
     {
      "text": "front",
-     "startMs": 167902,
-     "endMs": 168042
+     "startMs": 184339,
+     "endMs": 184479
     },
     {
      "text": "of",
-     "startMs": 168042,
-     "endMs": 168162
+     "startMs": 184479,
+     "endMs": 184599
     },
     {
      "text": "a",
-     "startMs": 168162,
-     "endMs": 168262
+     "startMs": 184599,
+     "endMs": 184699
     },
     {
      "text": "friar.",
-     "startMs": 168262,
-     "endMs": 168602
+     "startMs": 184699,
+     "endMs": 185039
     }
-   ],
-   "mouth": "035999999899977376126265432220000000006899728745446877740027974601226796654326345323431232654201651002211110000000000000047773079735434465665566784786116855524311116644422211110"
+   ]
   },
   {
    "i": 33,
    "scene": "friar",
    "speaker": "friar",
-   "voiceStartMs": 169212,
-   "voiceEndMs": 170682,
+   "voiceStartMs": 185649,
+   "voiceEndMs": 187119,
+   "mouth": "039994367621128775464101665311388721135322100",
    "words": [
     {
      "text": "\u00bfQu\u00e9",
-     "startMs": 169212,
-     "endMs": 169352
+     "startMs": 185649,
+     "endMs": 185789
     },
     {
      "text": "dijiste,",
-     "startMs": 169352,
-     "endMs": 170072
+     "startMs": 185789,
+     "endMs": 186509
     },
     {
      "text": "hijo?",
-     "startMs": 170252,
-     "endMs": 170452
+     "startMs": 186689,
+     "endMs": 186889
     }
-   ],
-   "mouth": "039994367621128775464101665311388721135322100"
+   ]
   },
   {
    "i": 34,
    "scene": "friar",
    "speaker": "migo",
-   "voiceStartMs": 171102,
-   "voiceEndMs": 173076,
+   "voiceStartMs": 187539,
+   "voiceEndMs": 192028,
+   "mouth": "029973322988510000000000000399655499961002975334232143210000000000000000000000000008930018720000000000006920004830000000000000001595100",
    "words": [
     {
      "text": "I",
-     "startMs": 171102,
-     "endMs": 171222
+     "startMs": 187539,
+     "endMs": 187699
     },
     {
      "text": "said...",
-     "startMs": 171222,
-     "endMs": 171402
+     "startMs": 187699,
+     "endMs": 187959
     },
     {
      "text": "I",
-     "startMs": 171402,
-     "endMs": 171622
+     "startMs": 188299,
+     "endMs": 188559
     },
     {
      "text": "love",
-     "startMs": 171622,
-     "endMs": 171802
+     "startMs": 188559,
+     "endMs": 188799
     },
     {
      "text": "pandesal!",
-     "startMs": 171802,
-     "endMs": 172542
+     "startMs": 188799,
+     "endMs": 189459
     },
     {
-     "text": "Haha.",
-     "startMs": 172542,
-     "endMs": 172802
+     "text": "Hehe...",
+     "startMs": 189459,
+     "endMs": 189709
+    },
+    {
+     "text": "ha.",
+     "startMs": 189709,
+     "endMs": 189959
     }
-   ],
-   "mouth": "036334899611268868994101568776587533436555431113542244321110"
+   ]
   },
   {
    "i": 35,
    "scene": "river",
    "speaker": "migo",
-   "voiceStartMs": 173746,
-   "voiceEndMs": 175821,
+   "voiceStartMs": 192698,
+   "voiceEndMs": 195244,
+   "mouth": "04852000000000000489521245327999742100000000036655530114554213422489976421000",
    "words": [
     {
      "text": "Wait.",
-     "startMs": 173746,
-     "endMs": 173926
+     "startMs": 192698,
+     "endMs": 192858
     },
     {
      "text": "Where's",
-     "startMs": 174066,
-     "endMs": 174226
+     "startMs": 193238,
+     "endMs": 193458
     },
     {
      "text": "Rizal?",
-     "startMs": 174226,
-     "endMs": 174606
+     "startMs": 193458,
+     "endMs": 193818
     },
     {
      "text": "I",
-     "startMs": 174766,
-     "endMs": 174866
+     "startMs": 194118,
+     "endMs": 194298
     },
     {
-     "text": "need",
-     "startMs": 174866,
-     "endMs": 175006
+     "text": "NEED",
+     "startMs": 194298,
+     "endMs": 194438
     },
     {
      "text": "to",
-     "startMs": 175006,
-     "endMs": 175126
+     "startMs": 194438,
+     "endMs": 194538
     },
     {
      "text": "meet",
-     "startMs": 175126,
-     "endMs": 175226
+     "startMs": 194538,
+     "endMs": 194658
     },
     {
-     "text": "Rizal.",
-     "startMs": 175226,
-     "endMs": 175666
+     "text": "Rizal!",
+     "startMs": 194658,
+     "endMs": 195098
     }
-   ],
-   "mouth": "058996211699422576333487766420035666531235542123432324444211100"
+   ]
   },
   {
    "i": 36,
    "scene": "river",
    "speaker": "kid",
-   "voiceStartMs": 176241,
-   "voiceEndMs": 177029,
+   "voiceStartMs": 195664,
+   "voiceEndMs": 196587,
+   "mouth": "0011997794216457621677543200",
    "words": [
     {
      "text": "Sino",
-     "startMs": 176241,
-     "endMs": 176441
+     "startMs": 195664,
+     "endMs": 195944
     },
     {
      "text": "si",
-     "startMs": 176441,
-     "endMs": 176561
+     "startMs": 195944,
+     "endMs": 196124
     },
     {
      "text": "Rizal?",
-     "startMs": 176561,
-     "endMs": 176901
+     "startMs": 196124,
+     "endMs": 196464
     }
-   ],
-   "mouth": "125679633753751099954310"
+   ]
   },
   {
    "i": 37,
    "scene": "river",
    "speaker": "narrator",
-   "voiceStartMs": 177449,
-   "voiceEndMs": 180973,
+   "voiceStartMs": 197007,
+   "voiceEndMs": 200531,
+   "mouth": "0189865559977427655553775433332000000000099931595377793038677665531146655677178745545893176554432111244320",
    "words": [
     {
      "text": "Jos\u00e9",
-     "startMs": 177449,
-     "endMs": 177709
+     "startMs": 197007,
+     "endMs": 197267
     },
     {
      "text": "Rizal",
-     "startMs": 177709,
-     "endMs": 178369
+     "startMs": 197267,
+     "endMs": 197927
     },
     {
      "text": "won't",
-     "startMs": 178369,
-     "endMs": 178989
+     "startMs": 197927,
+     "endMs": 198547
     },
     {
      "text": "even",
-     "startMs": 178989,
-     "endMs": 179109
+     "startMs": 198547,
+     "endMs": 198667
     },
     {
      "text": "be",
-     "startMs": 179109,
-     "endMs": 179269
+     "startMs": 198667,
+     "endMs": 198827
     },
     {
      "text": "born",
-     "startMs": 179269,
-     "endMs": 179529
+     "startMs": 198827,
+     "endMs": 199087
     },
     {
      "text": "for",
-     "startMs": 179529,
-     "endMs": 179769
+     "startMs": 199087,
+     "endMs": 199327
     },
     {
      "text": "another",
-     "startMs": 179769,
-     "endMs": 179989
+     "startMs": 199327,
+     "endMs": 199547
     },
     {
      "text": "eleven",
-     "startMs": 179989,
-     "endMs": 180389
+     "startMs": 199547,
+     "endMs": 199947
     },
     {
      "text": "years.",
-     "startMs": 180389,
-     "endMs": 180729
+     "startMs": 199947,
+     "endMs": 200287
     }
-   ],
-   "mouth": "0189865559977427655553775433332000000000099931595377793038677665531146655677178745545893176554432111244320"
+   ]
   },
   {
    "i": 38,
    "scene": "ending",
    "speaker": "narrator",
-   "voiceStartMs": 181643,
-   "voiceEndMs": 191185,
+   "voiceStartMs": 201201,
+   "voiceEndMs": 210743,
+   "mouth": "17986401136655420000000005999827998337845899998455556555545566642000166446889775665432101665545554455666764540252577502127765577732234433412421343211120000000000000000359999975410674310597893211186655544565403456320010000000000145998971256354353221031000000000994788981687420113432111100",
    "words": [
     {
      "text": "Day",
-     "startMs": 181643,
-     "endMs": 181783
+     "startMs": 201201,
+     "endMs": 201341
     },
     {
      "text": "three.",
-     "startMs": 181783,
-     "endMs": 182083
+     "startMs": 201341,
+     "endMs": 201641
     },
     {
      "text": "Migo",
-     "startMs": 182483,
-     "endMs": 182743
+     "startMs": 202041,
+     "endMs": 202301
     },
     {
      "text": "has",
-     "startMs": 182743,
-     "endMs": 182983
+     "startMs": 202301,
+     "endMs": 202541
     },
     {
      "text": "a",
-     "startMs": 182983,
-     "endMs": 183083
+     "startMs": 202541,
+     "endMs": 202641
     },
     {
      "text": "new",
-     "startMs": 183083,
-     "endMs": 183223
+     "startMs": 202641,
+     "endMs": 202781
     },
     {
      "text": "surname,",
-     "startMs": 183223,
-     "endMs": 183583
+     "startMs": 202781,
+     "endMs": 203141
     },
     {
      "text": "a",
-     "startMs": 183963,
-     "endMs": 184043
+     "startMs": 203521,
+     "endMs": 203601
     },
     {
      "text": "lola,",
-     "startMs": 184043,
-     "endMs": 184363
+     "startMs": 203601,
+     "endMs": 203921
     },
     {
      "text": "and",
-     "startMs": 184583,
-     "endMs": 184683
+     "startMs": 204141,
+     "endMs": 204241
     },
     {
      "text": "a",
-     "startMs": 184683,
-     "endMs": 184803
+     "startMs": 204241,
+     "endMs": 204361
     },
     {
      "text": "serious",
-     "startMs": 184803,
-     "endMs": 185103
+     "startMs": 204361,
+     "endMs": 204661
     },
     {
      "text": "tsokolate",
-     "startMs": 185103,
-     "endMs": 185943
+     "startMs": 204661,
+     "endMs": 205501
     },
     {
      "text": "addiction.",
-     "startMs": 185943,
-     "endMs": 186503
+     "startMs": 205501,
+     "endMs": 206061
     },
     {
      "text": "Then,",
-     "startMs": 187163,
-     "endMs": 187403
+     "startMs": 206721,
+     "endMs": 206961
     },
     {
      "text": "his",
-     "startMs": 187403,
-     "endMs": 187683
+     "startMs": 206961,
+     "endMs": 207241
     },
     {
      "text": "dead",
-     "startMs": 187683,
-     "endMs": 187963
+     "startMs": 207241,
+     "endMs": 207521
     },
     {
      "text": "phone",
-     "startMs": 187963,
-     "endMs": 188263
+     "startMs": 207521,
+     "endMs": 207821
     },
     {
      "text": "lights",
-     "startMs": 188263,
-     "endMs": 188543
+     "startMs": 207821,
+     "endMs": 208101
     },
     {
      "text": "up.",
-     "startMs": 188543,
-     "endMs": 188843
+     "startMs": 208101,
+     "endMs": 208401
     },
     {
      "text": "One",
-     "startMs": 189203,
-     "endMs": 189473
+     "startMs": 208761,
+     "endMs": 209031
     },
     {
      "text": "percent.",
-     "startMs": 189473,
-     "endMs": 190103
+     "startMs": 209031,
+     "endMs": 209661
     },
     {
      "text": "A",
-     "startMs": 190103,
-     "endMs": 190193
+     "startMs": 209661,
+     "endMs": 209751
     },
     {
      "text": "way",
-     "startMs": 190193,
-     "endMs": 190463
+     "startMs": 209751,
+     "endMs": 210021
     },
     {
      "text": "back",
-     "startMs": 190463,
-     "endMs": 190783
+     "startMs": 210021,
+     "endMs": 210341
     },
     {
      "text": "home.",
-     "startMs": 190783,
-     "endMs": 191023
+     "startMs": 210341,
+     "endMs": 210581
     }
-   ],
-   "mouth": "17986401136655420000000005999827998337845899998455556555545566642000166446889775665432101665545554455666764540252577502127765577732234433412421343211120000000000000000359999975410674310597893211186655544565403456320010000000000145998971256354353221031000000000994788981687420113432111100"
+   ]
   },
   {
    "i": 39,
    "scene": "ending",
    "speaker": "migo",
-   "voiceStartMs": 191605,
-   "voiceEndMs": 195283,
+   "voiceStartMs": 211163,
+   "voiceEndMs": 215411,
+   "mouth": "03611352000000000000037994279936994001201166551114544233286301211000000000018987642100000000001202976201534421555325432200221000",
    "words": [
     {
      "text": "Okay...",
-     "startMs": 191605,
-     "endMs": 191905
+     "startMs": 211163,
+     "endMs": 211403
     },
     {
      "text": "do",
-     "startMs": 192165,
-     "endMs": 192245
+     "startMs": 211683,
+     "endMs": 211903
     },
     {
      "text": "I",
-     "startMs": 192245,
-     "endMs": 192365
+     "startMs": 211903,
+     "endMs": 212003
     },
     {
      "text": "go",
-     "startMs": 192365,
-     "endMs": 192465
+     "startMs": 212003,
+     "endMs": 212123
     },
     {
      "text": "back",
-     "startMs": 192465,
-     "endMs": 192645
+     "startMs": 212123,
+     "endMs": 212323
     },
     {
      "text": "to",
-     "startMs": 192645,
-     "endMs": 192825
+     "startMs": 212323,
+     "endMs": 212463
     },
     {
      "text": "twenty",
-     "startMs": 192825,
-     "endMs": 193129
+     "startMs": 212463,
+     "endMs": 212727
     },
     {
      "text": "twenty-six?",
-     "startMs": 193129,
-     "endMs": 193585
+     "startMs": 212727,
+     "endMs": 213123
     },
     {
-     "text": "Or",
-     "startMs": 193585,
-     "endMs": 194025
+     "text": "Or...",
+     "startMs": 213123,
+     "endMs": 213843
     },
     {
      "text": "stay",
-     "startMs": 194025,
-     "endMs": 194265
+     "startMs": 213843,
+     "endMs": 214483
     },
     {
      "text": "for",
-     "startMs": 194265,
-     "endMs": 194445
+     "startMs": 214483,
+     "endMs": 214663
     },
     {
      "text": "the",
-     "startMs": 194445,
-     "endMs": 194545
+     "startMs": 214663,
+     "endMs": 214763
     },
     {
      "text": "bibingka?",
-     "startMs": 194545,
-     "endMs": 195085
+     "startMs": 214763,
+     "endMs": 215323
     }
-   ],
-   "mouth": "047720139998765324799853983798740012201255555311154543233343200122200024323214655211433311433134332112454421100"
+   ]
   },
   {
    "i": 40,
    "scene": "outro",
    "speaker": "narrator",
-   "voiceStartMs": 195953,
-   "voiceEndMs": 199502,
+   "voiceStartMs": 216081,
+   "voiceEndMs": 219630,
+   "mouth": "18725972199962596554300100454344166656642354122465410374010222121000000000012389899987663112554322111244210",
    "words": [
     {
      "text": "Would",
-     "startMs": 195953,
-     "endMs": 196053
+     "startMs": 216081,
+     "endMs": 216181
     },
     {
      "text": "you",
-     "startMs": 196053,
-     "endMs": 196193
+     "startMs": 216181,
+     "endMs": 216321
     },
     {
      "text": "go",
-     "startMs": 196193,
-     "endMs": 196353
+     "startMs": 216321,
+     "endMs": 216481
     },
     {
      "text": "back,",
-     "startMs": 196353,
-     "endMs": 196613
+     "startMs": 216481,
+     "endMs": 216741
     },
     {
      "text": "or",
-     "startMs": 196613,
-     "endMs": 196893
+     "startMs": 216741,
+     "endMs": 217021
     },
     {
      "text": "stay",
-     "startMs": 196893,
-     "endMs": 197133
+     "startMs": 217021,
+     "endMs": 217261
     },
     {
      "text": "in",
-     "startMs": 197133,
-     "endMs": 197293
+     "startMs": 217261,
+     "endMs": 217421
     },
     {
      "text": "eighteen",
-     "startMs": 197293,
-     "endMs": 197687
+     "startMs": 217421,
+     "endMs": 217815
     },
     {
      "text": "fifty?",
-     "startMs": 197687,
-     "endMs": 197933
+     "startMs": 217815,
+     "endMs": 218061
     },
     {
      "text": "Tell",
-     "startMs": 198333,
-     "endMs": 198593
+     "startMs": 218461,
+     "endMs": 218721
     },
     {
      "text": "me",
-     "startMs": 198593,
-     "endMs": 198753
+     "startMs": 218721,
+     "endMs": 218881
     },
     {
      "text": "in",
-     "startMs": 198753,
-     "endMs": 198853
+     "startMs": 218881,
+     "endMs": 218981
     },
     {
      "text": "the",
-     "startMs": 198853,
-     "endMs": 198913
+     "startMs": 218981,
+     "endMs": 219041
     },
     {
      "text": "comments.",
-     "startMs": 198913,
-     "endMs": 199193
+     "startMs": 219041,
+     "endMs": 219321
     }
-   ],
-   "mouth": "18725972199962596554300100454344166656642354122465410374010222121000000000012389899987663112554322111244210"
+   ]
   }
  ],
- "pingMs": 187475
+ "pingMs": 207033
 }

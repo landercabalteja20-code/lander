@@ -2,7 +2,7 @@ import { RoundedBox } from "@react-three/drei";
 import { random } from "remotion";
 import { BackSide, DoubleSide } from "three";
 import { BARISTA, cuadrillero, crowd1850, KID, LOLA, MIGO, modern, OFFICER } from "../cast";
-import { lineLocal, mix, mouthAt, path, prog, wordLocal, type Scene, type V3 } from "../lib";
+import { lineLocal, mix, mouthAt, path, pingPong, prog, wordLocal, type Scene, type V3 } from "../lib";
 import { Cam, Clouds, Sky, Stage, drawGrass, drawStone, drawWood, speckle, useTex } from "../three/kit";
 import { Person } from "../three/Person";
 import { Banana, Banca, Fire, NipaHut, Palayok, Palm } from "../three/props1850";
@@ -362,7 +362,7 @@ export const CatalogScene: React.FC = () => {
       </mesh>
       <Person spec={{ ...OFFICER, prop: null }} t={t} pose={shot === 1 ? "point" : "holdBook"} expr={shot === 2 ? "smug" : "angry"} mouth={mouthAt("officer", abs)} position={[0, 0, -0.85]} rotation={0} look={[0, 0.35]} />
       <Person spec={cuadrillero(1)} t={t} pose="idle" expr="neutral" position={[1.5, 0, 0.4]} rotation={-1.3} />
-      <Person spec={{ ...MIGO, prop: null }} t={t} pose={shot === 2 ? "facepalm" : "shrug"} expr={shot === 2 ? "sad" : "worried"} mouth={mouthAt("migo", abs)} position={[0.1, 0, 1.0]} rotation={Math.PI} />
+      <Person spec={{ ...MIGO, prop: null }} t={t} pose={shot === 2 ? "shrug" : "shrug"} expr={shot === 2 ? "shock" : "worried"} mouth={mouthAt("migo", abs)} position={[0.1, 0, 1.0]} rotation={Math.PI} />
     </Stage>
   );
 };
@@ -377,11 +377,11 @@ export const PoloScene: React.FC = () => {
     g.fillRect(0, 0, w, h);
     speckle(g, w, h, r, 3000, ["#a77a45", "#dfba84", "#8f6538"], 5, 0.5);
   }, 512, [12, 12]);
+  // workers shuttle stones from the pile (x≈6.5) to the wall (x≈-6) and walk back empty-handed
   const workers = Array.from({ length: 7 }).map((_, i) => {
-    const lane = (i % 2) * 2 - 1;
-    const u = ((t * 0.12 + i / 7) % 1);
-    const x = mix(-9, 6, u);
-    return { i, p: [x, 0, -3 + lane * 0.9 - (i % 3) * 0.6] as V3, rot: Math.PI / 2 };
+    const z = -3.4 + (i % 3) * 0.9 - (i % 2) * 0.35;
+    const w = pingPong([6.3, 0, z], [-6.0, 0, z - 0.4], t + i * 2.3, 0.85, 0.9);
+    return { i, p: w.p, rot: w.rot, carrying: !w.back, moving: w.moving };
   });
   const migoX = mix(-3.0, 0.5, prog(local, 0, s.dur, (x) => x));
   const cams = [
@@ -434,7 +434,7 @@ export const PoloScene: React.FC = () => {
       <Palm position={[-12, 0, -12]} height={10} t={t} seed="pp1" rot={0.4} />
       <Palm position={[11, 0, -14]} height={11} t={t} seed="pp2" rot={2.4} />
       {workers.map((w) => (
-        <Person key={w.i} spec={{ ...crowd1850(100 + w.i), outfit: "camisa", hat: w.i % 2 ? "salakot" : null, prop: "stone", shoes: null }} t={t + w.i} pose="carryShoulder" expr={w.i % 3 ? "worried" : "sad"} position={w.p} rotation={w.rot} detail={false} />
+        <Person key={w.i} spec={{ ...crowd1850(100 + w.i), outfit: "camisa", hat: w.i % 2 ? "salakot" : null, prop: w.carrying ? "stone" : null, shoes: null }} t={t + w.i} pose={!w.moving ? "idle" : w.carrying ? "carryShoulder" : "walk"} expr={w.i % 3 ? "worried" : "sad"} position={w.p} rotation={w.rot} />
       ))}
       <Person spec={{ ...MIGO, prop: "stone" }} t={t} pose={shot === 2 ? "shrug" : "carryShoulder"} expr={shot === 1 ? "worried" : "sad"} mouth={mouthAt("migo", abs)} position={[migoX, 0, -0.6]} rotation={Math.PI / 2 - 0.25} />
       <Person spec={{ ...OFFICER, seed: "overseer", prop: "cane", beard: "mustache" }} t={t} pose="hips" expr="angry" position={[3.0, 0, 1.2]} rotation={-2.4} />

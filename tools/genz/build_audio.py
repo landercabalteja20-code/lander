@@ -84,6 +84,23 @@ def tts(script):
     clips = []
     for i, ln in enumerate(script["lines"]):
         v = script["voices"][ln["speaker"]]
+        if v.get("engine", "kokoro") != "kokoro":
+            # expressive voices come pre-rendered by tools/genz/tts_expressive.py (.venv-tts)
+            ext = WORK / f"ext_{i:02d}.wav"
+            if not ext.exists():
+                raise SystemExit(f"missing {ext}: run .venv-tts/bin/python tools/genz/tts_expressive.py first")
+            s, sr = sf.read(ext, dtype="float32")
+            if s.ndim > 1:
+                s = s.mean(axis=1)
+            s = signal.resample_poly(s, SR, int(sr * v.get("pitch", 1.0))).astype(np.float32)
+            idx = np.where(np.abs(s) > 0.01)[0]
+            pad = int(0.04 * SR)
+            s = s[max(0, idx[0] - pad) : idx[-1] + pad]
+            s = s / max(1e-6, np.abs(s).max()) * 0.9
+            sf.write(WORK / f"line_{i:02d}.wav", s, SR)
+            clips.append(s)
+            print(f"  {i:02d} {ln['speaker']:8s} {len(s) / SR:5.2f}s  [{v['engine']}] {ln['text'][:56]}")
+            continue
         say = ln["text"]
         if v["lang"].startswith("en"):  # respell Filipino words for the English voices
             for word, spoken in script.get("pron", {}).items():
