@@ -87,3 +87,18 @@ npm run ants:render    # final video → done/what-if-humans-shrank-to-ants.mp4 
   `src/ants/scenes/{Bedroom,Floor,Outside}.tsx`, shared models in `src/ants/three/`.
 - Overlays (captions, HUD clock + stat + scale ruler, hook title, outro): `src/ants/Overlays.tsx`.
 - Kokoro voice model goes in `.models/` (git-ignored), see `tools/ants/build_audio.py`.
+
+## Episode: "What if a Gen Z time-traveled to the Philippines in 1850?"
+
+9:16, 1080×1920, 30fps, ~3 min 23 s. Composition id: `WhatIfGenZ1850` (dev: `GenZLineup` shows the cast).
+
+```bash
+npm run genz:audio    # multi-voice Kokoro TTS (EN narrator + Gen Z, ES/TL locals) → whisper word timings → rondalla score + SFX → public/genz/mix.mp3
+npm run genz:still -- 600,900 0.4 '{"withAudio":false}'   # preview frames
+npm run genz:render   # → done/what-if-genz-1850.mp4 (~75 min on 4 CPU cores)
+```
+
+- Script, characters' voices, pronunciation respellings, per-scene HUD values: `src/genz/script.json`
+- Character generator (faces, lip-sync, blinking, hair, period outfits, poses): `src/genz/three/Person.tsx`, cast + 1850 crowd generator: `src/genz/cast.ts`
+- 1850 Manila kit (bahay na bato, Binondo church, stalls, calesa, carabao, nipa hut, bancas…): `src/genz/three/props1850.tsx`
+- Scenes: `src/genz/scenes/{Plaza,Other}.tsx`; overlays (captions, chat bubbles with translations, battery + survival HUD, fact chips, outro poll): `src/genz/Overlays.tsx`

@@ -1,0 +1,371 @@
+{
+  "title": "What if a Gen Z time-traveled to the Philippines in 1850?",
+  "gapMs": 420,
+  "leadInMs": 300,
+  "outroHoldMs": 3200,
+  "voices": {
+    "narrator": {
+      "voice": "af_heart",
+      "lang": "en-us",
+      "speed": 1.0
+    },
+    "migo": {
+      "voice": "am_puck",
+      "lang": "en-us",
+      "speed": 1.06
+    },
+    "lola": {
+      "voice": "ef_dora",
+      "lang": "es",
+      "speed": 0.92
+    },
+    "vendor": {
+      "voice": "em_santa",
+      "lang": "es",
+      "speed": 1.1,
+      "pitch": 1.08
+    },
+    "officer": {
+      "voice": "em_alex",
+      "lang": "es",
+      "speed": 1.0
+    },
+    "friar": {
+      "voice": "em_santa",
+      "lang": "es",
+      "speed": 0.9
+    },
+    "kid": {
+      "voice": "ef_dora",
+      "lang": "es",
+      "speed": 1.05,
+      "pitch": 1.28
+    }
+  },
+  "names": {
+    "migo": "MIGO, 19",
+    "lola": "LOLA ISING",
+    "vendor": "MANG TOMAS",
+    "officer": "TENIENTE",
+    "friar": "FRAY ANSELMO",
+    "kid": "BUBOY, 8"
+  },
+  "lines": [
+    {
+      "scene": "shop",
+      "speaker": "narrator",
+      "text": "What if a Gen Z kid from twenty twenty-six woke up in the Philippines... in eighteen fifty?"
+    },
+    {
+      "scene": "shop",
+      "speaker": "narrator",
+      "text": "Meet Migo. Nineteen years old. Phone at twelve percent. Ordering his third milk tea of the day."
+    },
+    {
+      "scene": "shop",
+      "speaker": "migo",
+      "text": "Ate, large, fifty percent sugar, extra pearls, please!"
+    },
+    {
+      "scene": "warp",
+      "speaker": "narrator",
+      "text": "He blinks. And the whole world rewinds."
+    },
+    {
+      "scene": "plaza",
+      "speaker": "narrator",
+      "text": "Binondo, Manila. The year is eighteen fifty."
+    },
+    {
+      "scene": "plaza",
+      "speaker": "migo",
+      "text": "Okay. Is this, like, a cosplay event? Because the vibes are immaculate."
+    },
+    {
+      "scene": "plaza",
+      "speaker": "narrator",
+      "text": "It's not cosplay. The Philippines has been a Spanish colony for almost three hundred years. And right now, the entire plaza is staring at his outfit."
+    },
+    {
+      "scene": "jeans",
+      "speaker": "lola",
+      "text": "Ay, kawawa naman ang batang ito. Punit-punit ang pantalon!",
+      "translation": "Oh, you poor child. Your pants are all torn!"
+    },
+    {
+      "scene": "jeans",
+      "speaker": "narrator",
+      "text": "To them, ripped jeans aren't fashion. They mean you're too poor to fix your pants."
+    },
+    {
+      "scene": "jeans",
+      "speaker": "migo",
+      "text": "Lola, no! These cost three thousand pesos!"
+    },
+    {
+      "scene": "phone",
+      "speaker": "narrator",
+      "text": "Problem number one: his phone. No signal. No WiFi. And no electricity. Manila won't switch on its first electric street lights until eighteen ninety-five."
+    },
+    {
+      "scene": "phone",
+      "speaker": "migo",
+      "text": "Forty-five years without a charger? I'm literally gonna die."
+    },
+    {
+      "scene": "market",
+      "speaker": "narrator",
+      "text": "Problem number two: he speaks Taglish. The Tagalog part mostly works. The English part? Almost nobody here speaks English. The Americans won't arrive for another forty-eight years."
+    },
+    {
+      "scene": "market",
+      "speaker": "migo",
+      "text": "Lodi! Sana all! No cap, this market is so aesthetic."
+    },
+    {
+      "scene": "market",
+      "speaker": "vendor",
+      "text": "Ha? Ano raw?",
+      "translation": "Huh? What did he say?"
+    },
+    {
+      "scene": "food",
+      "speaker": "narrator",
+      "text": "But there's good news. No milk tea, but there's tsokolate. Thick, hot chocolate, whipped with a wooden batirol. And fresh bibingka, baked on banana leaves."
+    },
+    {
+      "scene": "food",
+      "speaker": "migo",
+      "text": "Wait. This actually slaps."
+    },
+    {
+      "scene": "food",
+      "speaker": "narrator",
+      "text": "He tries to pay with GCash. The tindera just laughs. Here, money means silver coins."
+    },
+    {
+      "scene": "police",
+      "speaker": "narrator",
+      "text": "Then the cuadrilleros arrive. The town police. And they have questions."
+    },
+    {
+      "scene": "police",
+      "speaker": "officer",
+      "text": "¡Alto! ¿Cómo te llamas? ¿Y tu apellido?",
+      "translation": "Stop! What's your name? And your surname?"
+    },
+    {
+      "scene": "police",
+      "speaker": "migo",
+      "text": "Uh... Migo? Just Migo."
+    },
+    {
+      "scene": "catalog",
+      "speaker": "narrator",
+      "text": "Wrong answer. Just months ago, Governor-General Clavería ordered families across the islands to take official surnames, from an alphabetical catalog."
+    },
+    {
+      "scene": "catalog",
+      "speaker": "officer",
+      "text": "Desde hoy, te llamas... Migo Bautista.",
+      "translation": "From today, your name is... Migo Bautista."
+    },
+    {
+      "scene": "catalog",
+      "speaker": "migo",
+      "text": "I got renamed... by a book?"
+    },
+    {
+      "scene": "polo",
+      "speaker": "narrator",
+      "text": "And Migo is a healthy, nineteen year old man. Under Spanish rule, that means forty days of forced labor every year. It's called polo y servicio."
+    },
+    {
+      "scene": "polo",
+      "speaker": "migo",
+      "text": "Wait. So it's basically an unpaid internship?"
+    },
+    {
+      "scene": "polo",
+      "speaker": "narrator",
+      "text": "The only way out is to pay a fee called the falla. Migo has zero money."
+    },
+    {
+      "scene": "night",
+      "speaker": "narrator",
+      "text": "That night, Lola takes him in. And she teaches him the first rule of survival in eighteen fifty: always boil your water. Cholera has swept through Manila before, and it will again."
+    },
+    {
+      "scene": "night",
+      "speaker": "lola",
+      "text": "Pakuluan mo muna ang tubig, anak.",
+      "translation": "Boil the water first, child."
+    },
+    {
+      "scene": "night",
+      "speaker": "migo",
+      "text": "Lola, you're literally my only mutual here."
+    },
+    {
+      "scene": "friar",
+      "speaker": "narrator",
+      "text": "The next morning, Migo realizes he has one superpower. He knows the future."
+    },
+    {
+      "scene": "friar",
+      "speaker": "migo",
+      "text": "Okay, spoiler alert! In forty-eight years, you guys declare independence!"
+    },
+    {
+      "scene": "friar",
+      "speaker": "narrator",
+      "text": "Rule number two: never shout independence in eighteen fifty. Especially not in front of a friar."
+    },
+    {
+      "scene": "friar",
+      "speaker": "friar",
+      "text": "¿Qué dijiste, hijo?",
+      "translation": "What did you say, son?"
+    },
+    {
+      "scene": "friar",
+      "speaker": "migo",
+      "text": "I said... I love pandesal! Haha."
+    },
+    {
+      "scene": "river",
+      "speaker": "migo",
+      "text": "Wait. Where's Rizal? I need to meet Rizal."
+    },
+    {
+      "scene": "river",
+      "speaker": "kid",
+      "text": "Sino si Rizal?",
+      "translation": "Who's Rizal?"
+    },
+    {
+      "scene": "river",
+      "speaker": "narrator",
+      "text": "José Rizal won't even be born for another eleven years."
+    },
+    {
+      "scene": "ending",
+      "speaker": "narrator",
+      "text": "Day three. Migo has a new surname, a lola, and a serious tsokolate addiction. Then, his dead phone lights up. One percent. A way back home."
+    },
+    {
+      "scene": "ending",
+      "speaker": "migo",
+      "text": "Okay... do I go back to twenty twenty-six? Or stay for the bibingka?"
+    },
+    {
+      "scene": "outro",
+      "speaker": "narrator",
+      "text": "Would you go back, or stay in eighteen fifty? Tell me in the comments."
+    }
+  ],
+  "scenes": {
+    "shop": {
+      "year": "2026",
+      "place": "MANILA",
+      "battery": 12,
+      "odds": 99
+    },
+    "warp": {
+      "year": "WARP",
+      "place": "???",
+      "battery": 12,
+      "odds": 99
+    },
+    "plaza": {
+      "year": "1850",
+      "place": "BINONDO, MANILA",
+      "battery": 11,
+      "odds": 81
+    },
+    "jeans": {
+      "year": "1850",
+      "place": "BINONDO, MANILA",
+      "battery": 9,
+      "odds": 77
+    },
+    "phone": {
+      "year": "1850",
+      "place": "BINONDO, MANILA",
+      "battery": 0,
+      "odds": 58
+    },
+    "market": {
+      "year": "1850",
+      "place": "BINONDO, MANILA",
+      "battery": 0,
+      "odds": 54
+    },
+    "food": {
+      "year": "1850",
+      "place": "BINONDO, MANILA",
+      "battery": 0,
+      "odds": 71
+    },
+    "police": {
+      "year": "1850",
+      "place": "BINONDO, MANILA",
+      "battery": 0,
+      "odds": 38
+    },
+    "catalog": {
+      "year": "1850",
+      "place": "TRIBUNAL, BINONDO",
+      "battery": 0,
+      "odds": 42
+    },
+    "polo": {
+      "year": "1850",
+      "place": "WORK SITE",
+      "battery": 0,
+      "odds": 21
+    },
+    "night": {
+      "year": "1850",
+      "place": "LOLA'S HOUSE",
+      "battery": 0,
+      "odds": 55
+    },
+    "friar": {
+      "year": "1850",
+      "place": "BINONDO CHURCH",
+      "battery": 0,
+      "odds": 12
+    },
+    "river": {
+      "year": "1850",
+      "place": "PASIG RIVER",
+      "battery": 0,
+      "odds": 47
+    },
+    "ending": {
+      "year": "1850",
+      "place": "DAY 3",
+      "battery": 1,
+      "odds": 64
+    },
+    "outro": {
+      "year": "1850",
+      "place": "",
+      "battery": 1,
+      "odds": 64
+    }
+  },
+  "pron": {
+    "Ate": "Ahteh",
+    "Binondo": "Beenondo",
+    "tsokolate": "cho-ko-lah-teh",
+    "batirol": "bah-tee-roll",
+    "bibingka": "bee-bing-kah",
+    "falla": "fahl-yah",
+    "pandesal": "pahn-deh-sahl",
+    "Rizal": "Ree-sahl",
+    "tindera": "teen-deh-rah",
+    "cuadrilleros": "cuadrilyeros"
+  }
+}

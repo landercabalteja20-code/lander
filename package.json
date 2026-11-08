@@ -12,7 +12,10 @@
     "render:cpu": "remotion render Main out/video.mp4 --gl=swangle",
     "ants:audio": ".venv/bin/python tools/ants/build_audio.py",
     "ants:preview": "node tools/ants/preview.mjs out/preview",
-    "ants:render": "remotion render WhatIfAnts done/what-if-humans-shrank-to-ants.mp4 --gl=swangle --concurrency=4"
+    "ants:render": "remotion render WhatIfAnts done/what-if-humans-shrank-to-ants.mp4 --gl=swangle --concurrency=4",
+    "genz:audio": ".venv/bin/python tools/genz/build_audio.py",
+    "genz:still": "node tools/genz/still.mjs WhatIfGenZ1850 out/genz-preview",
+    "genz:render": "remotion render WhatIfGenZ1850 done/what-if-genz-1850.mp4 --gl=swangle --concurrency=4"
   },
   "dependencies": {
     "@fontsource/bricolage-grotesque": "^5.3.0",
