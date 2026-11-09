@@ -1,0 +1,12 @@
+{
+  "name": "hiraya-tools",
+  "private": true,
+  "description": "Offline MP4 export for the HIRAYA film",
+  "scripts": {
+    "mp4": "node render-mp4.js --out ../hiraya.mp4"
+  },
+  "dependencies": {
+    "playwright": "1.47.2",
+    "three": "0.160.0"
+  }
+}

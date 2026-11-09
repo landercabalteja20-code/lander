@@ -25,6 +25,17 @@ Press **Play the film** with sound on.
 
 URL options: `?q=high|medium|low` sets the crowd size (100k / 50k / 20k fans) and render resolution, and `?t=95` opens paused at 1:35.
 
+## Export to MP4
+
+`tools/render-mp4.js` renders the film to a 1280×720, 24 fps H.264 MP4 with the soundtrack as 192 kbps AAC. It needs Node 18+ and ffmpeg.
+
+```bash
+cd tools && npm install && npx playwright install chromium && cd ..
+node tools/render-mp4.js --workers 3 --quality high --out hiraya.mp4
+```
+
+It renders the soundtrack offline, then draws every frame in a headless browser using film time, so lip-sync and on-screen text line up exactly. Frames are split into segments at camera cuts and rendered in parallel. On a machine without a GPU this takes a few hours; use `--from 52 --to 96` to render a single section.
+
 ## The film
 
 | Time | Bars | Scene | What happens |
