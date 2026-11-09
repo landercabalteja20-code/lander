@@ -430,7 +430,7 @@ shots:
     camera: {frame: mcu, on: blair, push: 0.1}
     lines:
       - {who: blair, text: "CAN ONE HAIRSTYLE JUST LOVE ME BACK?!", say: "Can one hairstyle just love me back?!",
-         at: 0.05, emotion: 1.6, pace: 0.25}
+         at: 0.05, emotion: 1.5, pace: 0.25, seed: 2}
     beats:
       - {at: 0.5, fx: punch}
       - {at: 0.5, fx: shake, fxdur: 0.5}
