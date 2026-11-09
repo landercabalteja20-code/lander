@@ -12,6 +12,7 @@ from dataclasses import dataclass, field, fields, replace
 from typing import Optional
 
 from . import color as C
+from . import hairstyles as HS
 from .svgkit import (Defs, Pt, catmull, circle, clamp, ellipse, f, group, hash01, lerp, lerp_pt, lerp_pts,
                      noise1, path, poly, rad_grad, lin_grad, rect, resample, sample_catmull, tapered)
 
@@ -44,6 +45,15 @@ class Look:
     glasses_on_head: Optional[str] = None
     freckles: bool = False
     lashes: float = 1.0                # lash drama 0..1
+    forehead: float = 0.0              # 0 normal .. 1 big forehead / high hairline
+    eye_shape: str = "doll"            # doll | feline | almond
+    glow: float = 0.0                  # luminous "face card" highlights
+    jacket: Optional[str] = None       # faux-fur jacket color (worn over the top)
+    top_metal: bool = False
+    bottom_metal: bool = False
+    shoes: str = "platform"            # platform | clear (translucent boots)
+    bangs: bool = False                # blunt bangs on long hair
+    wavy: float = 0.0                  # waves + volume on long hair
 
 
 @dataclass
@@ -127,6 +137,10 @@ class HairState:
     wipe: float = 0.0                 # 0..1 progress of the root-to-tip transition
     sway: float = 1.0
     glow: float = 0.0
+    style: Optional[str] = None       # overrides Look.hair_style (thin, middle, ponytail, bangs, bun, sidepart ...)
+    wind: float = 0.0                 # 0..1 hair blown backward
+    fluff: float = 0.0                # styling volume (-0.3 flatter .. 1 fluffy)
+    acc: tuple = ()                   # hair accessories: pearls, butterflies, headband
 
 
 @dataclass
@@ -136,6 +150,9 @@ class Pose:
     arms_t: float = 0.0
     lean: float = 0.0
     phone_glow: float = 0.0
+    prop: Optional[str] = None        # held in the right hand: mousse curler spray brush photo clip phone
+    arm_r: Optional[tuple] = None     # custom target (x, y, bend, in_front) used when arms == "custom"
+    arm_l: Optional[tuple] = None
 
 
 # =========================================================================== palette helpers
@@ -157,11 +174,13 @@ def _turn_x(x: float, depth: float, turn: float) -> float:
     return x * squash + turn * depth * 30
 
 
-def face_outline(kind: str, turn: float) -> list[Pt]:
+def face_outline(kind: str, turn: float, forehead: float = 0.0) -> list[Pt]:
     half = GIRL_FACE_R if kind == "girl" else BOY_FACE_R
     pts = half + [(-x, y) for x, y in reversed(half[1:-1])]
     out = []
     for x, y in pts:
+        if y < -40 and forehead:
+            y = y + (y + 40) / 112 * 34 * forehead
         depth = 0.55 * (1 - min(1, abs(x) / 115)) + (0.25 if y > 60 else 0.0)
         out.append((_turn_x(x, depth, turn), y))
     return out
@@ -173,6 +192,17 @@ EYE_CLOSED = [(-34, 7), (-20, 12), (-4, 13.5), (12, 11), (26, 4), (36, -7)]
 EYE_HAPPY = [(-34, 9), (-22, -3), (-6, -9), (10, -9), (25, -3), (36, 4)]
 EYE_LOWER = [(-34, 7), (-22, 16), (-4, 20), (14, 17), (28, 7), (36, -7)]
 CREASE = [(-30, -9), (-20, -27), (-2, -39), (16, -38), (30, -27), (40, -13)]
+FEL_OPEN = [(-34, 9), (-24, -8), (-8, -21), (10, -26), (27, -24), (41, -15)]
+FEL_CLOSED = [(-34, 9), (-20, 13), (-4, 13), (12, 9), (28, 0), (41, -15)]
+FEL_LOWER = [(-34, 9), (-22, 17), (-4, 20), (14, 15), (31, 3), (41, -15)]
+FEL_CREASE = [(-30, -6), (-18, -24), (0, -36), (18, -38), (34, -33), (47, -23)]
+ALM_OPEN = [(-34, 6), (-24, -10), (-8, -20), (10, -22), (26, -16), (36, -6)]
+ALM_LOWER = [(-34, 6), (-22, 14), (-4, 17), (14, 14), (28, 5), (36, -6)]
+EYE_SHAPES = {
+    "doll": (EYE_OPEN, EYE_CLOSED, EYE_LOWER, CREASE),
+    "feline": (FEL_OPEN, FEL_CLOSED, FEL_LOWER, FEL_CREASE),
+    "almond": (ALM_OPEN, EYE_CLOSED, ALM_LOWER, None),
+}
 
 
 def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float, defs: Defs, lw: float,
@@ -187,11 +217,12 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
 
     happy = clamp(fc.happy_eyes)
     o = openness * (1 - happy)
-    closed_curve = lerp_pts(EYE_CLOSED, EYE_HAPPY, happy)
-    upper = lerp_pts(closed_curve, EYE_OPEN, o) if o <= 1 else [
-        (x, y * (1 + (o - 1) * 0.9) if i not in (0, len(EYE_OPEN) - 1) else y) for i, (x, y) in enumerate(EYE_OPEN)]
+    E_OPEN, E_CLOSED, E_LOWER, E_CREASE = EYE_SHAPES.get(look.eye_shape, EYE_SHAPES["doll"])
+    closed_curve = lerp_pts(E_CLOSED, EYE_HAPPY, happy)
+    upper = lerp_pts(closed_curve, E_OPEN, o) if o <= 1 else [
+        (x, y * (1 + (o - 1) * 0.9) if i not in (0, len(E_OPEN) - 1) else y) for i, (x, y) in enumerate(E_OPEN)]
     sq = clamp(fc.squint)
-    lower = [(x, y - (sq * 11 if 0 < i < len(EYE_LOWER) - 1 else 0)) for i, (x, y) in enumerate(EYE_LOWER)]
+    lower = [(x, y - (sq * 11 if 0 < i < len(E_LOWER) - 1 else 0)) for i, (x, y) in enumerate(E_LOWER)]
     # keep the lower lid under the upper lid
     lower = [(x, max(y, uy + 0.5) if 0 < i < len(lower) - 1 else y) for i, ((x, y), (_, uy)) in enumerate(zip(lower, upper))]
     up, lo = place(upper), place(lower)
@@ -205,18 +236,20 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
         defs.add(f'<clipPath id="{clip_id}"><path d="{shape_d} Z"/></clipPath>')
         # eyeshadow between crease and lid
         if girl and look.eyeshadow:
-            crease = place([(x, lerp(y + 18, y, clamp(o))) for x, y in CREASE])
+            base_crease = E_CREASE or [(x, y - 13) for x, y in E_OPEN]
+            crease = place([(x, lerp(y + 18, y, clamp(o))) for x, y in base_crease])
             sh_id = defs.uid("es")
             top_y = min(p[1] for p in crease)
             defs.add(lin_grad(sh_id, [(0, look.eyeshadow, 0.05), (0.45, look.eyeshadow, 0.7), (1, look.eyeshadow, 1.0)],
                               user=(0, top_y, 0, cy + 4)))
             out.append(path(catmull(crease + up[::-1]) + " Z", fill=f"url(#{sh_id})"))
-            out.append(path(catmull(crease), fill="none", stroke=st["deep"], stroke_width=1.3 * lw,
-                            stroke_linecap="round", opacity=0.75))
+            if E_CREASE:
+                out.append(path(catmull(crease), fill="none", stroke=st["deep"], stroke_width=1.3 * lw,
+                                stroke_linecap="round", opacity=0.75))
         inner = []
         inner.append(path(shape_d + " Z", fill="#fffaf9"))
         # iris
-        ir = (19.5 if girl else 17.0) * sy
+        ir = (19.5 if girl else 17.0) * sy * (0.93 if look.eye_shape == "feline" else 1.0)
         ix = cx + (2 * side + fc.look_x * 12) * width_scale * (1.2 if girl else 1.0)
         iy = cy + 1 + fc.look_y * 6
         g_id = defs.uid("ir")
@@ -248,7 +281,8 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
                 tip = (b[0] + side * 4, b[1] + ln)
                 out.append(path(tapered([b, lerp_pt(b, tip, 0.5), tip], w0=1.6 * lw, w1=0.2), fill=ink))
     # upper lash line (+ wing)
-    wing = (up[-1][0] + side * (17 if girl else 4) * width_scale, up[-1][1] - (12 if girl else 2))
+    wing_dx, wing_dy = (24, 17) if look.eye_shape == "feline" else ((17, 12) if girl else (4, 2))
+    wing = (up[-1][0] + side * wing_dx * width_scale, up[-1][1] - wing_dy)
     lash_pts = up + [wing]
     if o > 0.1:
         widths = [1.6, 4.0, 5.8, 7.0, 7.8, 7.2, 0.8] if girl else [1.4, 3.4, 4.6, 5.0, 4.6, 2.6, 0.6]
@@ -487,10 +521,18 @@ def _sheen_band(inner: list[Pt], outer: list[Pt]) -> str:
 
 def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, length: float = 160) -> tuple[str, str, str]:
     """Returns (back layer, forehead shadow, front layer) markup."""
+    style = hs.style or look.hair_style
+
     def render(tones: dict) -> tuple[str, str]:
-        if look.hair_style == "boy":
+        if style == "boy":
             return _boy_hair(look, tones, t, lw)
+        if style in THIN_STYLES:
+            return HS.thin_hair(look, tones, hs, t, lw, style)
+        if style == "curly":
+            return HS.curly_hair(look, tones, hs, t, lw)
         P = _long_hair_parts(look, length, t, hs.sway)
+        if look.wavy or style == "wavy":
+            P = _wave_parts(P, look.wavy or 1.0, t)
         tips = _tips(P["back_l"][-1], P["back_r"][-1], 6, 34, "bk")
         back_d = (catmull(P["back_l"]) + " " + " ".join(f"L{f(x)} {f(y)}" for x, y in tips + [P["back_r"][-1]]) + " "
                   + catmull(P["back_r"][::-1], move=False) + " Z")
@@ -520,18 +562,20 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
         px = look.part
         front.append(path(catmull([(px, -176), (px + 1, -168), (px, -158)]), fill="none", stroke=tones["ink"],
                           stroke_width=1.6 * lw, stroke_linecap="round"))
+        if look.bangs:
+            front.append(HS.blunt_bangs(look, tones, t, lw))
         return back, "".join(front)
 
     base = render(C.hair_tones(hs.color))
     shadow = ""
-    if look.hair_style != "boy":
+    if style in ("long", "wavy") and not look.bangs:
         P = _long_hair_parts(look, length, t, hs.sway)
         sh = [(x + 3, y + 12) for x, y in P["l_in"][:6][::-1]] + [(x - 3, y + 12) for x, y in P["r_in"][:6]]
         shadow = path(catmull(sh + [(P["r_in"][5][0], -200), (P["l_in"][5][0], -200)], closed=True),
                       fill=skin_tones(look.skin)["shade"], opacity=0.9)
     if hs.to_color and hs.wipe > 0:
         new = render(C.hair_tones(hs.to_color))
-        y_top, y_bot = (-235, 40) if look.hair_style == "boy" else (-200, 340 + length)
+        y_top, y_bot = (-235, 40) if style == "boy" else ((-235, 330) if style in THIN_STYLES else (-200, 340 + length))
         mid = lerp(y_top, y_bot, clamp(hs.wipe))
         mid_id = defs.uid("hw")
         g_id = defs.uid("hwg")
@@ -540,9 +584,26 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
         defs.add(f'<mask id="{mid_id}" maskUnits="userSpaceOnUse" x="-400" y="-400" width="800" height="1400">'
                  f'<rect x="-400" y="-400" width="800" height="{f(mid + 410)}" fill="url(#{g_id})"/></mask>')
         back = base[0] + group(new[0], mask=f"url(#{mid_id})")
-        front = base[1] + group(new[1], mask=f"url(#{mid_id})")
+        front = base[1] + group(new[1], mask=f"url(#{mid_id})") + HS.accessories(hs.acc, lw, t)
         return back, shadow, front
-    return base[0], shadow, base[1]
+    return base[0], shadow, base[1] + HS.accessories(hs.acc, lw, t)
+
+
+THIN_STYLES = ("thin", "middle", "sidepart", "ponytail", "bun", "bangs")
+
+
+def _wave_parts(P: dict, amt: float, t: float) -> dict:
+    out = {}
+    for k, pts in P.items():
+        side = -1 if k.startswith(("l_", "back_l")) else 1
+        ph = 0.0 if side > 0 else 1.7
+        push = 1.0 if ("out" in k or "back" in k) else 0.55
+        res = []
+        for x, y in pts:
+            kk = clamp((y + 60) / 300)
+            res.append((x + side * amt * 22 * kk * push + math.sin(y * 0.045 + ph + t * 0.8) * 13 * amt * kk, y))
+        out[k] = res
+    return out
 
 
 def _boy_hair(look: Look, tones: dict, t: float, lw: float) -> tuple[str, str]:
@@ -647,11 +708,16 @@ def _limb(pts: list[Pt], widths: list[float], fill: str, ink: str, lw: float) ->
 
 
 def _arm(side: int, look: Look, target: Pt, bend: int, lw: float, sleeve: Optional[str], sleeve_len: float,
-         holding_phone: bool, phone_glow: float, t: float) -> str:
+         holding_phone: bool, phone_glow: float, t: float, prop: Optional[str] = None, fur: bool = False) -> str:
     skin = skin_tones(look.skin)
     girl = look.kind == "girl"
     sh = _shoulder(side, look.kind)
-    a, b = (86, 80) if girl else (92, 86)
+    a, b = (90, 84) if girl else (96, 90)
+    reach = (a + b) * 0.97
+    d = math.hypot(target[0] - sh[0], target[1] - sh[1])
+    if d > reach:  # cartoon stretch so hands can reach the hair
+        k = min(1.3, d / reach)
+        a, b = a * k, b * k
     elbow, hand = _ik(sh, target, a, b, bend * side)
     out = []
     uw, fw = (17, 13) if girl else (24, 19)
@@ -663,16 +729,65 @@ def _arm(side: int, look: Look, target: Pt, bend: int, lw: float, sleeve: Option
             out.append(_limb(pts, [uw + 9, fw + 9], sleeve, ink, lw))
             # cuff
             c = lerp_pt(elbow, hand, 0.82)
-            out.append(circle(c[0], c[1], (fw + 9) / 2, fill=C.shade(sleeve, 0.08), stroke=ink, stroke_width=2 * lw))
+            if fur:
+                out.append(_fluffy_edge([sh, elbow, c], sleeve, ink, lw, (uw + 10) / 2, 4.5))
+                out.append(_fluffy_edge([lerp_pt(elbow, hand, 0.72), c], sleeve, ink, lw, (fw + 12) / 2 + 3, 3))
+            else:
+                out.append(circle(c[0], c[1], (fw + 9) / 2, fill=C.shade(sleeve, 0.08), stroke=ink, stroke_width=2 * lw))
         else:
             e2 = lerp_pt(sh, elbow, sleeve_len * 1.5 if sleeve_len < 0.5 else 1)
             out.append(_limb([sh, e2], [uw + 6], sleeve, ink, lw))
     ang = math.atan2(hand[1] - elbow[1], hand[0] - elbow[0])
     if holding_phone:
         out.append(phone_in_hand(hand, ang, lw, phone_glow, look))
+    if prop:
+        out.append(prop_in_hand(prop, hand, ang, lw, t, side))
     out.append(_hand(hand, ang, skin, lw, 1.3 if girl else 1.5, nails=look.lips if girl else look.skin,
                      open_=not holding_phone))
     return "".join(out)
+
+
+def prop_in_hand(name: str, p: Pt, ang: float, lw: float, t: float, side: int = 1) -> str:
+    """Hair tools & photos held in a hand, drawn upright next to the fist."""
+    g = []
+    if name == "mousse":
+        g.append(rect(-13, -58, 26, 64, 7, fill="#ffffff", stroke=INK, stroke_width=2.2 * lw))
+        g.append(rect(-13, -40, 26, 20, 0, fill="#ff8fc8"))
+        g.append(rect(-7, -72, 14, 16, 4, fill="#c9b6ff", stroke=INK, stroke_width=2 * lw))
+        for k in range(5):
+            g.append(circle(-14 + k * 7 + math.sin(t * 5 + k) * 1.5, -82 - (k % 2) * 6, 8, fill="#ffffff", stroke="#d9cfe0",
+                            stroke_width=1.2 * lw))
+    elif name == "curler":
+        g.append(rect(-7, -96, 14, 80, 7, fill="#dfe6ef", stroke=INK, stroke_width=2.2 * lw))
+        g.append(rect(-3, -92, 4, 70, 2, fill="#ffffff", opacity=0.8))
+        g.append(rect(-9, -18, 18, 40, 6, fill="#ff7ac3", stroke=INK, stroke_width=2.2 * lw))
+        for k in range(3):
+            ph = (t * 1.4 + k / 3) % 1
+            g.append(circle(6 + math.sin(t * 3 + k) * 6, -100 - ph * 50, 6 + ph * 8, fill="#ffffff", opacity=0.7 * (1 - ph)))
+    elif name == "spray":
+        g.append(rect(-12, -66, 24, 74, 8, fill="#c9b6ff", stroke=INK, stroke_width=2.2 * lw))
+        g.append(rect(-12, -46, 24, 18, 0, fill="#ffffff", opacity=0.85))
+        g.append(rect(-6, -78, 12, 14, 3, fill="#ff8fc8", stroke=INK, stroke_width=2 * lw))
+        for k in range(12):
+            ph = (t * 2.2 + k / 12) % 1
+            a = -1.9 + (hash01("ms", k) - 0.5) * 0.9
+            r = 10 + ph * 70
+            g.append(circle(math.cos(a) * r * side, -76 + math.sin(a) * r, 2.5 + ph * 4, fill="#ffffff", opacity=0.8 * (1 - ph)))
+    elif name == "brush":
+        g.append(rect(-6, -10, 12, 40, 6, fill="#ff9fd6", stroke=INK, stroke_width=2.2 * lw))
+        g.append(ellipse(0, -36, 20, 28, fill="#ff9fd6", stroke=INK, stroke_width=2.2 * lw))
+        g.append(ellipse(0, -36, 14, 21, fill="#ffe0f0"))
+        for k in range(12):
+            g.append(circle(-8 + (k % 3) * 8, -50 + (k // 3) * 9, 1.8, fill="#c9a1c0"))
+    elif name == "photo":
+        g.append(rect(-34, -96, 68, 80, 3, fill="#ffffff", stroke=INK, stroke_width=2 * lw))
+        g.append(rect(-28, -90, 56, 54, 2, fill="#ffc9e8"))
+        g.append(circle(0, -66, 22, fill="#6b3f2a"))
+        g.append(circle(0, -66, 10, fill="#f2c3a3"))
+    elif name == "clip":
+        g.append(path("M0 -20 C-12 -36 -26 -28 -18 -16 C-26 -6 -12 2 0 -14 C12 2 26 -6 18 -16 C26 -28 12 -36 0 -20 Z",
+                      fill="#7fc8ff", stroke=INK, stroke_width=1.6 * lw))
+    return group(g, transform=f"translate({f(p[0])} {f(p[1])}) scale(1.9)")
 
 
 def phone_in_hand(p: Pt, ang: float, lw: float, glow: float, look: Look) -> str:
@@ -763,6 +878,34 @@ def _torso(look: Look, lw: float, defs: Defs) -> str:
         out.append(path(catmull(pts, closed=True, tension=0.7), fill="#ffffff", stroke=C.ink("#ffffff"),
                         stroke_width=2.4 * lw))
         out.append(path(poly([(-44, 238), (44, 238), (50, 380), (-50, 380)]), fill=tc, stroke=tink, stroke_width=2.2 * lw))
+    elif top == "corset":
+        pts = [(-56, 238), (-40, 222), (-16, 230), (0, 242), (16, 230), (40, 222), (56, 238), (52, 280), (46, 318),
+               (-46, 318), (-52, 280)]
+        fill_ = _metal(defs, tc) if look.top_metal else tc
+        out.append(path(catmull(pts, closed=True, tension=0.55), fill=fill_, stroke=tink, stroke_width=2.4 * lw,
+                        stroke_linejoin="round"))
+        out.append(path(catmull([(30, 228), (50, 240), (46, 312), (30, 314)], closed=True), fill=C.shade(tc, 0.08), opacity=0.8))
+        for xb in (-32, -16, 16, 32):  # boning
+            out.append(path(f"M{f(xb)} {f(236 + abs(xb) * 0.1)} L{f(xb * 0.92)} 314", stroke=C.shade(tc, 0.14),
+                            stroke_width=1.6 * lw, opacity=0.8))
+        for k in range(5):  # lacing
+            y0 = 248 + k * 13
+            out.append(path(f"M-7 {f(y0)} L7 {f(y0 + 9)} M7 {f(y0)} L-7 {f(y0 + 9)}", stroke="#ffffff", stroke_width=2 * lw,
+                            stroke_linecap="round"))
+        out.append(path(catmull([(-40, 222), (-16, 230), (0, 242), (16, 230), (40, 222)]), fill="none", stroke="#ffffff",
+                        stroke_width=2 * lw, opacity=0.7))
+        out.append(path(f"M-6 236 Q0 232 6 236", fill="none", stroke="#ffffff", stroke_width=3 * lw))
+    elif top == "halter":
+        pts = [(-14, 186), (14, 186), (40, 236), (54, 262), (50, 298), (-50, 298), (-54, 262), (-40, 236)]
+        fill_ = _metal(defs, tc) if look.top_metal else tc
+        out.append(path(catmull(pts, closed=True, tension=0.5), fill=fill_, stroke=tink, stroke_width=2.4 * lw,
+                        stroke_linejoin="round"))
+        out.append(path("M0 196 L0 296", stroke=C.shade(tc, 0.15), stroke_width=1.8 * lw, opacity=0.7))
+        out.append(path(catmull([(-48, 292), (0, 298), (48, 292)]), fill="none", stroke="#ffffff", stroke_width=2 * lw,
+                        opacity=0.6))
+    # faux-fur jacket over the top
+    if look.jacket:
+        out.append(_fur_jacket(look, lw))
     # choker
     if look.choker:
         out.append(path(catmull([(-22, 182), (0, 190), (22, 182)]), fill="none", stroke=look.choker, stroke_width=6 * lw,
@@ -771,9 +914,76 @@ def _torso(look: Look, lw: float, defs: Defs) -> str:
     return "".join(out)
 
 
+def _metal(defs: Defs, base: str) -> str:
+    gid = defs.uid("mt")
+    defs.add(lin_grad(gid, [(0, C.lighten(base, 0.22), 1), (0.3, base, 1), (0.48, "#ffffff", 1), (0.62, base, 1),
+                            (0.85, C.shade(base, 0.12), 1), (1, C.lighten(base, 0.12), 1)], x1=0, y1=0, x2=1, y2=1))
+    return f"url(#{gid})"
+
+
+def _fluffy_edge(pts: list[Pt], col: str, ink: str, lw: float, r: float = 7.0, step: float = 9.0) -> str:
+    """Faux-fur edge: overlapping bumps along a polyline (outline pass then fill pass)."""
+    dense = resample(sample_catmull(pts, 6), max(3, int(sum(math.hypot(b[0] - a[0], b[1] - a[1])
+                                                            for a, b in zip(pts, pts[1:])) / step)))
+    o = [circle(x, y, r + 2.3 * lw, fill=ink) for x, y in dense]
+    i = [circle(x, y, r * (0.85 + 0.3 * hash01("fe", k)), fill=col) for k, (x, y) in enumerate(dense)]
+    return "".join(o) + "".join(i)
+
+
+def _fur_jacket(look: Look, lw: float) -> str:
+    jc = look.jacket
+    ink = C.ink(jc)
+    sh = C.shade(jc, 0.08)
+    out = []
+    for s in (-1, 1):
+        panel = [(s * 22, 204), (s * 62, 208), (s * 82, 236), (s * 78, 300), (s * 72, 352), (s * 40, 356), (s * 44, 300),
+                 (s * 40, 250)]
+        out.append(path(catmull(panel, closed=True, tension=0.6), fill=jc, stroke=ink, stroke_width=2.4 * lw))
+        out.append(path(catmull([(s * 60, 240), (s * 74, 290), (s * 66, 340)]), fill="none", stroke=sh, stroke_width=6 * lw,
+                        opacity=0.7, stroke_linecap="round"))
+        for k in range(10):  # fur texture ticks
+            x = s * (50 + hash01("fj", s, k) * 26)
+            y = 230 + hash01("fy", s, k) * 110
+            out.append(path(f"M{f(x)} {f(y)} l{f(s * 4)} 6", stroke=sh, stroke_width=1.6 * lw, stroke_linecap="round"))
+        out.append(_fluffy_edge([(s * 40, 250), (s * 44, 300), (s * 40, 354)], jc, ink, lw, 6.5))
+        out.append(_fluffy_edge([(s * 40, 356), (s * 72, 352)], jc, ink, lw, 6.5))
+    # big fluffy collar
+    out.append(_fluffy_edge([(-64, 214), (-46, 198), (-24, 194)], jc, ink, lw, 9.5, 8))
+    out.append(_fluffy_edge([(64, 214), (46, 198), (24, 194)], jc, ink, lw, 9.5, 8))
+    return "".join(out)
+
+
 def _heart(x: float, y: float, s: float) -> str:
     return (f"M{f(x)} {f(y + s * 0.9)} C{f(x - s * 1.4)} {f(y)} {f(x - s * 0.9)} {f(y - s * 0.95)} {f(x)} {f(y - s * 0.35)} "
             f"C{f(x + s * 0.9)} {f(y - s * 0.95)} {f(x + s * 1.4)} {f(y)} {f(x)} {f(y + s * 0.9)} Z")
+
+
+def _metal_user(base: str) -> str:
+    # user-space metallic gradient for the skirt (unique id per color)
+    gid = "skm" + base.lstrip("#")
+    return (f'url(#{gid})')
+
+
+def skirt_metal_def(base: str) -> str:
+    gid = "skm" + base.lstrip("#")
+    return lin_grad(gid, [(0, C.lighten(base, 0.18), 1), (0.25, "#ffffff", 1), (0.42, base, 1), (0.62, C.lighten(base, 0.25), 1),
+                          (0.8, C.shade(base, 0.1), 1), (1, "#ffffff", 1)], user=(-70, 318, 70, 414))
+
+
+def _clear_boots(lw: float) -> str:
+    out = []
+    for s in (-1, 1):
+        x = s * 28
+        boot = [(x - 18, 500), (x + 18, 500), (x + 20, 600), (x + 32, 652), (x + 36, 682), (x - 28, 682), (x - 22, 600)]
+        out.append(path(catmull(boot, closed=True, tension=0.5), fill="#e6f4ff", opacity=0.38, stroke="#9cc5e4",
+                        stroke_width=2.4 * lw))
+        out.append(path(f"M{f(x - 10)} 512 L{f(x - 12)} 640", stroke="#ffffff", stroke_width=4 * lw, opacity=0.8,
+                        stroke_linecap="round"))
+        out.append(path(catmull([(x - 20, 506), (x, 512), (x + 20, 506)]), fill="none", stroke="#bfe2ff", stroke_width=4 * lw))
+        out.append(path(poly([(x - 32, 680), (x + 38, 680), (x + 36, 714), (x - 30, 714)]), fill="#dff0ff", opacity=0.55,
+                        stroke="#9cc5e4", stroke_width=2.2 * lw))
+        out.append(path(f"M{f(x - 24)} 690 L{f(x + 28)} 690", stroke="#ffffff", stroke_width=3 * lw, opacity=0.9))
+    return "".join(out)
 
 
 def _legs(look: Look, lw: float) -> str:
@@ -792,6 +1002,20 @@ def _legs(look: Look, lw: float) -> str:
                         stroke_width=2.4 * lw))
         out.append(path(poly([(x - 28, 682), (x + 32, 682), (x + 30, 704), (x - 26, 704)]), fill=C.shade(sc, 0.12),
                         stroke=C.ink(sc), stroke_width=2.2 * lw))
+    if look.shoes == "clear":
+        out = []  # translucent knee-high platform boots are drawn after the legs
+    if look.bottom == "mini":
+        for s in (-1, 1):
+            out.insert(0, _limb([(s * 24, 400), (s * 26, 530), (s * 28, 646)], [30, 22], skin["base"], skin["ink"], lw))
+        if look.shoes == "clear":
+            out.append(_clear_boots(lw))
+        fill_ = _metal_user(bc) if look.bottom_metal else bc
+        sk = [(-48, 318), (48, 318), (62, 368), (70, 414), (-70, 414), (-62, 368)]
+        out.append(path(catmull(sk, closed=True, tension=0.35), fill=fill_, stroke=bink, stroke_width=2.4 * lw))
+        out.append(path("M-30 326 L-40 410 M10 326 L14 412 M38 326 L48 410", stroke="#ffffff", stroke_width=2.4 * lw,
+                        opacity=0.55 if look.bottom_metal else 0.2))
+        out.append(path(catmull([(-48, 322), (0, 328), (48, 322)]), fill="none", stroke=C.shade(bc, 0.15), stroke_width=4 * lw))
+        return "".join(out)
     if look.bottom == "skirt":
         for s in (-1, 1):
             out.insert(0, _limb([(s * 24, 400), (s * 26, 530), (s * 28, 646)], [30, 22], skin["base"], skin["ink"], lw))
@@ -845,12 +1069,26 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
     layers = []
     layers.append(group(back, transform=head_tf))
     if full_body:
+        if look.bottom_metal:
+            defs.add(skirt_metal_def(look.bottom_color))
         layers.append(_legs(look, lw))
     # pose / arms
     pose = st.pose
-    tr, br, tl, bl_, fr, fl = ARM_TARGETS.get(pose.arms, ARM_TARGETS["down"])
+    def targets(name):
+        base = ARM_TARGETS.get(name, ARM_TARGETS["down"])
+        if name == "custom":
+            base = list(ARM_TARGETS["down"])
+            if pose.arm_r:
+                r = list(pose.arm_r) + [-1, False][len(pose.arm_r) - 2:] if len(pose.arm_r) < 4 else list(pose.arm_r)
+                base[0], base[1], base[4] = (r[0], r[1]), int(r[2]), bool(r[3])
+            if pose.arm_l:
+                l_ = list(pose.arm_l) + [-1, False][len(pose.arm_l) - 2:] if len(pose.arm_l) < 4 else list(pose.arm_l)
+                base[2], base[3], base[5] = (l_[0], l_[1]), int(l_[2]), bool(l_[3])
+        return tuple(base)
+
+    tr, br, tl, bl_, fr, fl = targets(pose.arms)
     if pose.arms_to and pose.arms_t > 0:
-        tr2, br2, tl2, bl2, fr2, fl2 = ARM_TARGETS.get(pose.arms_to, ARM_TARGETS["down"])
+        tr2, br2, tl2, bl2, fr2, fl2 = targets(pose.arms_to)
         k = clamp(pose.arms_t)
         tr, tl = lerp_pt(tr, tr2, k), lerp_pt(tl, tl2, k)
         if k > 0.5:
@@ -860,13 +1098,16 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
     tl = (tl[0] + math.sin(t * 1.1 + 1) * 1.5, tl[1] + math.sin(t * 2.2 + 1) * 1.5 - breathe)
     sleeve = None
     sleeve_len = 0.0
-    if look.top in ("hoodie", "cardigan", "varsity"):
+    fur = False
+    if look.jacket:
+        sleeve, sleeve_len, fur = look.jacket, 1.0, True
+    elif look.top in ("hoodie", "cardigan", "varsity"):
         sleeve, sleeve_len = look.top_color, 1.0
     elif look.top in ("tee",):
         sleeve, sleeve_len = look.top_color, 0.3
     phone_r = pose.arms in ("phone", "phone_up") or (pose.arms_to in ("phone", "phone_up") and pose.arms_t > 0.5)
-    arm_r = _arm(1, look, tr, br, lw, sleeve, sleeve_len, phone_r, pose.phone_glow, t)
-    arm_l = _arm(-1, look, tl, bl_, lw, sleeve, sleeve_len, False, 0, t)
+    arm_r = _arm(1, look, tr, br, lw, sleeve, sleeve_len, phone_r, pose.phone_glow, t, prop=pose.prop, fur=fur)
+    arm_l = _arm(-1, look, tl, bl_, lw, sleeve, sleeve_len, False, 0, t, fur=fur)
     body = _torso(look, lw, defs)
     layers.append(group(body, transform=f"translate(0 {f(-breathe * 0.4)})"))
     arms_front = ""
@@ -878,7 +1119,7 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
 
     # ---- head
     head = []
-    outline = face_outline(look.kind, fc.turn)
+    outline = face_outline(look.kind, fc.turn, look.forehead)
     face_d = catmull(outline, closed=True)
     clip_id = defs.uid("face")
     defs.add(f'<clipPath id="{clip_id}"><path d="{face_d}"/></clipPath>')
@@ -905,6 +1146,22 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
                     x0 = s * 56 + fc.turn * 22 + (k - 1) * 9
                     shading.append(path(f"M{f(x0 + 4)} 38 L{f(x0 - 3)} 52", stroke="#e8407a", stroke_width=2.2 * lw,
                                         opacity=fc.blush_lines, stroke_linecap="round"))
+    if look.glow > 0.01:
+        gl = look.glow
+        gid = defs.uid("gl")
+        defs.add(rad_grad(gid, [(0, "#ffffff", 0.95), (1, "#ffffff", 0)]))
+        tx = fc.turn * 22
+        for s in (-1, 1):
+            shading.append(ellipse(s * 70 + tx, 24, 34, 11, fill=f"url(#{gid})", opacity=0.6 * gl,
+                                   transform=f"rotate({f(-s * 14)} {f(s * 70 + tx)} 24)"))
+        shading.append(ellipse(tx * 0.4, -96 - 18 * look.forehead, 46, 26, fill=f"url(#{gid})", opacity=0.55 * gl))
+        shading.append(path(f"M{f(fc.turn * 30)} 10 L{f(fc.turn * 33)} 44", stroke="#ffffff", stroke_width=4.5 * lw,
+                            opacity=0.5 * gl, stroke_linecap="round"))
+        shading.append(ellipse(fc.turn * 22, 124, 13, 6, fill=f"url(#{gid})", opacity=0.5 * gl))
+        rim = [(p_[0] + 7, p_[1]) for p_ in outline if p_[0] < -40 and -120 < p_[1] < 100]
+        if len(rim) > 2:
+            shading.append(path(catmull(rim), fill="none", stroke="#efe2ff", stroke_width=6 * lw, opacity=0.55 * gl,
+                                stroke_linecap="round"))
     if look.freckles:
         for i in range(7):
             for s in (-1, 1):

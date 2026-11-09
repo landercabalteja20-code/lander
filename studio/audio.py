@@ -54,6 +54,7 @@ class Line:
     voice: str
     speed: float = 1.0
     pitch: float = 0.0        # semitones
+    caption: str = ""         # on-screen text (defaults to `text`)
     audio: np.ndarray | None = None
     start: float = 0.0        # global seconds (set by the timeline)
     env: np.ndarray | None = None
@@ -268,6 +269,107 @@ def music_bed(duration: float, bpm: float = 112, seed: int = 7, intensity: float
     return (mix * fade)[: int(duration * SR)].astype(np.float32)
 
 
+STYLES = {
+    # name: bpm, chords [(notes, root)], drum kit, arp notes per beat, pluck decay, gains (pad, arp, bass, drums)
+    "pop": dict(bpm=112, chords=CHORDS, drums="pop", arp=2, decay=0.45, gains=(0.07, 0.1, 0.16, 0.9)),
+    "comedy": dict(bpm=128, chords=[([60, 64, 67, 72], 48), ([57, 61, 64, 67], 45), ([62, 65, 69, 74], 50),
+                                    ([55, 59, 62, 65], 43)], drums="comedy", arp=2, decay=0.18,
+                   gains=(0.03, 0.13, 0.2, 0.8)),
+    "sad": dict(bpm=72, chords=[([57, 60, 64, 69], 45), ([53, 57, 60, 65], 41), ([48, 52, 55, 60], 48),
+                                ([55, 59, 62, 67], 43)], drums=None, arp=1, decay=1.4, gains=(0.09, 0.11, 0.09, 0.0)),
+    "warm": dict(bpm=96, chords=[([60, 64, 67, 72], 48), ([55, 59, 62, 67], 43), ([57, 60, 64, 69], 45),
+                                 ([53, 57, 60, 65], 41)], drums="soft", arp=2, decay=0.7, gains=(0.08, 0.1, 0.14, 0.6)),
+    "party": dict(bpm=124, chords=[([57, 60, 64, 69], 45), ([53, 57, 60, 65], 41), ([60, 64, 67, 72], 48),
+                                   ([55, 59, 62, 67], 43)], drums="house", arp=4, decay=0.22, gains=(0.06, 0.08, 0.2, 1.0)),
+}
+
+
+def _groove(duration: float, style: str, seed: int = 7) -> np.ndarray:
+    cfg = STYLES[style]
+    if style == "pop":
+        return music_bed(duration, cfg["bpm"], seed)
+    rng = np.random.default_rng(seed)
+    beat = 60.0 / cfg["bpm"]
+    bar = beat * 4
+    n = int((duration + 2) * SR)
+    pad_g, arp_g, bass_g, dr_g = cfg["gains"]
+    keys = np.zeros((n, 2), np.float32)
+    bass = np.zeros((n, 2), np.float32)
+    drums = np.zeros((n, 2), np.float32)
+    kick = _kick()
+    for b in range(int(duration / bar) + 2):
+        chord, root = cfg["chords"][b % 4]
+        t0 = b * bar
+        _place(keys, _pad([_midi(x) for x in chord], bar + 0.4), t0, pad_g)
+        steps = 4 * cfg["arp"]
+        for e in range(steps):
+            note = chord[(e + (b % 2)) % 4] + (12 if style != "sad" else 0)
+            if style == "comedy" and e % 2 == 0:
+                continue  # offbeat staccato
+            sig = _pluck(_midi(note), cfg["decay"] + 0.05, bright=1.0 if style != "sad" else 0.6)
+            sig = sig * np.exp(-np.arange(len(sig)) / SR / cfg["decay"]).astype(np.float32)
+            _place(keys, sig, t0 + e * beat / cfg["arp"], arp_g, pan=-0.3 if e % 2 else 0.3)
+        if style == "sad":
+            _place(bass, _pluck(_midi(root), 2.0, bright=0.2), t0, bass_g)
+        elif style == "comedy":
+            for q in (0, 2):
+                _place(bass, np.tanh(_pluck(_midi(root - (0 if q == 0 else 5)), 0.3, 0.3) * 1.5), t0 + q * beat, bass_g)
+        elif style == "party":
+            for e in range(8):
+                if e % 2 == 1:
+                    _place(bass, np.tanh(_pluck(_midi(root), 0.25, 0.5) * 2), t0 + e * beat / 2, bass_g)
+        else:
+            for e in range(4):
+                _place(bass, np.tanh(_pluck(_midi(root + (12 if e == 3 else 0)), 0.5, 0.4) * 1.4), t0 + e * beat, bass_g)
+        kit = cfg["drums"]
+        for q in range(4):
+            if kit == "house":
+                _place(drums, kick, t0 + q * beat, 0.45)
+                if q in (1, 3):
+                    _place(drums, _clap(rng), t0 + q * beat, 0.14)
+                _place(drums, _hat(rng, open_=True), t0 + q * beat + beat / 2, 0.035)
+            elif kit == "comedy":
+                if q in (0, 2):
+                    _place(drums, kick, t0 + q * beat, 0.3)
+                blk = _bell(_midi(96 if q % 2 else 91), 0.08) * 0.5
+                _place(drums, blk, t0 + q * beat + beat / 2, 0.12)
+            elif kit == "soft":
+                if q == 0 or (q == 2 and b % 2):
+                    _place(drums, kick, t0 + q * beat, 0.3)
+                for s_ in range(2):
+                    _place(drums, _hat(rng), t0 + q * beat + s_ * beat / 2, 0.012)
+        if style in ("warm", "party") and b % 2 == 1:
+            for k in range(3):
+                _place(keys, _bell(_midi(PENTA[rng.integers(len(PENTA))]), 0.8), t0 + (k * 1.5 + 0.5) * beat, 0.03)
+    mix = _reverb(keys, 1.6 if style == "sad" else 1.2, 0.35 if style == "sad" else 0.28) + bass + drums * dr_g
+    return mix[: int(duration * SR)].astype(np.float32)
+
+
+def score(duration: float, sections: list[dict], seed: int = 7) -> np.ndarray:
+    """Concatenate styled sections with 1 s crossfades."""
+    n = int(duration * SR)
+    out = np.zeros((n, 2), np.float32)
+    xf = int(1.0 * SR)
+    secs = sorted(sections, key=lambda d: d["at"])
+    for i, sec in enumerate(secs):
+        a = float(sec["at"])
+        b = float(secs[i + 1]["at"]) if i + 1 < len(secs) else duration
+        seg = _groove(b - a + 1.2, sec["style"], seed + i) * float(sec.get("gain", 1.0))
+        i0 = int(a * SR)
+        L = min(len(seg), n - i0)
+        if L <= 0:
+            continue
+        env = np.ones(L, np.float32)
+        if i > 0:
+            env[:xf] = np.linspace(0, 1, min(xf, L))[:min(xf, L)] if L >= xf else np.linspace(0, 1, L)
+        tail = int((b - a) * SR)
+        if i + 1 < len(secs) and tail < L:
+            fade_len = L - tail
+            env[tail:] = np.linspace(1, 0, fade_len)
+        out[i0:i0 + L] += seg[:L] * env[:, None]
+    return out
+
+
 # ======================================================================== sfx
 def sfx(name: str, seed: int = 0) -> np.ndarray:
     sig = _sfx_raw(name, seed)
@@ -335,6 +437,18 @@ def _sfx_raw(name: str, seed: int = 0) -> np.ndarray:
         t = _t(1.2)
         sig = sum(np.sin(2 * np.pi * _midi(n) * t) / (i + 1) for i, n in enumerate([38, 45, 50, 57]))
         return (np.tanh(sig * 1.5) * np.exp(-t * 2.2) * 0.45).astype(np.float32)
+    if name == "deflate":
+        t = _t(0.9)
+        f = 950 * np.exp(-t * 2.0) + 160 + 25 * np.sin(2 * np.pi * 7 * t)
+        return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.minimum(1, t * 30) * np.exp(-t * 1.4) * 0.45).astype(np.float32)
+    if name == "slide_up":
+        t = _t(0.5)
+        f = 300 + 1100 * (t / 0.5) ** 1.5
+        return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * t / 0.5) * 0.4).astype(np.float32)
+    if name == "squeak":
+        t = _t(0.14)
+        f = 1700 + 900 * t / 0.14
+        return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * t / 0.14) * 0.4).astype(np.float32)
     if name == "gulp":
         t = _t(0.25)
         f = 300 - 220 * t / 0.25
@@ -354,8 +468,11 @@ def mixdown(total: float, lines: list[Line], cues: list[tuple[float, str, float]
         _place(fx, sfx(name), at, gain)
     mix = voice + fx
     if music:
-        bed = music_bed(total + 0.5, bpm=music.get("bpm", 112), seed=music.get("seed", 7),
-                        intensity=music.get("intensity", 1.0))[:n]
+        if music.get("sections"):
+            bed = score(total + 0.5, music["sections"], seed=music.get("seed", 7))[:n]
+        else:
+            bed = music_bed(total + 0.5, bpm=music.get("bpm", 112), seed=music.get("seed", 7),
+                            intensity=music.get("intensity", 1.0))[:n]
         if len(bed) < n:
             bed = np.pad(bed, ((0, n - len(bed)), (0, 0)))
         # duck under dialogue

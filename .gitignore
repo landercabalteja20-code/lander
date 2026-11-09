@@ -4,3 +4,6 @@ __pycache__/
 assets/models/
 build/
 assets/fonts/*.ttf
+renders/*.mp4
+renders/*.png
+renders/*.jpg

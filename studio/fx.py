@@ -9,7 +9,13 @@ from .sets import text_el
 from .svgkit import (Defs, catmull, circle, clamp, ease_out, ease_out_back, ellipse, f, group, hash01, lerp, lin_grad,
                      path, poly, rad_grad, rect, smoothstep)
 
-W, H = 1440, 1080
+SW, SH = 1440, 1080   # stage space (inserts designed for 4:3)
+W, H = 1440, 1080     # current output canvas (screen-space effects)
+
+
+def set_canvas(w: int, h: int) -> None:
+    global W, H
+    W, H = w, h
 
 
 def star4(x: float, y: float, r: float, w: float | None = None) -> str:
@@ -33,7 +39,7 @@ def sparkles(cx: float, cy: float, rx: float, ry: float, t: float, n: int = 10, 
             continue
         r = size * (0.5 + 0.8 * hash01(seed, "z", i)) * k
         col = colors[i % len(colors)]
-        out.append(circle(x, y, r * 1.1, fill=col, opacity=0.35 * k, filter="url(#glow8)"))
+        out.append(circle(x, y, r * 2.4, fill="url(#gdot)", opacity=0.6 * k))
         out.append(path(star4(x, y, r), fill=col, opacity=min(1, 0.4 + k)))
     return "".join(out)
 
@@ -77,16 +83,18 @@ def flash(t: float, t0: float, dur: float = 0.35, col: str = "#ffffff", peak: fl
     return rect(0, 0, W, H, fill=col, opacity=peak * (1 - u) ** 2)
 
 
-def speed_lines(t: float, strength: float = 1.0, col: str = "#ffffff", cx: float = W / 2, cy: float = H / 2,
-                seed: str = "sl") -> str:
+def speed_lines(t: float, strength: float = 1.0, col: str = "#ffffff", cx: float | None = None,
+                cy: float | None = None, seed: str = "sl") -> str:
     if strength <= 0.01:
         return ""
+    cx = W / 2 if cx is None else cx
+    cy = H / 2 if cy is None else cy
     out = []
     frame = int(t * 12)  # re-randomize 12x per second (limited animation feel)
     for i in range(54):
         a = (i / 54) * 2 * math.pi + hash01(seed, frame, i) * 0.08
-        r0 = 470 + hash01(seed, "r", frame, i) * 160
-        r1 = 1100
+        r0 = (470 + hash01(seed, "r", frame, i) * 160) * max(W, H) / 1440
+        r1 = max(W, H) * 1.1
         w = 6 + hash01(seed, "w", frame, i) * 16
         x0, y0 = cx + math.cos(a) * r0, cy + math.sin(a) * r0 * 0.8
         x1, y1 = cx + math.cos(a + 0.012 * w / 6) * r1, cy + math.sin(a + 0.012 * w / 6) * r1
@@ -234,9 +242,9 @@ def mood_chart(defs: Defs, t: float, rows: list[tuple[str, str]], title: str = "
     out = []
     gid = defs.uid("mc")
     defs.add(lin_grad(gid, [(0, "#ff9fd6", 1), (1, "#ffcfe9", 1)], x2=1, y2=1))
-    out.append(rect(0, 0, W, H, fill=f"url(#{gid})"))
+    out.append(rect(0, 0, SW, SH, fill=f"url(#{gid})"))
     for i in range(30):
-        x, y = hash01("mx", i) * W, hash01("my", i) * H
+        x, y = hash01("mx", i) * SW, hash01("my", i) * SH
         out.append(path(star4(x, y, 8 + 14 * hash01("ms", i)), fill="#ffffff",
                         opacity=0.35 + 0.4 * max(0.0, math.sin(t * 4 + i))))
     k = ease_out_back(clamp(t / 0.35))
@@ -267,7 +275,7 @@ def title_card(defs: Defs, t: float, lines: list[str], sub: str = "", bg: str = 
     out = []
     gid = defs.uid("tc")
     defs.add(rad_grad(gid, [(0, "#ffd1ec", 1), (1, "#ff5fb8", 1)], cx=0.5, cy=0.45, r=0.8))
-    out.append(rect(0, 0, W, H, fill=f"url(#{gid})"))
+    out.append(rect(0, 0, SW, SH, fill=f"url(#{gid})"))
     out.append(sparkles(720, 540, 700, 520, t, n=26, seed="tc", size=26))
     y0 = 540 - (len(lines) - 1) * 70
     for i, l in enumerate(lines):
@@ -278,4 +286,226 @@ def title_card(defs: Defs, t: float, lines: list[str], sub: str = "", bg: str = 
     if sub:
         out.append(text_el(sub, 720, 980, 52, "Fredoka", "#2a1020", anchor="middle", weight="700",
                            opacity=clamp((t - 0.6) / 0.3)))
+    return "".join(out)
+
+
+# =========================================================================== vertical-era effects
+def wind_streaks(t: float, strength: float = 1.0, seed: str = "wd") -> str:
+    """Fast white air streaks + flying sparkle bits (screen space)."""
+    if strength <= 0.01:
+        return ""
+    out = []
+    for i in range(26):
+        sp = 1.6 + hash01(seed, "v", i) * 1.4
+        ph = (t * sp + hash01(seed, i)) % 1.0
+        y = hash01(seed, "y", i) * H
+        ln = (0.18 + 0.25 * hash01(seed, "l", i)) * W
+        x = -ln + ph * (W + 2 * ln)
+        bend = 18 * math.sin(t * 3 + i)
+        op = strength * (0.35 + 0.45 * hash01(seed, "o", i)) * math.sin(math.pi * ph)
+        out.append(path(f"M{f(x)} {f(y)} q{f(ln * 0.5)} {f(bend)} {f(ln)} 0", fill="none", stroke="#ffffff",
+                        stroke_width=2 + 4 * hash01(seed, "w", i), opacity=op, stroke_linecap="round"))
+    for i in range(18):
+        ph = (t * (1.2 + hash01(seed, "pv", i)) + hash01(seed, "p", i)) % 1.0
+        x = ph * (W + 100) - 50
+        y = hash01(seed, "py", i) * H + math.sin(t * 5 + i) * 30
+        col = ["#ffd1ec", "#ffffff", "#ffe58a", "#d9c2ff"][i % 4]
+        out.append(path(star4(x, y, 6 + 6 * hash01(seed, "ps", i)), fill=col, opacity=strength * 0.9))
+    return "".join(out)
+
+
+def glitter(t: float, amount: float = 1.0, seed: str = "gl") -> str:
+    """Screen-filling twinkly glitter that drifts down (screen space)."""
+    if amount <= 0.01:
+        return ""
+    n = int(30 + 230 * clamp(amount))
+    cols = ["#ffffff", "#ffe58a", "#ff9fd6", "#d9c2ff", "#bfe9ff"]
+    out = []
+    for i in range(n):
+        x = hash01(seed, i) * W + math.sin(t * 1.5 + i) * 12
+        y = (hash01(seed, "y", i) * (H + 80) + t * (40 + 70 * hash01(seed, "v", i))) % (H + 80) - 40
+        tw = max(0.0, math.sin(t * (4 + 5 * hash01(seed, "f", i)) + i)) ** 2
+        r = (3 + 9 * hash01(seed, "s", i)) * (0.4 + 0.8 * tw)
+        col = cols[i % len(cols)]
+        if i % 3 == 0:
+            out.append(path(star4(x, y, r * 1.8), fill=col, opacity=min(1.0, 0.3 + tw)))
+        else:
+            out.append(circle(x, y, r * 0.45, fill=col, opacity=0.35 + 0.6 * tw))
+    return "".join(out)
+
+
+def light_leak(defs: Defs, t: float, col: str = "#ffb3d9") -> str:
+    out = []
+    for i, (bx, by, r) in enumerate([(0.15, 0.2, 0.55), (0.85, 0.75, 0.6), (0.6, 0.1, 0.4)]):
+        gid = defs.uid("lk")
+        defs.add(rad_grad(gid, [(0, col, 0.55), (1, col, 0)]))
+        x = (bx + 0.06 * math.sin(t * 0.4 + i)) * W
+        y = (by + 0.05 * math.cos(t * 0.3 + i)) * H
+        out.append(circle(x, y, r * max(W, H), fill=f"url(#{gid})", opacity=0.45))
+    return "".join(out)
+
+
+def poof(x: float, y: float, k: float, s: float) -> str:
+    """Cloud puff used to hide an instant hairstyle swap."""
+    u = clamp(k / 0.7)
+    out = []
+    for i in range(9):
+        a = i / 9 * 2 * math.pi
+        d = (60 + 140 * ease_out(u)) * s
+        r = (70 + 40 * hash01("pf", i)) * s * (1 - 0.5 * u)
+        out.append(circle(x + math.cos(a) * d, y + math.sin(a) * d * 0.8, r, fill="#ffffff", opacity=0.95 * (1 - u) ** 1.2,
+                          stroke="#ead7f2", stroke_width=3))
+    out.append(circle(x, y, 150 * s * (1 - 0.6 * u), fill="#ffffff", opacity=0.95 * (1 - u) ** 2))
+    return "".join(out)
+
+
+def shine(x: float, y: float, k: float, s: float) -> str:
+    """Comedic forehead glint: star + lens streak."""
+    u = clamp(k / 0.5)
+    pulse = math.sin(math.pi * clamp(k / 0.9))
+    if pulse <= 0:
+        return ""
+    r = 70 * s * (0.4 + 0.8 * ease_out_back(u))
+    return (path(star4(x, y, r, r * 0.12), fill="#ffffff", opacity=pulse)
+            + path(f"M{f(x - r * 1.8)} {f(y)} L{f(x + r * 1.8)} {f(y)}", stroke="#ffffff", stroke_width=5 * s, opacity=0.8 * pulse)
+            + circle(x, y, r * 1.2, fill="url(#gdoty)", opacity=0.9 * pulse))
+
+
+def heart_path(cx: float, cy: float, r: float) -> str:
+    return (f"M{f(cx)} {f(cy + r * 0.95)} C{f(cx - r * 1.45)} {f(cy + r * 0.05)} {f(cx - r * 0.95)} {f(cy - r * 1.05)} "
+            f"{f(cx)} {f(cy - r * 0.42)} C{f(cx + r * 0.95)} {f(cy - r * 1.05)} {f(cx + r * 1.45)} {f(cy + r * 0.05)} "
+            f"{f(cx)} {f(cy + r * 0.95)} Z")
+
+
+def heart_frame(cx: float, cy: float, r: float, t: float) -> str:
+    d = heart_path(cx, cy, r)
+    out = [path(d, fill="none", stroke="#ff7ac3", stroke_width=90, opacity=0.10),
+           path(d, fill="none", stroke="#ff7ac3", stroke_width=62, opacity=0.14),
+           path(d, fill="none", stroke="#ff9fd6", stroke_width=44, opacity=0.22),
+           path(d, fill="none", stroke="#ffd1ec", stroke_width=26), path(d, fill="none", stroke="#2a1020", stroke_width=4),
+           path(d, fill="none", stroke="#ffffff", stroke_width=6, opacity=0.8, transform=f"translate(-4 -4)")]
+    # bulbs around the heart
+    pts = []
+    for i in range(24):
+        u = i / 24
+        a = u * 2 * math.pi
+        # sample the heart curve parametric form
+        hx = 16 * math.sin(a) ** 3
+        hy = -(13 * math.cos(a) - 5 * math.cos(2 * a) - 2 * math.cos(3 * a) - math.cos(4 * a))
+        pts.append((cx + hx / 16 * r * 1.02, cy + hy / 16 * r * 1.02 - r * 0.1))
+    for i, (x, y) in enumerate(pts):
+        on = 0.6 + 0.4 * math.sin(t * 4 + i * 0.8)
+        out.append(circle(x, y, 44, fill="url(#gdoty)", opacity=0.8 * on))
+        out.append(circle(x, y, 10, fill="#fffbe0", stroke="#d9b45a", stroke_width=2))
+    out.append(sparkles(cx, cy, r * 1.2, r * 1.2, t, n=10, seed="hf", size=26))
+    return "".join(out)
+
+
+def label_sticker(txt: str, lt: float, w: float, h: float, col: str = "#ff4fae") -> str:
+    k = ease_out_back(clamp(lt / 0.3))
+    if k <= 0:
+        return ""
+    y = h * 0.835
+    size = min(96, w * 0.075)
+    bw = min(w * 0.92, len(txt) * size * 0.72 + 90)
+    g = [rect(w / 2 - bw / 2, y - size * 0.95, bw, size * 1.5, size * 0.75, fill="#ffffff", stroke="#2a1020", stroke_width=6),
+         text_el(txt, w / 2, y + size * 0.18, size, "Titan One", col, stroke="#2a1020", sw=7, anchor="middle"),
+         path(star4(w / 2 + bw / 2 - 8, y - size * 0.9, 26), fill="#ffe58a", stroke="#2a1020", stroke_width=3)]
+    return group(g, transform=f"translate({f(w / 2)} {f(y)}) rotate(-3) scale({f(k)}) translate({f(-w / 2)} {f(-y)})")
+
+
+def hook_title(lines: list[str], lt: float, w: float, h: float, dur: float = 4.0) -> str:
+    if lt > dur:
+        return ""
+    fade = clamp((dur - lt) / 0.4)
+    out = []
+    y = h * 0.1
+    for i, l in enumerate(lines):
+        k = ease_out_back(clamp((lt - i * 0.15) / 0.35))
+        size = (w * 0.105) if i == 0 else (w * 0.068)
+        col = "#ffffff" if i == 0 else "#2a1020"
+        stc = "#2a1020" if i == 0 else "#ffffff"
+        out.append(group(text_el(l, w / 2, y, size, "Titan One", col, stroke=stc, sw=14 if i == 0 else 11, anchor="middle"),
+                         transform=f"translate({f(w / 2)} {f(y)}) scale({f(k)}) translate({f(-w / 2)} {f(-y)})"))
+        y += size * 1.12
+    return group(out, opacity=fade)
+
+
+def end_card_v(defs: Defs, t: float, lines: list[str], sub: str, w: float, h: float) -> str:
+    gid = defs.uid("ec")
+    defs.add(rad_grad(gid, [(0, "#ffe3f3", 1), (0.6, "#ff9fd6", 1), (1, "#d06bff", 1)], cx=0.5, cy=0.42, r=0.85))
+    out = [rect(0, 0, w, h, fill=f"url(#{gid})"), glitter(t, 0.7, "ecg")]
+    hk = ease_out_back(clamp(t / 0.45)) * (1 + 0.04 * math.sin(t * 5))
+    hp = heart_path(w / 2, h * 0.33, w * 0.2)
+    out.append(group([path(hp, fill="#ff4fae", stroke="#2a1020", stroke_width=8),
+                      path(hp, fill="none", stroke="#ffffff", stroke_width=6, opacity=0.6, transform="translate(-10 -10)"),
+                      ellipse(w / 2 - w * 0.08, h * 0.27, w * 0.05, w * 0.03, fill="#ffffff", opacity=0.7)],
+                     transform=f"translate({f(w / 2)} {f(h * 0.33)}) scale({f(hk)}) translate({f(-w / 2)} {f(-h * 0.33)})"))
+    y = h * 0.56
+    for i, l in enumerate(lines):
+        k = ease_out_back(clamp((t - 0.35 - i * 0.2) / 0.35))
+        size = w * 0.122
+        out.append(group(text_el(l, w / 2, y, size, "Titan One", "#ffffff", stroke="#2a1020", sw=14, anchor="middle"),
+                         transform=f"translate({f(w / 2)} {f(y)}) scale({f(k)}) translate({f(-w / 2)} {f(-y)})"))
+        y += size * 1.15
+    if sub:
+        out.append(text_el(sub, w / 2, h * 0.86, w * 0.05, "Fredoka", "#2a1020", anchor="middle", weight="700",
+                           opacity=clamp((t - 1.2) / 0.4)))
+    out.append(sparkles(w / 2, h * 0.45, w * 0.5, h * 0.4, t, n=22, seed="ecs", size=30))
+    return "".join(out)
+
+
+def photos_insert(defs: Defs, t: float, skin: str, photos: list[dict], nails: str = "#ff4fae", tears: bool = False) -> str:
+    """Two hands holding a polaroid of a doll with big voluminous hair (stage space, centered)."""
+    from .character import CharState, HairState, Look, Pose, draw_character, expression
+    st = skin_tones(skin)
+    out = []
+    n = max(1, len(photos))
+    idx = min(n - 1, int(t / 1.6)) if photos else 0
+    ph = photos[idx] if photos else {}
+    k = ease_out_back(clamp((t - idx * 1.6) / 0.35))
+    cx, cy = 720, 520
+    sway = math.sin(t * 1.3) * 3
+    card = [rect(cx - 230, cy - 300, 460, 560, 8, fill="#ffffff", stroke="#2a1020", stroke_width=6)]
+    cid = defs.uid("pc")
+    defs.add(f'<clipPath id="{cid}"><rect x="{cx - 200}" y="{cy - 270}" width="400" height="420"/></clipPath>')
+    look = Look(name="ph", skin=ph.get("skin", "#c98f62"), eye=ph.get("eye", "#5a3a22"), lips=ph.get("lips", "#e2557f"),
+                hair=ph.get("hair", "#3a2418"), hair_style=ph.get("style", "curly"), wavy=1.0,
+                top=ph.get("top", "halter"), top_color=ph.get("top_color", "#ff6fb5"), earrings="gold")
+    stt = CharState(face=expression("confident"), hair=HairState(color=C.hair_color(look.hair)), pose=Pose())
+    doll = draw_character(look, stt, t, defs, lw=1.4, full_body=False)
+    inner = [rect(cx - 200, cy - 270, 400, 420, fill=ph.get("bg", "#ffd1ec")),
+             sparkles(cx, cy - 60, 190, 190, t, n=8, seed=f"pp{idx}", size=18),
+             group(doll, transform=f"translate({cx} {cy - 70}) scale(0.62)")]
+    card.append(group(inner, clip_path=f"url(#{cid})"))
+    card.append(text_el(ph.get("caption", "goals"), cx, cy + 215, 44, "Pacifico", "#ff4fae", anchor="middle"))
+    out.append(group(card, transform=f"translate({cx} {cy}) rotate({f(sway + ph.get('rot', -3))}) scale({f(k)}) translate({-cx} {-cy})"))
+    # thumbs holding the bottom corners
+    for s_ in (-1, 1):
+        hx = cx + s_ * 200
+        out.append(path(catmull([(hx - 60 * s_, 1080), (hx - 30 * s_, 820), (hx, 760), (hx + 40 * s_, 770), (hx + 50 * s_, 860),
+                                 (hx + 30 * s_, 1080)], closed=True), fill=st["base"], stroke=st["ink"], stroke_width=5))
+        out.append(path(catmull([(hx - 20 * s_, 770), (hx + 10 * s_, 720), (hx + 50 * s_, 728), (hx + 52 * s_, 770),
+                                 (hx + 10 * s_, 800)], closed=True), fill=st["base"], stroke=st["ink"], stroke_width=5))
+        out.append(ellipse(hx + 30 * s_, 742, 14, 10, fill=nails, stroke=st["ink"], stroke_width=3))
+    if tears:
+        for i in range(3):
+            phd = (t * 0.9 + i / 3) % 1
+            x = cx - 120 + i * 120
+            y = 120 + phd * 700
+            out.append(path(f"M{f(x)} {f(y - 18)} Q{f(x + 11)} {f(y + 4)} {f(x)} {f(y + 9)} Q{f(x - 11)} {f(y + 4)} {f(x)} {f(y - 18)} Z",
+                            fill="#9fd8ff", stroke="#5aa8e0", stroke_width=2, opacity=0.9 * (1 - phd)))
+    return "".join(out)
+
+
+def product_insert(defs: Defs, t: float, product: str) -> str:
+    """Hero shot of a styling product with neon glow (stage space, centered)."""
+    from .character import prop_in_hand
+    cx, cy = 720, 600
+    k = ease_out_back(clamp(t / 0.4))
+    bob = math.sin(t * 2.2) * 10
+    out = [circle(cx, cy - 120, 380, fill="url(#gdotp)", opacity=0.9),
+           sparkles(cx, cy - 140, 300, 300, t, n=14, seed=f"pr{product}", size=30)]
+    item = prop_in_hand(product, (0, 0), 0, 1.0, t)
+    out.append(group(item, transform=f"translate({cx} {cy + bob}) scale({f(3.2 * k)})"))
     return "".join(out)

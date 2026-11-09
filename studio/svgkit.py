@@ -244,20 +244,39 @@ def attrs(**kw) -> str:
     return " ".join(parts)
 
 
+def _paint_opacity(kw: dict) -> dict:
+    """Element `opacity` forces resvg to allocate a layer; fill/stroke-opacity is equivalent and far cheaper
+    whenever the element has only a fill or only a stroke."""
+    op = kw.get("opacity")
+    if op is None or "filter" in kw:
+        return kw
+    fill = kw.get("fill")
+    stroke = kw.get("stroke")
+    no_stroke = stroke in (None, "none")
+    no_fill = fill == "none"
+    if no_stroke:
+        kw = dict(kw)
+        kw["fill_opacity"] = kw.pop("opacity")
+    elif no_fill:
+        kw = dict(kw)
+        kw["stroke_opacity"] = kw.pop("opacity")
+    return kw
+
+
 def path(d: str, **kw) -> str:
-    return f'<path d="{d}" {attrs(**kw)}/>'
+    return f'<path d="{d}" {attrs(**_paint_opacity(kw))}/>'
 
 
 def circle(cx: float, cy: float, r: float, **kw) -> str:
-    return f'<circle cx="{f(cx)}" cy="{f(cy)}" r="{f(r)}" {attrs(**kw)}/>'
+    return f'<circle cx="{f(cx)}" cy="{f(cy)}" r="{f(r)}" {attrs(**_paint_opacity(kw))}/>'
 
 
 def ellipse(cx: float, cy: float, rx: float, ry: float, **kw) -> str:
-    return f'<ellipse cx="{f(cx)}" cy="{f(cy)}" rx="{f(rx)}" ry="{f(ry)}" {attrs(**kw)}/>'
+    return f'<ellipse cx="{f(cx)}" cy="{f(cy)}" rx="{f(rx)}" ry="{f(ry)}" {attrs(**_paint_opacity(kw))}/>'
 
 
 def rect(x: float, y: float, w: float, h: float, rx: float = 0, **kw) -> str:
-    return f'<rect x="{f(x)}" y="{f(y)}" width="{f(w)}" height="{f(h)}" rx="{f(rx)}" {attrs(**kw)}/>'
+    return f'<rect x="{f(x)}" y="{f(y)}" width="{f(w)}" height="{f(h)}" rx="{f(rx)}" {attrs(**_paint_opacity(kw))}/>'
 
 
 def line(x1: float, y1: float, x2: float, y2: float, **kw) -> str:

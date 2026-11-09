@@ -311,3 +311,200 @@ def sparkle_bg(defs: Defs, c1="#ff5fb8", c2="#ffb3e0") -> str:
 
 
 SETS = {"bedroom": bedroom, "cafe": cafe, "street": street, "sparkle": sparkle_bg}
+
+
+# =========================================================================== Blair episode sets
+def _heart_d(cx, cy, r):
+    return (f"M{f(cx)} {f(cy + r * 0.95)} C{f(cx - r * 1.45)} {f(cy + r * 0.05)} {f(cx - r * 0.95)} {f(cy - r * 1.05)} "
+            f"{f(cx)} {f(cy - r * 0.42)} C{f(cx + r * 0.95)} {f(cy - r * 1.05)} {f(cx + r * 1.45)} {f(cy + r * 0.05)} "
+            f"{f(cx)} {f(cy + r * 0.95)} Z")
+
+
+def vanity(defs: Defs) -> str:
+    """Lavender dressing room with a big heart-shaped Hollywood mirror."""
+    out = [_wallpaper(defs, 0, 0, 1440, 860, "#e8dbff", "#ffffff", "dots", 0.5)]
+    out.append(rect(0, 820, 1440, 40, fill="#f6efff", stroke=LINE, stroke_width=2))
+    fid = defs.uid("vf")
+    defs.add(lin_grad(fid, [(0, "#fbe3f2", 1), (1, "#efc9e3", 1)]))
+    out.append(rect(0, 860, 1440, 220, fill=f"url(#{fid})"))
+    # heart mirror
+    hd = _heart_d(720, 360, 230)
+    gid = defs.uid("hm")
+    defs.add(lin_grad(gid, [(0, "#f1f8ff", 1), (1, "#d9e4f7", 1)], x2=1, y2=1))
+    out.append(path(hd, fill="none", stroke="#ff9fd6", stroke_width=60, opacity=0.35, filter="url(#glow24)"))
+    out.append(path(hd, fill=f"url(#{gid})", stroke="#ffd1ec", stroke_width=30))
+    out.append(path(hd, fill="none", stroke=LINE, stroke_width=3))
+    out.append(path("M600 250 L650 250 L560 420 L520 420 Z", fill="#ffffff", opacity=0.55))
+    for i in range(22):
+        a = i / 22 * 2 * math.pi
+        hx = 16 * math.sin(a) ** 3
+        hy = -(13 * math.cos(a) - 5 * math.cos(2 * a) - 2 * math.cos(3 * a) - math.cos(4 * a))
+        x, y = 720 + hx / 16 * 250, 360 + hy / 16 * 250 - 24
+        out.append(circle(x, y, 24, fill="#fff3b0", opacity=0.5, filter="url(#glow12)"))
+        out.append(circle(x, y, 10, fill="#fffbe0", stroke="#d9b45a", stroke_width=2))
+    # vanity table + bottles
+    out.append(rect(330, 640, 780, 40, 14, fill="#fff7fb", stroke=LINE, stroke_width=2.5))
+    out.append(rect(360, 680, 720, 180, 10, fill="#ffd1ec", stroke=LINE, stroke_width=2.5))
+    for k, (bx, col) in enumerate([(400, "#ff9fd6"), (450, "#c9b6ff"), (970, "#bfe9ff"), (1030, "#ffe58a")]):
+        out.append(rect(bx, 580 - k % 2 * 14, 34, 60 + k % 2 * 14, 10, fill=col, stroke=LINE, stroke_width=2, opacity=0.9))
+        out.append(rect(bx + 10, 560 - k % 2 * 14, 14, 22, 4, fill="#ffffff", stroke=LINE, stroke_width=1.5))
+    out.append(_fairy_lights(-20, 1460, 30, 60, 20))
+    out.append(_plant(150, 860, 1.0))
+    out.append(_neon_heart(defs, 1260, 230, 1.0, "#b98cff"))
+    return "".join(out)
+
+
+def street_glam(defs: Defs) -> str:
+    """Glamorous boulevard: boutiques with gold trims, palms, sunset sky."""
+    out = [_sky(defs, 0, 0, 1440, 760, "#ffb6d9", "#ffd8c9", "#fff0d6")]
+    cols = ["#fff2f8", "#f6e6ff", "#fff6e6", "#e9f6ff", "#ffeef4"]
+    x, i = -30, 0
+    while x < 1480:
+        bw = 260 + hash01("gw", i) * 60
+        bh = 520 + hash01("gh", i) * 200
+        col = cols[i % len(cols)]
+        out.append(rect(x, 760 - bh, bw, bh + 10, fill=col, stroke=LINE, stroke_width=2.5))
+        out.append(rect(x - 6, 760 - bh - 14, bw + 12, 18, 3, fill="#e8c46a", stroke=LINE, stroke_width=2))
+        for r in range(int((bh - 260) // 90)):
+            for c in range(int(bw // 90)):
+                wx, wy = x + 26 + c * 86, 760 - bh + 40 + r * 90
+                out.append(path(f"M{f(wx)} {f(wy + 60)} L{f(wx)} {f(wy + 20)} Q{f(wx + 25)} {f(wy - 6)} {f(wx + 50)} {f(wy + 20)} "
+                                f"L{f(wx + 50)} {f(wy + 60)} Z", fill="#dcecff", stroke=LINE, stroke_width=1.6))
+        # boutique window + awning
+        out.append(rect(x + 30, 560, bw - 60, 200, 6, fill="#fbe7f3", stroke=LINE, stroke_width=2.5))
+        out.append(rect(x + 44, 576, bw - 88, 170, 4, fill="#ffe9f6", stroke="#e8c46a", stroke_width=4))
+        out.append(circle(x + bw / 2, 640, 26, fill="#ffffff", stroke=LINE, stroke_width=2))  # mannequin head
+        out.append(path(catmull([(x + bw / 2 - 40, 750), (x + bw / 2 - 24, 670), (x + bw / 2 + 24, 670), (x + bw / 2 + 40, 750)],
+                                closed=True), fill=["#ff9fd6", "#c9b6ff", "#ffe58a", "#9fd8ff", "#ffb3a8"][i % 5],
+                        stroke=LINE, stroke_width=2))
+        aw = ["#ff8fc8", "#ffffff"]
+        for k in range(int(bw // 40)):
+            out.append(path(poly([(x + 20 + k * 40, 520), (x + 60 + k * 40, 520), (x + 60 + k * 40, 556), (x + 20 + k * 40, 556)]),
+                            fill=aw[k % 2], stroke=LINE, stroke_width=1.2))
+        x += bw
+        i += 1
+    out.append(text_el("BOUTIQUE", 720, 500, 46, "Titan One", "#e8c46a", stroke="#5a3a52", sw=5, anchor="middle"))
+    for tx in (120, 1320):  # palms
+        out.append(path(f"M{tx - 8} 770 Q{tx - 20} 560 {tx + 6} 380 L{tx + 18} 382 Q{tx} 560 {tx + 10} 770 Z", fill="#b98a62",
+                        stroke=LINE, stroke_width=2))
+        for k in range(7):
+            a = -160 + k * 25
+            ex, ey = tx + 10 + math.cos(math.radians(a)) * 150, 380 + math.sin(math.radians(a)) * 90 + 40
+            out.append(path(catmull([(tx + 10, 380), ((tx + 10 + ex) / 2, min(380, ey) - 40), (ex, ey)]), fill="none",
+                            stroke="#58a978", stroke_width=22, stroke_linecap="round"))
+    out.append(rect(0, 760, 1440, 150, fill="#f7eef4", stroke=LINE, stroke_width=2.5))
+    for k in range(12):
+        out.append(f'<line x1="{k * 130}" y1="760" x2="{k * 130 - 40}" y2="910" stroke="#e6d6e2" stroke-width="2"/>')
+    out.append(rect(0, 900, 1440, 20, fill="#e6d6e2", stroke=LINE, stroke_width=2))
+    out.append(rect(0, 920, 1440, 160, fill="#a89cb6"))
+    return "".join(out)
+
+
+def bedroom_night(defs: Defs) -> str:
+    out = [bedroom(defs)]
+    out.append(rect(0, 0, 1440, 1080, fill="#2a2266", opacity=0.42))
+    out.append(rect(70, 170, 330, 470, fill="#1f1d4a", opacity=0.75))
+    out.append(circle(300, 260, 46, fill="#fff6d6", opacity=0.95))
+    out.append(circle(318, 248, 40, fill="#2f2b62", opacity=0.9))
+    for i in range(14):
+        out.append(circle(100 + hash01("st", i) * 280, 190 + hash01("sy", i) * 200, 2.5, fill="#ffffff", opacity=0.9))
+    out.append(circle(940, 670, 150, fill="#ffd98a", opacity=0.35, filter="url(#glow24)"))
+    out.append(_fairy_lights(-20, 1460, 40, 70, 22))
+    out.append(_neon_heart(defs, 1180, 260, 1.4))
+    return "".join(out)
+
+
+def backdrop(defs: Defs) -> str:
+    """Hair try-on studio: seamless pink backdrop, ring light, stars."""
+    gid = defs.uid("bd")
+    defs.add(rad_grad(gid, [(0, "#ffe6f4", 1), (0.7, "#ffb3dc", 1), (1, "#f58ac6", 1)], cx=0.5, cy=0.4, r=0.8))
+    out = [rect(0, 0, 1440, 1080, fill=f"url(#{gid})")]
+    out.append(circle(720, 380, 300, fill="none", stroke="#ffffff", stroke_width=40, opacity=0.9, filter="url(#glow12)"))
+    out.append(circle(720, 380, 300, fill="none", stroke="#fff8fc", stroke_width=22))
+    for i in range(26):
+        x, y = hash01("bx", i) * 1440, hash01("by", i) * 820
+        out.append(path(_star(x, y, 10 + 16 * hash01("bs", i)), fill="#ffffff", opacity=0.6))
+    out.append(path("M0 860 Q720 820 1440 860 L1440 1080 L0 1080 Z", fill="#f7a6d2"))
+    return "".join(out)
+
+
+def _star(x, y, r):
+    w = r * 0.22
+    return (f"M{f(x)} {f(y - r)} Q{f(x + w)} {f(y - w)} {f(x + r)} {f(y)} Q{f(x + w)} {f(y + w)} {f(x)} {f(y + r)} "
+            f"Q{f(x - w)} {f(y + w)} {f(x - r)} {f(y)} Q{f(x - w)} {f(y - w)} {f(x)} {f(y - r)} Z")
+
+
+def rooftop(defs: Defs) -> str:
+    """Sparkling rooftop party at night: skyline, string lights, disco ball, railing."""
+    gid = defs.uid("rs")
+    defs.add(lin_grad(gid, [(0, "#1b1442", 1), (0.55, "#5a2a7a", 1), (0.85, "#d0569a", 1), (1, "#ff9fc4", 1)]))
+    out = [rect(0, 0, 1440, 1080, fill=f"url(#{gid})")]
+    for i in range(60):
+        out.append(circle(hash01("rx", i) * 1440, hash01("ry", i) * 420, 1.5 + hash01("rz", i) * 2, fill="#ffffff",
+                          opacity=0.5 + 0.5 * hash01("ro", i)))
+    x, i = -20, 0
+    while x < 1460:  # skyline
+        bw = 90 + hash01("kw", i) * 120
+        bh = 180 + hash01("kh", i) * 300
+        out.append(rect(x, 760 - bh, bw, bh, fill="#2a1d55"))
+        for r in range(int(bh // 34)):
+            for c in range(int(bw // 30)):
+                if hash01("kl", i, r, c) > 0.45:
+                    out.append(rect(x + 8 + c * 30, 760 - bh + 12 + r * 34, 14, 18, fill="#ffd98a", opacity=0.75))
+        x += bw + 6
+        i += 1
+    # deck + railing
+    out.append(rect(0, 760, 1440, 320, fill="#3a2d63"))
+    for k in range(9):
+        out.append(rect(0, 790 + k * 34, 1440, 3, fill="#5a4a8a", opacity=0.7))
+    out.append(rect(0, 700, 1440, 70, fill="#ffffff", opacity=0.18, stroke="#ffd1ec", stroke_width=3))
+    out.append(rect(0, 694, 1440, 12, 6, fill="#ffd1ec"))
+    # string lights
+    for (x0, x1, y, sag) in [(-20, 760, 60, 120), (680, 1460, 80, 110), (-20, 1460, 170, 90)]:
+        pts = [(x0 + (x1 - x0) * k / 20, y + sag * math.sin(math.pi * k / 20)) for k in range(21)]
+        out.append(path(catmull(pts), fill="none", stroke="#2a1d40", stroke_width=2))
+        for k in range(1, 20, 2):
+            px, py = pts[k]
+            out.append(circle(px, py + 10, 20, fill="#fff3b0", opacity=0.55, filter="url(#glow12)"))
+            out.append(circle(px, py + 10, 7, fill="#fffbe0"))
+    # disco ball
+    out.append(f'<line x1="1120" y1="0" x2="1120" y2="210" stroke="#cfc6e6" stroke-width="3"/>')
+    out.append(circle(1120, 270, 64, fill="#d9d4ee", stroke="#2a1d40", stroke_width=3))
+    for r in range(-4, 5):
+        out.append(path(f"M{1120 - 62} {270 + r * 13} L{1120 + 62} {270 + r * 13}", stroke="#8e86b4", stroke_width=1.5))
+        out.append(path(f"M{1120 + r * 13} 208 Q{1120 + r * 20} 270 {1120 + r * 13} 332", fill="none", stroke="#8e86b4",
+                        stroke_width=1.5))
+    out.append(circle(1100, 250, 14, fill="#ffffff", opacity=0.9))
+    out.append(circle(1120, 270, 140, fill="#d9c2ff", opacity=0.25, filter="url(#glow24)"))
+    out.append(text_el("glow up", 330, 330, 92, "Pacifico", "#ff6fc0", stroke="#ffd1ec", sw=4, anchor="middle",
+                       extra='filter="url(#glow8)"'))
+    out.append(text_el("glow up", 330, 330, 92, "Pacifico", "#ffe6f6", anchor="middle"))
+    for px in (90, 1350):
+        out.append(_plant(px, 760, 1.1))
+    return "".join(out)
+
+
+def fg_duvet(defs: Defs) -> str:
+    """Foreground bed edge so a character can 'sit' on the bed (covers the legs)."""
+    out = [path(catmull([(-40, 1080), (-40, 660), (300, 640), (720, 652), (1140, 640), (1480, 660), (1480, 1080)], closed=True,
+                        tension=0.5), fill="#b9a3ff", stroke=LINE, stroke_width=3)]
+    for k in range(6):
+        x = 100 + k * 240
+        out.append(path(f"M{x} 670 Q{x + 40} 800 {x + 10} 1080", fill="none", stroke="#a28be8", stroke_width=6, opacity=0.7))
+    out.append(rect(0, 1000, 1440, 80, fill="#2a2266", opacity=0.25))
+    return "".join(out)
+
+
+def fg_vanity(defs: Defs) -> str:
+    """Foreground vanity table edge with products (covers the lower body)."""
+    out = [rect(-20, 700, 1480, 60, 18, fill="#fff7fb", stroke=LINE, stroke_width=3),
+           rect(-20, 760, 1480, 340, 0, fill="#ffd1ec", stroke=LINE, stroke_width=3)]
+    for k, (bx, col, h) in enumerate([(160, "#ff9fd6", 120), (240, "#c9b6ff", 90), (1150, "#bfe9ff", 110), (1240, "#ffe58a", 80)]):
+        out.append(rect(bx, 700 - h, 60, h, 14, fill=col, stroke=LINE, stroke_width=2.5))
+        out.append(rect(bx + 18, 680 - h, 24, 26, 6, fill="#ffffff", stroke=LINE, stroke_width=2))
+    return "".join(out)
+
+
+SETS.update({"vanity": vanity, "street_glam": street_glam, "bedroom_night": bedroom_night, "backdrop": backdrop,
+             "rooftop": rooftop})
+FOREGROUND = {"duvet": fg_duvet, "vanity": fg_vanity}

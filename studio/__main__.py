@@ -28,29 +28,28 @@ def main() -> None:
         out = engine.ROOT / a.out
         out.mkdir(parents=True, exist_ok=True)
 
-        def png(t):
-            return bytes(resvg_py.svg_to_bytes(svg_string=sc.frame_svg(t), font_dirs=engine.FONT_DIRS,
-                                               resources_dir=str(sc.bgdir)))
         if a.still:
             for t in a.still:
                 p = out / f"{ep.name}_still_{t:06.2f}.png"
-                p.write_bytes(png(t))
+                engine.frame_image(min(ep.nframes - 1, int(t * ep.fps))).save(p)
                 print(p)
         if a.sheet:
+            import multiprocessing as mp
             from PIL import Image
-            times = []
+            frames = []
             for sh in ep.shots:
                 for u in (0.15, 0.5, 0.88):
-                    times.append((sh.id, sh.start + sh.dur * u))
-            thumbs = []
-            for sid, t in times:
-                im = Image.open(io.BytesIO(png(t))).convert("RGB").resize((360, 270))
-                thumbs.append(im)
-            cols = 6
+                    frames.append(min(ep.nframes - 1, int((sh.start + sh.dur * u) * ep.fps)))
+            with mp.get_context("fork").Pool(a.workers or None) as pool:
+                raws = pool.map(engine._render_frame, frames, chunksize=2)
+            tw = 360 if ep.W > ep.H else 180
+            th = int(tw * ep.H / ep.W)
+            thumbs = [Image.frombytes("RGB", (ep.W, ep.H), b).resize((tw, th)) for b in raws]
+            cols = 6 if ep.W > ep.H else 12
             rows = (len(thumbs) + cols - 1) // cols
-            sheet = Image.new("RGB", (cols * 364, rows * 274), "white")
+            sheet = Image.new("RGB", (cols * (tw + 4), rows * (th + 4)), "white")
             for i, im in enumerate(thumbs):
-                sheet.paste(im, ((i % cols) * 364, (i // cols) * 274))
+                sheet.paste(im, ((i % cols) * (tw + 4), (i // cols) * (th + 4)))
             p = out / f"{ep.name}_sheet.jpg"
             sheet.save(p, quality=88)
             print(p)

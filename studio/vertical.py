@@ -44,14 +44,15 @@ def _syllables(w: str) -> int:
     return max(1, n)
 
 
-def captions_ass(ep, path: Path) -> None:
+def captions_ass(ep, path: Path, vw: int = VW, vh: int = VH, cap_y: int = CAP_Y) -> None:
     style = ep.captions or {}
     font = style.get("font", "Titan One")
     size = int(style.get("size", 84))
+    highlight = {k.lower(): v for k, v in (style.get("highlight") or {}).items()}
     head = f"""[Script Info]
 ScriptType: v4.00+
-PlayResX: {VW}
-PlayResY: {VH}
+PlayResX: {vw}
+PlayResY: {vh}
 WrapStyle: 0
 ScaledBorderAndShadow: yes
 
@@ -66,7 +67,7 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
     for ln in ep.all_lines:
         if ln.who in ep.cast and ep.cast[ln.who].get("captions") is False:
             continue
-        words = ln.text.replace("...", "… ").split()
+        words = (ln.caption or ln.text).replace("...", "… ").split()
         weights = [_syllables(w) + 0.6 for w in words]
         tot = sum(weights)
         t = ln.start
@@ -90,12 +91,14 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
             txt = []
             for w in ws:
                 key = re.sub(r"[^a-z]", "", w.lower())
-                if key in COLOR_WORDS:
+                if key in highlight:
+                    txt.append("{\\c" + _ass_color(highlight[key]) + "}" + w.upper() + "{\\c&H00FFFFFF&}")
+                elif key in COLOR_WORDS and not highlight:
                     txt.append("{\\c" + _ass_color(C.hair_color(COLOR_WORDS[key])) + "}" + w.upper() + "{\\c&H00FFFFFF&}")
                 else:
                     txt.append(w.upper())
             body = " ".join(txt)
-            fx = f"{{\\pos({VW // 2},{CAP_Y})\\fscx72\\fscy72\\t(0,90,\\fscx104\\fscy104)\\t(90,150,\\fscx100\\fscy100)}}"
+            fx = f"{{\\pos({vw // 2},{cap_y})\\fscx72\\fscy72\\t(0,90,\\fscx104\\fscy104)\\t(90,150,\\fscx100\\fscy100)}}"
             rows.append(f"Dialogue: 0,{_ts(st)},{_ts(en)},Cap,,0,0,0,,{fx}{body}")
     path.write_text(head + "\n".join(rows) + "\n")
 
@@ -137,20 +140,28 @@ def make_vertical(ep, src: Path, build: Path, out: Path) -> Path:
     captions_ass(ep, ass)
     fonts = Path(__file__).resolve().parent.parent / "assets/fonts"
     dst = out / f"{ep.name}_9x16.mp4"
-    # rounded corners for the video window via an alpha mask
-    mask = build / "vid_mask.png"
-    _round_mask(mask, VID_W, VID_H, 26)
-    fc = (f"[1:v]scale={VID_W}:{VID_H}:flags=lanczos,format=rgba[v];[2:v]format=gray,scale={VID_W}:{VID_H}[m];"
-          f"[v][m]alphamerge[vm];[0:v][vm]overlay={VID_X}:{VID_Y}:shortest=1,"
-          f"ass={ass}:fontsdir={fonts},format=yuv420p[o]")
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-i", str(bg), "-i", str(src), "-loop", "1",
-                    "-i", str(mask), "-filter_complex", fc, "-map", "[o]", "-map", "1:a", "-c:v", "libx264",
-                    "-preset", "medium", "-crf", "18", "-r", str(ep.fps), "-c:a", "copy", "-shortest",
-                    "-movflags", "+faststart", str(dst)], check=True)
+    frame = build / "vid_frame.png"
+    _frame_png(frame)
+    fc = (f"[1:v]scale={VID_W}:{VID_H}:flags=lanczos[v];[0:v][v]overlay={VID_X}:{VID_Y}:shortest=1[a];"
+          f"[a][2:v]overlay=0:0:shortest=1,ass={ass}:fontsdir={fonts},format=yuv420p[o]")
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-loop", "1", "-framerate", str(ep.fps), "-i", str(bg), "-i", str(src),
+                    "-loop", "1", "-framerate", str(ep.fps), "-i", str(frame), "-filter_complex", fc, "-map", "[o]",
+                    "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "18", "-r", str(ep.fps), "-c:a", "copy",
+                    "-t", f"{ep.total + 0.3:.2f}", "-movflags", "+faststart", str(dst)], check=True)
     return dst
 
 
-def _round_mask(path: Path, w: int, h: int, r: int) -> None:
-    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{w}" height="{h}"><rect width="{w}" height="{h}" fill="black"/>'
-           f'<rect width="{w}" height="{h}" rx="{r}" fill="white"/></svg>')
+def _frame_png(path: Path) -> None:
+    """Transparent overlay: white rounded border whose fill hides the video's square corners."""
+    x0, y0, x1, y1 = VID_X, VID_Y, VID_X + VID_W, VID_Y + VID_H
+    r = 30
+    inner = (f"M{x0 + r} {y0} H{x1 - r} A{r} {r} 0 0 1 {x1} {y0 + r} V{y1 - r} A{r} {r} 0 0 1 {x1 - r} {y1} H{x0 + r} "
+             f"A{r} {r} 0 0 1 {x0} {y1 - r} V{y0 + r} A{r} {r} 0 0 1 {x0 + r} {y0} Z")
+    outer = f"M{x0 - 1} {y0 - 1} H{x1 + 1} V{y1 + 1} H{x0 - 1} Z"
+    svg = (f'<svg xmlns="http://www.w3.org/2000/svg" width="{VW}" height="{VH}">'
+           f'<path d="{outer} {inner}" fill="#ffffff" fill-rule="evenodd"/>'
+           f'<rect x="{x0 - 12}" y="{y0 - 12}" width="{VID_W + 24}" height="{VID_H + 24}" rx="34" fill="none" '
+           f'stroke="#ffffff" stroke-width="14"/>'
+           f'<rect x="{x0 - 18}" y="{y0 - 18}" width="{VID_W + 36}" height="{VID_H + 36}" rx="40" fill="none" '
+           f'stroke="#2a1020" stroke-width="6"/></svg>')
     path.write_bytes(bytes(resvg_py.svg_to_bytes(svg_string=svg)))
