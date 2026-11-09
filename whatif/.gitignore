@@ -5,3 +5,4 @@ episodes/*/build/*.wav
 speed_test.html
 *.tmp
 __pycache__/
+episodes/*/out/*_master.mp4

@@ -476,6 +476,9 @@ export function earthOrbit(engine) {
 export function earthLot(engine, star) {
   const { scene, ups } = base({ sky: { top: '#0b1019', horizon: '#3b4656', bottom: '#0e0f12', exponent: 0.7 }, fog: ['#2b333f', 25, 230], hemi: ['#8aa0c0', '#16161a', 0.4], env: 0.3 });
   const lot = City.createParkingLot({ w: 120, d: 100 }); scene.add(lot);
+  // surrounding ground (fields / roads) so the lot isn't floating when the camera rises
+  const outer = new THREE.Mesh(new THREE.PlaneGeometry(3000, 3000), new THREE.MeshStandardMaterial({ color: '#1a1e22', roughness: 0.9 }));
+  outer.rotation.x = -Math.PI / 2; outer.position.y = -0.03; outer.receiveShadow = true; scene.add(outer);
   const mall = City.createStripMall({ width: 70 }); mall.position.set(0, 0, -24); scene.add(mall);
   // distant skyline at night
   const R = rng(5);
