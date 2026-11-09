@@ -1,426 +1,440 @@
 # "What's It Like to Have a Big Forehead and Thin Hair... But an Ethereal Face Card?"
-# 3 minutes | native 9:16 | comedy, emotional, friendship
+# v2: fast cut (~1:50) | native 9:16 | expressive voices
 #
 # Render:  .venv/bin/python -m studio episodes/blair_face_card.yaml
 # Review:  .venv/bin/python -m studio episodes/blair_face_card.yaml --sheet
 #
 # Consistency rule from the script: Blair's big forehead, thin hair density, face and outfit never change.
 # Only the *arrangement* of her hair changes (hair `style:`), plus temporary wind / volume.
+#
+# Voices: tts: chatterbox (expressive). Per line: emotion 0.3 calm .. 1.6 shouting, pace 0.25 fast .. 0.5 slow.
+# Lines marked "# ad-lib" are extra reactions added for energy - delete them for a script-only cut.
 
 title: "What's It Like to Have a Big Forehead and Thin Hair... But an Ethereal Face Card?"
 fps: 24
 size: [1080, 1920]
-grade: {bloom: 0.22, grain: 0.07}
+tts: chatterbox
+bokeh_cu: 0.5
+grade: {bloom: 0.24, grain: 0.06, saturation: 1.14, contrast: 1.06, sharpen: 0.4}
 captions:
   enabled: true
-  size: 74
+  size: 78
   highlight: {forehead: "#ffd36a", hair: "#ff9fd6", card: "#ff7ac3", unlimited: "#ff7ac3", volume: "#c9b0ff",
-              wind: "#9fd8ff", hater: "#9fd8ff", pretty: "#ff9fd6", gorgeous: "#ffd36a", out: "#ffd36a"}
+              wind: "#9fd8ff", hater: "#9fd8ff", pretty: "#ff9fd6", gorgeous: "#ffd36a", out: "#ffd36a",
+              flaw: "#ff7ac3", grape: "#c9b0ff"}
 music:
   seed: 11
-  volume: 0.34
+  volume: 0.38
   sections:
     - {at: 0, style: pop}
-    - {at: 49, style: comedy}
-    - {at: 99, style: sad}
-    - {at: 124, style: warm}
-    - {at: 152, style: party}
+    - {shot: s3_mission, style: comedy}
+    - {shot: s5_room, style: sad}
+    - {shot: s6_burst, style: warm}
+    - {shot: s7_arrive, style: party}
 
 cast:
   blair:
     voice: af_heart
+    aura: 0.5
+    emotion: 0.85
+    pace: 0.35
+    speed: 1.06
     look: {skin: "#e7bf92", eye: "#a9b7c6", lips: "#f2669e", eyeshadow: "#d9b8ff", hair: "#8b7b70",
            hair_style: thin, part: -10, forehead: 1.0, eye_shape: feline, glow: 0.9, brow: "#5a4a44",
            top: corset, top_color: "#ff86bf", jacket: "#c9b0ff", bottom: mini, bottom_color: "#c7cbd6",
            bottom_metal: true, shoes: clear, earrings: silver}
   pink:
     voice: af_bella
+    emotion: 1.0
+    pace: 0.35
+    speed: 1.06
     look: {skin: "#6b4028", eye: "#5a3a22", lips: "#c4366e", eyeshadow: "#ff7ac3", hair: "#24160f", hair_style: curly,
            top: halter, top_color: "#ff6fb5", bottom: mini, bottom_color: "#ff8fc8", shoes_color: "#ff6fb5",
            earrings: gold, brow: "#1e120c", glow: 0.4}
   blue:
     voice: af_kore
+    emotion: 0.85
+    pace: 0.4
+    speed: 1.04
     look: {skin: "#f3d2b8", eye: "#3b2a20", lips: "#e8507a", eyeshadow: "#9fd0ff", hair: "#1b1820", hair_style: long,
            bangs: true, eye_shape: almond, part: 0, top: hoodie, top_color: "#8ec5ff", bottom: flare,
            bottom_color: "#bcd8f7", shoes_color: "#ffffff", earrings: silver, brow: "#1b1418", glow: 0.4}
   gold:
     voice: bf_isabella
+    emotion: 1.0
+    pace: 0.35
+    speed: 1.06
     look: {skin: "#c98f62", eye: "#6b4a2a", lips: "#d9506a", eyeshadow: "#ffd36a", hair: "#4a2c1c", hair_style: long,
            wavy: 1.0, part: 12, top: halter, top_color: "#f4c542", top_metal: true, bottom: mini,
            bottom_color: "#f4c542", bottom_metal: true, shoes_color: "#f4c542", earrings: gold, brow: "#2a1a12",
            glow: 0.4}
 
 shots:
-  # ======================================================= SCENE 1 - WHAT'S IT LIKE? (0:00-0:25)
-  - id: s1_mirror_open
+  # ======================================================= 1 - WHAT'S IT LIKE?
+  - id: s1_open
     set: vanity
     mask: heart
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: dreamy, face: {look_y: -0.1}}
-    camera: {frame: cu, on: blair, push: 0.08}
-    hook: {lines: ["WHAT'S IT LIKE...", "big forehead + thin hair", "but an ethereal", "FACE CARD?"], dur: 4.6}
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: dreamy, face: {tilt: -6}}
+    camera: {frame: cu, on: blair, push: 0.1}
+    hook: {lines: ["WHAT'S IT LIKE...", "big forehead + thin hair", "but an ethereal", "FACE CARD?"], dur: 2.9}
     glitter: 0.35
-    dur: 5.0
-    sfx: [{at: 0.0, name: sparkle, gain: 0.7}]
-
-  - id: s1_admire
-    set: vanity
-    mask: heart
-    actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, arms: custom, arm_r: [96, 70, 1, true]}
-    camera: {frame: ecu, on: blair, push: 0.06}
     beats:
-      - {at: 1.2, who: blair, face: {wink: 1.0}, sfx: ding, gain: 0.6}
-      - {at: 1.2, who: blair, fx: sparkles, fxdur: 1.5}
-      - {at: 1.7, who: blair, face: {wink: 0.0}}
-    leak: "#ffc4e6"
+      - {at: 1.3, who: blair, expr: love, face: {wink: 1.0}}
+      - {at: 1.3, who: blair, fx: sparkles, fxdur: 1.5}
+    lines:
+      - {who: blair, text: "Mwah.", emotion: 0.9, at: 1.4}   # ad-lib
     dur: 3.0
+    sfx: [{at: 0.0, name: sparkle, gain: 0.7}]
 
   - id: s1_eyes
     set: vanity
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, face: {sparkle: 1.0}}
-    camera: {frame: ecu, on: blair, dy: -20, push: 0.12}
-    fg: vanity
-    sfx: [{at: 0.2, name: sparkle, gain: 0.5}]
-    dur: 1.8
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, face: {sparkle: 1.0, tilt: 4}}
+    camera: {frame: ecu, on: blair, dy: -20, push: 0.16, rot: -3}
+    sfx: [{at: 0.05, name: ding, gain: 0.5}]
+    dur: 0.9
 
   - id: s1_lips
     set: vanity
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: soft, face: {smile: 0.5}}
-    camera: {frame: ecu, on: blair, dy: 70, push: 0.1}
-    fg: vanity
-    dur: 1.6
-
-  - id: s1_smile
-    set: vanity
-    actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: happy}
-    camera: {frame: mcu, on: blair, push: 0.05}
-    fg: vanity
-    beats:
-      - {at: 1.3, who: blair, expr: gasp, face: {look_y: -1.0}}
-      - {at: 1.3, sfx: dun, gain: 0.6}
-    dur: 2.6
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: soft, face: {smile: 0.6}}
+    camera: {frame: ecu, on: blair, dy: 70, push: 0.14, rot: 3}
+    sfx: [{at: 0.05, name: sparkle, gain: 0.4}]
+    dur: 0.9
 
   - id: s1_notice
     set: vanity
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: gasp, face: {look_y: -1.0}}
-    camera: {frame: ecu, on: blair, dy: -90, push: 0.1}
-    beats:
-      - {at: 0.5, who: blair, fx: shine, fxdur: 1.2, sfx: ding, gain: 0.7}
-      - {at: 0.5, fx: punch}
-    dur: 2.4
-
-  - id: s1_flat
-    set: vanity
-    actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: deadpan, arms: custom, arm_r: [120, 30, 1, true]}
-    camera: {frame: mcu, on: blair, push: 0.04}
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: happy}
+    camera: {frame: mcu, on: blair, push: 0.06}
     fg: vanity
     beats:
-      - {at: 0.4, who: blair, fluff: -0.3, tdur: 0.4, sfx: deflate, gain: 0.6}
-    dur: 2.4
+      - {at: 0.5, who: blair, expr: gasp, face: {look_y: -1.0}}
+      - {at: 0.5, sfx: dun, gain: 0.6}
+    lines:
+      - {who: blair, text: "Wait...", emotion: 0.9, at: 0.55, bleed: true}   # ad-lib
+    dur: 1.4
+
+  - id: s1_forehead
+    set: vanity
+    actors:
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: gasp, face: {look_y: -1.0}}
+    camera: {frame: ecu, on: blair, dy: -90, push: 0.12}
+    beats:
+      - {at: 0.15, who: blair, fx: shine, fxdur: 1.0, sfx: ding, gain: 0.7}
+      - {at: 0.15, fx: punch}
+    dur: 1.1
 
   - id: s1_line
     set: vanity
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, fluff: -0.3}
-    camera: {frame: cu, on: blair, push: 0.06}
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, face: {tilt: -3}}
+    camera: {frame: cu, on: blair, push: 0.08}
     lines:
       - {who: blair, text: "What's it like having a face card that never declines... but hair that never cooperates?",
-         at: 0.3}
+         at: 0.1, emotion: 0.95}
     beats:
-      - {at: "line1+2.6", who: blair, expr: deadpan}
-    tail: 0.7
+      - {at: "line1+2.1", who: blair, expr: deadpan, fluff: -0.3, tdur: 0.4}
+      - {at: "line1+2.1", sfx: deflate, gain: 0.5}
+    tail: 0.25
 
-  # ======================================================= SCENE 2 - WIND IS THE ENEMY (0:25-0:50)
+  # ======================================================= 2 - WIND IS THE ENEMY
   - id: s2_strut
     set: street_glam
+    whip_in: true
     actors:
-      - {who: blair, x: 520, y: 420, s: 0.62, expr: confident, walk: true, move: [400, 0]}
-    camera: {frame: full, on: blair, push: 0.03}
-    dur: 3.4
-    sfx: [{at: 0.0, name: whoosh, gain: 0.5}]
-
-  - id: s2_strut_ms
-    set: street_glam
-    actors:
-      - {who: blair, x: 640, y: 420, s: 0.62, expr: confident, walk: true, move: [160, 0], face: {smirk: 0.4}}
-    camera: {frame: ms, on: blair, push: 0.04}
-    leak: "#ffd9c4"
-    dur: 2.6
+      - {who: blair, x: 560, y: 420, s: 0.62, expr: confident, walk: true, move: [260, 0], face: {smirk: 0.5}}
+    camera: {frame: full, on: blair, push: 0.04}
+    lines:
+      - {who: blair, text: "Okay, runway.", emotion: 1.0, at: 0.3}   # ad-lib
+    dur: 1.8
+    sfx: [{at: 0.0, name: whoosh, gain: 0.6}]
 
   - id: s2_flip
     set: street_glam
     actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: confident, face: {sparkle: 0.8}}
-    camera: {frame: cu, on: blair, push: 0.05}
+      - {who: blair, x: 820, y: 420, s: 0.62, expr: confident, walk: true, move: [60, 0], face: {sparkle: 0.8, tilt: 5}}
+    camera: {frame: mcu, on: blair, push: 0.06, rot: -2}
     beats:
-      - {at: 0.3, who: blair, arms: custom, arm_r: [130, 40, 1, true]}
-      - {at: 0.4, who: blair, fx: sparkles, fxdur: 1.6, sfx: sparkle, gain: 0.5}
-    dur: 2.4
+      - {at: 0.15, who: blair, arms: custom, arm_r: [130, 40, 1, true]}
+      - {at: 0.3, who: blair, fx: sparkles, fxdur: 1.2, sfx: sparkle, gain: 0.5}
+    dur: 1.3
 
   - id: s2_gust
     set: street_glam
     actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: confident}
+      - {who: blair, x: 860, y: 420, s: 0.62, expr: confident}
     camera: {frame: ms, on: blair, push: 0.03}
     beats:
-      - {at: 0.4, fx: wind, fxdur: 2.4}
-      - {at: 0.4, sfx: whoosh}
-      - {at: 0.5, who: blair, wind: 1.0, tdur: 0.3, expr: shock}
-      - {at: 0.5, fx: shake, fxdur: 0.8}
-    dur: 2.8
+      - {at: 0.15, fx: wind, fxdur: 1.4}
+      - {at: 0.1, sfx: whoosh}
+      - {at: 0.2, who: blair, wind: 1.0, tdur: 0.25, expr: shock}
+      - {at: 0.2, fx: shake, fxdur: 0.7}
+    dur: 1.2
 
   - id: s2_exposed
     set: street_glam
     actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: panic, wind: 1.0}
-    camera: {frame: ecu, on: blair, dy: -40, push: 0.12}
+      - {who: blair, x: 860, y: 420, s: 0.62, expr: panic, wind: 1.0}
+    camera: {frame: ecu, on: blair, dy: -40, push: 0.14, rot: 4}
     beats:
-      - {at: 0.0, fx: wind, fxdur: 3.0}
-      - {at: 0.2, fx: speed, fxdur: 1.6}
-      - {at: 0.6, who: blair, fx: shine, fxdur: 1.2, sfx: ding, gain: 0.6}
-    dur: 2.5
+      - {at: 0.0, fx: wind, fxdur: 1.5}
+      - {at: 0.0, fx: speed, fxdur: 1.3}
+      - {at: 0.3, who: blair, fx: shine, fxdur: 0.9, sfx: ding, gain: 0.6}
+    lines:
+      - {who: blair, text: "No no no no!", emotion: 1.4, pace: 0.25, at: 0.1, bleed: true}   # ad-lib
+    dur: 1.3
 
   - id: s2_hold
     set: street_glam
     actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: panic, wind: 1.0}
-    camera: {frame: mcu, on: blair, push: 0.05}
+      - {who: blair, x: 860, y: 420, s: 0.62, expr: panic, wind: 1.0}
+    camera: {frame: mcu, on: blair, push: 0.06}
     beats:
-      - {at: 0.0, fx: wind, fxdur: 3.2}
-      - {at: 0.2, who: blair, arms: custom, arm_r: [124, -10, 1, true], arm_l: [-124, -10, 1, true]}
-      - {at: 0.3, who: blair, wind: 0.65, tdur: 0.4}
-      - {at: 0.8, sfx: boing, gain: 0.5}
-      - {at: 0.8, fx: shake, fxdur: 0.6}
-    dur: 3.0
+      - {at: 0.0, fx: wind, fxdur: 1.6}
+      - {at: 0.05, who: blair, arms: custom, arm_r: [124, -10, 1, true], arm_l: [-124, -10, 1, true]}
+      - {at: 0.1, who: blair, wind: 0.65, tdur: 0.3}
+      - {at: 0.5, fx: shake, fxdur: 0.5}
+      - {at: 0.5, sfx: boing, gain: 0.5}
+    dur: 1.4
 
   - id: s2_line
     set: street_glam
     actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: angry, wind: 0.65, arms: custom, arm_r: [124, -10, 1, true],
-         arm_l: [-124, -10, 1, true], face: {look_y: -0.8, mouth_open: 0.4}}
-    camera: {frame: cu, on: blair, push: 0.1}
+      - {who: blair, x: 860, y: 420, s: 0.62, expr: angry, wind: 0.65, arms: custom, arm_r: [124, -10, 1, true],
+         arm_l: [-124, -10, 1, true], face: {look_y: -0.8}}
+    camera: {frame: cu, on: blair, push: 0.12, rot: -3}
     lines:
-      - {who: blair, text: "WHY IS THE WIND MY BIGGEST HATER?!", say: "Why is the wind... my biggest hater?!", at: 0.3}
+      - {who: blair, text: "WHY IS THE WIND MY BIGGEST HATER?!", say: "Why is the wind my biggest hater?!", at: 0.05,
+         emotion: 1.6, pace: 0.25}
     beats:
-      - {at: 0.0, fx: wind, fxdur: 5.0}
-      - {at: line1, fx: punch}
-    tail: 0.5
+      - {at: 0.0, fx: wind, fxdur: 4.0}
+      - {at: 0.4, fx: punch}
+      - {at: 0.4, fx: shake, fxdur: 0.5}
+    tail: 0.15
 
-  - id: s2_calm
+  - id: s2_after
     set: street_glam
     actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: deadpan, wind: 0.65}
+      - {who: blair, x: 860, y: 420, s: 0.62, expr: deadpan, wind: 0.65}
     camera: {frame: mcu, on: blair, push: 0.04}
     beats:
-      - {at: 0.4, who: blair, wind: 0.0, tdur: 0.6, bounce: true}
-      - {at: 0.4, sfx: deflate, gain: 0.5}
-      - {at: 1.2, who: blair, face: {look_x: 0.8}, sfx: gulp, gain: 0.5}
-    dur: 2.8
+      - {at: 0.1, who: blair, wind: 0.0, tdur: 0.5, bounce: true}
+      - {at: 0.1, sfx: deflate, gain: 0.5}
+    lines:
+      - {who: blair, text: "Cool. Love that for me.", emotion: 0.4, pace: 0.4, at: 0.6}   # ad-lib
+    tail: 0.2
 
-  - id: s2_stare
-    set: street_glam
-    actors:
-      - {who: blair, x: 760, y: 420, s: 0.62, expr: suspicious}
-    camera: {frame: ecu, on: blair, push: 0.06}
-    dur: 1.8
-
-  # ======================================================= SCENE 3 - FLAT HAIR EVERYDAY (0:50-1:15)
+  # ======================================================= 3 - FLAT HAIR EVERYDAY
   - id: s3_mission
     set: vanity
+    whip_in: true
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, arms: hip}
-    camera: {frame: mcu, on: blair, push: 0.05}
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, arms: hip, face: {tilt: 4}}
+    camera: {frame: mcu, on: blair, push: 0.06}
     fg: vanity
     label: "OPERATION: VOLUME"
-    sfx: [{at: 0.0, name: whoosh, gain: 0.5}, {at: 0.15, name: pop, gain: 0.6}]
-    dur: 2.6
+    lines:
+      - {who: blair, text: "Operation volume. Let's go.", emotion: 1.0, at: 0.15}   # ad-lib
+    sfx: [{at: 0.0, name: whoosh, gain: 0.5}, {at: 0.1, name: pop, gain: 0.6}]
+    tail: 0.1
 
   - id: s3_mousse
     set: product
     product: mousse
-    sfx: [{at: 0.1, name: pop, gain: 0.6}, {at: 0.4, name: sparkle, gain: 0.4}]
-    dur: 1.6
+    lines:
+      - {who: blair, text: "Mousse...", emotion: 0.9, at: 0.05, bleed: true}   # ad-lib
+    sfx: [{at: 0.0, name: pop, gain: 0.6}]
+    dur: 0.8
 
   - id: s3_apply
     set: vanity
     actors:
       - {who: blair, x: 720, y: 430, s: 0.6, expr: suspicious, arms: custom, arm_r: [130, 40, 1, true], prop: mousse}
-    camera: {frame: mcu, on: blair, push: 0.05}
+    camera: {frame: mcu, on: blair, push: 0.06}
     fg: vanity
     beats:
-      - {at: 0.6, who: blair, fluff: 0.2, tdur: 1.0}
-    dur: 2.4
+      - {at: 0.2, who: blair, fluff: 0.2, tdur: 0.6}
+    dur: 0.9
 
   - id: s3_curler
     set: product
     product: curler
-    sfx: [{at: 0.1, name: pop, gain: 0.6}]
-    dur: 1.4
+    lines:
+      - {who: blair, text: "Curl...", emotion: 0.9, at: 0.05, bleed: true}   # ad-lib
+    sfx: [{at: 0.0, name: pop, gain: 0.6}]
+    dur: 0.7
 
   - id: s3_curl
     set: vanity
     actors:
       - {who: blair, x: 720, y: 430, s: 0.6, expr: confident, fluff: 0.2, arms: custom, arm_r: [140, 30, 1, true],
          prop: curler}
-    camera: {frame: mcu, on: blair, push: 0.05}
+    camera: {frame: mcu, on: blair, push: 0.06}
     fg: vanity
     beats:
-      - {at: 0.4, who: blair, fluff: 0.5, tdur: 1.4}
-      - {at: 0.4, sfx: slide_up, gain: 0.4}
-    dur: 2.4
+      - {at: 0.1, who: blair, fluff: 0.5, tdur: 0.8}
+      - {at: 0.1, sfx: slide_up, gain: 0.4}
+    dur: 0.9
 
   - id: s3_spray_item
     set: product
     product: spray
-    sfx: [{at: 0.1, name: whoosh, gain: 0.4}]
-    dur: 1.3
+    lines:
+      - {who: blair, text: "Spray!", emotion: 1.2, at: 0.05, bleed: true}   # ad-lib
+    sfx: [{at: 0.0, name: whoosh, gain: 0.4}]
+    dur: 0.7
 
   - id: s3_spray
     set: vanity
     actors:
       - {who: blair, x: 720, y: 430, s: 0.6, expr: happy, fluff: 0.5, arms: custom, arm_r: [150, 20, 1, true],
          prop: spray}
-    camera: {frame: mcu, on: blair, push: 0.06}
+    camera: {frame: mcu, on: blair, push: 0.08}
     fg: vanity
     beats:
-      - {at: 0.5, who: blair, fluff: 1.0, tdur: 0.6, bounce: true, fx: burst}
-      - {at: 0.5, sfx: tada, gain: 0.6}
-    dur: 2.2
+      - {at: 0.25, who: blair, fluff: 1.0, tdur: 0.5, bounce: true, fx: burst}
+      - {at: 0.25, sfx: tada, gain: 0.6}
+    dur: 1.0
 
   - id: s3_fluffy
     set: vanity
     actors:
       - {who: blair, x: 720, y: 430, s: 0.6, expr: squeal, fluff: 1.0, arms: cheeks}
-    camera: {frame: cu, on: blair, push: 0.06}
+    camera: {frame: cu, on: blair, push: 0.08, rot: 2}
     label: "VOLUME: ON"
     label_color: "#b98cff"
     beats:
-      - {at: 0.1, who: blair, fx: hearts, fxdur: 3.0}
-      - {at: 0.1, who: blair, fx: sparkles, fxdur: 3.0}
-      - {at: 1.4, who: blair, expr: love}
-    glitter: 0.4
+      - {at: 0.0, who: blair, fx: hearts, fxdur: 3.0}
+      - {at: 0.0, who: blair, fx: sparkles, fxdur: 3.0}
+      - {at: 1.2, who: blair, expr: love}
+    glitter: 0.45
+    lines:
+      - {who: blair, text: "Yes! Volume! Look at her!", emotion: 1.4, pace: 0.3, at: 0.2}   # ad-lib
     dur: 3.0
 
   - id: s3_collapse
     set: vanity
     actors:
       - {who: blair, x: 720, y: 430, s: 0.6, expr: love, fluff: 1.0}
-    camera: {frame: cu, on: blair, push: 0.04}
+    camera: {frame: cu, on: blair, push: 0.05}
     beats:
-      - {at: 0.3, who: blair, fluff: 0.0, tdur: 1.0, bounce: true}
-      - {at: 0.3, sfx: deflate, gain: 0.8}
-      - {at: 0.5, who: blair, expr: shock}
-      - {at: 1.6, who: blair, expr: deadpan}
-    dur: 2.8
+      - {at: 0.1, who: blair, fluff: 0.0, tdur: 0.9, bounce: true}
+      - {at: 0.1, sfx: deflate, gain: 0.8}
+      - {at: 0.25, who: blair, expr: shock}
+      - {at: 1.1, who: blair, expr: deadpan}
+    lines:
+      - {who: blair, text: "No... no no no.", emotion: 1.1, at: 0.35, bleed: true}   # ad-lib
+    dur: 1.6
 
   - id: s3_line
     set: vanity
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.6, expr: deadpan}
-    camera: {frame: cu, on: blair, push: 0.06}
+      - {who: blair, x: 720, y: 430, s: 0.6, expr: deadpan, face: {tilt: 3}}
+    camera: {frame: cu, on: blair, push: 0.08}
     lines:
       - {who: blair, text: "My hair has ZERO commitment issues... because it never commits to volume!",
-         say: "My hair has zero commitment issues... because it never commits to volume!", at: 0.3}
+         say: "My hair has zero commitment issues... because it never commits to volume!", at: 0.15, emotion: 0.9}
     beats:
-      - {at: "line1+2.2", who: blair, expr: smug}
-    tail: 0.8
+      - {at: "line1+2.0", who: blair, expr: smug}
+    tail: 0.25
 
-  # ======================================================= SCENE 4 - EVERY HAIRSTYLE FAILS (1:15-1:40)
+  # ======================================================= 4 - EVERY HAIRSTYLE FAILS
   - id: s4_intro
     set: backdrop
+    whip_in: true
     actors:
-      - {who: blair, x: 720, y: 380, s: 0.66, expr: confident, arms: hip}
-    camera: {frame: ms, on: blair, push: 0.04}
+      - {who: blair, x: 720, y: 380, s: 0.66, expr: confident, arms: hip, face: {tilt: -4}}
+    camera: {frame: ms, on: blair, push: 0.05}
     label: "HAIR TRY-ON"
-    sfx: [{at: 0.0, name: whoosh, gain: 0.5}, {at: 0.15, name: pop, gain: 0.6}]
-    dur: 2.2
+    sfx: [{at: 0.0, name: whoosh, gain: 0.5}, {at: 0.1, name: pop, gain: 0.6}]
+    dur: 1.1
 
   - id: s4_pony
     set: backdrop
     actors:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: confident, style: ponytail}
-    camera: {frame: cu, on: blair, push: 0.05}
+    camera: {frame: cu, on: blair, push: 0.06}
     label: "SLEEK PONYTAIL"
     beats:
-      - {at: 0.0, who: blair, fx: poof}
-      - {at: 0.0, sfx: pop, gain: 0.6}
-      - {at: 1.3, who: blair, fx: shine, fxdur: 1.2, sfx: ding, gain: 0.7}
-      - {at: 1.5, who: blair, expr: deadpan, face: {look_y: -0.8}}
-    dur: 3.0
+      - {at: 0.0, who: blair, fx: poof, sfx: pop, gain: 0.6}
+      - {at: 0.7, who: blair, fx: shine, fxdur: 0.9, sfx: ding, gain: 0.7}
+      - {at: 0.8, who: blair, expr: deadpan, face: {look_y: -0.8}}
+    lines:
+      - {who: blair, text: "Pony? ...Nope.", emotion: 0.7, at: 0.2}   # ad-lib
+    tail: 0.15
 
   - id: s4_middle
     set: backdrop
     actors:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: confident, style: middle}
-    camera: {frame: cu, on: blair, push: 0.05}
+    camera: {frame: cu, on: blair, push: 0.06, rot: -2}
     label: "MIDDLE PART"
     beats:
-      - {at: 0.0, who: blair, fx: poof}
-      - {at: 0.0, sfx: pop, gain: 0.6}
-      - {at: 1.2, who: blair, fluff: -0.35, tdur: 0.4, sfx: deflate, gain: 0.6}
-      - {at: 1.3, who: blair, expr: deadpan}
-    dur: 3.0
+      - {at: 0.0, who: blair, fx: poof, sfx: pop, gain: 0.6}
+      - {at: 0.6, who: blair, fluff: -0.35, tdur: 0.35, sfx: deflate, gain: 0.6}
+      - {at: 0.7, who: blair, expr: deadpan}
+    lines:
+      - {who: blair, text: "Flat.", emotion: 0.5, at: 0.9}   # ad-lib
+    tail: 0.2
 
   - id: s4_bangs
     set: backdrop
     actors:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: happy, style: bangs}
-    camera: {frame: cu, on: blair, push: 0.05}
+    camera: {frame: cu, on: blair, push: 0.06, rot: 2}
     label: "CURTAIN BANGS"
     beats:
-      - {at: 0.0, who: blair, fx: poof}
-      - {at: 0.0, sfx: pop, gain: 0.6}
-      - {at: 1.1, who: blair, wind: 0.45, tdur: 0.3}
-      - {at: 1.1, sfx: squeak, gain: 0.6}
-      - {at: 1.4, sfx: squeak, gain: 0.6}
-      - {at: 1.3, who: blair, expr: nervous, face: {look_y: -0.7}}
-    dur: 3.0
+      - {at: 0.0, who: blair, fx: poof, sfx: pop, gain: 0.6}
+      - {at: 0.5, who: blair, wind: 0.45, tdur: 0.25}
+      - {at: 0.5, sfx: squeak, gain: 0.6}
+      - {at: 0.75, sfx: squeak, gain: 0.6}
+      - {at: 0.6, who: blair, expr: nervous, face: {look_y: -0.7}}
+    lines:
+      - {who: blair, text: "Why are they separating?!", emotion: 1.3, pace: 0.3, at: 0.7}   # ad-lib
+    tail: 0.15
 
   - id: s4_bun
     set: backdrop
     actors:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: confident, style: bun}
-    camera: {frame: cu, on: blair, push: 0.05}
+    camera: {frame: cu, on: blair, push: 0.06}
     label: "MESSY BUN"
     beats:
-      - {at: 0.0, who: blair, fx: poof}
-      - {at: 0.0, sfx: pop, gain: 0.6}
-      - {at: 1.2, who: blair, expr: gasp, face: {look_y: -1.0}}
-      - {at: 1.2, sfx: squeak, gain: 0.7}
-      - {at: 1.2, fx: punch}
-    dur: 3.0
+      - {at: 0.0, who: blair, fx: poof, sfx: pop, gain: 0.6}
+      - {at: 0.5, who: blair, expr: gasp, face: {look_y: -1.0}}
+      - {at: 0.5, sfx: squeak, gain: 0.7}
+      - {at: 0.5, fx: punch}
+    lines:
+      - {who: blair, text: "It's a grape.", emotion: 0.5, pace: 0.4, at: 0.8}   # ad-lib
+    tail: 0.25
 
   - id: s4_frenzy
     set: backdrop
     actors:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: panic, style: ponytail}
-    camera: {frame: cu, on: blair, push: 0.1}
+    camera: {frame: cu, on: blair, push: 0.12, rot: -4}
     beats:
-      - {at: 0.0, fx: speed, fxdur: 2.0}
-      - {at: 0.35, who: blair, style: middle, fx: poof, sfx: pop, gain: 0.5}
-      - {at: 0.7, who: blair, style: bangs, fx: poof, sfx: pop, gain: 0.5}
-      - {at: 1.05, who: blair, style: bun, fx: poof, sfx: pop, gain: 0.5}
-      - {at: 1.4, who: blair, style: thin, fx: poof, sfx: pop, gain: 0.5}
-    dur: 2.0
+      - {at: 0.0, fx: speed, fxdur: 1.4}
+      - {at: 0.25, who: blair, style: middle, fx: poof, sfx: pop, gain: 0.5}
+      - {at: 0.5, who: blair, style: bangs, fx: poof, sfx: pop, gain: 0.5}
+      - {at: 0.75, who: blair, style: bun, fx: poof, sfx: pop, gain: 0.5}
+      - {at: 1.0, who: blair, style: thin, fx: poof, sfx: pop, gain: 0.5}
+    dur: 1.25
 
   - id: s4_line
     set: backdrop
     actors:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: angry, arms: shrug}
-    camera: {frame: mcu, on: blair, push: 0.08}
+    camera: {frame: mcu, on: blair, push: 0.1}
     lines:
-      - {who: blair, text: "CAN ONE HAIRSTYLE JUST LOVE ME BACK?!", say: "Can one hairstyle... just love me back?!",
-         at: 0.3}
+      - {who: blair, text: "CAN ONE HAIRSTYLE JUST LOVE ME BACK?!", say: "Can one hairstyle just love me back?!",
+         at: 0.05, emotion: 1.6, pace: 0.25}
     beats:
-      - {at: line1, fx: punch}
-      - {at: line1, fx: shake, fxdur: 0.5}
-    tail: 0.6
+      - {at: 0.5, fx: punch}
+      - {at: 0.5, fx: shake, fxdur: 0.5}
+    tail: 0.2
 
   - id: s4_slump
     set: backdrop
@@ -428,63 +442,58 @@ shots:
       - {who: blair, x: 720, y: 380, s: 0.66, expr: sad}
     camera: {frame: ms, on: blair, push: -0.04}
     beats:
-      - {at: 0.3, who: blair, fluff: -0.25, tdur: 0.8}
-    tint: "#3a2a7a@0.15"
-    dur: 2.4
+      - {at: 0.1, who: blair, fluff: -0.25, tdur: 0.6}
+    tint: "#3a2a7a@0.18"
+    dur: 1.3
 
-  # ======================================================= SCENE 5 - THE BREAKDOWN (1:40-2:05)
+  # ======================================================= 5 - THE BREAKDOWN
   - id: s5_room
     set: bedroom_night
     actors:
       - {who: blair, x: 720, y: 430, s: 0.62, expr: sad, arms: custom, arm_r: [40, 270, -1, false], prop: photo,
          face: {look_y: 0.7}}
-    camera: {frame: ws, x: 720, push: 0.06}
+    camera: {frame: ws, x: 720, push: 0.08}
     fg: duvet
-    dur: 3.6
+    dur: 1.8
 
   - id: s5_photos_a
     set: photos
     hand: blair
+    photo_dur: 1.15
     photos:
       - {style: curly, hair: "#2b1a14", skin: "#8a5536", top_color: "#ffd36a", bg: "#ffe1a8", caption: "goals", rot: -4}
       - {style: wavy, hair: "#b8742c", skin: "#f1c7a5", top_color: "#ff8fc8", bg: "#ffd1ec", caption: "volume??", rot: 3}
-    dur: 3.4
+    dur: 2.3
 
   - id: s5_sad_cu
     set: bedroom_night
     actors:
       - {who: blair, x: 720, y: 430, s: 0.62, expr: sad, face: {look_y: 0.8}}
-    camera: {frame: cu, on: blair, push: 0.06}
+    camera: {frame: cu, on: blair, push: 0.07}
     tint: "#2a2266@0.12"
-    dur: 2.8
+    dur: 1.3
 
   - id: s5_photos_b
     set: photos
     hand: blair
     tears: true
+    photo_dur: 1.15
     photos:
       - {style: long, hair: "#1b1820", skin: "#f3d2b8", top_color: "#8ec5ff", bg: "#cfe6ff", caption: "so thick", rot: 2}
       - {style: curly, hair: "#5a2e1a", skin: "#c98f62", top_color: "#c9b6ff", bg: "#eadbff", caption: "how??", rot: -3}
-    dur: 3.4
-
-  - id: s5_cry
-    set: bedroom_night
-    actors:
-      - {who: blair, x: 720, y: 430, s: 0.62, expr: cry}
-    camera: {frame: ecu, on: blair, push: 0.08}
-    tint: "#2a2266@0.12"
-    dur: 3.0
+    dur: 2.3
 
   - id: s5_line
     set: bedroom_night
     actors:
       - {who: blair, x: 720, y: 430, s: 0.62, expr: cry, face: {tears: 0.8}}
-    camera: {frame: cu, on: blair, push: 0.05}
+    camera: {frame: cu, on: blair, push: 0.06}
     lines:
       - {who: blair, text: "I just wanna feel pretty without worrying about my hair...",
-         say: "I just wanna feel pretty... without worrying about my hair.", at: 0.5, speed: 0.92}
+         say: "I just wanna feel pretty... without worrying about my hair.", at: 0.2, emotion: 0.6, pace: 0.5,
+         speed: 1.0}
     tint: "#2a2266@0.12"
-    tail: 1.0
+    tail: 0.4
 
   - id: s5_hide
     set: bedroom_night
@@ -493,32 +502,36 @@ shots:
     camera: {frame: mcu, on: blair, push: -0.05}
     fg: duvet
     tint: "#2a2266@0.15"
-    dur: 3.4
+    dur: 1.4
 
-  # ======================================================= SCENE 6 - HER GIRLS SHOW UP (2:05-2:35)
-  - id: s6_burst_in
+  # ======================================================= 6 - HER GIRLS SHOW UP
+  - id: s6_burst
     set: bedroom
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.62, expr: gasp, face: {look_x: 0.9}}
+      - {who: blair, x: 720, y: 430, s: 0.62, expr: gasp, face: {look_x: 0.9, tears: 0.4}}
       - {who: pink, x: 900, y: 410, s: 0.58, expr: happy, enter: right, arms: wave}
-    camera: {frame: ws, x: 760, push: 0.04}
+    camera: {frame: ws, x: 760, push: 0.05}
     fg: duvet
     beats:
       - {at: 0.0, fx: flash}
       - {at: 0.0, sfx: tada, gain: 0.5}
-    dur: 2.6
+    lines:
+      - {who: pink, text: "Blair!", emotion: 1.3, at: 0.25}   # ad-lib
+    dur: 1.4
 
   - id: s6_trio
     set: bedroom
     actors:
-      - {who: gold, x: 560, y: 400, s: 0.55, expr: happy, enter: left, face: {look_x: 0.7}}
+      - {who: gold, x: 560, y: 400, s: 0.55, expr: soft, enter: left, face: {look_x: 0.7}}
       - {who: blue, x: 900, y: 400, s: 0.55, expr: soft, enter: right, face: {look_x: -0.7}}
       - {who: blair, x: 720, y: 430, s: 0.62, expr: cry, face: {tears: 0.6}}
       - {who: pink, x: 810, y: 425, s: 0.58, expr: soft, face: {look_x: -0.8}}
-    camera: {frame: ws, x: 730, push: 0.05}
+    camera: {frame: ws, x: 730, push: 0.06}
     fg: duvet
-    sfx: [{at: 0.1, name: whoosh, gain: 0.5}]
-    dur: 2.6
+    lines:
+      - {who: gold, text: "Oh, babe...", emotion: 0.8, pace: 0.4, at: 0.5}   # ad-lib
+    sfx: [{at: 0.05, name: whoosh, gain: 0.5}]
+    tail: 0.2
 
   - id: s6_hug
     set: bedroom
@@ -527,49 +540,51 @@ shots:
       - {who: blue, x: 840, y: 410, s: 0.55, expr: soft, arms: custom, arm_l: [-160, 240, 1, true], face: {look_x: -0.7}}
       - {who: blair, x: 725, y: 430, s: 0.62, expr: cry, face: {tears: 0.5, eye_open: 0.4}}
       - {who: pink, x: 790, y: 440, s: 0.58, expr: soft, arms: custom, arm_l: [-120, 230, 1, true], face: {look_x: -0.8}}
-    camera: {frame: group, on: [gold, blair, blue], height: ms, push: 0.05}
+    camera: {frame: group, on: [gold, blair, blue], height: ms, push: 0.06}
     fg: duvet
     beats:
-      - {at: 0.4, who: blair, expr: soft, face: {tears: 0.2}}
-      - {at: 0.5, who: blair, fx: hearts, fxdur: 2.6}
+      - {at: 0.3, who: blair, expr: soft, face: {tears: 0.2}}
+      - {at: 0.3, who: blair, fx: hearts, fxdur: 2.0}
+    lines:
+      - {who: blue, text: "Come here!", emotion: 1.0, at: 0.1}   # ad-lib
     leak: "#ffd1a8"
-    dur: 3.2
+    dur: 1.9
 
   - id: s6_wipe
     set: bedroom
     actors:
       - {who: blair, x: 720, y: 430, s: 0.62, expr: sad, face: {tears: 0.7, look_x: 0.6}}
       - {who: pink, x: 900, y: 440, s: 0.58, expr: soft, arms: custom, arm_l: [-250, 40, 1, true], face: {look_x: -0.9}}
-    camera: {frame: cu, on: blair, dx: 60, push: 0.05}
+    camera: {frame: cu, on: blair, dx: 60, push: 0.06}
     beats:
-      - {at: 0.6, who: blair, expr: soft, face: {tears: 0.0, look_x: 0.6}}
-      - {at: 0.6, who: blair, fx: tears_wipe, fxdur: 1.0, sfx: sparkle, gain: 0.4}
-    dur: 2.6
+      - {at: 0.4, who: blair, expr: soft, face: {tears: 0.0, look_x: 0.6}}
+      - {at: 0.4, who: blair, fx: tears_wipe, fxdur: 0.9, sfx: sparkle, gain: 0.4}
+    dur: 1.4
 
   - id: s6_f1
     set: bedroom
     actors:
-      - {who: pink, x: 900, y: 440, s: 0.58, expr: confident, arms: point, face: {look_x: -0.5}}
-    camera: {frame: cu, on: pink, push: 0.06}
+      - {who: pink, x: 900, y: 440, s: 0.58, expr: confident, arms: point, face: {look_x: -0.5, tilt: -4}}
+    camera: {frame: cu, on: pink, push: 0.08, rot: 2}
     lines:
-      - {who: pink, text: "Girl, your forehead isn't a flaw!", at: 0.2}
-    tail: 0.5
+      - {who: pink, text: "Girl, your forehead isn't a flaw!", at: 0.1, emotion: 1.3}
+    tail: 0.2
 
-  - id: s6_blair_react1
+  - id: s6_react1
     set: bedroom
     actors:
-      - {who: blair, x: 720, y: 430, s: 0.62, expr: soft, face: {blush: 0.8, look_x: 0.7}}
-    camera: {frame: cu, on: blair, push: 0.04}
-    dur: 1.6
+      - {who: blair, x: 720, y: 430, s: 0.62, expr: soft, face: {blush: 0.9, look_x: 0.7}}
+    camera: {frame: cu, on: blair, push: 0.05}
+    dur: 0.9
 
   - id: s6_f2
     set: bedroom
     actors:
-      - {who: blue, x: 560, y: 400, s: 0.55, expr: soft, face: {look_x: 0.6, smile: 0.6}}
-    camera: {frame: cu, on: blue, push: 0.06}
+      - {who: blue, x: 560, y: 400, s: 0.55, expr: soft, face: {look_x: 0.6, smile: 0.6, tilt: 4}}
+    camera: {frame: cu, on: blue, push: 0.08}
     lines:
-      - {who: blue, text: "And you don't need thick hair to be gorgeous!", at: 0.2}
-    tail: 0.5
+      - {who: blue, text: "And you don't need thick hair to be gorgeous!", at: 0.1, emotion: 1.0}
+    tail: 0.2
 
   - id: s6_brush
     set: bedroom
@@ -577,46 +592,49 @@ shots:
       - {who: blair, x: 700, y: 430, s: 0.62, expr: soft, face: {look_x: 0.4}}
       - {who: gold, x: 880, y: 415, s: 0.56, expr: happy, arms: custom, arm_r: [-210, -30, 1, true], prop: brush,
          face: {look_x: -0.6}}
-    camera: {frame: two, on: [blair, gold], height: mcu, push: 0.05}
+    camera: {frame: two, on: [blair, gold], height: mcu, push: 0.06}
     label: "GLOW-UP TIME"
     label_color: "#e8a93a"
-    sfx: [{at: 0.15, name: pop, gain: 0.6}]
-    dur: 2.8
+    sfx: [{at: 0.1, name: pop, gain: 0.6}]
+    dur: 1.5
 
   - id: s6_clips
     set: bedroom
     actors:
       - {who: blair, x: 720, y: 430, s: 0.62, expr: soft}
-    camera: {frame: cu, on: blair, push: 0.05}
+    camera: {frame: cu, on: blair, push: 0.06}
     beats:
-      - {at: 0.3, who: blair, style: sidepart, fx: poof, sfx: sparkle, gain: 0.6}
-      - {at: 1.0, who: blair, acc: [pearls], sfx: pop, gain: 0.6}
-      - {at: 1.5, who: blair, acc: [pearls, butterflies], sfx: pop, gain: 0.6}
-      - {at: 1.5, who: blair, fx: sparkles, fxdur: 1.5}
-      - {at: 1.8, who: blair, expr: happy}
-    dur: 2.8
+      - {at: 0.15, who: blair, style: sidepart, fx: poof, sfx: sparkle, gain: 0.6}
+      - {at: 0.7, who: blair, acc: [pearls], sfx: pop, gain: 0.6}
+      - {at: 1.05, who: blair, acc: [pearls, butterflies], sfx: pop, gain: 0.6}
+      - {at: 1.05, who: blair, fx: sparkles, fxdur: 1.0}
+      - {at: 1.2, who: blair, expr: happy}
+    dur: 1.7
 
   - id: s6_reveal
     set: vanity
     mask: heart
     actors:
       - {who: blair, x: 720, y: 430, s: 0.6, expr: love, style: sidepart, acc: [pearls, butterflies]}
-    camera: {frame: cu, on: blair, push: 0.08}
+    camera: {frame: cu, on: blair, push: 0.1}
     beats:
-      - {at: 0.2, who: blair, fx: burst, sfx: tada, gain: 0.6}
+      - {at: 0.1, who: blair, fx: burst, sfx: tada, gain: 0.6}
     glitter: 0.6
-    dur: 3.0
+    lines:
+      - {who: blair, text: "Oh my gosh...", emotion: 1.0, pace: 0.4, at: 0.35}   # ad-lib
+    tail: 0.35
 
   - id: s6_f3
     set: bedroom
     actors:
-      - {who: gold, x: 830, y: 405, s: 0.56, expr: confident, arms: point, face: {look_x: -0.6}}
-    camera: {frame: cu, on: gold, push: 0.07}
+      - {who: gold, x: 830, y: 405, s: 0.56, expr: confident, arms: point, face: {look_x: -0.6, tilt: 5}}
+    camera: {frame: cu, on: gold, push: 0.1, rot: -3}
     lines:
-      - {who: gold, text: "Now get up. We're going OUT!", say: "Now get up. We're going out!", at: 0.2}
+      - {who: gold, text: "Now get up. We're going OUT!", say: "Now get up. We're going out!", at: 0.1, emotion: 1.4,
+         pace: 0.3}
     beats:
       - {at: line1.end, fx: punch}
-    tail: 0.5
+    tail: 0.2
 
   - id: s6_cheer
     set: bedroom
@@ -625,35 +643,39 @@ shots:
       - {who: blue, x: 870, y: 400, s: 0.55, expr: squeal, arms: wave}
       - {who: blair, x: 720, y: 430, s: 0.62, expr: laugh, style: sidepart, acc: [pearls, butterflies]}
       - {who: pink, x: 800, y: 435, s: 0.58, expr: laugh, arms: wave}
-    camera: {frame: ws, x: 725, push: 0.05}
+    camera: {frame: ws, x: 725, push: 0.06}
     fg: duvet
     beats:
-      - {at: 0.2, fx: glitter, fxdur: 1.5}
-      - {at: 0.2, sfx: tada, gain: 0.5}
-    dur: 2.6
+      - {at: 0.1, fx: glitter, fxdur: 1.0}
+      - {at: 0.1, sfx: tada, gain: 0.5}
+    lines:
+      - {who: pink, text: "Yesss!", emotion: 1.4, at: 0.2}   # ad-lib
+      - {who: gold, text: "Yesss!", emotion: 1.4, at: 0.25}  # ad-lib
+    tail: 0.2
 
-  # ======================================================= SCENE 7 - THE FINAL GLOW-UP (2:35-3:00)
+  # ======================================================= 7 - THE FINAL GLOW-UP
   - id: s7_arrive
     set: rooftop
+    whip_in: true
     actors:
-      - {who: blue, x: 470, y: 420, s: 0.5, expr: happy, walk: true, move: [170, 0]}
-      - {who: pink, x: 650, y: 420, s: 0.5, expr: happy, walk: true, move: [170, 0]}
-      - {who: blair, x: 560, y: 425, s: 0.52, expr: confident, walk: true, move: [170, 0], style: sidepart,
+      - {who: blue, x: 470, y: 420, s: 0.5, expr: happy, walk: true, move: [120, 0]}
+      - {who: pink, x: 650, y: 420, s: 0.5, expr: happy, walk: true, move: [120, 0]}
+      - {who: blair, x: 560, y: 425, s: 0.52, expr: confident, walk: true, move: [120, 0], style: sidepart,
          acc: [pearls, butterflies]}
-      - {who: gold, x: 740, y: 420, s: 0.5, expr: happy, walk: true, move: [170, 0]}
-    camera: {frame: ws, x: 700, push: 0.05}
-    glitter: 0.25
+      - {who: gold, x: 740, y: 420, s: 0.5, expr: happy, walk: true, move: [120, 0]}
+    camera: {frame: ws, x: 680, push: 0.06}
+    glitter: 0.3
     sfx: [{at: 0.0, name: whoosh, gain: 0.5}]
-    dur: 3.4
+    dur: 2.0
 
   - id: s7_strut
     set: rooftop
     actors:
-      - {who: blair, x: 720, y: 425, s: 0.6, expr: confident, walk: true, move: [60, 0], style: sidepart,
-         acc: [pearls, butterflies], face: {sparkle: 0.6}}
-    camera: {frame: ms, on: blair, push: 0.05}
-    glitter: 0.3
-    dur: 2.6
+      - {who: blair, x: 720, y: 425, s: 0.6, expr: confident, walk: true, move: [50, 0], style: sidepart,
+         acc: [pearls, butterflies], face: {sparkle: 0.7, tilt: -4}}
+    camera: {frame: ms, on: blair, push: 0.06, rot: 2}
+    glitter: 0.35
+    dur: 1.4
 
   - id: s7_gust
     set: rooftop
@@ -663,24 +685,29 @@ shots:
       - {who: blair, x: 720, y: 425, s: 0.56, expr: confident, style: sidepart, acc: [pearls, butterflies]}
     camera: {frame: ws, x: 720, push: 0.05}
     beats:
-      - {at: 0.4, fx: wind, fxdur: 2.4}
-      - {at: 0.4, sfx: whoosh}
-      - {at: 0.5, who: blair, wind: 0.9, tdur: 0.3}
-      - {at: 0.6, who: blue, expr: gasp}
-      - {at: 0.6, who: pink, expr: gasp}
+      - {at: 0.15, fx: wind, fxdur: 1.4}
+      - {at: 0.1, sfx: whoosh}
+      - {at: 0.2, who: blair, wind: 0.9, tdur: 0.25}
+      - {at: 0.3, who: blue, expr: gasp}
+      - {at: 0.3, who: pink, expr: gasp}
+    lines:
+      - {who: pink, text: "Oh no, the wind!", emotion: 1.2, at: 0.3, bleed: true}   # ad-lib
     glitter: 0.3
-    dur: 2.6
+    dur: 1.3
 
   - id: s7_laugh
     set: rooftop
     actors:
-      - {who: blair, x: 720, y: 425, s: 0.56, expr: laugh, wind: 0.9, style: sidepart, acc: [pearls, butterflies]}
-    camera: {frame: cu, on: blair, push: 0.07}
+      - {who: blair, x: 720, y: 425, s: 0.56, expr: laugh, wind: 0.9, style: sidepart, acc: [pearls, butterflies],
+         face: {tilt: -6}}
+    camera: {frame: cu, on: blair, push: 0.08}
     beats:
-      - {at: 0.0, fx: wind, fxdur: 3.0}
-      - {at: 0.3, who: blair, fx: sparkles, fxdur: 2.5}
+      - {at: 0.0, fx: wind, fxdur: 2.2}
+      - {at: 0.2, who: blair, fx: sparkles, fxdur: 2.0}
+    lines:
+      - {who: blair, text: "Hahaha! Let it blow!", emotion: 1.3, pace: 0.3, at: 0.6}   # ad-lib
     glitter: 0.45
-    dur: 3.0
+    tail: 0.2
 
   - id: s7_link
     set: rooftop
@@ -690,22 +717,23 @@ shots:
       - {who: blair, x: 720, y: 425, s: 0.56, expr: happy, wind: 0.5, style: sidepart, acc: [pearls, butterflies],
          arms: custom, arm_r: [140, 260, 1, true], arm_l: [-140, 260, 1, true]}
       - {who: gold, x: 640, y: 405, s: 0.48, expr: laugh, arms: wave}
-    camera: {frame: ws, x: 720, push: 0.06}
+    camera: {frame: ws, x: 720, push: 0.07}
     beats:
-      - {at: 0.3, fx: glitter, fxdur: 2.5}
-      - {at: 0.3, sfx: sparkle, gain: 0.5}
-    dur: 3.0
+      - {at: 0.2, fx: glitter, fxdur: 1.5}
+      - {at: 0.2, sfx: sparkle, gain: 0.5}
+    dur: 1.6
 
   - id: s7_line1
     set: rooftop
     actors:
-      - {who: blair, x: 720, y: 425, s: 0.56, expr: soft, wind: 0.4, style: sidepart, acc: [pearls, butterflies]}
-    camera: {frame: cu, on: blair, push: 0.05}
+      - {who: blair, x: 720, y: 425, s: 0.56, expr: soft, wind: 0.4, style: sidepart, acc: [pearls, butterflies],
+         face: {tilt: 3}}
+    camera: {frame: cu, on: blair, push: 0.06}
     lines:
       - {who: blair, text: "My hair might be thin, and my forehead might be big...",
-         say: "My hair might be thin... and my forehead might be big...", at: 0.3}
+         say: "My hair might be thin... and my forehead might be big...", at: 0.1, emotion: 0.8, pace: 0.4}
     glitter: 0.5
-    tail: 0.4
+    tail: 0.15
 
   - id: s7_pose
     set: rooftop
@@ -717,43 +745,46 @@ shots:
       - {who: gold, x: 640, y: 405, s: 0.48, expr: smug, arms: hip}
     camera: {frame: ws, x: 720, push: 0.03}
     beats:
-      - {at: 0.1, fx: flash}
-      - {at: 0.1, sfx: ding, gain: 0.7}
+      - {at: 0.05, fx: flash}
+      - {at: 0.05, sfx: ding, gain: 0.7}
     glitter: 0.6
-    dur: 1.8
+    dur: 1.0
 
   - id: s7_line2
     set: rooftop
     actors:
       - {who: blair, x: 720, y: 425, s: 0.56, expr: confident, wind: 0.4, style: sidepart, acc: [pearls, butterflies],
-         face: {sparkle: 1.0}}
-    camera: {frame: cu, on: blair, push: 0.1}
+         face: {sparkle: 1.0, tilt: -3}}
+    camera: {frame: cu, on: blair, push: 0.12}
     lines:
       - {who: blair, text: "BUT MY FACE CARD? BABY, THAT'S UNLIMITED!", say: "But my face card? Baby... that's unlimited!",
-         at: 0.2}
+         at: 0.05, emotion: 1.5, pace: 0.25}
     beats:
-      - {at: "line1+1.3", fx: punch}
-      - {at: "line1+1.3", who: blair, fx: burst}
-      - {at: "line1+1.3", fx: glitter, fxdur: 0.8}
-    tail: 0.6
+      - {at: "line1+1.2", fx: punch}
+      - {at: "line1+1.2", who: blair, fx: burst}
+      - {at: "line1+1.2", fx: glitter, fxdur: 0.6}
+    tail: 0.2
 
   - id: s7_finale
     set: rooftop
     actors:
       - {who: blue, x: 560, y: 420, s: 0.52, expr: laugh, arms: wave}
-      - {who: pink, x: 880, y: 420, s: 0.52, expr: laugh, arms: wave}
+      - {who: pink, x: 880, y: 420, s: 0.52, expr: squeal, arms: wave}
       - {who: blair, x: 720, y: 425, s: 0.56, expr: laugh, arms: hip, wind: 0.4, style: sidepart,
          acc: [pearls, butterflies]}
       - {who: gold, x: 640, y: 405, s: 0.48, expr: squeal, arms: cheeks}
-    camera: {frame: ws, x: 720, push: 0.08}
+    camera: {frame: ws, x: 720, push: 0.1}
     beats:
-      - {at: 0.0, fx: glitter, fxdur: 1.0}
-      - {at: 0.2, sfx: tada, gain: 0.6}
-    dur: 2.8
+      - {at: 0.0, fx: glitter, fxdur: 0.6}
+      - {at: 0.1, sfx: tada, gain: 0.6}
+    lines:
+      - {who: pink, text: "Unlimited!", emotion: 1.4, at: 0.15}   # ad-lib
+      - {who: gold, text: "Unlimited!", emotion: 1.4, at: 0.2}    # ad-lib
+    tail: 0.3
 
   - id: endcard
     set: endcard
     text: ["Pretty comes", "in every", "hairline."]
     sub: "tag your girls"
     sfx: [{at: 0.0, name: sparkle, gain: 0.7}]
-    dur: 4.6
+    dur: 3.2

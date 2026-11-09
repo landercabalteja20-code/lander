@@ -455,15 +455,16 @@ def end_card_v(defs: Defs, t: float, lines: list[str], sub: str, w: float, h: fl
     return "".join(out)
 
 
-def photos_insert(defs: Defs, t: float, skin: str, photos: list[dict], nails: str = "#ff4fae", tears: bool = False) -> str:
+def photos_insert(defs: Defs, t: float, skin: str, photos: list[dict], nails: str = "#ff4fae", tears: bool = False,
+                  step: float = 1.6) -> str:
     """Two hands holding a polaroid of a doll with big voluminous hair (stage space, centered)."""
     from .character import CharState, HairState, Look, Pose, draw_character, expression
     st = skin_tones(skin)
     out = []
     n = max(1, len(photos))
-    idx = min(n - 1, int(t / 1.6)) if photos else 0
+    idx = min(n - 1, int(t / step)) if photos else 0
     ph = photos[idx] if photos else {}
-    k = ease_out_back(clamp((t - idx * 1.6) / 0.35))
+    k = ease_out_back(clamp((t - idx * step) / 0.3))
     cx, cy = 720, 520
     sway = math.sin(t * 1.3) * 3
     card = [rect(cx - 230, cy - 300, 460, 560, 8, fill="#ffffff", stroke="#2a1020", stroke_width=6)]
@@ -509,3 +510,23 @@ def product_insert(defs: Defs, t: float, product: str) -> str:
     item = prop_in_hand(product, (0, 0), 0, 1.0, t)
     out.append(group(item, transform=f"translate({cx} {cy + bob}) scale({f(3.2 * k)})"))
     return "".join(out)
+
+
+def fg_bokeh(t: float, amount: float = 0.6, seed: str = "fb") -> str:
+    """Big out-of-focus light blobs drifting near the frame edges (cinematic depth, screen space)."""
+    out = []
+    n = int(4 + 6 * clamp(amount))
+    for i in range(n):
+        side = -1 if i % 2 else 1
+        x = (0.5 + side * (0.38 + 0.12 * hash01(seed, "x", i))) * W + math.sin(t * 0.5 + i) * 30
+        y = ((hash01(seed, "y", i) + t * 0.02 * (1 + hash01(seed, "v", i))) % 1.0) * H
+        r = (90 + 140 * hash01(seed, "r", i)) * W / 1080
+        grad = ["gdot", "gdotp", "gdoty"][i % 3]
+        out.append(circle(x, y, r, fill=f"url(#{grad})", opacity=0.35 * amount))
+    return "".join(out)
+
+
+def aura(x: float, y: float, s: float, op: float = 0.55) -> str:
+    """Soft luminous halo behind a character's head (the 'ethereal' glow)."""
+    return (circle(x, y - 20 * s, 300 * s, fill="url(#gdot)", opacity=op)
+            + circle(x, y - 20 * s, 190 * s, fill="url(#gdotp)", opacity=op * 0.6))

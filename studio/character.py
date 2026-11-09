@@ -243,6 +243,13 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
             defs.add(lin_grad(sh_id, [(0, look.eyeshadow, 0.05), (0.45, look.eyeshadow, 0.7), (1, look.eyeshadow, 1.0)],
                               user=(0, top_y, 0, cy + 4)))
             out.append(path(catmull(crease + up[::-1]) + " Z", fill=f"url(#{sh_id})"))
+            if o > 0.35:  # glossy Y2K lid + shimmer
+                gl = [lerp_pt(c_, u_, 0.42) for c_, u_ in zip(crease[1:5], [_along(up, k / 5) for k in range(1, 5)])]
+                out.append(path(catmull(gl), fill="none", stroke="#ffffff", stroke_width=3.2 * lw, opacity=0.55,
+                                stroke_linecap="round"))
+                for k in range(4):
+                    sp = lerp_pt(crease[1 + k % 4], _along(up, 0.2 + 0.18 * k), 0.6)
+                    out.append(circle(sp[0], sp[1], 1.3 * sy, fill="#ffffff", opacity=0.8))
             if E_CREASE:
                 out.append(path(catmull(crease), fill="none", stroke=st["deep"], stroke_width=1.3 * lw,
                                 stroke_linecap="round", opacity=0.75))
@@ -253,17 +260,29 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
         ix = cx + (2 * side + fc.look_x * 12) * width_scale * (1.2 if girl else 1.0)
         iy = cy + 1 + fc.look_y * 6
         g_id = defs.uid("ir")
-        defs.add(rad_grad(g_id, [(0, C.lighten(look.eye, 0.22), 1), (0.55, look.eye, 1), (1, C.darken(look.eye, 0.25), 1)],
-                          user=(ix, iy + ir * 0.35, ir * 1.1)))
-        inner.append(circle(ix, iy, ir, fill=f"url(#{g_id})", stroke=C.darken(look.eye, 0.35), stroke_width=1.6 * lw))
+        defs.add(rad_grad(g_id, [(0, C.lighten(look.eye, 0.3), 1), (0.5, look.eye, 1), (0.82, C.darken(look.eye, 0.18), 1),
+                                 (1, C.darken(look.eye, 0.42), 1)], user=(ix, iy + ir * 0.3, ir * 1.08)))
+        # waterline + soft pink inner corner
+        inner.append(path(catmull(lo), fill="none", stroke="#f6b9c8", stroke_width=3.2 * sy, opacity=0.7))
+        inner.append(circle(ix, iy, ir, fill=f"url(#{g_id})", stroke=C.darken(look.eye, 0.45), stroke_width=2.4 * lw))
+        light_eye = C.lighten(look.eye, 0.28)
         pr = ir * 0.45 * fc.pupil
-        inner.append(circle(ix, iy, pr, fill="#1a0c18"))
+        for k in range(10):  # radial iris streaks
+            a_ = k / 10 * 2 * math.pi + 0.3
+            inner.append(path(f"M{f(ix + math.cos(a_) * pr * 1.2)} {f(iy + math.sin(a_) * pr * 1.2)} "
+                              f"L{f(ix + math.cos(a_) * ir * 0.86)} {f(iy + math.sin(a_) * ir * 0.86)}",
+                              stroke=light_eye, stroke_width=1.3 * lw, opacity=0.38, stroke_linecap="round"))
+        inner.append(path(f"M{f(ix - ir * 0.72)} {f(iy + ir * 0.3)} Q{f(ix)} {f(iy + ir * 1.05)} {f(ix + ir * 0.72)} {f(iy + ir * 0.3)} "
+                          f"Q{f(ix)} {f(iy + ir * 0.7)} {f(ix - ir * 0.72)} {f(iy + ir * 0.3)} Z", fill=light_eye, opacity=0.45))
+        inner.append(circle(ix, iy, pr, fill="#140910"))
+        inner.append(circle(ix, iy, pr * 1.3, fill="none", stroke=light_eye, stroke_width=1.4 * lw, opacity=0.4))
         # lid shadow across top of the eye
         inner.append(path(catmull(up), fill="none", stroke="#6b3e6a", stroke_width=9 * sy, opacity=0.28))
         # highlights
         hl = 1 + 0.25 * fc.sparkle
         inner.append(ellipse(ix - ir * 0.33, iy - ir * 0.38, ir * 0.27 * hl, ir * 0.3 * hl, fill="#ffffff"))
         inner.append(circle(ix + ir * 0.34, iy + ir * 0.32, ir * 0.12 * hl, fill="#ffffff", opacity=0.95))
+        inner.append(circle(ix + ir * 0.05, iy - ir * 0.55, ir * 0.07, fill="#ffd6ee", opacity=0.9))
         if fc.sparkle > 0.05:
             s = ir * 0.42 * fc.sparkle
             sx0, sy0 = ix + ir * 0.18, iy - ir * 0.05
@@ -276,7 +295,7 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
         lo_outer = lo[2:]
         out.append(path(tapered(lo_outer, w0=0.5 * lw, w1=2.2 * lw if girl else 1.4 * lw), fill=C.mix(ink, look.brow, 0.3)))
         if girl and look.lashes > 0.3:
-            for k, (u, ln) in enumerate([(0.86, 6.5), (0.97, 8.0)]):
+            for k, (u, ln) in enumerate([(0.66, 4.5), (0.8, 6.5), (0.93, 8.0)]):
                 b = _along(lo, u)
                 tip = (b[0] + side * 4, b[1] + ln)
                 out.append(path(tapered([b, lerp_pt(b, tip, 0.5), tip], w0=1.6 * lw, w1=0.2), fill=ink))
@@ -285,13 +304,13 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
     wing = (up[-1][0] + side * wing_dx * width_scale, up[-1][1] - wing_dy)
     lash_pts = up + [wing]
     if o > 0.1:
-        widths = [1.6, 4.0, 5.8, 7.0, 7.8, 7.2, 0.8] if girl else [1.4, 3.4, 4.6, 5.0, 4.6, 2.6, 0.6]
+        widths = [1.8, 4.6, 6.6, 8.0, 8.8, 8.2, 0.8] if girl else [1.4, 3.4, 4.6, 5.0, 4.6, 2.6, 0.6]
     else:
         widths = [1.2, 2.6, 3.8, 4.4, 4.2, 3.2, 0.6] if girl else [1.0, 2.0, 2.6, 2.6, 2.0, 1.2, 0.5]
     out.append(path(tapered(lash_pts, widths=[w * lw for w in widths]), fill=ink))
     # upper lashes
     if girl and look.lashes > 0.2:
-        for u, ln, ang in [(0.58, 9, -12), (0.75, 12, 4), (0.9, 13, 20)]:
+        for u, ln, ang in [(0.4, 7, -24), (0.53, 9, -12), (0.66, 11.5, 0), (0.79, 13.5, 12), (0.92, 15, 24)]:
             b = _along(up, u)
             if o > 0.1:
                 d = (side * math.sin(math.radians(ang + 25)), -math.cos(math.radians(ang + 25)))
@@ -300,7 +319,7 @@ def _eye(cx: float, cy: float, side: int, look: Look, fc: Face, openness: float,
             ln *= look.lashes
             tip = (b[0] + d[0] * ln, b[1] + d[1] * ln)
             mid = (b[0] + d[0] * ln * 0.55 + side * 1.5, b[1] + d[1] * ln * 0.55 - 1.5)
-            out.append(path(tapered([b, mid, tip], w0=3.0 * lw, w1=0.25), fill=ink))
+            out.append(path(tapered([b, mid, tip], w0=3.4 * lw, w1=0.25), fill=ink))
     # tears
     if fc.tears > 0.02:
         tears_svg = _tears(lo, side, fc.tears, t, cx, lw)
@@ -349,7 +368,7 @@ def _brow(side: int, look: Look, fc: Face, turn: float, lw: float) -> str:
         y = y + raise_ + fc.brow_in * 11 * inner_w
         x = x * side
         pts.append((_turn_x(x, 0.6, turn), y))
-    widths = [5.2, 4.8, 3.0, 1.0] if girl else [9.0, 8.4, 6.6, 3.2]
+    widths = [6.4, 6.0, 3.8, 1.2] if girl else [9.0, 8.4, 6.6, 3.2]
     return path(tapered(pts, widths=[w * lw for w in widths]), fill=look.brow)
 
 
@@ -415,13 +434,23 @@ def _mouth(look: Look, fc: Face, turn: float, defs: Defs, lw: float) -> str:
         out.append(group(inner, clip_path=f"url(#{cid})"))
     up_d = catmull(up_top) + " " + catmull(up_in, move=False) + " Z"
     lo_d = catmull(lo_in) + " " + catmull(lo_bot, move=False) + " Z"
-    out.append(path(lo_d, fill=lip, stroke=lip_ink, stroke_width=1.7 * lw, stroke_linejoin="round"))
-    out.append(path(up_d, fill=C.shade(lip, 0.07), stroke=lip_ink, stroke_width=1.7 * lw, stroke_linejoin="round"))
+    lg = defs.uid("lg")
+    ug = defs.uid("ug")
+    y_top = my + mid + oh
+    defs.add(lin_grad(lg, [(0, C.shade(lip, 0.12), 1), (0.45, C.lighten(lip, 0.1), 1), (1, C.shade(lip, 0.16), 1)],
+                      user=(0, y_top, 0, y_top + lip_th + 2)))
+    defs.add(lin_grad(ug, [(0, lip, 1), (1, C.shade(lip, 0.16), 1)], user=(0, my - 12, 0, my + mid)))
+    out.append(path(lo_d, fill=f"url(#{lg})", stroke=lip_ink, stroke_width=2.0 * lw, stroke_linejoin="round"))
+    out.append(path(up_d, fill=f"url(#{ug})", stroke=lip_ink, stroke_width=2.0 * lw, stroke_linejoin="round"))
     if girl:
-        gy = my + mid + oh + lip_th * 0.42
-        out.append(ellipse(mx - hw * 0.26, gy, hw * 0.23, 3.3, fill="#ffffff", opacity=0.85))
-        out.append(circle(mx + hw * 0.16, gy + 0.8, 1.7, fill="#ffffff", opacity=0.8))
-        out.append(ellipse(mx - hw * 0.3, my - 7.5, 4.2, 1.6, fill="#ffffff", opacity=0.55))
+        gy = my + mid + oh + lip_th * 0.4
+        gid = defs.uid("gs")
+        defs.add(rad_grad(gid, [(0, "#ffffff", 0.95), (0.6, "#ffffff", 0.6), (1, "#ffffff", 0)]))
+        out.append(ellipse(mx - hw * 0.18, gy, hw * 0.36, 4.6, fill=f"url(#{gid})"))
+        out.append(ellipse(mx - hw * 0.26, gy - 0.5, hw * 0.16, 2.2, fill="#ffffff", opacity=0.95))
+        out.append(circle(mx + hw * 0.2, gy + 1, 1.9, fill="#ffffff", opacity=0.9))
+        out.append(circle(mx + hw * 0.32, gy - 1.5, 1.1, fill="#ffffff", opacity=0.8))
+        out.append(ellipse(mx - hw * 0.3, my - 7.5, 5.2, 1.8, fill="#ffffff", opacity=0.65))
     # mouth line when closed + corner ticks
     if oh <= 0.6:
         out.append(path(catmull(up_in), fill="none", stroke=lip_ink, stroke_width=2.1 * lw, stroke_linecap="round"))
@@ -536,7 +565,8 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
         tips = _tips(P["back_l"][-1], P["back_r"][-1], 6, 34, "bk")
         back_d = (catmull(P["back_l"]) + " " + " ".join(f"L{f(x)} {f(y)}" for x, y in tips + [P["back_r"][-1]]) + " "
                   + catmull(P["back_r"][::-1], move=False) + " Z")
-        back = path(back_d, fill=tones["shadow"], stroke=tones["ink"], stroke_width=2.4 * lw, stroke_linejoin="round")
+        back = path(back_d, fill=tones.get("fill_back", tones["shadow"]), stroke=tones["ink"], stroke_width=2.4 * lw,
+                    stroke_linejoin="round")
         # back strands
         bl = resample(sample_catmull(P["back_l"], 5), 20)
         br = resample(sample_catmull(P["back_r"], 5), 20)
@@ -550,14 +580,14 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
         front = []
         for side, (inner, outer) in (("r", (P["r_in"], P["r_out"])), ("l", (P["l_in"], P["l_out"]))):
             d = _curtain_d(inner, outer, side)
-            front.append(path(d, fill=tones["base"]))
+            front.append(path(d, fill=tones.get("fill", tones["base"])))
             # inner shadow along the face side
             sh_pts = resample(sample_catmull(inner, 5), 20)
             sh_out = resample(sample_catmull([lerp_pt(p, q, 0.22) for p, q in zip(inner, outer)], 5), 20)
             front.append(path(catmull(sh_pts[2:] + sh_out[2:][::-1], closed=True), fill=tones["shadow"], opacity=0.75))
             front.append(path(_sheen_band(inner, outer), fill=tones["light"], opacity=0.7))
             front.append(_strands(inner, outer, 13, tones, lw, side))
-            front.append(path(d, fill="none", stroke=tones["ink"], stroke_width=2.5 * lw, stroke_linejoin="round"))
+            front.append(path(d, fill="none", stroke=tones["ink"], stroke_width=3.0 * lw, stroke_linejoin="round"))
         # part line
         px = look.part
         front.append(path(catmull([(px, -176), (px + 1, -168), (px, -158)]), fill="none", stroke=tones["ink"],
@@ -566,7 +596,7 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
             front.append(HS.blunt_bangs(look, tones, t, lw))
         return back, "".join(front)
 
-    base = render(C.hair_tones(hs.color))
+    base = render(_grad_tones(hs.color, defs))
     shadow = ""
     if style in ("long", "wavy") and not look.bangs:
         P = _long_hair_parts(look, length, t, hs.sway)
@@ -574,7 +604,7 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
         shadow = path(catmull(sh + [(P["r_in"][5][0], -200), (P["l_in"][5][0], -200)], closed=True),
                       fill=skin_tones(look.skin)["shade"], opacity=0.9)
     if hs.to_color and hs.wipe > 0:
-        new = render(C.hair_tones(hs.to_color))
+        new = render(_grad_tones(hs.to_color, defs))
         y_top, y_bot = (-235, 40) if style == "boy" else ((-235, 330) if style in THIN_STYLES else (-200, 340 + length))
         mid = lerp(y_top, y_bot, clamp(hs.wipe))
         mid_id = defs.uid("hw")
@@ -590,6 +620,17 @@ def hair_layers(look: Look, hs: HairState, t: float, lw: float, defs: Defs, leng
 
 
 THIN_STYLES = ("thin", "middle", "sidepart", "ponytail", "bun", "bangs")
+
+
+def _grad_tones(base_hex: str, defs: Defs) -> dict:
+    """Hair palette plus vertical gradient fills (light crown -> darker ends) for a glossier look."""
+    tn = C.hair_tones(base_hex)
+    key = base_hex.lstrip("#")
+    defs.add(lin_grad(f"hg{key}", [(0, tn["light"], 1), (0.35, tn["base"], 1), (1, tn["shadow"], 1)]))
+    defs.add(lin_grad(f"hb{key}", [(0, tn["shadow"], 1), (1, tn["deep"], 1)]))
+    tn["fill"] = f"url(#hg{key})"
+    tn["fill_back"] = f"url(#hb{key})"
+    return tn
 
 
 def _wave_parts(P: dict, amt: float, t: float) -> dict:
@@ -616,7 +657,7 @@ def _boy_hair(look: Look, tones: dict, t: float, lw: float) -> tuple[str, str]:
            (110, -64), (102, -50 + sw), (92, -80), (80, -60 + sw), (66, -88), (50, -72 + sw), (36, -98), (4, -106),
            (-36, -106), (-72, -96), (-96, -76), (-106, -50)]
     top_d = catmull(top, closed=True, tension=0.8)
-    out = [path(top_d, fill=tones["base"])]
+    out = [path(top_d, fill=tones.get("fill", tones["base"]))]
     out.append(path(catmull([(-100, -60), (-60, -92), (0, -100), (60, -92), (100, -66), (60, -120), (0, -140), (-70, -120)],
                             closed=True), fill=tones["shadow"], opacity=0.55))
     for k in range(10):
@@ -1128,7 +1169,10 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
             ex = s * 106 + fc.turn * 6
             head.append(path(catmull([(ex, -20), (ex + s * 14, -12), (ex + s * 14, 26), (ex, 36)], closed=True),
                              fill=skin["base"], stroke=skin["ink"], stroke_width=2.2 * lw))
-    head.append(path(face_d, fill=skin["base"]))
+    fg_id = defs.uid("fc")
+    defs.add(rad_grad(fg_id, [(0, skin["light"], 1), (0.55, skin["base"], 1), (1, C.mix(skin["base"], skin["shade"], 0.55), 1)],
+                      user=(-28 + fc.turn * 20, -20, 215)))
+    head.append(path(face_d, fill=f"url(#{fg_id})"))
     shading = [path(catmull([(108, -40), (106, 10), (97, 54), (80, 88), (56, 110), (74, 150), (150, 140), (150, -40)],
                             closed=True), fill=skin["shade"], opacity=0.32)]
     if fshadow:
@@ -1146,6 +1190,10 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
                     x0 = s * 56 + fc.turn * 22 + (k - 1) * 9
                     shading.append(path(f"M{f(x0 + 4)} 38 L{f(x0 - 3)} 52", stroke="#e8407a", stroke_width=2.2 * lw,
                                         opacity=fc.blush_lines, stroke_linecap="round"))
+    rim_pts = [(p_[0] - 6, p_[1]) for p_ in outline if p_[0] > 30 and -60 < p_[1] < 64]
+    if len(rim_pts) > 2:  # soft colored rim light on the right cheek
+        shading.append(path(catmull(rim_pts), fill="none", stroke="#ffe3f4", stroke_width=5 * lw, opacity=0.4,
+                            stroke_linecap="round"))
     if look.glow > 0.01:
         gl = look.glow
         gid = defs.uid("gl")
@@ -1158,7 +1206,7 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
         shading.append(path(f"M{f(fc.turn * 30)} 10 L{f(fc.turn * 33)} 44", stroke="#ffffff", stroke_width=4.5 * lw,
                             opacity=0.5 * gl, stroke_linecap="round"))
         shading.append(ellipse(fc.turn * 22, 124, 13, 6, fill=f"url(#{gid})", opacity=0.5 * gl))
-        rim = [(p_[0] + 7, p_[1]) for p_ in outline if p_[0] < -40 and -120 < p_[1] < 100]
+        rim = [(p_[0] + 7, p_[1]) for p_ in outline if p_[0] < -40 and -70 < p_[1] < 60]
         if len(rim) > 2:
             shading.append(path(catmull(rim), fill="none", stroke="#efe2ff", stroke_width=6 * lw, opacity=0.55 * gl,
                                 stroke_linecap="round"))
@@ -1169,7 +1217,7 @@ def draw_character(look: Look, st: CharState, t: float, defs: Defs, lw: float = 
                 fy_ = 30 + hash01("fy", i) * 18
                 shading.append(circle(fx_, fy_, 1.6, fill=skin["deep"], opacity=0.7))
     head.append(group(shading, clip_path=f"url(#{clip_id})"))
-    head.append(path(face_d, fill="none", stroke=skin["ink"], stroke_width=2.5 * lw))
+    head.append(path(face_d, fill="none", stroke=skin["ink"], stroke_width=3.2 * lw))
     # features
     ex = 57 if look.kind == "girl" else 52
     ey = 4 if look.kind == "girl" else 4

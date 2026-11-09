@@ -55,6 +55,11 @@ class Line:
     speed: float = 1.0
     pitch: float = 0.0        # semitones
     caption: str = ""         # on-screen text (defaults to `text`)
+    engine: str = "kokoro"    # kokoro | chatterbox (expressive)
+    emotion: float = 0.7      # chatterbox exaggeration
+    pace: float = 0.4         # chatterbox cfg weight (lower = faster, looser)
+    seed: int = 0
+    bleed: bool = False       # line may run over the next shot (J-cut)
     audio: np.ndarray | None = None
     start: float = 0.0        # global seconds (set by the timeline)
     env: np.ndarray | None = None
@@ -65,11 +70,94 @@ class Line:
         return 0.0 if self.audio is None else len(self.audio) / SR
 
 
+REF_TEXT = ("Oh my gosh, okay, you will not believe what just happened! I was literally walking down the street, "
+            "and everyone was staring at me. Like... why? Okay, I'm fine. Totally fine. Love that for me.")
+TTS_PY = ROOT / ".venv-tts/bin/python"
+
+
+def _key(line: Line) -> str:
+    parts = [line.text, line.voice, line.speed, line.pitch]
+    if line.engine == "chatterbox":
+        parts += ["cb", line.emotion, line.pace, line.seed]
+    return hashlib.sha1(json.dumps(parts).encode()).hexdigest()[:16]
+
+
+def _finish(a: np.ndarray, sr: int, line: Line) -> np.ndarray:
+    a = _resample(np.asarray(a, dtype=np.float32), sr, SR)
+    if abs(line.pitch) > 0.01:
+        a = _pitch_shift(a, line.pitch)
+    if abs(line.speed - 1.0) > 0.01 and line.engine == "chatterbox":
+        a = _tempo(a, line.speed)
+    a = _trim(a)
+    rms = float(np.sqrt(np.mean(a ** 2)) + 1e-9)
+    a = a * (0.1 / rms)
+    peak = float(np.max(np.abs(a)) + 1e-9)
+    if peak > 0.89:
+        a = a * (0.89 / peak)
+    return a
+
+
+def _tempo(a: np.ndarray, speed: float) -> np.ndarray:
+    proc = subprocess.run(
+        ["ffmpeg", "-v", "error", "-f", "f32le", "-ar", str(SR), "-ac", "1", "-i", "-",
+         "-af", f"rubberband=tempo={speed:.4f}:formant=preserved", "-f", "f32le", "-"],
+        input=a.astype(np.float32).tobytes(), capture_output=True, check=True)
+    return np.frombuffer(proc.stdout, dtype=np.float32).copy()
+
+
+def ref_clip(voice: str, cache: Path) -> Path:
+    """Short clean reference clip (Kokoro) that Chatterbox clones the character's timbre from."""
+    d = cache / "refs"
+    d.mkdir(parents=True, exist_ok=True)
+    p = d / f"{voice}.wav"
+    if not p.exists():
+        a, sr = _tts_engine().create(REF_TEXT, voice=voice, speed=1.0, lang="en-gb" if voice.startswith("b") else "en-us")
+        sf.write(p, a, sr)
+    return p
+
+
+def synth_lines(lines: list[Line], cache: Path) -> None:
+    """Synthesize every line (cached). Chatterbox lines are batched into one worker process."""
+    cache.mkdir(parents=True, exist_ok=True)
+    todo = []
+    for ln in lines:
+        p = cache / f"{_key(ln)}.wav"
+        if p.exists():
+            ln.audio = sf.read(p, dtype="float32")[0].astype(np.float32)
+        elif ln.engine == "chatterbox":
+            todo.append((ln, p))
+        else:
+            synth_line(ln, cache)
+    if not todo:
+        return
+    if not TTS_PY.exists():
+        print("  WARNING: .venv-tts missing (run ./setup.sh) - using Kokoro voices instead of expressive ones")
+        for ln, p in todo:
+            ln.engine = "kokoro"
+            synth_line(ln, cache)
+        return
+    raw = cache / "raw"
+    raw.mkdir(exist_ok=True)
+    items = [{"text": ln.text, "ref": str(ref_clip(ln.voice, cache)), "out": str(raw / p.name), "emotion": ln.emotion,
+              "pace": ln.pace, "seed": ln.seed} for ln, p in todo]
+    job = cache / "job.json"
+    job.write_text(json.dumps({"items": items, "threads": os.cpu_count() or 4}))
+    print(f"  expressive voices: {len(items)} lines (Chatterbox, CPU)...", flush=True)
+    subprocess.run([str(TTS_PY), str(Path(__file__).with_name("tts_chatterbox.py")), str(job)], check=True,
+                   env={**os.environ, "TQDM_DISABLE": "1", "PYTHONWARNINGS": "ignore"})
+    for ln, p in todo:
+        a, sr = sf.read(raw / p.name, dtype="float32")
+        if a.ndim > 1:
+            a = a.mean(axis=1)
+        a = _finish(a, sr, ln)
+        sf.write(p, a, SR)
+        ln.audio = a
+
+
 def synth_line(line: Line, cache: Path) -> None:
     """Generate (or load cached) speech for one line, 48 kHz mono float32."""
     cache.mkdir(parents=True, exist_ok=True)
-    key = hashlib.sha1(json.dumps([line.text, line.voice, line.speed, line.pitch]).encode()).hexdigest()[:16]
-    p = cache / f"{key}.wav"
+    p = cache / f"{_key(line)}.wav"
     if p.exists():
         a, _ = sf.read(p, dtype="float32")
     else:

@@ -90,6 +90,7 @@ class Actor:
     walk: bool = False
     full: bool = True
     phone_glow: float = 0.0
+    aura: float = 0.0
 
 
 @dataclass
@@ -134,7 +135,11 @@ class Episode:
                 c = self.cast[ls["who"]]
                 lines.append(A.Line(who=ls["who"], text=ls.get("say", ls["text"]), voice=ls.get("voice", c["voice"]),
                                     speed=float(ls.get("speed", c.get("speed", 1.0))),
-                                    pitch=float(ls.get("pitch", c.get("pitch", 0.0))), caption=ls["text"]))
+                                    pitch=float(ls.get("pitch", c.get("pitch", 0.0))), caption=ls["text"],
+                                    engine=ls.get("tts", c.get("tts", data.get("tts", "kokoro"))),
+                                    emotion=float(ls.get("emotion", c.get("emotion", 0.7))),
+                                    pace=float(ls.get("pace", c.get("pace", 0.4))),
+                                    seed=int(ls.get("seed", c.get("seed", 0))), bleed=bool(ls.get("bleed", False))))
             beats = [Beat(**b) for b in s.get("beats", [])]
             params = {k: v for k, v in s.items() if k not in ("id", "set", "actors", "camera", "lines", "beats", "sfx")}
             # YAML 1.1 reads the key `on:` as boolean True - map it back
@@ -146,9 +151,7 @@ class Episode:
     # ------------------------------------------------------------------ timeline
     def build(self, cache: Path) -> None:
         t0 = time.time()
-        for sh in self.shots:
-            for ln in sh.lines:
-                A.synth_line(ln, cache)
+        A.synth_lines([ln for sh in self.shots for ln in sh.lines], cache)
         print(f"  voices ready ({sum(len(s.lines) for s in self.shots)} lines, {time.time() - t0:.1f}s)")
         g = 0.0
         hair_now: dict[str, str] = {w: C.hair_color(l.hair) for w, l in self.looks.items()}
@@ -159,8 +162,9 @@ class Episode:
             for ln, spec in zip(sh.lines, sh.line_specs):
                 st = float(spec["at"]) if "at" in spec else cur + float(spec.get("gap", 0.0))
                 ln.start = g + st
-                cur = st + ln.dur + 0.1
-                ends.append(st + ln.dur)
+                cur = st + ln.dur + float(spec.get("after", 0.1))
+                if not ln.bleed:
+                    ends.append(st + ln.dur)
                 ln.env, ln.vis = A.mouth_envelope(ln.audio, self.fps)
             need = (max(ends) + float(sh.params.get("tail", 0.3))) if ends else 0.0
             sh.dur = max(float(sh.params.get("dur", 0.0)), need, 0.4)
@@ -178,6 +182,11 @@ class Episode:
             g += sh.dur
         self.total = g
         self.nframes = int(math.ceil(self.total * self.fps))
+        if self.music and self.music.get("sections"):  # sections may start at a named shot
+            starts = {sh.id: sh.start for sh in self.shots}
+            for sec in self.music["sections"]:
+                if "shot" in sec:
+                    sec["at"] = starts[sec["shot"]] + float(sec.get("offset", 0.0))
         self.all_lines = [ln for sh in self.shots for ln in sh.lines]
 
     def _resolve(self, at: Any, sh: Shot) -> float:
@@ -277,6 +286,12 @@ class Scene:
         hw, hh = W / 2 / z, H / 2 / z
         cx = clamp(cx, hw, SW - hw)
         cy = clamp(cy, hh, SH - hh)
+        # whip pans: slide the view hard at the shot edges (pair with whoosh + streaks)
+        wd = 0.16
+        if sh.params.get("whip_in") and lt < wd:
+            cx += (1 - ease_out(lt / wd)) * hw * 1.6
+        if sh.params.get("whip_out") and lt > sh.dur - wd:
+            cx -= ease_in_out((lt - (sh.dur - wd)) / wd) * hw * 1.6
         return cx, cy, z, rot
 
     def _actor_xy(self, a: Actor, sh: Shot, lt: float) -> tuple[float, float]:
@@ -415,7 +430,8 @@ class Scene:
             if not external_bg:
                 layers.append(self._bg_full(p.get("bg", "bedroom_night"), blur=True))
             layers.append(FX.photos_insert(defs, lt, look.skin if look else "#e7bf92", p.get("photos", []),
-                                           nails=look.lips if look else "#ff4fae", tears=bool(p.get("tears", False))))
+                                           nails=look.lips if look else "#ff4fae", tears=bool(p.get("tears", False)),
+                                           step=float(p.get("photo_dur", 1.6))))
             cx, cy, z, rot = SW / 2, SH / 2, zmin * cover, 0
         elif kind == "product":
             if not external_bg:
@@ -444,6 +460,8 @@ class Scene:
                 look = ep.looks[a.who]
                 st, x, y = self.actor_state(sh, a, lt, t)
                 lw = (a.s * z) ** -0.55
+                if a.aura or ep.cast.get(a.who, {}).get("aura"):
+                    layers.append(FX.aura(x, y, a.s, float(a.aura or ep.cast[a.who]["aura"])))
                 body = draw_character(look, st, t, defs, lw=lw, full_body=a.full)
                 sx = -a.s if a.flip else a.s
                 layers.append(group(body, transform=f"translate({f(x)} {f(y)}) scale({f(sx)} {f(a.s)})"))
@@ -470,8 +488,13 @@ class Scene:
                 screen.append(FX.tint(col, float(op) * smoothstep((lt - b.t) / 0.3)))
         if p.get("glitter"):
             screen.append(FX.glitter(t, float(p["glitter"])))
+        if (p.get("whip_in") and lt < 0.16) or (p.get("whip_out") and lt > sh.dur - 0.16):
+            screen.append(FX.wind_streaks(t * 3, 1.0, seed="whip"))
         if p.get("leak"):
             screen.append(FX.light_leak(defs, t, str(p["leak"])))
+        bok = p.get("bokeh", self.ep.data.get("bokeh_cu", 0.0) if sh.camera.get("frame") in ("cu", "ecu") else 0.0)
+        if bok:
+            screen.append(FX.fg_bokeh(t, float(bok)))
         if p.get("tint"):
             col, op = (str(p["tint"]).split("@") + ["0.2"])[:2]
             screen.append(FX.tint(col, float(op)))
@@ -673,12 +696,21 @@ def render_episode(path: str, out_dir: str = "renders", workers: int = 0, previe
     video = build / "video.mp4"
     bloom = float(ep.grade.get("bloom", 0.0))
     grain_op = float(ep.grade.get("grain", 0.09))
-    chain = f"[0:v]vignette=angle={float(ep.grade.get('vignette', 0.5)):.2f},format=gbrp[v0];"
+    look_grade = ""
+    if ep.grade.get("color", True):
+        sat = float(ep.grade.get("saturation", 1.12))
+        look_grade = (f"eq=saturation={sat}:contrast={float(ep.grade.get('contrast', 1.05))},"
+                      "colorbalance=rs=-0.02:bs=0.05:rh=0.03:bh=-0.02,")
+    chain = (f"[0:v]{look_grade}vignette=angle={float(ep.grade.get('vignette', 0.5)):.2f},format=gbrp[v0];")
     if bloom > 0:
         chain += f"[v0]split[va][vb];[vb]gblur=sigma={ep.H / 60:.1f}[vg];[va][vg]blend=all_mode=screen:all_opacity={bloom}:shortest=1[v0b];"
         src = "[v0b]"
     else:
         src = "[v0]"
+    sharp = float(ep.grade.get("sharpen", 0.35))
+    if sharp > 0:
+        chain += f"{src}unsharp=5:5:{sharp}[vs];"
+        src = "[vs]"
     chain += f"[1:v]format=gbrp[g];{src}[g]blend=all_mode=overlay:all_opacity={grain_op}:shortest=1,format=yuv420p[o]"
     ff = subprocess.Popen(
         ["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{ep.W}x{ep.H}",

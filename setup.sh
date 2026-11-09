@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # One-shot installer for the What-If cartoon studio.
-#   ./setup.sh            -> installs system tools, Python packages, voice model, fonts
+#   ./setup.sh                  -> system tools, Python packages, voice models, fonts, expressive TTS
+#   ./setup.sh --no-expressive  -> skip the expressive (PyTorch) voice engine
 # Safe to re-run: every step skips work that is already done.
 set -euo pipefail
 cd "$(dirname "$0")"
@@ -51,5 +52,21 @@ dl TitanOne-Regular.ttf "https://fonts.gstatic.com/s/titanone/v17/mFTzWbsGxbbS_J
 dl Baloo2-ExtraBold.ttf "https://fonts.gstatic.com/s/baloo2/v23/wXK0E3kTposypRydzVT08TS3JnAmtdiayqpv.ttf"
 dl Pacifico-Regular.ttf "https://fonts.gstatic.com/s/pacifico/v23/FwZY7-Qmy14u9lezJ96A.ttf"
 dl Shrikhand-Regular.ttf "https://fonts.gstatic.com/s/shrikhand/v17/a8IbNovtLWfR7T7bMJwbBA.ttf"
+
+if [ "${1:-}" != "--no-expressive" ]; then
+  echo "==> Expressive voices: Chatterbox TTS (MIT) with CPU PyTorch in .venv-tts (~1 GB + 3 GB weights)"
+  (
+    set -e
+    if ! .venv-tts/bin/python -c "import chatterbox" >/dev/null 2>&1; then
+      command -v uv >/dev/null 2>&1 || .venv/bin/pip install -q uv
+      UV=$(command -v uv || echo .venv/bin/uv)
+      $UV venv -q --python 3.12 .venv-tts 2>/dev/null || $UV venv -q .venv-tts
+      $UV pip install -q --python .venv-tts/bin/python torch==2.6.0 torchaudio==2.6.0 \
+          --index-url https://download.pytorch.org/whl/cpu
+      $UV pip install -q --python .venv-tts/bin/python chatterbox-tts soundfile
+    fi
+    .venv-tts/bin/python -c "from huggingface_hub import snapshot_download as s; s('ResembleAI/chatterbox', allow_patterns=['ve.safetensors','t3_cfg.safetensors','s3gen.safetensors','tokenizer.json','conds.pt'])"
+  ) || echo "    WARNING: expressive voices not installed (blocked download?). Renders fall back to Kokoro voices."
+fi
 
 echo "==> Done. Render an episode with:  .venv/bin/python -m studio episodes/blair_face_card.yaml"

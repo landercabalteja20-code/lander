@@ -36,7 +36,7 @@ def _offset(center: Sequence[Pt], widths: Sequence[float], u: float, n: int = 28
 def lock(center: Sequence[Pt], widths: Sequence[float], tones: dict, lw: float, strands: int = 3, seed: str = "l",
          sheen: bool = True, fill: str | None = None, ink_w: float = 2.2) -> str:
     d = tapered(center, widths=widths)
-    out = [path(d, fill=fill or tones["base"])]
+    out = [path(d, fill=fill or tones.get("fill", tones["base"]))]
     out.append(path(catmull(_offset(center, widths, -0.55)[1:-2]), fill="none", stroke=tones["shadow"],
                     stroke_width=max(1.0, min(widths) * 0.6 + 2) * lw * 0.9, opacity=0.6, stroke_linecap="round"))
     for k in range(strands):
@@ -133,7 +133,7 @@ def thin_hair(look, tones: dict, hs, t: float, lw: float, style: str) -> tuple[s
             side = -1 if c[0][0] < 0 else 1
             pts = _sway(_fluff(_wind(c, c[0][1], w_locks, t, i * 3.1, side), c[0][1], fl, side, t, i), c[0][1], t, i + 5)
             back.append(lock(pts, [x * (1 + 0.8 * max(0.0, fl)) for x in ws], tones, lw, strands=3, seed=f"tb{i}",
-                             fill=tones["shadow"], sheen=False))
+                             fill=tones.get("fill_back", tones["shadow"]), sheen=False))
     # --- cap
     slick_ = style in ("ponytail", "bun")
     top_lift = (16 if slick_ else 4) * max(0.0, fl)
@@ -160,7 +160,7 @@ def thin_hair(look, tones: dict, hs, t: float, lw: float, style: str) -> tuple[s
         cap.append(path(cap_d, fill="none", stroke=tones["ink"], stroke_width=2.3 * lw, stroke_linejoin="round"))
     else:
         # thin locks fan out from the part over the skull, then separate below the ears
-        cap = [path(cap_d, fill=tones["shadow"])]
+        cap = [path(cap_d, fill=tones["base"])]
         for side in (1, -1):
             for k in (3, 2, 1, 0):
                 pts, ws = _fan_lock(px, side, k, fl, style)
@@ -174,7 +174,7 @@ def thin_hair(look, tones: dict, hs, t: float, lw: float, style: str) -> tuple[s
                             for i, (x, y) in enumerate(head)]
                 wf = 1 + 0.8 * max(0.0, fl) + 0.15 * min(0.0, fl)
                 cap.append(lock(head + fall, [x * wf for x in ws], tones, lw, strands=3, seed=f"fn{side}{k}",
-                                sheen=k == 0, ink_w=1.7))
+                                sheen=k == 0, ink_w=2.1))
         cap.append(part_line)
     locks = []
     # --- style extras
@@ -277,7 +277,7 @@ def curly_hair(look, tones: dict, hs, t: float, lw: float) -> tuple[str, str]:
         y = min(y, 200 + 8 * math.sin(i * 1.7))
         pts.append((x, y))
     d = catmull(pts, closed=True, tension=1.15)
-    back = [path(d, fill=tones["base"]), path(d, fill="none", stroke=tones["ink"], stroke_width=2.6 * lw)]
+    back = [path(d, fill=tones.get("fill", tones["base"])), path(d, fill="none", stroke=tones["ink"], stroke_width=2.6 * lw)]
     for i in range(70):  # curl texture
         a = hash01("ca", i) * 2 * math.pi
         r = math.sqrt(hash01("cr", i))

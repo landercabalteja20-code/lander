@@ -505,6 +505,48 @@ def fg_vanity(defs: Defs) -> str:
     return "".join(out)
 
 
+def atmosphere(defs: Defs, body: str, rays: tuple = (), tint: str | None = None, dust: int = 40, bokeh: int = 24,
+               warm: str = "#fff1d6") -> str:
+    """Cinematic light pass baked into a pre-rendered set: light beams, bokeh points, floating dust."""
+    out = [body]
+    for (x0, x1, spread, op) in rays:
+        gid = defs.uid("ray")
+        defs.add(lin_grad(gid, [(0, warm, op), (1, warm, 0)]))
+        out.append(path(poly([(x0 - 30, -20), (x0 + 30, -20), (x1 + spread, 1080), (x1 - spread, 1080)]),
+                        fill=f"url(#{gid})"))
+    for i in range(bokeh):
+        x, y = hash01("bk", i) * 1440, hash01("bky", i) * 760
+        r = 6 + 16 * hash01("bkr", i)
+        col = ["#ffffff", "#fff3b0", "#ffd1ec", "#e6dcff"][i % 4]
+        out.append(circle(x, y, r * 2.4, fill="url(#gdot)", opacity=0.35))
+        out.append(circle(x, y, r * 0.5, fill=col, opacity=0.75))
+    for i in range(dust):
+        out.append(circle(hash01("du", i) * 1440, hash01("duy", i) * 1080, 1.2 + 2.2 * hash01("dus", i), fill="#ffffff",
+                          opacity=0.35 + 0.5 * hash01("duo", i)))
+    if tint:
+        out.append(rect(0, 0, 1440, 1080, fill=tint, opacity=0.08))
+    return "".join(out)
+
+
+def _with_atmos(fn, **kw):
+    def wrapped(defs: Defs) -> str:
+        defs.add('<radialGradient id="gdot"><stop offset="0" stop-color="#ffffff" stop-opacity="0.85"/>'
+                 '<stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>')
+        return atmosphere(defs, fn(defs), **kw)
+    return wrapped
+
+
 SETS.update({"vanity": vanity, "street_glam": street_glam, "bedroom_night": bedroom_night, "backdrop": backdrop,
              "rooftop": rooftop})
+SETS.update({
+    "vanity": _with_atmos(vanity, rays=((300, 420, 160, 0.35), (1100, 980, 140, 0.25)), tint="#ff9fd6"),
+    "street_glam": _with_atmos(street_glam, rays=((200, 500, 260, 0.3), (900, 1200, 220, 0.22)), dust=30, bokeh=10),
+    "bedroom": _with_atmos(bedroom, rays=((240, 520, 220, 0.4), (330, 700, 160, 0.25)), tint="#ffb3d9"),
+    "bedroom_night": _with_atmos(bedroom_night, rays=((260, 480, 200, 0.18),), warm="#c9d6ff", dust=20, bokeh=18),
+    "backdrop": _with_atmos(backdrop, rays=((720, 720, 380, 0.3),), bokeh=30),
+    "rooftop": _with_atmos(rooftop, rays=((1120, 900, 300, 0.12), (300, 500, 260, 0.1)), warm="#ffd1ec", dust=60,
+                           bokeh=30),
+    "cafe": _with_atmos(cafe, rays=((260, 420, 200, 0.3), (740, 900, 200, 0.25))),
+    "street": _with_atmos(street, rays=((300, 500, 240, 0.25),), dust=20, bokeh=8),
+})
 FOREGROUND = {"duvet": fg_duvet, "vanity": fg_vanity}
