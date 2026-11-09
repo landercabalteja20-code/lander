@@ -707,11 +707,14 @@ def render_episode(path: str, out_dir: str = "renders", workers: int = 0, previe
         dst = out / f"{ep.name}_9x16.mp4"
         vf = f"ass={ass}:fontsdir={ROOT / 'assets/fonts'}" if ep.captions.get("enabled", True) else "null"
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(video), "-i", str(wav), "-vf", vf,
-                        "-c:v", "libx264", "-preset", "medium", "-crf", "17", "-c:a", "aac", "-b:a", "192k",
+                        "-c:v", "libx264", "-preset", "slow", "-crf", str(ep.grade.get("crf", 22)),
+                        "-maxrate", "6M", "-bufsize", "12M", "-af", "loudnorm=I=-14:TP=-1.5:LRA=11",
+                        "-ar", "48000", "-c:a", "aac", "-b:a", "160k",
                         "-t", f"{ep.total + 0.3:.2f}", "-movflags", "+faststart", str(dst)], check=True)
         return {"9x16": dst, "duration": ep.total}
     final43 = out / f"{ep.name}_4x3.mp4"
-    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(video), "-i", str(wav), "-c:v", "copy", "-c:a", "aac",
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(video), "-i", str(wav), "-c:v", "copy",
+                    "-af", "loudnorm=I=-14:TP=-1.5:LRA=11", "-ar", "48000", "-c:a", "aac",
                     "-b:a", "192k", "-t", f"{ep.total + 0.3:.2f}", "-movflags", "+faststart", str(final43)], check=True)
     final916 = make_vertical(ep, final43, build, out)
     return {"4x3": final43, "9x16": final916, "duration": ep.total}

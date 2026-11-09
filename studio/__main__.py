@@ -56,8 +56,9 @@ def main() -> None:
         return
     res = engine.render_episode(a.episode, a.out, workers=a.workers)
     print(f"\nDone: {res['duration']:.1f}s episode")
-    print(f"  4:3  -> {res['4x3']}")
-    print(f"  9:16 -> {res['9x16']}")
+    for k in ("4x3", "9x16"):
+        if k in res:
+            print(f"  {k.replace('x', ':')} -> {res[k]}")
 
 
 if __name__ == "__main__":
