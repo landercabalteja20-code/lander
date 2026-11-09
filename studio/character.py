@@ -118,7 +118,7 @@ EXPRESSIONS: dict[str, Face] = {
     "sleepy": Face(eye_open=0.38, brow_raise=-0.25, brow_in=-0.2, smile=0.0, blush=0.3, tilt=-4),
     "yawn": Face(eye_open=0.12, brow_raise=0.3, brow_in=-0.4, mouth_open=1.0, mouth_round=0.55, smile=-0.1, teary=0.4),
     "nervous": Face(eye_open=1.0, look_x=0.6, brow_in=-0.7, smile=0.15, mouth_wide=0.6, teeth=1.0, sweat=0.9, blush=0.6),
-    "confident": Face(eye_open=0.85, brow_asym=0.3, smile=0.6, smirk=0.35, blush=0.3, sparkle=0.6),
+    "confident": Face(eye_open=1.0, brow_asym=0.2, brow_raise=0.25, smile=0.72, smirk=0.25, blush=0.35, sparkle=0.6),
     "suspicious": Face(eye_open=0.5, squint=0.3, look_x=-0.8, brow_in=0.5, brow_asym=-0.6, smile=-0.1, smirk=-0.3),
     "squeal": Face(happy_eyes=1.0, smile=0.8, mouth_open=0.7, mouth_round=0.4, blush=1.0, blush_lines=0.8,
                    brow_raise=0.8, brow_in=-0.3),
@@ -361,7 +361,7 @@ def _tears(lower: list[Pt], side: int, amt: float, t: float, cx: float, lw: floa
 def _brow(side: int, look: Look, fc: Face, turn: float, lw: float) -> str:
     girl = look.kind == "girl"
     base = [(18, -54), (46, -66), (78, -69), (108, -57)] if girl else [(14, -44), (42, -54), (72, -57), (100, -48)]
-    raise_ = -fc.brow_raise * 10 - fc.brow_asym * 8 * side
+    raise_ = -fc.brow_raise * 10 - fc.brow_asym * 8 * side - (5 if look.eye_shape == "feline" else 0)
     pts = []
     for i, (x, y) in enumerate(base):
         inner_w = [1.0, 0.55, -0.15, -0.35][i]

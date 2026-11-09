@@ -113,7 +113,7 @@ shots:
       - {at: 0.5, who: blair, expr: gasp, face: {look_y: -1.0}}
       - {at: 0.5, sfx: dun, gain: 0.6}
     lines:
-      - {who: blair, text: "Wait...", emotion: 0.9, at: 0.55, bleed: true}   # ad-lib
+      - {who: blair, text: "Wait... what?", emotion: 0.9, at: 0.5, bleed: true}   # ad-lib
     dur: 1.4
 
   - id: s1_forehead
@@ -207,7 +207,7 @@ shots:
     camera: {frame: cu, on: blair, push: 0.12, rot: -3}
     lines:
       - {who: blair, text: "WHY IS THE WIND MY BIGGEST HATER?!", say: "Why is the wind my biggest hater?!", at: 0.05,
-         emotion: 1.6, pace: 0.25}
+         emotion: 1.4, pace: 0.25, seed: 3}
     beats:
       - {at: 0.0, fx: wind, fxdur: 4.0}
       - {at: 0.4, fx: punch}
@@ -244,7 +244,7 @@ shots:
     set: product
     product: mousse
     lines:
-      - {who: blair, text: "Mousse...", emotion: 0.9, at: 0.05, bleed: true}   # ad-lib
+      - {who: blair, text: "First, mousse.", emotion: 0.9, at: 0.0, bleed: true}   # ad-lib
     sfx: [{at: 0.0, name: pop, gain: 0.6}]
     dur: 0.8
 
@@ -262,7 +262,7 @@ shots:
     set: product
     product: curler
     lines:
-      - {who: blair, text: "Curl...", emotion: 0.9, at: 0.05, bleed: true}   # ad-lib
+      - {who: blair, text: "Then, curl.", emotion: 0.9, at: 0.0, bleed: true}   # ad-lib
     sfx: [{at: 0.0, name: pop, gain: 0.6}]
     dur: 0.7
 
@@ -282,7 +282,7 @@ shots:
     set: product
     product: spray
     lines:
-      - {who: blair, text: "Spray!", emotion: 1.2, at: 0.05, bleed: true}   # ad-lib
+      - {who: blair, text: "Now... hairspray!", emotion: 1.1, pace: 0.35, seed: 3, at: 0.0, bleed: true}   # ad-lib
     sfx: [{at: 0.0, name: whoosh, gain: 0.4}]
     dur: 0.7
 
@@ -516,7 +516,7 @@ shots:
       - {at: 0.0, fx: flash}
       - {at: 0.0, sfx: tada, gain: 0.5}
     lines:
-      - {who: pink, text: "Blair!", emotion: 1.3, at: 0.25}   # ad-lib
+      - {who: pink, text: "Blair! Girl, we're here!", emotion: 1.3, at: 0.2}   # ad-lib
     dur: 1.4
 
   - id: s6_trio
@@ -529,7 +529,7 @@ shots:
     camera: {frame: ws, x: 730, push: 0.06}
     fg: duvet
     lines:
-      - {who: gold, text: "Oh, babe...", emotion: 0.8, pace: 0.4, at: 0.5}   # ad-lib
+      - {who: gold, text: "Oh babe, what happened?", emotion: 0.8, pace: 0.4, at: 0.3}   # ad-lib
     sfx: [{at: 0.05, name: whoosh, gain: 0.5}]
     tail: 0.2
 
@@ -649,8 +649,7 @@ shots:
       - {at: 0.1, fx: glitter, fxdur: 1.0}
       - {at: 0.1, sfx: tada, gain: 0.5}
     lines:
-      - {who: pink, text: "Yesss!", emotion: 1.4, at: 0.2}   # ad-lib
-      - {who: gold, text: "Yesss!", emotion: 1.4, at: 0.25}  # ad-lib
+      - {who: pink, text: "Yes! Let's go!", emotion: 1.4, at: 0.15}   # ad-lib
     tail: 0.2
 
   # ======================================================= 7 - THE FINAL GLOW-UP
@@ -778,8 +777,8 @@ shots:
       - {at: 0.0, fx: glitter, fxdur: 0.6}
       - {at: 0.1, sfx: tada, gain: 0.6}
     lines:
-      - {who: pink, text: "Unlimited!", emotion: 1.4, at: 0.15}   # ad-lib
-      - {who: gold, text: "Unlimited!", emotion: 1.4, at: 0.2}    # ad-lib
+      - {who: pink, text: "It's unlimited, baby!", emotion: 1.2, pace: 0.35, at: 0.15, seed: 2}   # ad-lib
+      - {who: gold, text: "Literally unlimited!", emotion: 1.3, at: 0.25}    # ad-lib
     tail: 0.3
 
   - id: endcard
