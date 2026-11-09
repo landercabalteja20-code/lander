@@ -1,0 +1,7 @@
+node_modules/
+episodes/*/build/frames/
+episodes/*/build/stills/
+episodes/*/build/*.wav
+speed_test.html
+*.tmp
+__pycache__/
