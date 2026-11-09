@@ -52,4 +52,4 @@ dl Baloo2-ExtraBold.ttf "https://fonts.gstatic.com/s/baloo2/v23/wXK0E3kTposypRyd
 dl Pacifico-Regular.ttf "https://fonts.gstatic.com/s/pacifico/v23/FwZY7-Qmy14u9lezJ96A.ttf"
 dl Shrikhand-Regular.ttf "https://fonts.gstatic.com/s/shrikhand/v17/a8IbNovtLWfR7T7bMJwbBA.ttf"
 
-echo "==> Done. Render the episode with:  .venv/bin/python -m studio episodes/mood_hair.yaml"
+echo "==> Done. Render an episode with:  .venv/bin/python -m studio episodes/blair_face_card.yaml"

@@ -11,7 +11,15 @@ Output for each episode:
 | `renders/<episode>_9x16.mp4` | TikTok / Reels / Shorts: hook title on top, captions under the picture |
 | `renders/<episode>_4x3.mp4`  | clean 4:3 master (same framing as the reference clips), no captions |
 
-Current episode: **`episodes/mood_hair.yaml` — "What if your hair changed color with your mood?"** (~58 s).
+Episodes:
+
+| script | video | format |
+|---|---|---|
+| `episodes/blair_face_card.yaml` | "What's It Like to Have a Big Forehead and Thin Hair… But an Ethereal Face Card?" (~3 min) | native 9:16 (1080×1920) with burned-in captions |
+| `episodes/mood_hair.yaml` | "What if your hair changed color with your mood?" (~58 s, demo) | 4:3 master + 9:16 framed version |
+
+An episode renders natively vertical when its YAML has `size: [1080, 1920]` (camera framings switch to
+width-based presets automatically); otherwise it renders 4:3 and gets a framed 9:16 version.
 
 ## 1. Install (one time)
 
@@ -61,6 +69,22 @@ Copy `episodes/mood_hair.yaml`, change the premise, and edit the shots. Each sho
 - **Arms:** down, hip, phone, phone_up, cheeks, wave, hair, point, chin, shrug, mouth, cross.
 - **Hair colors:** lilac, pink, hotpink, green, lime, blue, red, gold, violet, sunny, brown, coral, or any `#hex`.
   A `hair:` beat plays the root-to-tip color wipe with sparkles.
+- **Hairstyles** (`style:` on an actor or a beat): long, wavy, curly, boy, and the thin-hair set
+  thin, middle, bangs, ponytail, bun, sidepart. Animate with `wind: 0..1` (blown back), `fluff: -0.3..1`
+  (styling volume; add `bounce: true` for the collapse) and `acc: [pearls, butterflies, headband]`.
+- **Look options:** `forehead: 0..1` (high hairline), `eye_shape: doll|feline|almond`, `glow: 0..1`
+  (luminous skin), `jacket: "#hex"` (faux fur), tops tee/hoodie/cardigan/varsity/corset/halter,
+  bottoms flare/jeans/cargo/skirt/mini, `top_metal`/`bottom_metal`, `shoes: clear`.
+- **Props & arms:** `prop: mousse|curler|spray|brush|photo|clip`; `arms: custom` with
+  `arm_r: [x, y, bend, in_front]` / `arm_l: [...]` for hugs, hair-holding, linking arms.
+- **Shot extras:** `fg: duvet|vanity` (foreground so characters can sit behind a bed/table), `mask: heart`
+  (heart-mirror reflection), `label: "TEXT"` sticker, `hook: {lines: [...], dur: 4}` title,
+  `glitter: 0..1`, `leak: "#hex"` light leak, `tint: "#hex@0.2"`.
+- **Inserts:** `set: phone | photos | product | chart | title | end | endcard`.
+- **FX:** also `wind`, `glitter`, `poof`, `shine`, `tears_wipe`. **SFX:** also deflate, slide_up, squeak.
+- **Music:** `music: {sections: [{at: 0, style: pop}, {at: 50, style: comedy}, ...]}` — styles pop, comedy,
+  sad, warm, party (crossfaded).
+- **Dialogue:** `say:` sets what the voice reads (e.g. sentence case) while `text:` is shown in captions.
 - **FX:** burst, hearts, sparkles, steam, anger, flash, speed, punch, shake, `tint:#hex@0.3`.
 - **SFX:** ding, sparkle, whoosh, buzz, pop, scratch, boing, notify, tada, dun, gulp.
 - **Voices:** set per character in `cast:` (e.g. `af_heart`, `af_bella`, `af_nicole`, `am_michael`, `bf_emma`;
@@ -75,10 +99,11 @@ Copy `episodes/mood_hair.yaml`, change the premise, and edit the shots. Each sho
 | module | what it does |
 |---|---|
 | `character.py` | parametric doll rig drawn as SVG: eyes/lashes/brows/lips with visemes, tears, blush, strand-lined hair with color wipes, IK arms, outfits |
-| `sets.py` | bedroom, café, street backgrounds (pre-rendered once, sharp + depth-of-field blur) |
+| `sets.py` | bedroom, café, street, vanity (heart mirror), glam boulevard, night bedroom, try-on backdrop, rooftop party (pre-rendered once, sharp + depth-of-field blur) |
 | `fx.py` | sparkles, hearts, speed lines, flashes, phone close-up, mood chart, title/end cards |
 | `audio.py` | Kokoro TTS voices, lip-sync envelopes, original synth music bed, synthesized SFX, mixdown with ducking |
-| `engine.py` | YAML → timeline → per-frame SVG → resvg (multi-core) → ffmpeg (+ paper grain) |
+| `hairstyles.py` | thin-hair locks with wind/volume physics, extra styles, hair accessories |
+| `engine.py` | YAML → timeline → per-frame SVG → resvg (multi-core) + PIL background compositing → ffmpeg (+ bloom, vignette, grain) |
 | `vertical.py` | 9:16 layout + karaoke-style captions (mood words are colored) |
 
 Everything (art, music, SFX) is generated, so the output is original and royalty-free. Voices come from the
