@@ -1,0 +1,8 @@
+# Rendering
+numpy>=2.0
+resvg-py>=0.5
+pillow>=10.0
+pyyaml>=6.0
+# Voices (neural text-to-speech, runs on CPU)
+kokoro-onnx>=0.6
+soundfile>=0.12

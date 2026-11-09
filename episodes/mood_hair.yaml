@@ -1,0 +1,307 @@
+# WHAT IF... your hair changed color with your mood?
+# ---------------------------------------------------------------------------
+# Edit the dialogue, swap voices, move beats - then re-render:
+#     .venv/bin/python -m studio episodes/mood_hair.yaml
+#
+# Shot keys:  set (bedroom|cafe|street|phone|chart|title|end), actors, camera, lines, beats, sfx
+# Camera frames: ecu | cu | mcu | ms | full | two (with on: [a, b]) | ws (whole set)
+# Expressions: neutral soft happy laugh love dreamy shock gasp panic jealous angry sad cry smug
+#              deadpan embarrassed sleepy yawn nervous confident suspicious squeal
+# Arms: down hip phone phone_up cheeks wave hair point chin shrug mouth cross
+# Hair colors: lilac pink hotpink green lime blue red gold violet sunny brown coral (or any #hex)
+# FX (beats): burst hearts sparkles steam anger flash speed punch shake tint:#hex@0.3
+# SFX: ding sparkle whoosh buzz pop scratch boing notify tada dun gulp
+# Beat times: seconds from shot start, or "line1", "line2.end", "end-0.3", "line1+0.4"
+
+title: "What if your hair changed color with your mood?"
+fps: 24
+music: {bpm: 112, volume: 0.30, seed: 7}
+
+vertical:
+  title: ["WHAT IF...", "your hair changed", "with your MOOD?"]
+  sizes: [150, 80, 80]
+  footer: "comment your color ↓"
+
+cast:
+  narrator: {voice: bf_emma, speed: 1.0}
+  mimi:
+    voice: af_heart
+    look: {skin: "#f4c7a6", eye: "#8a5cf0", lips: "#e4507f", eyeshadow: "#ff9ad5", hair: lilac, part: -8,
+           top: tee, top_color: "#ffffff", top_accent: "#ff6fb5", bottom: flare, bottom_color: "#9cc3f5",
+           shoes_color: "#ffffff", earrings: gold, choker: "#2a1830"}
+  dani:
+    voice: af_bella
+    speed: 1.05
+    look: {skin: "#9a6346", eye: "#3fae7a", lips: "#b03a5e", eyeshadow: "#c58cff", hair: violet, part: 10,
+           top: cardigan, top_color: "#9df2d6", top_accent: "#ff6fb5", under_color: "#1d1a24", bottom: skirt,
+           bottom_color: "#2a2233", shoes_color: "#1d1a24", earrings: gold, glasses_on_head: "#ff5fb8",
+           brow: "#24131c"}
+  theo:
+    voice: am_michael
+    look: {kind: boy, skin: "#d9a27c", eye: "#6b4a2e", lips: "#c9707a", hair: brown, hair_style: boy, part: -30,
+           top: varsity, top_color: "#7b2d4a", top_accent: "#f6e7c8", bottom: jeans, bottom_color: "#4d6a9a",
+           shoes_color: "#f4f4f4", earrings: none, brow: "#3a2418"}
+  kenzie:
+    voice: af_nicole
+    look: {skin: "#fbd3b8", eye: "#4b8bd9", lips: "#ff6f91", eyeshadow: "#ffd36a", hair: sunny, part: 14,
+           top: hoodie, top_color: "#ffb36b", top_accent: "#ffffff", bottom: cargo, bottom_color: "#d8c7a9",
+           shoes_color: "#ffffff", earrings: pink, freckles: true}
+
+shots:
+  # ---------------------------------------------------------------- hook
+  - id: hook
+    set: title
+    text: ["WHAT IF...", "your hair changed", "with your mood?"]
+    lines:
+      - {who: narrator, text: "What if your hair changed color... with your mood?"}
+    sfx: [{at: 0.0, name: ding, gain: 0.8}]
+    tail: 0.4
+
+  - id: chart
+    set: chart
+    heading: "MOOD HAIR GUIDE"
+    rows: [[pink, CRUSH], [green, JEALOUS], [blue, SAD], [red, MAD], [violet, SMUG], [gold, SLAY]]
+    step: 0.55
+    lines:
+      - {who: narrator, text: "Pink means crush. Green, jealous. Blue, sad. And red... means run."}
+    sfx:
+      - {at: 0.30, name: pop, gain: 0.5}
+      - {at: 0.85, name: pop, gain: 0.5}
+      - {at: 1.40, name: pop, gain: 0.5}
+      - {at: 1.95, name: pop, gain: 0.5}
+      - {at: 2.50, name: pop, gain: 0.5}
+      - {at: 3.05, name: pop, gain: 0.5}
+
+  # ---------------------------------------------------------------- morning
+  - id: wake
+    set: bedroom
+    actors:
+      - {who: mimi, x: 640, y: 330, s: 0.75, expr: yawn, hair: lilac}
+    camera: {frame: cu, on: mimi, push: 0.05}
+    lines:
+      - {who: mimi, text: "Lilac. So I'm tired. Cute.", expr: deadpan, gap: 0.6}
+    sfx: [{at: 0.0, name: whoosh, gain: 0.5}]
+
+  - id: buzz
+    set: phone
+    hand: mimi
+    contact: "Theo"
+    messages:
+      - {text: "u coming to the café later?", at: 0.35}
+    dur: 2.0
+    sfx:
+      - {at: 0.05, name: buzz, gain: 0.8}
+      - {at: 0.35, name: notify, gain: 0.7}
+
+  - id: pink
+    set: bedroom
+    actors:
+      - {who: mimi, x: 640, y: 330, s: 0.75, expr: gasp, face: {look_y: 0.4}}
+    camera: {frame: cu, on: mimi, push: 0.08}
+    beats:
+      - {at: 0.2, who: mimi, hair: hotpink, wipe: 0.7, fx: burst, sfx: sparkle}
+      - {at: 0.2, fx: flash}
+      - {at: line1, who: mimi, expr: panic, arms: cheeks}
+      - {at: line1, fx: punch}
+    lines:
+      - {who: mimi, text: "Oh no. Pink? Not PINK!", at: 0.9}
+
+  - id: dani_enter
+    set: bedroom
+    actors:
+      - {who: mimi, x: 560, y: 330, s: 0.75, expr: nervous, face: {look_x: 0.8, turn: 0.15}}
+      - {who: dani, x: 900, y: 330, s: 0.75, expr: smug, arms: cross, enter: right, face: {look_x: -0.7, turn: -0.15}}
+    camera: {frame: two, on: [mimi, dani], height: ms, push: 0.04}
+    lines:
+      - {who: dani, text: "Girl. Your hair is literally screaming crush.", at: 0.6}
+    sfx: [{at: 0.0, name: whoosh, gain: 0.5}]
+
+  - id: deny
+    set: bedroom
+    actors:
+      - {who: mimi, x: 560, y: 330, s: 0.75, expr: embarrassed}
+    camera: {frame: cu, on: mimi, push: 0.06}
+    lines:
+      - {who: mimi, text: "It's not a crush. It's a... hairstyle.", expr: nervous}
+
+  - id: mmhm
+    set: bedroom
+    actors:
+      - {who: dani, x: 900, y: 330, s: 0.75, expr: smug, arms: cross, face: {look_x: -0.5}}
+    camera: {frame: cu, on: dani, push: 0.05}
+    lines:
+      - {who: dani, text: "Uh-huh. Sure.", gap: 0.15}
+    tail: 0.5
+
+  # ---------------------------------------------------------------- café
+  - id: street
+    set: street
+    actors:
+      - {who: mimi, x: 600, y: 330, s: 0.75, expr: happy, enter: left, face: {look_x: 0.5}}
+      - {who: dani, x: 860, y: 330, s: 0.75, expr: smug, enter: left, face: {look_x: -0.4}}
+    camera: {frame: ws, push: 0.05}
+    dur: 1.7
+    sfx: [{at: 0.0, name: whoosh, gain: 0.6}]
+
+  - id: cafe_wide
+    set: cafe
+    actors:
+      - {who: theo, x: 960, y: 330, s: 0.78, expr: laugh, face: {turn: 0.25, look_x: 0.8}}
+      - {who: kenzie, x: 1190, y: 345, s: 0.72, expr: laugh, face: {turn: -0.25, look_x: -0.8}}
+    camera: {frame: two, on: [theo, kenzie], height: ms, push: 0.05}
+    lines:
+      - {who: kenzie, text: "Stop! You're so funny!", at: 0.3}
+
+  - id: jealous
+    set: cafe
+    actors:
+      - {who: mimi, x: 360, y: 330, s: 0.75, expr: shock, hair: hotpink, face: {look_x: 0.9}}
+    camera: {frame: cu, on: mimi, push: 0.1}
+    beats:
+      - {at: 0.25, who: mimi, expr: jealous, hair: green, wipe: 0.6, sfx: scratch}
+      - {at: 0.25, fx: punch}
+      - {at: 0.25, fx: "tint:#4bd16b@0.12"}
+    lines:
+      - {who: dani, text: "Uh oh. She's going green.", at: 0.95}
+
+  - id: not_jealous
+    set: cafe
+    actors:
+      - {who: mimi, x: 360, y: 330, s: 0.75, expr: angry}
+    camera: {frame: cu, on: mimi, push: 0.06}
+    beats:
+      - {at: line1.end, who: mimi, hair: lime, wipe: 0.4, fx: steam, fxdur: 1.0}
+    lines:
+      - {who: mimi, text: "I am NOT jealous."}
+    tail: 0.5
+
+  - id: lime
+    set: cafe
+    actors:
+      - {who: dani, x: 600, y: 330, s: 0.75, expr: deadpan, face: {look_x: -0.6}}
+    camera: {frame: cu, on: dani, push: 0.05}
+    lines:
+      - {who: dani, text: "Babe. You're literally lime."}
+
+  - id: calm
+    set: cafe
+    actors:
+      - {who: mimi, x: 360, y: 330, s: 0.75, expr: panic, hair: lime, arms: cheeks}
+    camera: {frame: ecu, on: mimi, push: 0.12}
+    beats:
+      - {at: 0.3, who: mimi, hair: blue, wipe: 0.25}
+      - {at: 0.75, who: mimi, hair: red, wipe: 0.25}
+      - {at: 1.2, who: mimi, hair: gold, wipe: 0.25}
+      - {at: 1.65, who: mimi, hair: green, wipe: 0.25}
+      - {at: 0.3, fx: speed, fxdur: 1.8}
+      - {at: 0.3, sfx: boing, gain: 0.7}
+      - {at: 1.2, sfx: boing, gain: 0.7}
+    lines:
+      - {who: mimi, text: "Calm thoughts. Calm thoughts. Calm thoughts!", speed: 1.15}
+
+  - id: theo_walks
+    set: cafe
+    actors:
+      - {who: mimi, x: 420, y: 330, s: 0.75, expr: nervous, hair: green, face: {look_x: 0.8}}
+      - {who: theo, x: 760, y: 330, s: 0.78, expr: happy, enter: right, arms: wave, face: {look_x: -0.6, turn: -0.15}}
+      - {who: kenzie, x: 1050, y: 345, s: 0.72, expr: happy, enter: right, face: {look_x: -0.6}}
+    camera: {frame: ws, push: 0.05}
+    lines:
+      - {who: theo, text: "Hey Mimi! This is my cousin, Kenzie.", at: 0.6}
+
+  - id: cousin
+    set: cafe
+    actors:
+      - {who: mimi, x: 420, y: 330, s: 0.75, expr: gasp, hair: green}
+    camera: {frame: cu, on: mimi, push: 0.07}
+    beats:
+      - {at: 0.3, who: mimi, expr: happy, hair: pink, wipe: 0.7, fx: sparkles, fxdur: 1.6, sfx: sparkle}
+    lines:
+      - {who: mimi, text: "Cousin. Love that for her.", at: 0.7}
+
+  - id: hiii
+    set: cafe
+    actors:
+      - {who: kenzie, x: 1050, y: 345, s: 0.72, expr: squeal, arms: wave}
+    camera: {frame: cu, on: kenzie, push: 0.06}
+    lines:
+      - {who: kenzie, text: "Hiii!"}
+    tail: 0.35
+
+  - id: compliment
+    set: cafe
+    actors:
+      - {who: theo, x: 760, y: 330, s: 0.78, expr: soft, face: {look_x: -0.5, turn: -0.12, blush: 0.6}}
+    camera: {frame: cu, on: theo, push: 0.06}
+    lines:
+      - {who: theo, text: "So... I really like your hair."}
+
+  - id: phase
+    set: cafe
+    actors:
+      - {who: mimi, x: 420, y: 330, s: 0.75, expr: love}
+    camera: {frame: cu, on: mimi, push: 0.08}
+    beats:
+      - {at: 0.15, who: mimi, hair: hotpink, wipe: 0.6, fx: hearts, fxdur: 3.0, sfx: sparkle, gain: 0.7}
+    lines:
+      - {who: mimi, text: "Thanks. It's... a phase.", expr: embarrassed, at: 0.55}
+
+  - id: look_up
+    set: cafe
+    actors:
+      - {who: dani, x: 600, y: 330, s: 0.75, expr: shock, arms: point, face: {look_y: -0.6}}
+    camera: {frame: mcu, on: dani, push: 0.08}
+    beats:
+      - {at: 0.0, fx: punch}
+    lines:
+      - {who: dani, text: "Wait. Theo... look up."}
+    sfx: [{at: 0.0, name: dun, gain: 0.7}]
+
+  - id: theo_pink
+    set: cafe
+    actors:
+      - {who: theo, x: 760, y: 330, s: 0.78, expr: neutral, hair: brown, face: {look_y: -1.0}}
+    camera: {frame: cu, on: theo, push: 0.1}
+    beats:
+      - {at: 0.25, who: theo, hair: hotpink, wipe: 0.6, fx: burst, sfx: sparkle}
+      - {at: 0.25, fx: flash}
+      - {at: line1, who: theo, expr: embarrassed}
+    lines:
+      - {who: theo, text: "Oh. Oh no.", at: 1.0}
+    tail: 0.45
+
+  - id: likes
+    set: cafe
+    actors:
+      - {who: dani, x: 600, y: 330, s: 0.75, expr: squeal, arms: cheeks}
+      - {who: kenzie, x: 1050, y: 345, s: 0.72, expr: squeal, arms: cheeks}
+    camera: {frame: two, on: [dani, kenzie], height: ms, push: 0.05}
+    lines:
+      - {who: dani, text: "He LIKES likes you!", at: 0.2}
+      - {who: kenzie, text: "He LIKES likes you!", at: 0.22}
+    beats:
+      - {at: 0.2, fx: speed, fxdur: 1.0}
+
+  - id: both_pink
+    set: cafe
+    actors:
+      - {who: mimi, x: 420, y: 330, s: 0.75, expr: embarrassed, hair: hotpink, face: {look_x: 0.6, turn: 0.15}}
+      - {who: theo, x: 760, y: 330, s: 0.78, expr: embarrassed, hair: hotpink, face: {look_x: -0.6, turn: -0.15}}
+    camera: {frame: two, on: [mimi, theo], height: ms, push: 0.06}
+    beats:
+      - {at: 0.1, who: mimi, fx: hearts, fxdur: 3.0}
+      - {at: 0.1, who: theo, fx: hearts, fxdur: 3.0}
+      - {at: 0.1, who: mimi, fx: sparkles, fxdur: 3.0}
+    lines:
+      - {who: mimi, text: "Cute.", expr: love, at: 0.9}
+    sfx: [{at: 0.1, name: tada, gain: 0.6}]
+    tail: 0.8
+
+  - id: end
+    set: end
+    text: ["WHAT COLOR", "WOULD YOUR", "HAIR BE?"]
+    sub: "comment your mood color"
+    lines:
+      - {who: narrator, text: "So... what color would your hair be right now?"}
+    sfx: [{at: 0.0, name: tada, gain: 0.5}]
+    tail: 1.2
