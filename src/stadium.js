@@ -171,15 +171,23 @@ export class Stadium {
       off[i * 3] = x; off[i * 3 + 1] = -0.9; off[i * 3 + 2] = z;
       ang[i] = Math.atan2(z, x); i++;
     }
-    while (i < N) {
-      const a = r() * TAU;
-      // leave the area behind the stage empty
-      const rel = Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2));
-      if (Math.abs(rel) < 0.55) continue;
-      const tier = Math.floor(r() * 26);
-      const rad = 34 + tier * 2.4 + 0.6 + r() * 1.4;
-      off[i * 3] = Math.cos(a) * rad; off[i * 3 + 1] = -0.9 + (tier + 1) * 1.25; off[i * 3 + 2] = Math.sin(a) * rad;
-      ang[i] = a; i++;
+    // seating tiers, filled nearest-first (fans per tier proportional to its circumference)
+    const tierW = Array.from({ length: 26 }, (_, k) => 34 + k * 2.4);
+    const wSum = tierW.reduce((x, y) => x + y, 0);
+    const bodyLimit = Math.floor(N * 0.45);
+    let bodies = N;
+    for (let tier = 0; tier < 26 && i < N; tier++) {
+      const want = tier === 25 ? N - i : Math.round((N - pitN) * tierW[tier] / wSum);
+      for (let k = 0; k < want && i < N;) {
+        const a = r() * TAU;
+        // leave the area behind the stage empty
+        const rel = Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2));
+        if (Math.abs(rel) < 0.55) continue;
+        const rad = 34 + tier * 2.4 + 0.6 + r() * 1.4;
+        off[i * 3] = Math.cos(a) * rad; off[i * 3 + 1] = -0.9 + (tier + 1) * 1.25; off[i * 3 + 2] = Math.sin(a) * rad;
+        ang[i] = a; i++; k++;
+      }
+      if (i >= bodyLimit && bodies === N) bodies = i; // far tiers: lightsticks only (bodies are sub-pixel in the dark)
     }
     for (let k = 0; k < N; k++) { ph[k] = r(); const c = palette[Math.floor(r() * palette.length)]; tint[k * 3] = c.r; tint[k * 3 + 1] = c.g; tint[k * 3 + 2] = c.b; }
     // fan body: torso + head + raised arm
@@ -193,7 +201,7 @@ export class Stadium {
     ig.setAttribute('phase', new THREE.InstancedBufferAttribute(ph, 1));
     ig.setAttribute('tint', new THREE.InstancedBufferAttribute(tint, 3));
     ig.setAttribute('ang', new THREE.InstancedBufferAttribute(ang, 1));
-    ig.instanceCount = N;
+    ig.instanceCount = bodies;
     const U = this.uniforms;
     this.crowdU = { uEnergy: { value: 0.5 }, uGlow: { value: new THREE.Color('#ff7ac8') } };
     const cm = new THREE.ShaderMaterial({
@@ -226,10 +234,10 @@ export class Stadium {
     lg.setAttribute('position', new THREE.BufferAttribute(lp, 3));
     lg.setAttribute('phase', new THREE.BufferAttribute(ph, 1));
     lg.setAttribute('ang', new THREE.BufferAttribute(ang, 1));
-    this.stickU = { uMode: { value: 0 }, uPrev: { value: 0 }, uMix: { value: 1 }, uCol: { value: new THREE.Color('#ff8fbf') }, uPrevCol: { value: new THREE.Color('#ff8fbf') }, uScale: { value: 300 }, uMembers: { value: MEMBERS.map((m) => new THREE.Color(m.color)) } };
+    this.stickU = { uMode: { value: 0 }, uPrev: { value: 0 }, uMix: { value: 1 }, uCol: { value: new THREE.Color('#ff8fbf') }, uPrevCol: { value: new THREE.Color('#ff8fbf') }, uScale: { value: 300 }, uDens: { value: Math.min(1, Math.pow(20000 / N, 0.65)) }, uMembers: { value: MEMBERS.map((m) => new THREE.Color(m.color)) } };
     const sm = new THREE.ShaderMaterial({
       uniforms: { ...U, ...this.stickU, uTex: { value: dotTexture() } },
-      vertexShader: `attribute float phase; attribute float ang; uniform float uTime,uBeat,uScale; uniform int uMode,uPrev; uniform float uMix; uniform vec3 uCol,uPrevCol; uniform vec3 uMembers[5];
+      vertexShader: `attribute float phase; attribute float ang; uniform float uTime,uBeat,uScale,uDens; uniform int uMode,uPrev; uniform float uMix; uniform vec3 uCol,uPrevCol; uniform vec3 uMembers[5];
         varying vec3 vC; varying float vA;
         vec3 hue(float h){ return clamp(abs(mod(h*6.+vec3(0.,4.,2.),6.)-3.)-1.,0.,1.); }
         vec3 prog(int m, vec3 col){
@@ -248,8 +256,8 @@ export class Stadium {
           p.x+=sway*0.25*cos(ang+1.57); p.z+=sway*0.25*sin(ang+1.57);
           vec4 mv=modelViewMatrix*vec4(p,1.);
           gl_Position=projectionMatrix*mv;
-          gl_PointSize=clamp(uScale*0.55/-mv.z,1.2,24.);
-          vC=mix(prog(uPrev,uPrevCol),prog(uMode,uCol),uMix); vA=1.;
+          gl_PointSize=clamp(uScale*0.55*(0.6+0.4*uDens)/-mv.z,1.2,24.);
+          vC=mix(prog(uPrev,uPrevCol),prog(uMode,uCol),uMix)*uDens; vA=1.;
         }`,
       fragmentShader: `uniform sampler2D uTex; varying vec3 vC; void main(){ float a=texture2D(uTex,gl_PointCoord).a; gl_FragColor=vec4(vC*a*1.6,a); }`,
       transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, toneMapped: false,
@@ -519,7 +527,7 @@ export class Stadium {
       const ty = hot && i % 3 === 0 ? 60 : -1;
       b.holder.lookAt(b.pos.x + (tx - b.pos.x) * 0.9, ty, tz);
       b.holder.rotateX(-Math.PI / 2);
-      b.m.uniforms.uI.value = k;
+      b.m.uniforms.uI.value = ty > 0 ? k * 0.45 : k;
     });
     this.pillars.forEach((p, i) => { const on = hot ? Math.exp(-((beat + (i % 2) * 0.5) % 2) * 2.2) : 0; p.material.uniforms.uI.value = on; });
     this.rims.forEach((r) => (r.intensity = 3.2 * (dark ? (t > 50 ? 0.6 : 0.15) : 1)));

@@ -54,7 +54,7 @@ if (document.fonts && document.fonts.load) {
 const frame = document.getElementById('frame');
 const canvas = document.getElementById('view');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance', preserveDrawingBuffer: params.has('capture') });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, Q.dpr));
+renderer.setPixelRatio(params.has('pr') ? parseFloat(params.get('pr')) : Math.min(window.devicePixelRatio || 1, Q.dpr));
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 0.92;
 renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -82,7 +82,7 @@ const director = new CameraDirector(camera);
 const rt = new THREE.WebGLRenderTarget(16, 16, { type: THREE.HalfFloatType, samples: 4 });
 const composer = new EffectComposer(renderer, rt);
 composer.addPass(new RenderPass(scene, camera));
-const bloom = new UnrealBloomPass(new THREE.Vector2(16, 16), 0.65 * Q.bloom, 0.5, 0.95);
+const bloom = new UnrealBloomPass(new THREE.Vector2(16, 16), 0.6 * Q.bloom, 0.5, 1.05);
 composer.addPass(bloom);
 const grade = new ShaderPass({
   uniforms: { tDiffuse: { value: null }, uTime: { value: 0 }, uVig: { value: 0.85 } },
@@ -174,7 +174,7 @@ const camCtx = {
 
 let frameNo = 0;
 let lastSet = null;
-function renderAt(t, dt) {
+function renderAt(t, dt, draw = true) {
   const sec = sectionAt(t);
   const setName = sec.set;
   if (setName !== lastSet) {
@@ -192,6 +192,7 @@ function renderAt(t, dt) {
   if (setName === 'backstage') backstage.update(t, true);
   else backstage.update(t, false);
   const pointScale = renderer.domElement.height / (2 * Math.tan((camera.fov * Math.PI) / 360));
+  if (!draw) return;
   if (setName === 'stadium') {
     stadium.update(t, dt, { pointScale });
     const singing = MEMBERS.filter((m) => (anim[m.id].sing || 0) > 0.5).map((m) => m.id);
@@ -207,7 +208,8 @@ function renderAt(t, dt) {
 }
 
 // ---------- transport ----------
-const ui = new UI(document.getElementById('frame'));
+if (params.has('capture')) document.body.classList.add('capture');
+const ui = new UI(document.getElementById('frame'), { capture: params.has('capture') });
 const engine = new AudioEngine();
 const PREVIEW = [80, 96];
 const state = { mode: 'intro', t: 0, wall: 0 };
@@ -297,8 +299,11 @@ document.body.classList.add('ready');
 // testing / capture hooks
 window.__film = {
   renderAt: (t, dt = 1 / 24) => renderAt(t, dt),
+  // advance animation + hair physics without drawing (video export warm-up)
+  step: (t, dt = 1 / 24) => renderAt(t, dt, false),
   // warm up physics so hair settles, then draw t
   frame: (t, fps = 24) => { for (let k = 8; k >= 1; k--) renderAt(Math.max(0, t - k / fps), 1 / fps); renderAt(t, 1 / fps); },
   play, pause, seek, engine, AudioEngine, chars, camera, renderer, scene, state,
   info: () => renderer.info,
+  composer, bloom, rt,
 };

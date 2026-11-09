@@ -195,3 +195,7 @@ body.intro #controls { visibility: hidden; }
   #ticker-text { animation-duration: 90s; }
   .chyron.show *, #namecard.show * { animation: none !important; }
 }
+
+/* video export: overlays are driven frame-by-frame from film time */
+body.capture *, body.capture *::before, body.capture *::after { transition: none !important; animation: none !important; }
+body.capture #controls { display: none; }

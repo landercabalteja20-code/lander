@@ -7,8 +7,9 @@ const $ = (s, r = document) => r.querySelector(s);
 const fmt = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
 
 export class UI {
-  constructor(root) {
+  constructor(root, { capture = false } = {}) {
     this.root = root;
+    this.capture = capture;
     this.els = {
       chyron: $('#chyron', root), ticker: $('#ticker', root), tickerText: $('#ticker-text', root),
       live: $('#live', root), viewers: $('#viewers', root), card: $('#namecard', root),
@@ -32,6 +33,7 @@ export class UI {
     this.updateChyron(t);
     this.updateCaptions(t);
     this.updateCard(t);
+    if (this.capture) this.captureFades(t);
     const E = this.els;
     E.ticker.classList.toggle('on', t > 8 && t < 25.6);
     const live = t > 52.4 && t < 172.4;
@@ -49,6 +51,21 @@ export class UI {
     E.fade.style.background = color;
     E.time.textContent = `${fmt(Math.min(t, DURATION))} / ${fmt(DURATION)}`;
     if (!this.scrubbing) E.scrub.value = String((t / DURATION) * 1000);
+  }
+
+  // Video export: fades and the ticker follow film time instead of CSS clocks.
+  captureFades(t) {
+    const ramp = (a, b, r) => Math.max(0, Math.min(1, (t - a) / r, (b - t) / r));
+    const E = this.els;
+    const c = this.lastChyron;
+    E.chyron.style.opacity = c ? ramp(c.t0, c.t1, 0.45).toFixed(3) : '0';
+    const iv = this.lastCard;
+    E.card.style.opacity = iv ? ramp(iv.bar * BAR + 0.1, iv.bar * BAR + 3.7, 0.4).toFixed(3) : '0';
+    const tk = ramp(8, 25.6, 0.4);
+    E.ticker.style.opacity = tk.toFixed(3);
+    E.ticker.style.transform = `translateY(${((1 - tk) * 100).toFixed(1)}%)`;
+    E.tickerText.style.transform = `translateX(${(-(((t - 8) / 34) % 1 + 1) % 1 * 100).toFixed(3)}%)`;
+    E.live.style.opacity = ramp(52.4, 172.4, 0.5).toFixed(3);
   }
 
   updateChyron(t) {
