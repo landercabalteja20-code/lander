@@ -21,6 +21,12 @@ whatif/
     _lab/                turntable of both pop star presets for checking the models
 ```
 
+## Finished episodes
+
+| Episode | Video | Song |
+|---|---|---|
+| What if a pop star's world tour included 47 planets, but Earth was her least successful market? (3:12) | `episodes/popstar-47-planets/out/popstar-47-planets.mp4` | `episodes/popstar-47-planets/out/forty-seven-song.mp3` |
+
 ## Make / re-render an episode
 
 ```bash
