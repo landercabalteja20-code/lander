@@ -1,0 +1,10 @@
+{
+  "name": "shorts3d",
+  "version": "1.0.0",
+  "description": "Narrated 3D What-If shorts: sculpted talking characters, moving cameras, word captions",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "three": "0.169.0"
+  }
+}

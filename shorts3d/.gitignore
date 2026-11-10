@@ -1,0 +1,10 @@
+node_modules/
+.venv/
+.venv-tts/
+__pycache__/
+assets/models/
+assets/fonts/*.ttf
+episodes/*/build/
+episodes/*/out/*_master.mp4
+assets/fonts/*.otf
+assets/chars/

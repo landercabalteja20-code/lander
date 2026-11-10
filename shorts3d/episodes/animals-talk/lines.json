@@ -1,0 +1,220 @@
+{
+ "fps": 30,
+ "tail": 0.75,
+ "voices": {
+  "narrator": {
+   "voice": "am_michael*0.65+am_fenrir*0.35",
+   "speed": 1.06,
+   "pitch": 0
+  },
+  "dog": {
+   "voice": "am_eric",
+   "speed": 1.0,
+   "pitch": 2.5
+  },
+  "cow": {
+   "voice": "am_fenrir*0.7+am_onyx*0.3",
+   "speed": 0.84,
+   "pitch": -3.5
+  },
+  "pigeon": {
+   "voice": "am_onyx",
+   "speed": 1.05,
+   "pitch": 3.5
+  },
+  "parrot": {
+   "voice": "am_eric",
+   "speed": 1.0,
+   "pitch": 5.5,
+   "fx": "squawk"
+  },
+  "cat": {
+   "voice": "bf_emma",
+   "speed": 0.88,
+   "pitch": -1.0
+  }
+ },
+ "lines": [
+  {
+   "id": "n1",
+   "who": "narrator",
+   "text": "If animals could suddenly talk, your dog would wake you up at five a.m. to say one word.",
+   "caption": "If animals could suddenly talk, your dog would wake you up at 5 a.m. to say one word.",
+   "gap": 0.28
+  },
+  {
+   "id": "dog1",
+   "who": "dog",
+   "text": "Walk.",
+   "gap": 0.26
+  },
+  {
+   "id": "dog2",
+   "who": "dog",
+   "text": "Walk?",
+   "gap": 0.24
+  },
+  {
+   "id": "dog3",
+   "who": "dog",
+   "text": "Walk!",
+   "gap": 0.34,
+   "speed": 0.95,
+   "gain": 1.5
+  },
+  {
+   "id": "n2",
+   "who": "narrator",
+   "text": "You see, the average dog knows about a hundred and sixty-five words, and it would use all of them to ask for food.",
+   "caption": "You see, the average dog knows about 165 words, and it would use all of them to ask for food.",
+   "gap": 0.3
+  },
+  {
+   "id": "n3",
+   "who": "narrator",
+   "text": "Your cat, strangely, wouldn't say a thing.",
+   "gap": 0.42
+  },
+  {
+   "id": "n4",
+   "who": "narrator",
+   "text": "The problem is, Earth has one and a half billion cows, and they'd all have questions about burgers.",
+   "caption": "The problem is, Earth has 1.5 billion cows, and they'd all have questions about burgers.",
+   "gap": 0.3
+  },
+  {
+   "id": "cow",
+   "who": "cow",
+   "text": "We need to talk.",
+   "gap": 0.36
+  },
+  {
+   "id": "n5",
+   "who": "narrator",
+   "text": "Pigeons would roast everyone from the rooftops.",
+   "gap": 0.22
+  },
+  {
+   "id": "pigeon",
+   "who": "pigeon",
+   "text": "Nice bald spot!",
+   "gap": 0.36
+  },
+  {
+   "id": "n6",
+   "who": "narrator",
+   "text": "And your parrot would repeat everything you ever said about your boss, to your boss.",
+   "caption": "And your parrot would repeat everything you ever said about your boss... to your boss.",
+   "gap": 0.2
+  },
+  {
+   "id": "parrot",
+   "who": "parrot",
+   "text": "Gary smells like soup!",
+   "gap": 0.9
+  },
+  {
+   "id": "n7",
+   "who": "narrator",
+   "text": "But when someone finally asked the cat why it never said a word...",
+   "gap": 0.5
+  },
+  {
+   "id": "cat",
+   "who": "cat",
+   "text": "Oh, we could always talk. We just didn't want to.",
+   "gap": 0.0
+  }
+ ],
+ "sfx": [
+  [
+   "n1@5+0.05",
+   "alarm",
+   0.32
+  ],
+  [
+   "dog1+-0.08",
+   "whoosh",
+   0.22
+  ],
+  [
+   "dog2+-0.08",
+   "whoosh",
+   0.26
+  ],
+  [
+   "dog3+-0.1",
+   "whoosh",
+   0.4
+  ],
+  [
+   "n2@165+0.55",
+   "ding",
+   0.3
+  ],
+  [
+   "n2@ask+-0.15",
+   "pop",
+   0.45
+  ],
+  [
+   "n4@billion+0.4",
+   "ding",
+   0.25
+  ],
+  [
+   "cow+-0.45",
+   "dun",
+   0.55
+  ],
+  [
+   "n5+-0.1",
+   "whoosh",
+   0.25
+  ],
+  [
+   "pigeon.end+0.08",
+   "coo",
+   0.5
+  ],
+  [
+   "n6@to+0.05",
+   "whoosh",
+   0.3
+  ],
+  [
+   "parrot+-0.12",
+   "squawk",
+   0.45
+  ],
+  [
+   "parrot.end+0.25",
+   "sniff",
+   0.6
+  ],
+  [
+   "cat+-0.32",
+   "scratch",
+   0.55
+  ]
+ ],
+ "music": {
+  "volume": 0.42,
+  "duck": 0.35,
+  "stop": "cat+-0.28",
+  "sections": [
+   {
+    "at": 0,
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n7",
+    "style": "warm",
+    "gain": 0.8
+   }
+  ]
+ },
+ "lufs": -12.0,
+ "font": "Inter"
+}
