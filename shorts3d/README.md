@@ -11,6 +11,7 @@ music and sound effects. No API keys.
 | Episode | Length | Video |
 |---|---|---|
 | What if animals could somehow talk? | 44 s | `episodes/animals-talk/out/animals-talk.mp4` |
+| What if animals could somehow talk? (3-minute version: a day of talking animals) | 2:57 | `episodes/animals-talk-3min/out/animals-talk-3min.mp4` |
 
 ## Setup (once)
 
@@ -26,6 +27,7 @@ music and sound effects. No API keys.
 node engine/render.cjs animals-talk --shots               # shot list with timings
 node engine/render.cjs animals-talk --stills 3.7,24.7     # review stills -> build/stills/
 node engine/render.cjs animals-talk --workers 4           # full render -> out/animals-talk.mp4
+node engine/render.cjs animals-talk-3min --w 810 --h 1440 --outsize 1080x1920 --crf 23   # 3-min: 24 fps, upscaled (~2.5 h)
 ```
 
 Live preview: run `python3 -m http.server` in this folder and open
