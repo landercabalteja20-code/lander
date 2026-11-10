@@ -270,7 +270,7 @@ def macaw() -> Model:
 
 # ============================================================================== humans
 def human(name: str, skin: str, hair: str, hair_col: str, shirt: str, pants: str, tie: str | None = None,
-          iris: str = "#4a3322", belly: float = 0.0) -> Model:
+          iris: str = "#4a3322", belly: float = 0.0, glasses: bool = False) -> Model:
     SH = "#2b2522"
     m = Model(name)
     def outfit(P):
@@ -314,6 +314,13 @@ def human(name: str, skin: str, hair: str, hair_col: str, shirt: str, pants: str
         brow = m.part(f"brow_{side}", (s * 0.042, 1.718, 0.104), parent="head", h=0.0016, material="hair")
         brow.add(cap((s * 0.022, 1.716, 0.106), (s * 0.066, 1.722, 0.096), 0.0075, hair_col))
         m.eye("head", (s * 0.04, 1.676, 0.097), 0.0205, iris=iris, lid=skin, look=(s * 0.12, 0, 1), iris_size=0.62, pupil_size=0.42)
+    if glasses:
+        gl = m.part("glasses", (0, 1.677, 0.11), parent="head", h=0.0012, material="glossy")
+        gl.add(torus((0.041, 1.677, 0.119), 0.026, 0.0032, "#2a2a2e", rot=(90, 0, 0)),
+               torus((-0.041, 1.677, 0.119), 0.026, 0.0032, "#2a2a2e", rot=(90, 0, 0)),
+               cap((-0.016, 1.68, 0.121), (0.016, 1.68, 0.121), 0.003, "#2a2a2e", k=0.002),
+               cap((0.066, 1.68, 0.115), (0.1, 1.678, 0.02), 0.0026, "#2a2a2e", k=0.002),
+               cap((-0.066, 1.68, 0.115), (-0.1, 1.678, 0.02), 0.0026, "#2a2a2e", k=0.002))
     hp = m.part("hair", (0, 1.72, 0.0), parent="head", h=0.0034, material="hair")
     face_cut = ell((0, 1.62, 0.125), (0.13, 0.12, 0.11), hair_col, op="sub", k=0.02)
     if hair == "side_part":
@@ -343,6 +350,143 @@ def bald() -> Model:
     return human("bald", "#e0ab88", "bald_ring", "#6b5a4a", "#c96a3a", "#2f3644", iris="#4a3322")
 
 
+# ============================================================================== more animals (3-minute version)
+def chicken() -> Model:
+    W, CREAM, RED, YEL = "#f4f0e6", "#e9e1d0", "#d8322a", "#e8b33a"
+    m = Model("chicken")
+    b = m.part("body", h=0.0036, material="feather")
+    b.add(ell((0, 0.2, -0.01), (0.11, 0.11, 0.15), fur(W, 0.08, 40), rot=(-10, 0, 0)),
+          sphere((0, 0.215, 0.07), 0.09, fur(W, 0.08, 40), k=0.05),
+          ell((0, 0.285, -0.15), (0.05, 0.1, 0.06), fur(CREAM, 0.1, 40), rot=(-35, 0, 0), k=0.04),
+          mirror(ell, (0.09, 0.21, -0.02), (0.032, 0.07, 0.12), fur(CREAM, 0.1, 40), rot=(-10, 0, 0), k=0.02),
+          mirror(cap, (0.04, 0.11, 0.01), (0.045, 0.012, 0.02), 0.012, YEL, k=0.02),
+          mirror(cap, (0.045, 0.008, 0.02), (0.052, 0.006, 0.07), 0.007, YEL, k=0.006),
+          mirror(cap, (0.045, 0.008, 0.02), (0.075, 0.006, 0.05), 0.0065, YEL, k=0.006))
+    hd = m.part("head", (0, 0.28, 0.08), parent="body", h=0.0022, material="feather")
+    hd.add(cap((0, 0.26, 0.07), (0, 0.33, 0.1), 0.045, fur(W, 0.08, 50)),
+           sphere((0, 0.36, 0.11), 0.045, fur(W, 0.08, 50), k=0.03),
+           sphere((0, 0.406, 0.098), 0.018, RED, k=0.01), sphere((0, 0.413, 0.122), 0.02, RED, k=0.01),
+           sphere((0, 0.402, 0.146), 0.016, RED, k=0.01),
+           mirror(sphere, (0.009, 0.322, 0.148), 0.014, RED, k=0.01),
+           mirror(ell, (0.031, 0.362, 0.13), (0.016, 0.02, 0.02), RED, op="paint", edge=0.006),
+           cone((0, 0.356, 0.15), (0, 0.349, 0.182), 0.012, 0.003, "#eaa23a", k=0.006))
+    jw = m.part("jaw", (0, 0.349, 0.145), parent="head", h=0.0014, material="glossy")
+    jw.add(cone((0, 0.346, 0.15), (0, 0.343, 0.174), 0.0085, 0.002, "#d99332"))
+    for s in (1, -1):
+        m.eye("head", (s * 0.034, 0.371, 0.131), 0.011, iris="#e08a2a", lid=W, look=(s * 0.7, 0.05, 0.7), iris_size=0.95, pupil_size=0.4)
+    return m
+
+
+def bird(name: str, body: str, wing: str, tip: str, head_col, beak: str, eye: str, legs: str, beak_len: float = 0.03,
+         glossy: bool = False, scale: float = 1.0) -> Model:
+    """Generic perching bird (gull, crow) on the pigeon's proportions."""
+    m = Model(name)
+    s_ = scale
+    P = lambda v: tuple(x * s_ for x in v)
+    b = m.part("body", h=0.0028 * s_, material="glossy" if glossy else "feather")
+    b.add(ell(P((0, 0.13, -0.005)), P((0.064, 0.064, 0.115)), fur(body, 0.08, 40 / s_), rot=(-14, 0, 0)),
+          sphere(P((0, 0.15, 0.05)), 0.057 * s_, fur(body, 0.08, 40 / s_), k=0.05 * s_),
+          mirror(ell, P((0.052, 0.145, -0.04)), P((0.026, 0.056, 0.122)), fur(wing, 0.08, 40 / s_), rot=(-16, 0, 0), k=0.02 * s_),
+          mirror(ell, P((0.06, 0.12, -0.15)), P((0.022, 0.03, 0.05)), tip, op="paint", edge=0.01 * s_),
+          ell(P((0, 0.108, -0.16)), P((0.036, 0.012, 0.08)), fur(wing, 0.08, 40 / s_), rot=(-14, 0, 0), k=0.03 * s_),
+          mirror(cap, P((0.02, 0.085, 0.01)), P((0.022, 0.008, 0.016)), 0.0065 * s_, legs, k=0.012 * s_),
+          mirror(cap, P((0.022, 0.006, 0.016)), P((0.026, 0.004, 0.048)), 0.0048 * s_, legs, k=0.006 * s_))
+    hd = m.part("head", P((0, 0.19, 0.055)), parent="body", h=0.0019 * s_, material="glossy" if glossy else "feather")
+    hd.add(cap(P((0, 0.165, 0.05)), P((0, 0.225, 0.072)), 0.036 * s_, head_col),
+           sphere(P((0, 0.246, 0.082)), 0.031 * s_, head_col, k=0.025 * s_),
+           cone(P((0, 0.25, 0.104)), P((0, 0.242, 0.104 + beak_len)), 0.009 * s_, 0.0035 * s_, beak, k=0.004 * s_))
+    if name == "gull":
+        hd.add(sphere(P((0, 0.24, 0.12)), 0.0042 * s_, "#d8322a", op="paint", edge=0.002 * s_))
+    jw = m.part("jaw", P((0, 0.241, 0.102)), parent="head", h=0.0012 * s_, material="glossy")
+    jw.add(cone(P((0, 0.238, 0.104)), P((0, 0.235, 0.098 + beak_len)), 0.0065 * s_, 0.0025 * s_, beak))
+    lid = head_col if isinstance(head_col, str) else body
+    for s in (1, -1):
+        m.eye("head", P((s * 0.021, 0.254, 0.093)), 0.0088 * s_, iris=eye, lid=lid, look=(s * 0.8, 0.1, 0.6), iris_size=1.0, pupil_size=0.42)
+    return m
+
+
+def gull() -> Model:
+    return bird("gull", "#f5f6f4", "#b9c2cc", "#24262b", "#f7f8f6", "#f0c23a", "#e8d35a", "#e7b9a3", beak_len=0.038, scale=1.15)
+
+
+def crow() -> Model:
+    return bird("crow", "#1b1d24", "#20232b", "#15171c", "#1d1f26", "#22242a", "#3a2a1e", "#22242a", beak_len=0.042, glossy=False, scale=1.1)
+
+
+def bee() -> Model:
+    YEL, BLK = "#f2c12e", "#2a2420"
+    m = Model("bee")
+    b = m.part("body", h=0.0011, material="fur")
+    b.add(sphere((0, 0.05, 0.0), 0.022, fur(YEL, 0.1, 400)),
+          ell((0, 0.044, -0.04), (0.024, 0.023, 0.032), stripes(YEL, BLK, 260, (0, 0, 1), warp=0.3, width=0.45, seed=2), rot=(-15, 0, 0), k=0.008),
+          cone((0, 0.04, -0.069), (0, 0.035, -0.082), 0.004, 0.0006, BLK, k=0.002),
+          *[c for z in (-0.006, 0.004, 0.013) for c in mirror(cap, (0.008, 0.034, z), (0.016, 0.018, z + 0.004), 0.0022, BLK, k=0.003)])
+    hd = m.part("head", (0, 0.055, 0.018), parent="body", h=0.0009, material="fur")
+    hd.add(sphere((0, 0.058, 0.032), 0.0175, fur(BLK, 0.1, 500)),
+           mirror(cap, (0.005, 0.071, 0.04), (0.011, 0.088, 0.05), 0.0018, BLK, k=0.003),
+           mirror(sphere, (0.011, 0.089, 0.05), 0.0032, BLK, k=0.002))
+    jw = m.part("jaw", (0, 0.05, 0.04), parent="head", h=0.0006, material="glossy")
+    jw.add(ell((0, 0.0485, 0.0465), (0.0055, 0.0025, 0.0025), "#5a1a1e"))
+    for s in (1, -1):
+        m.eye("head", (s * 0.0078, 0.062, 0.0455), 0.0074, iris="#5b3417", lid=BLK, look=(s * 0.25, 0.05, 1), iris_size=0.8, pupil_size=0.55)
+        w = m.part(f"wing_{'l' if s > 0 else 'r'}", (s * 0.012, 0.068, 0.002), parent="body", h=0.0006, material="wing")
+        w.add(ell((s * 0.032, 0.078, -0.01), (0.028, 0.0028, 0.014), "#e8f4ff", rot=(0, 0, s * 20)))
+    return m
+
+
+def dolphin() -> Model:
+    G, BELLY = "#7d8ea0", "#e3e9ee"
+    m = Model("dolphin")
+    b = m.part("body", h=0.012, material="glossy")
+    b.add(tube([(0, 0.0, -0.55), (0, 0.03, -0.25), (0, 0.04, 0.1), (0, 0.04, 0.4), (0, 0.03, 0.62)], [0.21, 0.29, 0.33, 0.29, 0.2], G),
+          sphere((0, 0.1, 0.6), 0.2, G, k=0.08),
+          cap((0, 0.0, 0.74), (0, -0.012, 0.98), 0.066, G, k=0.06),
+          ell((0, 0.42, -0.14), (0.03, 0.21, 0.16), G, rot=(-38, 0, 0), k=0.05),
+          mirror(ell, (0.3, -0.17, 0.36), (0.2, 0.026, 0.1), G, rot=(0, -25, -28), k=0.04),
+          ell((0, -0.2, 0.15), (0.24, 0.16, 0.78), BELLY, op="paint", edge=0.08),
+          cap((0, -0.045, 0.98), (0.16, -0.03, 0.68), 0.006, "#3a4450", op="paint", edge=0.006),
+          cap((0, -0.045, 0.98), (-0.16, -0.03, 0.68), 0.006, "#3a4450", op="paint", edge=0.006))
+    tl = m.part("tail", (0, 0.0, -0.5), parent="body", h=0.01, material="glossy")
+    tl.add(tube([(0, 0.0, -0.5), (0, -0.01, -0.85), (0, -0.01, -1.02)], [0.21, 0.1, 0.05], G),
+           ell((0.16, -0.01, -1.08), (0.18, 0.024, 0.08), G, rot=(0, 25, 0), k=0.04),
+           ell((-0.16, -0.01, -1.08), (0.18, 0.024, 0.08), G, rot=(0, -25, 0), k=0.04))
+    jw = m.part("jaw", (0, -0.05, 0.7), parent="body", h=0.006, material="glossy")
+    jw.add(cap((0, -0.052, 0.75), (0, -0.058, 0.95), 0.05, BELLY),
+           ell((0, -0.03, 0.84), (0.045, 0.01, 0.1), "#4a1f28", op="paint", edge=0.01))
+    for s in (1, -1):
+        m.eye("body", (s * 0.19, 0.09, 0.64), 0.034, iris="#2a2a30", lid=G, look=(s * 0.9, 0.05, 0.4), iris_size=0.9, pupil_size=0.55)
+    return m
+
+
+def mosquito() -> Model:
+    """Modelled ten times too big (body ~8 cm); scale the root by 0.1 for real size."""
+    BR, DK = "#6a5a50", "#2f2824"
+    m = Model("mosquito")
+    b = m.part("body", h=0.0008, material="glossy")
+    b.add(ell((0, 0.05, 0.0), (0.008, 0.009, 0.011), BR),
+          ell((0, 0.046, -0.028), (0.005, 0.005, 0.024), stripes(BR, "#e6ddd2", 300, (0, 0, 1), warp=0.2, width=0.35), rot=(-12, 0, 0), k=0.004))
+    hd = m.part("head", (0, 0.052, 0.01), parent="body", h=0.0006, material="glossy")
+    hd.add(sphere((0, 0.052, 0.016), 0.0062, BR))
+    m.strand("head", (0, 0.0495, 0.021), (0, 0.036, 0.052), 0.0009, DK)
+    for s in (1, -1):
+        m.eye("head", (s * 0.0042, 0.0545, 0.0188), 0.0036, iris="#7a2018", lid=BR, look=(s * 0.4, 0.1, 0.9), iris_size=1.1, pupil_size=0.35)
+        for k, z in enumerate((0.006, 0.0, -0.006)):
+            knee = (s * (0.026 + 0.004 * k), 0.06, z * 3 + 0.006)
+            m.strand("body", (s * 0.004, 0.045, z), knee, 0.0008, DK)
+            m.strand("body", knee, (s * (0.04 + 0.006 * k), 0.0, z * 5 + 0.01), 0.0007, DK)
+        w = m.part(f"wing_{'l' if s > 0 else 'r'}", (s * 0.005, 0.057, -0.002), parent="body", h=0.0004, material="wing")
+        w.add(ell((s * 0.02, 0.058, -0.012), (0.019, 0.0009, 0.0055), "#dfeaf2", rot=(0, s * 25, 0)))
+    return m
+
+
+def scientist() -> Model:
+    return human("sci", "#e8c0a0", "messy", "#b9b4ac", "#f7f7f3", "#45536e", iris="#3b5a7a", glasses=True)
+
+
+def judge() -> Model:
+    return human("judge", "#b98a6a", "side_part", "#ecebe6", "#1d1d23", "#1d1d23", iris="#4a3322", glasses=True, belly=0.6)
+
+
 def hand() -> Model:
     """Your right hand from the POV shot, palm up under a burger (the burger itself is built in three.js)."""
     SKIN, SLEEVE = "#c98d68", "#5a7f5d"
@@ -363,7 +507,9 @@ def hand() -> Model:
 
 
 CAST = {"dog": dog, "cat": cat, "cow_head": cow_head, "cow": cow, "pigeon": pigeon, "macaw": macaw,
-        "gary": gary, "owner": owner, "bald": bald, "hand": hand}
+        "gary": gary, "owner": owner, "bald": bald, "hand": hand,
+        "chicken": chicken, "gull": gull, "crow": crow, "bee": bee, "dolphin": dolphin, "mosquito": mosquito,
+        "sci": scientist, "judge": judge}
 
 if __name__ == "__main__":
     names = sys.argv[1:] or list(CAST)

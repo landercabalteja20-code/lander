@@ -35,6 +35,12 @@ const GradeShader = {
     }`,
 };
 
+// Render switches for profiling / speed: ?msaa=4&dof=1&bloom=1 (defaults); window.SHADOW_MAX caps shadow maps.
+const Q = new URLSearchParams(typeof location !== 'undefined' ? location.search : '');
+export const RQ = { msaa: parseInt(Q.get('msaa') ?? '4', 10), dof: Q.get('dof') !== '0', bloom: Q.get('bloom') !== '0',
+  fuzz: Q.get('fuzz') !== '0', shadowMax: parseInt(Q.get('shadow') ?? '4096', 10) };
+globalThis.RQ = RQ;
+
 export class Engine {
   constructor({ width = 1080, height = 1920, container = document.body, renderScale = 1 } = {}) {
     this.W = width; this.H = height;
@@ -57,7 +63,7 @@ export class Engine {
     this.renderer = r;
     this.container.appendChild(r.domElement);
 
-    const rt = new THREE.WebGLRenderTarget(this.gW, this.gH, { type: THREE.HalfFloatType, samples: 4 });
+    const rt = new THREE.WebGLRenderTarget(this.gW, this.gH, { type: THREE.HalfFloatType, samples: RQ.msaa });
     this.composer = new EffectComposer(r, rt);
     this.camera = new THREE.PerspectiveCamera(35, this.W / this.H, 0.02, 4000);
     this.renderPass = new RenderPass(new THREE.Scene(), this.camera);
@@ -122,10 +128,11 @@ export class Engine {
     const u = this.bokeh.uniforms;
     u.focus.value = d.focus; u.aperture.value = d.aperture; u.maxblur.value = d.maxblur;
     u.nearClip.value = cam.near; u.farClip.value = cam.far; u.aspect.value = cam.aspect;
-    this.bokeh.enabled = d.aperture > 0;
+    this.bokeh.enabled = RQ.dof && d.aperture > 0;
     this.bokeh.scene = S.scene; this.bokeh.camera = cam;
     const b = { strength: 0.3, radius: 0.5, threshold: 0.92, ...(S.bloom || {}), ...(shot.bloom || {}) };
     this.bloom.strength = b.strength; this.bloom.radius = b.radius; this.bloom.threshold = b.threshold;
+    this.bloom.enabled = RQ.bloom;
     const g = { vignette: 0.34, grain: 0.024, warmth: 0.03, contrast: 1.12, saturation: 1.16, flash: 0, ...(S.grade || {}), ...(shot.grade || {}) };
     for (const k in g) if (this.grade.uniforms[k]) this.grade.uniforms[k].value = typeof g[k] === 'function' ? g[k](ctx) : g[k];
     this.grade.uniforms.time.value = (t * 30) % 97;

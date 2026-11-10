@@ -1,0 +1,576 @@
+{
+ "fps": 24,
+ "tail": 0.75,
+ "voices": {
+  "narrator": {
+   "voice": "am_michael*0.65+am_fenrir*0.35",
+   "speed": 0.97,
+   "pitch": 0
+  },
+  "dog": {
+   "voice": "am_eric",
+   "speed": 1.0,
+   "pitch": 2.5
+  },
+  "cow": {
+   "voice": "am_fenrir*0.7+am_onyx*0.3",
+   "speed": 0.84,
+   "pitch": -3.5
+  },
+  "pigeon": {
+   "voice": "am_onyx",
+   "speed": 1.05,
+   "pitch": 3.5
+  },
+  "parrot": {
+   "voice": "am_eric",
+   "speed": 1.0,
+   "pitch": 5.5,
+   "fx": "squawk"
+  },
+  "cat": {
+   "voice": "bf_emma",
+   "speed": 0.88,
+   "pitch": -1.0
+  },
+  "crow": {
+   "voice": "am_fenrir",
+   "speed": 0.95,
+   "pitch": 1.5,
+   "fx": "rasp"
+  },
+  "sci": {
+   "voice": "bm_george",
+   "speed": 0.96,
+   "pitch": 0
+  },
+  "chicken": {
+   "voice": "af_bella",
+   "speed": 1.0,
+   "pitch": 2.5
+  },
+  "cows": {
+   "voice": "am_fenrir*0.7+am_onyx*0.3",
+   "speed": 0.9,
+   "pitch": -3.0,
+   "fx": "chorus"
+  },
+  "bee": {
+   "voice": "af_heart",
+   "speed": 1.05,
+   "pitch": 6.0,
+   "fx": "buzz"
+  },
+  "gull": {
+   "voice": "am_puck",
+   "speed": 1.05,
+   "pitch": 3.0
+  },
+  "dolphin": {
+   "voice": "af_bella",
+   "speed": 1.08,
+   "pitch": 5.0
+  },
+  "judge": {
+   "voice": "bm_george",
+   "speed": 0.92,
+   "pitch": -1.0
+  },
+  "mosquito": {
+   "voice": "af_heart",
+   "speed": 0.92,
+   "pitch": 7.0,
+   "fx": "whine"
+  }
+ },
+ "lines": [
+  {
+   "id": "n1",
+   "who": "narrator",
+   "text": "If animals could suddenly talk, your dog would wake you up at five a.m. to say one word.",
+   "gap": 0.28,
+   "caption": "If animals could suddenly talk, your dog would wake you up at 5 a.m. to say one word."
+  },
+  {
+   "id": "dog1",
+   "who": "dog",
+   "text": "Walk.",
+   "gap": 0.26
+  },
+  {
+   "id": "dog2",
+   "who": "dog",
+   "text": "Walk?",
+   "gap": 0.24
+  },
+  {
+   "id": "dog3",
+   "who": "dog",
+   "text": "Walk!",
+   "gap": 0.34,
+   "speed": 0.95,
+   "gain": 1.5
+  },
+  {
+   "id": "n2",
+   "who": "narrator",
+   "text": "You see, the average dog knows about a hundred and sixty-five words, and it would use all of them to ask for food.",
+   "gap": 0.3,
+   "caption": "You see, the average dog knows about 165 words, and it would use all of them to ask for food."
+  },
+  {
+   "id": "n3",
+   "who": "narrator",
+   "text": "By breakfast, it would also be the biggest snitch in the house.",
+   "gap": 0.75
+  },
+  {
+   "id": "snitch",
+   "who": "dog",
+   "text": "The cat did it! It was the cat!",
+   "gap": 0.35,
+   "gain": 1.2
+  },
+  {
+   "id": "n4",
+   "who": "narrator",
+   "text": "Your cat, strangely, wouldn't say a thing.",
+   "gap": 0.45
+  },
+  {
+   "id": "n5",
+   "who": "narrator",
+   "text": "And every time you left, even for one minute, you'd get the same goodbye.",
+   "gap": 0.3
+  },
+  {
+   "id": "bye",
+   "who": "dog",
+   "text": "Where are you going? Are you coming back? I love you!",
+   "gap": 0.4
+  },
+  {
+   "id": "n6",
+   "who": "narrator",
+   "text": "A trip to the vet would turn into a hostage negotiation.",
+   "gap": 0.3
+  },
+  {
+   "id": "vet",
+   "who": "dog",
+   "text": "I'm not getting in the car! You can't make me!",
+   "gap": 0.45,
+   "gain": 1.2
+  },
+  {
+   "id": "n7",
+   "who": "narrator",
+   "text": "Outside, things get worse. Pigeons would roast everyone from the rooftops.",
+   "gap": 0.22
+  },
+  {
+   "id": "pigeon",
+   "who": "pigeon",
+   "text": "Nice bald spot!",
+   "gap": 0.4
+  },
+  {
+   "id": "n8",
+   "who": "narrator",
+   "text": "And crows are even more dangerous. In one study, crows remembered the face of a scientist who trapped them, and they were still scolding him years later.",
+   "gap": 0.3
+  },
+  {
+   "id": "n9",
+   "who": "narrator",
+   "text": "So they'd recognize you, and warn every crow in town.",
+   "gap": 0.3
+  },
+  {
+   "id": "crow",
+   "who": "crow",
+   "text": "That's him. That's the guy.",
+   "gap": 0.45
+  },
+  {
+   "id": "n10",
+   "who": "narrator",
+   "text": "At lunch, it gets awkward. Earth has one and a half billion cows, and they'd all have questions about burgers.",
+   "gap": 0.3,
+   "caption": "At lunch, it gets awkward. Earth has 1.5 billion cows, and they'd all have questions about burgers."
+  },
+  {
+   "id": "cow",
+   "who": "cow",
+   "text": "We need to talk.",
+   "gap": 0.4
+  },
+  {
+   "id": "n11",
+   "who": "narrator",
+   "text": "There are also more than thirty billion chickens, so scientists could finally settle the oldest question in history.",
+   "gap": 0.3,
+   "caption": "There are also more than 30 billion chickens, so scientists could finally settle the oldest question in history."
+  },
+  {
+   "id": "sci",
+   "who": "sci",
+   "text": "Which came first?",
+   "gap": 0.3
+  },
+  {
+   "id": "chicken",
+   "who": "chicken",
+   "text": "The chicken. Obviously.",
+   "gap": 0.4
+  },
+  {
+   "id": "n12",
+   "who": "narrator",
+   "text": "The average dairy cow makes about seven gallons of milk a day, and by the afternoon, they'd want something in return.",
+   "gap": 0.3,
+   "caption": "The average dairy cow makes about 7 gallons of milk a day, and by the afternoon, they'd want something in return."
+  },
+  {
+   "id": "cows",
+   "who": "cows",
+   "text": "No grass, no milk!",
+   "gap": 0.4
+  },
+  {
+   "id": "n13",
+   "who": "narrator",
+   "text": "Bees would want credit, too. About one out of every three bites of food we eat depends on pollinators like bees.",
+   "gap": 0.3,
+   "caption": "Bees would want credit, too. About 1 out of every 3 bites of food we eat depends on pollinators like bees."
+  },
+  {
+   "id": "bee",
+   "who": "bee",
+   "text": "You're welcome.",
+   "gap": 0.4
+  },
+  {
+   "id": "n14",
+   "who": "narrator",
+   "text": "At the beach, seagulls would still steal your fries. But now, they'd say thank you.",
+   "gap": 0.25
+  },
+  {
+   "id": "gull",
+   "who": "gull",
+   "text": "Thanks, buddy!",
+   "gap": 0.4
+  },
+  {
+   "id": "n15",
+   "who": "narrator",
+   "text": "And dolphins already call each other by name, using signature whistles. So we'd finally find out what they call us.",
+   "gap": 0.3
+  },
+  {
+   "id": "dolphin",
+   "who": "dolphin",
+   "text": "Look! The hairless monkeys are back!",
+   "gap": 0.45
+  },
+  {
+   "id": "n16",
+   "who": "narrator",
+   "text": "Some parrots can learn more than a thousand words. So back at work, your parrot would repeat everything you ever said about your boss, to your boss.",
+   "gap": 0.2,
+   "caption": "Some parrots can learn more than 1,000 words. So back at work, your parrot would repeat everything you ever said about your boss... to your boss."
+  },
+  {
+   "id": "parrot",
+   "who": "parrot",
+   "text": "Gary smells like soup!",
+   "gap": 0.9
+  },
+  {
+   "id": "n16b",
+   "who": "narrator",
+   "text": "Meanwhile at home, your dog would stare out the window for eight hours, reporting everything that moved.",
+   "gap": 0.3,
+   "caption": "Meanwhile at home, your dog would stare out the window for 8 hours, reporting everything that moved."
+  },
+  {
+   "id": "leaf",
+   "who": "dog",
+   "text": "Leaf! A leaf just moved! LEAF!",
+   "gap": 0.45,
+   "gain": 1.2
+  },
+  {
+   "id": "n17",
+   "who": "narrator",
+   "text": "Pet food companies would finally get honest reviews.",
+   "gap": 0.3
+  },
+  {
+   "id": "food",
+   "who": "dog",
+   "text": "Chicken flavor? This has never even met a chicken.",
+   "gap": 0.4
+  },
+  {
+   "id": "n18",
+   "who": "narrator",
+   "text": "And by the evening, pets would be testifying in court. The problem is, dogs can't lie.",
+   "gap": 0.3
+  },
+  {
+   "id": "judge",
+   "who": "judge",
+   "text": "Did you see who ate the birthday cake?",
+   "gap": 0.35
+  },
+  {
+   "id": "court",
+   "who": "dog",
+   "text": "Me. I ate the cake. And I'd do it again.",
+   "gap": 0.5
+  },
+  {
+   "id": "n18b",
+   "who": "narrator",
+   "text": "And at night, only female mosquitoes bite, so you'd hear a tiny voice right next to your ear.",
+   "gap": 0.35
+  },
+  {
+   "id": "mosq",
+   "who": "mosquito",
+   "text": "Just a little sip.",
+   "gap": 0.5
+  },
+  {
+   "id": "n19",
+   "who": "narrator",
+   "text": "And through all of it, your cat stayed silent. Not when it was blamed for the vase. Not when the cows went on strike. Not even when the whole world started talking.",
+   "gap": 0.35
+  },
+  {
+   "id": "n20",
+   "who": "narrator",
+   "text": "So when someone finally asked the cat why it never said a word...",
+   "gap": 0.5
+  },
+  {
+   "id": "cat",
+   "who": "cat",
+   "text": "Oh, we could always talk. We just didn't want to.",
+   "gap": 0.0
+  }
+ ],
+ "lufs": -12.0,
+ "font": "Inter",
+ "sfx": [
+  [
+   "n1@5+0.05",
+   "alarm",
+   0.32
+  ],
+  [
+   "dog1+-0.08",
+   "whoosh",
+   0.22
+  ],
+  [
+   "dog2+-0.08",
+   "whoosh",
+   0.26
+  ],
+  [
+   "dog3+-0.1",
+   "whoosh",
+   0.4
+  ],
+  [
+   "n2@165+0.55",
+   "ding",
+   0.3
+  ],
+  [
+   "n2@ask+-0.15",
+   "pop",
+   0.45
+  ],
+  [
+   "n3.end+0.08",
+   "crash",
+   0.6
+  ],
+  [
+   "bye.end+0.05",
+   "door",
+   0.55
+  ],
+  [
+   "vet+-0.1",
+   "scratch",
+   0.3
+  ],
+  [
+   "n7@pigeons+-0.1",
+   "whoosh",
+   0.25
+  ],
+  [
+   "pigeon.end+0.08",
+   "coo",
+   0.5
+  ],
+  [
+   "crow.end+0.05",
+   "caw",
+   0.45
+  ],
+  [
+   "n10@earth+-0.1",
+   "whoosh",
+   0.2
+  ],
+  [
+   "n10@billion+0.4",
+   "ding",
+   0.25
+  ],
+  [
+   "cow+-0.45",
+   "dun",
+   0.55
+  ],
+  [
+   "chicken+-0.25",
+   "cluck",
+   0.45
+  ],
+  [
+   "cows+-0.9",
+   "moo",
+   0.4
+  ],
+  [
+   "n13@3+0.3",
+   "ding",
+   0.25
+  ],
+  [
+   "bee+-0.6",
+   "bzz",
+   0.35
+  ],
+  [
+   "gull+-0.3",
+   "squawk",
+   0.4
+  ],
+  [
+   "dolphin+-0.7",
+   "splash",
+   0.5
+  ],
+  [
+   "dolphin.end+0.05",
+   "whistle",
+   0.3
+  ],
+  [
+   "n16@1000+0.4",
+   "ding",
+   0.25
+  ],
+  [
+   "n16@to+0.05",
+   "whoosh",
+   0.3
+  ],
+  [
+   "parrot+-0.12",
+   "squawk",
+   0.45
+  ],
+  [
+   "parrot.end+0.25",
+   "sniff",
+   0.6
+  ],
+  [
+   "leaf+-0.1",
+   "boing",
+   0.3
+  ],
+  [
+   "food.end+0.05",
+   "gulp",
+   0.4
+  ],
+  [
+   "judge+-0.45",
+   "gavel",
+   0.5
+  ],
+  [
+   "n18b@tiny+-0.2",
+   "whine",
+   0.4
+  ],
+  [
+   "cat+-0.32",
+   "scratch",
+   0.55
+  ]
+ ],
+ "music": {
+  "volume": 0.42,
+  "duck": 0.35,
+  "stop": "cat+-0.28",
+  "sections": [
+   {
+    "at": 0,
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n7",
+    "style": "pop",
+    "gain": 0.9
+   },
+   {
+    "at": "n10",
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n14",
+    "style": "party",
+    "gain": 0.8
+   },
+   {
+    "at": "n16",
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n17",
+    "style": "warm",
+    "gain": 0.9
+   },
+   {
+    "at": "n18",
+    "style": "sad",
+    "gain": 1.0
+   },
+   {
+    "at": "n18b",
+    "style": "warm",
+    "gain": 0.7
+   },
+   {
+    "at": "n19",
+    "style": "warm",
+    "gain": 0.85
+   }
+  ]
+ }
+}

@@ -78,6 +78,31 @@ def synth(line: dict, vcfg: dict, engine: str, cache: Path) -> np.ndarray:
         a = A._trim(a, thr=0.01, pad=0.02)
     if vcfg.get("fx") == "squawk":
         a = squawk(a)
+    elif vcfg.get("fx") == "rasp":      # crow: gritty, band-limited
+        rng = np.random.default_rng(3)
+        env = np.abs(a); env = np.convolve(env, np.ones(240) / 240, mode="same")
+        a = np.tanh(a * 5.0) * 0.6 + rng.standard_normal(len(a)).astype(np.float32) * env * 0.9
+        spec = np.fft.rfft(a); f = np.fft.rfftfreq(len(a), 1 / SR)
+        spec *= np.clip((f - 250) / 200, 0, 1) * np.clip((4500 - f) / 1500, 0, 1)
+        a = np.fft.irfft(spec, len(a)).astype(np.float32)
+    elif vcfg.get("fx") == "chorus":    # a crowd chanting: detuned, staggered copies
+        out = a.copy()
+        for semis, delay, g in ((1.8, 0.035, 0.8), (-2.2, 0.07, 0.8), (3.5, 0.11, 0.55)):
+            b = A._pitch_shift(a, semis) * g
+            i = int(delay * SR)
+            out = np.pad(out, (0, max(0, i + len(b) - len(out))))
+            out[i:i + len(b)] += b
+        a = out
+    elif vcfg.get("fx") == "whine":     # mosquito: thin, whiny, with a high buzzing edge
+        t = np.arange(len(a)) / SR
+        spec = np.fft.rfft(a); f = np.fft.rfftfreq(len(a), 1 / SR)
+        spec *= np.clip((f - 700) / 300, 0, 1)
+        a = np.fft.irfft(spec, len(a)).astype(np.float32)
+        env = np.convolve(np.abs(a), np.ones(480) / 480, mode="same")
+        a = a * (0.8 + 0.2 * np.sin(2 * np.pi * 420 * t)) + 0.25 * env * np.sign(np.sin(2 * np.pi * 620 * t))
+    elif vcfg.get("fx") == "buzz":      # bee: fast tremolo + a little ring modulation
+        t = np.arange(len(a)) / SR
+        a = a * (0.72 + 0.28 * np.sin(2 * np.pi * 190 * t)) * (0.9 + 0.1 * np.sin(2 * np.pi * 23 * t))
     a = a * (0.1 / (np.sqrt(np.mean(a ** 2)) + 1e-9))
     a = a * min(1.0, 0.9 / (np.max(np.abs(a)) + 1e-9))
     cache.mkdir(parents=True, exist_ok=True)
@@ -208,6 +233,65 @@ def sfx(name: str) -> np.ndarray:
             n = n - A._lowpass(n, 10)
             i = int(at * SR); out[i:i + len(tt)] += n * np.sin(np.pi * tt / 0.16) ** 2 * 0.35
         return out
+    if name == "crash":  # ceramic vase shattering: thud + noisy burst + tinkly shards
+        out = np.zeros(int(1.2 * SR), np.float32)
+        tt = t(0.25); out[:len(tt)] += np.sin(2 * np.pi * 90 * tt) * np.exp(-tt * 18) * 0.8
+        n = rng.standard_normal(int(0.5 * SR)).astype(np.float32)
+        tn = np.arange(len(n)) / SR
+        out[:len(n)] += (n - A._lowpass(n, 3)) * np.exp(-tn * 9) * 0.7
+        for k in range(14):
+            b = A._bell(2200 + rng.uniform(0, 3500), 0.25) * 0.18
+            i = int(rng.uniform(0.02, 0.6) * SR); out[i:i + len(b)] += b[: len(out) - i]
+        return out
+    if name == "door":  # door closing: knock-thud
+        tt = t(0.4)
+        return (np.sin(2 * np.pi * 70 * tt) * np.exp(-tt * 14) + 0.3 * A._lowpass(rng.standard_normal(len(tt)).astype(np.float32), 6) * np.exp(-tt * 30)).astype(np.float32)
+    if name == "caw":  # crow call
+        out = np.zeros(int(0.9 * SR), np.float32)
+        for at in (0.0, 0.42):
+            tt = t(0.3)
+            f = 620 - 220 * tt / 0.3
+            car = np.sign(np.sin(2 * np.pi * np.cumsum(f) / SR)) * 0.5 + rng.standard_normal(len(tt)).astype(np.float32) * 0.35
+            i = int(at * SR); out[i:i + len(tt)] += A._lowpass(car.astype(np.float32), 5) * np.sin(np.pi * tt / 0.3) ** 0.7
+        return out
+    if name == "cluck":
+        out = np.zeros(int(0.7 * SR), np.float32)
+        for k, at in enumerate((0.0, 0.14, 0.26)):
+            tt = t(0.09)
+            f = 900 + 500 * np.exp(-tt * 40)
+            i = int(at * SR); out[i:i + len(tt)] += np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 30) * 0.5
+        return out
+    if name == "moo":
+        tt = t(1.1)
+        f = 140 - 40 * tt + 15 * np.sin(2 * np.pi * 2.5 * tt)
+        ph = 2 * np.pi * np.cumsum(f) / SR
+        sig = sum(np.sin(ph * k) / k for k in range(1, 7))
+        return (np.tanh(sig * 0.8) * np.sin(np.pi * np.clip(tt / 1.1, 0, 1)) ** 0.6 * 0.5).astype(np.float32)
+    if name == "bzz":  # bee buzzing (1.6 s)
+        tt = t(1.6)
+        f = 210 + 15 * np.sin(2 * np.pi * 3.0 * tt)
+        saw = 2 * ((np.cumsum(f) / SR) % 1.0) - 1
+        return (saw * (0.6 + 0.4 * np.sin(2 * np.pi * 9 * tt)) * np.sin(np.pi * tt / 1.6) * 0.35).astype(np.float32)
+    if name == "splash":
+        n = rng.standard_normal(int(1.0 * SR)).astype(np.float32)
+        tn = np.arange(len(n)) / SR
+        return (A._lowpass(n, 8) * np.exp(-tn * 5) * 1.2 + (n - A._lowpass(n, 2)) * np.exp(-tn * 9) * 0.3).astype(np.float32)
+    if name == "whistle":  # dolphin chirp
+        tt = t(0.5)
+        f = 6000 + 3500 * np.sin(2 * np.pi * 2.2 * tt) * np.exp(-tt * 1.5)
+        return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.sin(np.pi * tt / 0.5) * 0.35).astype(np.float32)
+    if name == "gavel":
+        out = np.zeros(int(0.8 * SR), np.float32)
+        for at in (0.0, 0.28):
+            tt = t(0.2)
+            sig = np.sin(2 * np.pi * 180 * tt) * np.exp(-tt * 35) + 0.5 * A._lowpass(rng.standard_normal(len(tt)).astype(np.float32), 3) * np.exp(-tt * 60)
+            i = int(at * SR); out[i:i + len(tt)] += sig.astype(np.float32)
+        return out
+    if name == "whine":  # mosquito flying past the ear
+        tt = t(1.8)
+        f = 600 + 60 * np.sin(2 * np.pi * 1.3 * tt) + 25 * np.sin(2 * np.pi * 7 * tt)
+        sig = np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.4 * np.sin(4 * np.pi * np.cumsum(f) / SR)
+        return (sig * np.sin(np.pi * tt / 1.8) ** 2 * 0.25).astype(np.float32)
     return A.sfx(name)
 
 

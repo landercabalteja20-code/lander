@@ -129,7 +129,11 @@ async function renderRange(pw, port, frames, fps, label) {
   const audio = path.join(BUILD, 'mix.wav');
   const subs = path.join(BUILD, 'captions.ass');
   const fontsDir = path.join(ROOT, 'assets', 'fonts');
-  const vf = fs.existsSync(subs) ? ['-vf', `ass=${subs}:fontsdir=${fontsDir}`] : [];
+  const outsize = opt('outsize', null);   // e.g. 1080x1920: upscale frames (lanczos) before burning captions
+  const filters = [];
+  if (outsize) filters.push(`scale=${outsize.replace('x', ':')}:flags=lanczos`);
+  if (fs.existsSync(subs)) filters.push(`ass=${subs}:fontsdir=${fontsDir}`);
+  const vf = filters.length ? ['-vf', filters.join(',')] : [];
   const ff = ['-y', '-framerate', String(fps), '-start_number', String(f0), '-i', path.join(FRAMES, '%05d.jpg'),
     ...(fs.existsSync(audio) ? ['-ss', String(from), '-i', audio] : []),
     '-frames:v', String(f1 - f0), ...vf,

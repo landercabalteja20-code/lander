@@ -18,6 +18,7 @@ const NOISE_GLSL = `
 
 // Fine noise on the shading normal (object space) breaks up highlights so fur and skin don't read as plastic.
 function addFuzz(mat, amount, freq) {
+  if (globalThis.RQ && !globalThis.RQ.fuzz) return mat;
   mat.onBeforeCompile = (sh) => {
     sh.uniforms.fuzzAmt = { value: amount }; sh.uniforms.fuzzFreq = { value: freq };
     sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec3 vObj;')
@@ -44,6 +45,7 @@ export function material(kind) {
     case 'cloth': m = addFuzz(P({ roughness: 0.82, sheen: 0.5, sheenRoughness: 0.6, sheenColor: new THREE.Color(0.7, 0.7, 0.7) }), 0.15, 800); break;
     case 'glossy': m = P({ roughness: 0.28, clearcoat: 0.7, clearcoatRoughness: 0.15 }); break;
     case 'plastic': m = P({ roughness: 0.4, clearcoat: 0.3 }); break;
+    case 'wing': m = P({ roughness: 0.15, transparent: true, opacity: 0.42, side: THREE.DoubleSide, depthWrite: false, iridescence: 1.0, iridescenceIOR: 1.4, clearcoat: 0.5 }); break;
     default: m = P({ roughness: 0.7 });
   }
   MATS[kind] = m;

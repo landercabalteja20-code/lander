@@ -45,7 +45,7 @@ const dist = (a, b) => a.distanceTo(b);
 function sun(scene, color, intensity, pos, target, size = 6, res = 2048) {
   const l = new THREE.DirectionalLight(color, intensity);
   l.position.copy(pos); l.target.position.copy(target);
-  l.castShadow = true; l.shadow.mapSize.set(res, res);
+  l.castShadow = true; res = Math.min(res, globalThis.RQ?.shadowMax ?? res); l.shadow.mapSize.set(res, res);
   const c = l.shadow.camera; c.left = -size; c.right = size; c.top = size; c.bottom = -size; c.near = 0.5; c.far = 80;
   l.shadow.bias = -0.0003; l.shadow.normalBias = 0.02; l.shadow.radius = 3;
   scene.add(l, l.target);
