@@ -166,19 +166,19 @@ function shotList() {
     camera(cam, lt, c) { const k = ease.inOut(lt / c.dur); aim(cam, mixV(V(0.9, 1.6, 3.3), V(0.5, 1.45, 3.0), k), V(-1.6, 0.9, 1.5), { fov: 40, t: c.t }); },
     dof: { focus: (c) => dist(c.camera.position, V(-1.4, 0.8, 1.5)), aperture: 0.012 } });
   add('n5@even', 'bedroom', { update: goodbye,
-    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.55 + 0.06 * (lt / c.dur), 0.28, 0.32)), e, { fov: 34, t: c.t }); },
+    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.3 + 0.04 * (lt / c.dur), 0.26, 0.66)), e, { fov: 34, t: c.t }); },
     dof: focusOn(dogHead, 0.04) });
   add('n5@same', 'bedroom', { update: goodbye,
     camera(cam, lt, c) { aim(cam, mixV(V(-0.2, 0.55, 2.4), V(-0.35, 0.6, 2.25), ease.inOut(lt / c.dur)), V(-1.75, 1.05, 1.55), { fov: 38, t: c.t }); },
     dof: { focus: (c) => dist(c.camera.position, V(-1.3, 0.8, 1.5)), aperture: 0.015 } });
   add('bye+-0.1', 'bedroom', { update: goodbye,
-    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.5, 0.2, 0.3)), e, { fov: 32, t: c.t, roll: 0.03 }); },
+    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.32, 0.2, 0.58)), e, { fov: 32, t: c.t, roll: 0.03 }); },
     dof: focusOn(dogHead, 0.05) });
   add('bye@coming+-0.2', 'bedroom', { update: goodbye,
-    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.4 + 0.05 * (lt / c.dur), 0.14, 0.2)), e, { fov: 32, t: c.t, roll: -0.03 }); },
+    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.26 + 0.04 * (lt / c.dur), 0.14, 0.46)), e, { fov: 32, t: c.t, roll: -0.03 }); },
     dof: focusOn(dogHead, 0.05) });
   add('bye@love+-0.12', 'bedroom', { update: goodbye,
-    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.7, -0.35, 0.3)), e.clone().add(V(0, 0.08, 0)), { fov: 38, t: c.t }); },
+    camera(cam, lt, c) { const e = dogHead(); aim(cam, e.clone().add(V(-0.38, -0.35, 0.68)), e.clone().add(V(0, 0.08, 0)), { fov: 38, t: c.t }); },
     dof: focusOn(dogHead, 0.03) });
 
   // ------------------------------------------------------------------ the vet

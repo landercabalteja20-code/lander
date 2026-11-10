@@ -364,7 +364,8 @@ function bedroom(engine, night) {
     grade: night ? { warmth: -0.01, saturation: 1.05, vignette: 0.42 } : undefined,
     update(ctx) {
       const t = ctx.t;
-      dog.root.visible = true; owner.root.visible = true; cat.root.visible = true; ownerUp.root.visible = false; mos.root.visible = false;
+      dog.root.visible = true; cat.root.visible = true; ownerUp.root.visible = false; mos.root.visible = false;
+      owner.root.visible = night || t < at('n5');   // by day you're in bed only until you leave for work
       dog.root.position.set(-1.05, 0, -2.35); dog.root.rotation.set(0, PI / 2, 0);
       dog.pose({ head: [0.05, 0, 0], tail: Math.sin(t * 9) * 0.5, lids: blink(t, 1), look: [0, 0.1] });
       owner.root.position.set(-0.2, 0.58, -0.93); owner.root.rotation.set(-PI / 2 + 0.12, 0, 0);
