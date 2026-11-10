@@ -445,12 +445,12 @@ function shotList() {
       d.pose({ jaw: 0.2 * Math.max(0, arc), lids: blink(c.t, i + 2, 3.2), nodes: { tail: [0.3 * Math.sin(ph * 2), 0, 0] } });
     });
     if (jump) {
-      const d = W.dolphins[0]; const tj = (c.t - (at('dolphin') - 0.55)) / 1.7;
+      const d = W.dolphins[0]; const tj = (c.t - (at('dolphin') - 0.55)) / 2.75;
       const k = clamp01(tj);
-      d.root.position.set(-1.5 + 2.2 * k, -0.9 + 4.2 * k * (1 - k) * 2.0, -7.5); d.root.rotation.set(-(1 - 2 * k) * 0.9, 0.55, 0);
+      d.root.position.set(-1.5 + 2.2 * k, -0.9 + 4.2 * k * (1 - k) * 1.9, -7.5); d.root.rotation.set(-(1 - 2 * k) * 0.9, 0.55, 0);
       const m = talk('dolphin', c.t, 1.0);
       d.pose({ jaw: m, jawMax: 0.45, lids: 1, look: [0.8, 0.2], nodes: { tail: [0.5 * Math.sin(c.t * 9), 0, 0] } });
-      W.splash.visible = tj > -0.05 && tj < 0.35;
+      W.splash.visible = tj > -0.05 && tj < 0.25;
       W.splash.children.forEach((s, j) => { const a = j * 2.4, sp = 0.6 + (j % 5) * 0.25, u = clamp01(tj + 0.05) * 1.6; s.position.set(-1.5 + Math.cos(a) * sp * u * 1.5, 0.2 + sp * 3 * u - 6 * u * u, -7.5 + Math.sin(a) * sp * u); });
     }
   };

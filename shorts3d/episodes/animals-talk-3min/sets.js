@@ -342,8 +342,8 @@ function bedroom(engine, night) {
       return { camera, update(lt) { b.rotation.y = 0.4 + lt * 0.25; } };
     }, { size: 0.34 });
     scene.add(W.foodBubble.group);
-    const hours = new Text3D({ size: 0.092, depth: 0.035, bevel: 0.006, color: '#ff4fa3', emissive: 0.15 }); hours.setText('8 HOURS');
-    hours.group.position.set(2.5, 2.33, 0.55); hours.group.rotation.y = -PI / 2; scene.add(hours.group); W.hours = hours;
+    const hours = new Text3D({ size: 0.06, depth: 0.024, bevel: 0.004, color: '#ff4fa3', emissive: 0.15 }); hours.setText('8 HOURS');
+    hours.group.position.set(2.5, 2.27, 0.49); hours.group.rotation.y = -PI / 2; scene.add(hours.group); W.hours = hours;
   }
   // light
   if (night) {
@@ -687,9 +687,9 @@ function office(engine) {
   const plant = P.plant(); plant.position.set(2.2, 0, -2.6); plant.scale.setScalar(1.6); scene.add(plant);
   const parrot = makeCharacter('macaw'); parrot.root.position.set(-0.52, 1.2, -0.11); scene.add(parrot.root); cast.parrot = parrot;
   const gary = makeCharacter('gary'); scene.add(gary.root); cast.gary = gary;
-  const pn = new Text3D({ size: 0.2, depth: 0.07, bevel: 0.012, color: '#ff4fa3', emissive: 0.15 });
-  const pw = new Text3D({ size: 0.1, depth: 0.04, bevel: 0.007, color: '#ffffff', emissive: 0.05 }); pw.setText('WORDS');
-  const pg = new THREE.Group(); pg.add(pn.group, pw.group); pw.group.position.y = -0.16; pg.position.set(-0.3, 1.95, -0.15); scene.add(pg);
+  const pn = new Text3D({ size: 0.14, depth: 0.05, bevel: 0.009, color: '#ff4fa3', emissive: 0.15 });
+  const pw = new Text3D({ size: 0.075, depth: 0.03, bevel: 0.005, color: '#ffffff', emissive: 0.05 }); pw.setText('WORDS');
+  const pg = new THREE.Group(); pg.add(pn.group, pw.group); pw.group.position.y = -0.12; pg.position.set(-0.42, 1.9, -0.15); scene.add(pg);
   W.parrotNum = pn; W.parrotGroup = pg;
   W.memory = new ThoughtBubble(engine, (sub) => {
     sub.background = new THREE.Color('#f2c98f'); sub.environment = engine.roomEnv; sub.environmentIntensity = 0.55;
