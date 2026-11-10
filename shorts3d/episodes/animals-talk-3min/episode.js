@@ -599,7 +599,7 @@ function shotList() {
     camera(cam, lt, c) { const k = ease.inOut(lt / c.dur); aim(cam, mixV(V(1.2, 1.6, 0.9), V(0.9, 1.45, 0.4), k), V(-0.4, 0.8, -2.3), { fov: 42, t: c.t }); },
     dof: { focus: 2.6, aperture: 0.006 } });
   add('n18b@so+-0.1', 'bedroomNight', { update: night, exposure: 1.7,
-    camera(cam, lt, c) { const m = cast.mosqN.root.position; cam.near = 0.002; aim(cam, m.clone().add(V(0.045, 0.04, 0.03)), m.clone().add(V(0, 0.003, 0)), { fov: 42, t: c.t, amp: 0.05 }); },
+    camera(cam, lt, c) { const m = cast.mosqN.root.position; cam.near = 0.002; const k = ease.inOut(clamp01(lt / (c.dur * 0.7))); aim(cam, m.clone().add(mixV(V(0.22, 0.2, 0.18), V(0.045, 0.04, 0.03), k)), m.clone().add(V(0, 0.003, 0)), { fov: 42, t: c.t, amp: 0.05 }); },
     dof: { focus: (c) => dist(c.camera.position, cast.mosqN.root.position), aperture: 0.03, maxblur: 0.014 } });
   add('mosq+-0.1', 'bedroomNight', { update: night, exposure: 1.8,
     camera(cam, lt, c) { const m = world(cast.mosqN, 'head'); cam.near = 0.002; aim(cam, m.clone().add(V(0.012, 0.002, 0.011)), m, { fov: 36, t: c.t, amp: 0.02 }); },
