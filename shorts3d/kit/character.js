@@ -105,6 +105,7 @@ function buildEye(spec) {
   const lash = new THREE.Mesh(new THREE.TorusGeometry(spec.r * 1.05, spec.r * 0.075, 8, 40).rotateX(Math.PI / 2),
     new THREE.MeshStandardMaterial({ color: new THREE.Color(spec.lid).multiplyScalar(0.25), roughness: 0.6 }));
   lid.add(lash);
+  lid.receiveShadow = true; lash.receiveShadow = true;  // match the shading of the fur around the eye
   g.add(lid);
   return { group: g, ball, lid, spec };
 }

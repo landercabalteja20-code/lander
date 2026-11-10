@@ -167,6 +167,8 @@ def write_captions(lines: list[dict], path: Path, end_time: float, font: str, y:
         nxt = chunks[i + 1]["s"] if i + 1 < len(chunks) else end_time
         end = nxt if nxt - c["e"] < 0.7 else c["e"] + 0.35   # hold through short pauses, like the reference
         text = c["text"].replace("...", "…")
+        if text.endswith(".") and not text.endswith(("a.m.", "p.m.", "…")):   # like the reference: no full stops
+            text = text[:-1]
         pop = r"{\an5\pos(540,%d)\fscx90\fscy90\t(0,90,\fscx100\fscy100)}" % y
         ev.append(f"Dialogue: 0,{ts(c['s'] - 0.03)},{ts(end - 0.01)},Cap,,0,0,0,,{pop}{text}")
     path.write_text(ASS_HEAD.format(font=font, size=88, outline=6, shadow=3) + "\n".join(ev) + "\n")
