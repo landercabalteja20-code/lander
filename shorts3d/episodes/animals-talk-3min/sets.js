@@ -447,10 +447,10 @@ function farm(engine) {
   }
   const sci = makeCharacter('sci'); sci.root.position.set(yard.x + 1.1, yard.y, yard.z + 0.9); sci.root.rotation.y = -PI / 2 - 0.35; scene.add(sci.root); cast.sci = sci;
   const mic = microphone(); scene.add(mic); W.mic = mic;
-  const chickNum = new Text3D({ size: 0.9, depth: 0.3, bevel: 0.05, color: '#ff4fa3', emissive: 0.1 });
-  const chickWord = new Text3D({ size: 0.6, depth: 0.22, bevel: 0.04, color: '#ffffff', emissive: 0.05 }); chickWord.setText('CHICKENS');
-  const cg = new THREE.Group(); cg.add(chickNum.group, chickWord.group); chickWord.group.position.y = -0.9;
-  cg.position.set(yard.x - 3.5, yard.y + 4.2, yard.z - 4.5); cg.rotation.y = 0.75; scene.add(cg);
+  const chickNum = new Text3D({ size: 0.41, depth: 0.15, bevel: 0.027, color: '#ff4fa3', emissive: 0.1 });
+  const chickWord = new Text3D({ size: 0.34, depth: 0.12, bevel: 0.022, color: '#ffffff', emissive: 0.05 }); chickWord.setText('CHICKENS');
+  const cg = new THREE.Group(); cg.add(chickNum.group, chickWord.group); chickWord.group.position.y = -0.5;
+  cg.position.set(yard.x - 2.6, yard.y + 3.2, yard.z - 3.6); cg.rotation.y = 0.7; scene.add(cg);
   W.chickNum = chickNum; W.chickGroup = cg;
   // the picket line: three cows behind the fence with signs, seven milk jugs on the grass
   W.strikers = [5.25, 6.3, 7.35].map((x, i) => {

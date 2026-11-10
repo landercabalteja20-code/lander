@@ -339,7 +339,7 @@ function shotList() {
       W.chickGroup.visible = true;
       W.chickGroup.scale.setScalar(Math.max(0.001, ease.back(ramp(c.t, at('n11@more') - 0.2, at('n11@more') + 0.2))));
     },
-    camera(cam, lt, c) { const H = c.S.H; const k = ease.inOut(lt / c.dur); aim(cam, mixV(V(-32, H(-32, -50) + 3.0, -48), V(-33.5, H(-33.5, -51) + 2.4, -50), k), V(-41.5, H(-41.5, -60) + 2.2, -61), { fov: 42, t: c.t, amp: 2 }); },
+    camera(cam, lt, c) { const H = c.S.H; const k = ease.inOut(lt / c.dur); aim(cam, mixV(V(-37.4, H(-37.4, -48) + 2.6, -47.5), V(-37.9, H(-37.9, -50) + 2.2, -49.8), k), V(-41.6, H(-41.6, -60) + 2.1, -61), { fov: 44, t: c.t, amp: 2 }); },
     dof: { focus: 9, aperture: 0.003 },
   });
   add('n11@so+-0.1', 'farm', {
@@ -347,7 +347,7 @@ function shotList() {
       const s = cast.sci; const k = ease.out(ramp(c.t, at('n11@so'), at('n11@settle')));
       s.root.position.set(lerp(-37.5, -38.95, k), s.root.position.y, lerp(-54.5, -57.1, k)); sciMic(c, 0.0); henTalk(c);
     },
-    camera(cam, lt, c) { const h = world(cast.hen, 'head'); aim(cam, mixV(h.clone().add(V(-1.8, 0.7, 3.4)), h.clone().add(V(-1.4, 0.55, 2.8)), ease.inOut(lt / c.dur)), h.clone().add(V(0.3, -0.05, 0.2)), { fov: 40, t: c.t }); },
+    camera(cam, lt, c) { const h = world(cast.hen, 'head'); aim(cam, mixV(h.clone().add(V(-2.2, 0.9, 4.4)), h.clone().add(V(-1.9, 0.75, 3.8)), ease.inOut(lt / c.dur)), h.clone().add(V(0.5, 0.05, 0.45)), { fov: 46, t: c.t }); },
     dof: { focus: (c) => dist(c.camera.position, world(cast.hen, 'head')), aperture: 0.008 },
   });
   add('sci+-0.1', 'farm', {
