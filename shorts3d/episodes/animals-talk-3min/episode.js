@@ -204,7 +204,7 @@ function shotList() {
 
   // ------------------------------------------------------------------ CITY: pigeons
   add('n7', 'city', {
-    camera(cam, lt, c) { const k = ease.inOut(lt / c.dur); aim(cam, mixV(V(-22, 11, -24), V(-12, 13.5, -14), k), mixV(V(6, 6, -6), V(0, 14.2, -0.5), k), { fov: 44, t: c.t, amp: 3 }); },
+    camera(cam, lt, c) { const k = ease.inOut(lt / c.dur); aim(cam, mixV(V(10, 32, -26), V(4, 24, -17), k), V(0, 12, -2), { fov: 44, t: c.t, amp: 3 }); },
   });
   add('n7@pigeons+-0.1', 'city', {
     camera(cam, lt, c) { const k = ease.inOut(lt / c.dur); aim(cam, V(lerp(-2.7, -2.15, k), 15.24, lerp(-0.42, -0.36, k)), V(lerp(0.6, 0.9, k), 15.06, -0.05), { fov: 30, t: c.t }); },
