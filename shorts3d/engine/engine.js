@@ -15,14 +15,22 @@ const GradeShader = {
   uniforms: {
     tDiffuse: { value: null }, time: { value: 0 }, vignette: { value: 0.32 }, grain: { value: 0.035 },
     warmth: { value: 0.03 }, contrast: { value: 1.06 }, saturation: { value: 1.08 }, flash: { value: 0 },
+    cens: { value: Array.from({ length: 8 }, () => new THREE.Vector4()) }, censN: { value: 0 }, cell: { value: new THREE.Vector2(0.01, 0.01) },
   },
   vertexShader: 'varying vec2 vUv; void main(){ vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0); }',
   fragmentShader: `
     uniform sampler2D tDiffuse; uniform float time, vignette, grain, warmth, contrast, saturation, flash;
+    uniform vec4 cens[8]; uniform int censN; uniform vec2 cell;
     varying vec2 vUv;
     float h(vec2 p){ return fract(sin(dot(p, vec2(12.9898, 78.233)) + time * 37.0) * 43758.5453); }
     void main(){
-      vec3 c = texture2D(tDiffuse, vUv).rgb;
+      vec2 uv = vUv;
+      for (int i = 0; i < 8; i++) {   // pixel-mosaic censor boxes (TV-style), in UV space
+        if (i >= censN) break;
+        vec4 r = cens[i];
+        if (abs(uv.x - r.x) < r.z && abs(uv.y - r.y) < r.w) { uv = (floor(uv / cell) + 0.5) * cell; }
+      }
+      vec3 c = texture2D(tDiffuse, uv).rgb;
       float l = dot(c, vec3(0.2126, 0.7152, 0.0722));
       c = mix(vec3(l), c, saturation);
       c = (c - 0.5) * contrast + 0.5;
@@ -122,6 +130,7 @@ export class Engine {
     if (S.post) S.post(ctx);               // camera-dependent work (billboards, thought bubbles)
     if (shot.post) shot.post(ctx);
     for (const f of this.preRender) f(ctx);
+    this.setCensor(cam, (shot.censor || S.censor) ? (shot.censor || S.censor)(ctx) : []);
 
     const d = { focus: 1.0, aperture: 0.0, maxblur: 0.009, ...(S.dof || {}), ...(shot.dof || {}) };
     if (typeof d.focus === 'function') d.focus = d.focus(ctx);
@@ -140,6 +149,25 @@ export class Engine {
     this.renderPass.scene = S.scene; this.renderPass.camera = cam;
     this.composer.render();
     return ctx;
+  }
+
+  // censor boxes: [{pos: world Vector3, r: half-width in metres, ry?: height factor}] -> mosaic in the grade pass
+  setCensor(cam, list) {
+    const U = this.grade.uniforms; let n = 0, cellH = 0;
+    const right = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 0), up = new THREE.Vector3().setFromMatrixColumn(cam.matrixWorld, 1);
+    for (const c of list || []) {
+      if (n >= 8) break;
+      const p = c.pos.clone().project(cam);
+      if (p.z > 1 || p.z < -1 || Math.abs(p.x) > 1.3 || Math.abs(p.y) > 1.3) continue;
+      const px = c.pos.clone().addScaledVector(right, c.r).project(cam);
+      const py = c.pos.clone().addScaledVector(up, c.r * (c.ry ?? 1)).project(cam);
+      const hw = Math.abs(px.x - p.x) / 2, hh = Math.abs(py.y - p.y) / 2;
+      U.cens.value[n].set(p.x * 0.5 + 0.5, p.y * 0.5 + 0.5, hw, hh); n++;
+      cellH = Math.max(cellH, hh * 2 / 4.5);
+    }
+    U.censN.value = n;
+    const px = Math.max(5, cellH * this.gH);
+    U.cell.value.set(px / this.gW, px / this.gH);
   }
 
   frame(t, quality = 0.92) {

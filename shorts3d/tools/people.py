@@ -99,11 +99,11 @@ def p_vest(P):  # burgundy waistcoat with gold buttons down the front
     return np.where(btn, hexc("#e8c25a"), base)
 
 
-def tattoo(base):  # ink sleeves on the arms
+def tattoo(base, ink="#22324c"):  # ink sleeves on the arms
     def f(P):
         n = fbm(P, 7, 21)
-        ink = ((np.abs(np.sin(n * 9.0)) < 0.16) & (P[:, 1] > 1.04)).astype(np.float32)[:, None]
-        return base(P) * (1 - 0.85 * ink) + hexc("#22324c") * 0.85 * ink
+        a = ((np.abs(np.sin(n * 9.0)) < 0.16) & (P[:, 1] > 1.04)).astype(np.float32)[:, None]
+        return base(P) * (1 - 0.85 * a) + hexc(ink) * 0.85 * a
     return f
 
 
@@ -555,7 +555,7 @@ def guest_c() -> Model:
 
 def guest_d() -> Model:
     return person("guest_d", "#5a3a28", hair=None, hair_col="#140e0a", iris="#2a1a10", beard="#140e0a",
-                  arm_paint=tattoo(skinf("#5a3a28")), necklace="#e8c25a", pack=("#c84a2a", "#8a2e18"), shoes="#f2f2f2")
+                  arm_paint=tattoo(skinf("#5a3a28"), "#e8c25a"), necklace="#e8c25a", pack=("#c84a2a", "#8a2e18"), shoes="#f2f2f2")
 
 
 def leopard() -> Model:

@@ -4,6 +4,7 @@ import { FontLoader } from 'three/addons/loaders/FontLoader.js';
 import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
 
 export const ease = {
+  in: (x) => Math.pow(THREE.MathUtils.clamp(x, 0, 1), 3),
   out: (x) => 1 - Math.pow(1 - THREE.MathUtils.clamp(x, 0, 1), 3),
   inOut: (x) => { x = THREE.MathUtils.clamp(x, 0, 1); return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2; },
   back: (x) => { x = THREE.MathUtils.clamp(x, 0, 1); const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); },
