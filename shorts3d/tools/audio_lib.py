@@ -362,12 +362,12 @@ STYLES = {
     # name: bpm, chords [(notes, root)], drum kit, arp notes per beat, pluck decay, gains (pad, arp, bass, drums)
     "pop": dict(bpm=112, chords=CHORDS, drums="pop", arp=2, decay=0.45, gains=(0.07, 0.1, 0.16, 0.9)),
     "comedy": dict(bpm=128, chords=[([60, 64, 67, 72], 48), ([57, 61, 64, 67], 45), ([62, 65, 69, 74], 50),
-                                    ([55, 59, 62, 65], 43)], drums="comedy", arp=2, decay=0.18,
-                   gains=(0.03, 0.13, 0.2, 0.8)),
+                                    ([55, 59, 62, 65], 43)], drums="comedy", arp=2, decay=0.28,
+                   gains=(0.16, 0.13, 0.2, 0.8)),
     "sad": dict(bpm=72, chords=[([57, 60, 64, 69], 45), ([53, 57, 60, 65], 41), ([48, 52, 55, 60], 48),
                                 ([55, 59, 62, 67], 43)], drums=None, arp=1, decay=1.4, gains=(0.09, 0.11, 0.09, 0.0)),
     "warm": dict(bpm=96, chords=[([60, 64, 67, 72], 48), ([55, 59, 62, 67], 43), ([57, 60, 64, 69], 45),
-                                 ([53, 57, 60, 65], 41)], drums="soft", arp=2, decay=0.7, gains=(0.08, 0.1, 0.14, 0.6)),
+                                 ([53, 57, 60, 65], 41)], drums="soft", arp=2, decay=0.85, gains=(0.13, 0.1, 0.14, 0.6)),
     "party": dict(bpm=124, chords=[([57, 60, 64, 69], 45), ([53, 57, 60, 65], 41), ([60, 64, 67, 72], 48),
                                    ([55, 59, 62, 67], 43)], drums="house", arp=4, decay=0.22, gains=(0.06, 0.08, 0.2, 1.0)),
 }
@@ -400,9 +400,9 @@ def _groove(duration: float, style: str, seed: int = 7) -> np.ndarray:
             _place(keys, sig, t0 + e * beat / cfg["arp"], arp_g, pan=-0.3 if e % 2 else 0.3)
         if style == "sad":
             _place(bass, _pluck(_midi(root), 2.0, bright=0.2), t0, bass_g)
-        elif style == "comedy":
-            for q in (0, 2):
-                _place(bass, np.tanh(_pluck(_midi(root - (0 if q == 0 else 5)), 0.3, 0.3) * 1.5), t0 + q * beat, bass_g)
+        elif style == "comedy":   # bass on every beat (root / fifth) so the bed never empties between the staccato notes
+            for q in range(4):
+                _place(bass, np.tanh(_pluck(_midi(root - (0 if q % 2 == 0 else 5)), 0.42, 0.3) * 1.5), t0 + q * beat, bass_g * (1.0 if q % 2 == 0 else 0.75))
         elif style == "party":
             for e in range(8):
                 if e % 2 == 1:
@@ -434,6 +434,9 @@ def _groove(duration: float, style: str, seed: int = 7) -> np.ndarray:
     return mix[: int(duration * SR)].astype(np.float32)
 
 
+BED_RMS = 0.1   # -20 dBFS: the loudness every section is normalised to before the episode's music volume
+
+
 def score(duration: float, sections: list[dict], seed: int = 7) -> np.ndarray:
     """Concatenate styled sections with 1 s crossfades."""
     n = int(duration * SR)
@@ -443,7 +446,9 @@ def score(duration: float, sections: list[dict], seed: int = 7) -> np.ndarray:
     for i, sec in enumerate(secs):
         a = float(sec["at"])
         b = float(secs[i + 1]["at"]) if i + 1 < len(secs) else duration
-        seg = _groove(b - a + 1.2, sec["style"], seed + i) * float(sec.get("gain", 1.0))
+        seg = _groove(b - a + 1.2, sec["style"], seed + i)
+        # every style at the same loudness: switching sections must not make the bed sink or jump
+        seg = seg * (BED_RMS / (float(np.sqrt(np.mean(seg ** 2))) + 1e-9)) * float(sec.get("gain", 1.0))
         i0 = int(a * SR)
         L = min(len(seg), n - i0)
         if L <= 0:

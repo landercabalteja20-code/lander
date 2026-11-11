@@ -489,15 +489,34 @@ def main() -> None:
     if music and isinstance(music.get("stop"), str):
         ref = music["stop"]
         music["stop"] = anchor(timeline, ref.split("+")[0]) + (float(ref.split("+")[1]) if "+" in ref else 0.0)
+    # level-match the narrator: every narrator line at the median loudness of speech (after timings are fixed,
+    # so word timestamps and the rendered pictures can't move)
+    def active_rms(a: np.ndarray) -> float:
+        n = int(0.05 * SR); k = len(a) // n
+        if k == 0:
+            return 1e-9
+        w = np.sqrt((a[:k * n].reshape(k, n) ** 2).mean(1))
+        act = w[w > w.max() * 0.1]
+        return float(np.sqrt((act ** 2).mean()) + 1e-12)
+    nar = [ln for ln in lines if ln["who"] == "narrator"]
+    if nar:
+        target_rms = float(np.median([active_rms(ln["audio"]) for ln in nar]))
+        for ln in nar:
+            ln["audio"] = ln["audio"] * float(np.clip(target_rms / active_rms(ln["audio"]), 0.5, 2.0))
     mix(total, lines, cues, music, build / "mix_raw.wav")
     voice_only = np.zeros(int((total + 0.5) * SR), np.float32)
     for l in lines:
         i = int(l["start"] * SR); voice_only[i:i + len(l["audio"])] += l["audio"][: len(voice_only) - i]
     sf.write(build / "voice.wav", voice_only, SR, subtype="PCM_16")
     target = cfg.get("lufs", -12.0)
+    meas = subprocess.run(["ffmpeg", "-hide_banner", "-nostats", "-i", str(build / "mix_raw.wav"), "-af", "ebur128", "-f", "null", "-"],
+                          capture_output=True, text=True).stderr
+    measured = float(re.findall(r"I:\s+(-?[\d.]+) LUFS", meas)[-1])
+    gain_db = target - measured
+    print(f"    integrated {measured:.1f} LUFS -> +{gain_db:.1f} dB, peak-limited at -2.2 dBFS so AAC stays under 0 dBTP (one static gain: no pumping)")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(build / "mix_raw.wav"), "-af",
-                    f"loudnorm=I={target}:TP=-1.0:LRA=4,aresample=48000", "-t", f"{total:.3f}", "-ar", "48000",
-                    str(build / "mix.wav")], check=True)
+                    f"aresample=48000,volume={gain_db:.2f}dB,alimiter=limit=0.78:attack=4:release=80:level=false",
+                    "-t", f"{total:.3f}", "-ar", "48000", str(build / "mix.wav")], check=True)
 
     print("==> captions")
     font = cfg.get("font", "Inter")

@@ -510,9 +510,9 @@
   ]
  ],
  "music": {
-  "volume": 0.42,
-  "duck": 0.35,
-  "stop": "n33@would+-0.12",
+  "volume": 0.45,
+  "duck": 0.25,
+  "stop": "n33@dog+-0.12",
   "sections": [
    {
     "at": 0,
