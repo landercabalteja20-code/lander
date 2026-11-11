@@ -399,11 +399,11 @@ function shotList() {
     R.runners.forEach((r) => { r.root.position.set(40, 0, r.lane); });
   };
   add('n15', 'stadium', { update: (c) => words(c, at('n15@greek')),
-    camera: move(V(-0.9, 1.25, 5.4), V(-0.3, 1.15, 4.9), V(0, 0.6, 0), V(0, 0.65, 0), { fov: 40 }),
-    dof: { focus: 5.0, aperture: 0.002 } });
+    camera: move(V(-0.35, 1.25, 6.1), V(0.0, 1.18, 5.7), V(0, 0.6, 0), V(0, 0.62, 0), { fov: 40 }),
+    dof: { focus: 5.7, aperture: 0.002 } });
   add('n15@greek', 'stadium', { update: (c) => words(c, at('n15@greek')),
-    camera: move(V(-0.2, 1.2, 4.9), V(0.15, 1.15, 4.5), V(0, 0.65, 0), V(0, 0.6, 0), { fov: 40 }),
-    dof: { focus: 4.6, aperture: 0.002 } });
+    camera: move(V(0.0, 1.2, 5.7), V(0.0, 1.16, 5.35), V(0, 0.65, 0), V(0, 0.62, 0), { fov: 40 }),
+    dof: { focus: 5.4, aperture: 0.002 } });
   // the legend of the runner whose loincloth fell off
   const legendX = (t) => -14 + (t - at('n16')) * 4.0;
   const soloRun = (c) => { const R = c.S.R; R.runners.forEach((r, i) => { if (i !== 1) r.root.position.set(60, 0, r.lane); }); runner(R.runners[1], legendX(c.t), c.t); };

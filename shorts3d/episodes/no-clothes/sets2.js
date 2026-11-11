@@ -427,7 +427,7 @@ export function stadium(engine) {
   R.flyGeo = fg; R.flyBase = Float32Array.from(fg.attributes.position.array);
   R.fly = P.mesh(fg, clothM); scene.add(R.fly);
   // stone letters
-  R.word1 = T3('GYMNASIUM', { size: 0.25, depth: 0.1, color: '#b5532e', stone: true }); scene.add(R.word1.group);
+  R.word1 = T3('GYMNASIUM', { size: 0.21, depth: 0.09, color: '#b5532e', stone: true }); scene.add(R.word1.group);
   R.word2 = T3('GYMNOS', { size: 0.3, depth: 0.12, color: '#b5532e', stone: true }); scene.add(R.word2.group);
   R.word3 = T3('= NAKED', { size: 0.24, depth: 0.1, color: '#ffcf4a', emissive: 0.15 }); scene.add(R.word3.group);
   sun(scene, '#fff3dc', 2.6, V(10, 18, 12), V(4, 0, 0), 18);
