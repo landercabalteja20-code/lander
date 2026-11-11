@@ -195,7 +195,7 @@ def write_captions(lines: list[dict], path: Path, end_time: float, font: str, y:
         if text.endswith(".") and not text.endswith(("a.m.", "p.m.", "…")):   # like the reference: no full stops
             text = text[:-1]
         pop = r"{\an5\pos(540,%d)\fscx90\fscy90\t(0,90,\fscx100\fscy100)}" % y
-        ev.append(f"Dialogue: 0,{ts(c['s'] - 0.03)},{ts(end - 0.01)},Cap,,0,0,0,,{pop}{text}")
+        ev.append(f"Dialogue: 0,{ts(c['s'] - 0.03)},{ts(end - 0.03)},Cap,,0,0,0,,{pop}{text}")   # ends as the next one starts: no doubled frame
     path.write_text(ASS_HEAD.format(font=font, size=88, outline=6, shadow=3) + "\n".join(ev) + "\n")
     return len(chunks)
 
