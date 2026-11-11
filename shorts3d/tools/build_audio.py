@@ -398,6 +398,8 @@ def mix(total: float, lines: list[dict], cues: list, music: dict | None, out_wav
     fx = np.zeros((n, 2), np.float32)
     for at, name, gain in cues:
         sig = sfx(name)
+        if not np.isfinite(sig).all():  # NaN reaches the WAV as a frozen full-scale value: total dropout
+            raise ValueError(f"sound effect {name!r} has NaN/inf samples")
         A._place(fx, sig * (0.7 / (np.max(np.abs(sig)) + 1e-9)), at, gain)
     out = voice + fx
     if music:
@@ -415,6 +417,8 @@ def mix(total: float, lines: list[dict], cues: list, music: dict | None, out_wav
         intro = np.clip(np.arange(n) / (SR * 0.15), 0, 1)
         out += bed * (music.get("volume", 0.4) * duck * gate * intro)[:, None]
     out = np.tanh(out * 1.15) / np.tanh(1.15)
+    if not np.isfinite(out).all():
+        raise ValueError("mix has NaN/inf samples")
     out *= min(1.0, 0.97 / (np.max(np.abs(out)) + 1e-9))
     sf.write(out_wav, out, SR, subtype="PCM_24")
 

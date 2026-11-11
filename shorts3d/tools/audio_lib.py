@@ -247,7 +247,9 @@ def _place(track: np.ndarray, sig: np.ndarray, at: float, gain: float = 1.0, pan
 def _lowpass(x: np.ndarray, k: int) -> np.ndarray:
     if k <= 1:
         return x
-    ker = np.hanning(k).astype(np.float32)
+    # k non-zero taps: np.hanning(k) has zero end taps, so np.hanning(2) summed to 0 and
+    # returned NaN, which silenced the whole mix wherever such an effect played.
+    ker = np.hanning(k + 2)[1:-1].astype(np.float32)
     ker /= ker.sum()
     return np.convolve(x, ker, mode="same").astype(np.float32)
 
