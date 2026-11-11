@@ -12,6 +12,7 @@ music and sound effects. No API keys.
 |---|---|---|
 | What if animals could somehow talk? | 44 s | `episodes/animals-talk/out/animals-talk.mp4` |
 | What if animals could somehow talk? (3-minute version: a day of talking animals) | 2:57 | `episodes/animals-talk-3min/out/animals-talk-3min.mp4` |
+| What if people never normalized wearing clothes? (3 minutes, family-friendly: see `episodes/no-clothes/script.md`) | 3:00 | `episodes/no-clothes/out/no-clothes.mp4` |
 
 ## Setup (once)
 
@@ -22,7 +23,8 @@ music and sound effects. No API keys.
 ## Make / re-render an episode
 
 ```bash
-.venv/bin/python tools/characters.py                      # sculpt the cast -> assets/chars/*.glb (~20 s)
+.venv/bin/python tools/characters.py                      # sculpt the animal cast -> assets/chars/*.glb (~20 s)
+.venv/bin/python tools/people.py                          # sculpt the no-clothes cast (~4 min)
 .venv/bin/python tools/build_audio.py animals-talk        # voices, word timings, music, SFX, captions -> build/
 node engine/render.cjs animals-talk --shots               # shot list with timings
 node engine/render.cjs animals-talk --stills 3.7,24.7     # review stills -> build/stills/
@@ -42,10 +44,11 @@ Check a character on a turntable with `node engine/render.cjs _lab --stills 0.5,
 | `tools/build_audio.py` | voices every line, checks it with faster-whisper, aligns word timings, builds lip-sync envelopes, scores music + SFX, masters to −12 LUFS / −1 dBTP, writes `build/timeline.json` and `build/captions.ass` |
 | `episodes/<ep>/episode.js` | sets and shots. Each shot starts on a word (`'n2@165'`, `'cow+-0.1'`, `'parrot.end+0.12'`), so re-voicing never needs re-timing |
 | `tools/sculpt.py`, `tools/characters.py` | characters sculpted from smooth signed-distance shapes (clay-like blends, painted regions) and exported as GLB node trees with pivots for head, jaw, ears, tail, wings and arms |
+| `tools/people.py` | doll-smooth cartoon people with hips and knees for walking; body paint, and accessories as separate nodes (fanny pack, tie, hats, badge, apron, watch, coat, jewellery) |
 | `kit/character.js` | loads a character, gives it fur/feather/skin materials, glossy eyes with painted irises (slit pupils for cats), eyelids and whiskers, and a `pose()` API |
 | `kit/fx.js` | gradient skies, chunky 3D text counters, thought bubbles (a live sub-scene inside a cloud) |
 | `kit/props.js` | procedural props: bedroom, farm, car interior, burger, city, office |
-| `engine/` | renderer (depth of field, bloom, film grade), player page, headless frame renderer + ffmpeg mux |
+| `engine/` | renderer (depth of field, bloom, film grade, TV-style mosaic censor via `shot.censor`), player page, headless frame renderer + ffmpeg mux |
 
 ## Making the next episode
 
