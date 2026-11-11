@@ -48,4 +48,5 @@ for f in Inter-Bold.otf Inter-ExtraBold.otf; do
 done
 echo "==> Sculpting the cast (assets/chars)"
 .venv/bin/python tools/characters.py > /dev/null
+.venv/bin/python tools/people.py > /dev/null
 echo "==> Done"

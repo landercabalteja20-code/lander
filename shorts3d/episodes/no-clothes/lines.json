@@ -1,0 +1,579 @@
+{
+ "fps": 24,
+ "tail": 0.8,
+ "lufs": -12.0,
+ "font": "Inter",
+ "voices": {
+  "narrator": {
+   "voice": "am_michael*0.65+am_fenrir*0.35",
+   "speed": 1.0,
+   "pitch": 0
+  },
+  "boss": {
+   "voice": "bm_george",
+   "speed": 0.92,
+   "pitch": -1.0
+  },
+  "suit": {
+   "voice": "am_puck",
+   "speed": 0.95,
+   "pitch": 1.0
+  }
+ },
+ "lines": [
+  {
+   "id": "n1",
+   "who": "narrator",
+   "text": "If humans had never gotten used to wearing clothes, getting ready in the morning would take about ten seconds.",
+   "gap": 0.3,
+   "caption": "If humans had never gotten used to wearing clothes, getting ready in the morning would take about 10 seconds."
+  },
+  {
+   "id": "n2",
+   "who": "narrator",
+   "text": "No outfit to pick, nothing to iron, and no missing socks.",
+   "gap": 0.3
+  },
+  {
+   "id": "n3",
+   "who": "narrator",
+   "text": "Your walk-in closet? That's a walk-in pantry now.",
+   "gap": 0.4
+  },
+  {
+   "id": "n4",
+   "who": "narrator",
+   "text": "But there'd be one big problem: no clothes means no pockets.",
+   "gap": 0.35
+  },
+  {
+   "id": "n5",
+   "who": "narrator",
+   "text": "So everyone would wear a fanny pack, making it the best-selling accessory on the planet.",
+   "gap": 0.35
+  },
+  {
+   "id": "n6",
+   "who": "narrator",
+   "text": "Fashion wouldn't disappear, though. It would just move onto your skin.",
+   "gap": 0.3
+  },
+  {
+   "id": "n7",
+   "who": "narrator",
+   "text": "Body paint, glitter and tattoos would replace outfits, and the biggest trend of the year might be a painted-on tuxedo.",
+   "gap": 0.35
+  },
+  {
+   "id": "n8",
+   "who": "narrator",
+   "text": "Uniforms would shrink to the bare minimum. A police officer would just be a hat and a badge.",
+   "gap": 0.3
+  },
+  {
+   "id": "n9",
+   "who": "narrator",
+   "text": "A chef would be a hat and an apron.",
+   "gap": 0.35
+  },
+  {
+   "id": "n10",
+   "who": "narrator",
+   "text": "And for some reason, your boss would still wear a tie.",
+   "gap": 0.35
+  },
+  {
+   "id": "boss",
+   "who": "boss",
+   "text": "It's called being professional.",
+   "gap": 0.4
+  },
+  {
+   "id": "n11",
+   "who": "narrator",
+   "text": "Scientists think humans started wearing clothes as early as a hundred and seventy thousand years ago.",
+   "gap": 0.3,
+   "caption": "Scientists think humans started wearing clothes as early as 170,000 years ago."
+  },
+  {
+   "id": "n12",
+   "who": "narrator",
+   "text": "And the weird part? We know that because of lice.",
+   "gap": 0.35
+  },
+  {
+   "id": "n13",
+   "who": "narrator",
+   "text": "You see, body lice can only live in clothing, and their DNA shows they split from head lice right around that time.",
+   "gap": 0.35
+  },
+  {
+   "id": "n14",
+   "who": "narrator",
+   "text": "Even then, some people skipped them. In ancient Greece, athletes competed completely naked.",
+   "gap": 0.3
+  },
+  {
+   "id": "n15",
+   "who": "narrator",
+   "text": "The word gymnasium even comes from the Greek word for naked.",
+   "gap": 0.35
+  },
+  {
+   "id": "n16",
+   "who": "narrator",
+   "text": "Legend says it started when a runner's loincloth fell off mid-race... and he won.",
+   "gap": 0.4
+  },
+  {
+   "id": "n17",
+   "who": "narrator",
+   "text": "Back in our world, every bus seat would come with a towel dispenser.",
+   "gap": 0.3
+  },
+  {
+   "id": "n18",
+   "who": "narrator",
+   "text": "Because the number one rule at real nudist resorts is: always sit on a towel.",
+   "gap": 0.4,
+   "caption": "Because the #1 rule at real nudist resorts is: always sit on a towel."
+  },
+  {
+   "id": "n19",
+   "who": "narrator",
+   "text": "And there'd be sunscreen stations on every corner, because covering your whole body takes a shot glass of sunscreen, every two hours.",
+   "gap": 0.35,
+   "caption": "And there'd be sunscreen stations on every corner, because covering your whole body takes a shot glass of sunscreen, every 2 hours."
+  },
+  {
+   "id": "n20",
+   "who": "narrator",
+   "text": "At work, the dress code would just be a name tag.",
+   "gap": 0.35
+  },
+  {
+   "id": "n21",
+   "who": "narrator",
+   "text": "And the office thermostat war would finally end, because without clothes, most people are comfortable at about eighty-two degrees.",
+   "gap": 0.3,
+   "caption": "And the office thermostat war would finally end, because without clothes, most people are comfortable at about 82 degrees."
+  },
+  {
+   "id": "n22",
+   "who": "narrator",
+   "text": "Which is great for your coworkers, and terrible for the heating bill.",
+   "gap": 0.35
+  },
+  {
+   "id": "n23",
+   "who": "narrator",
+   "text": "Meanwhile, the clothing industry, worth about one point seven trillion dollars a year, would almost completely disappear.",
+   "gap": 0.35,
+   "caption": "Meanwhile, the clothing industry, worth about $1.7 trillion a year, would almost completely disappear."
+  },
+  {
+   "id": "n24",
+   "who": "narrator",
+   "text": "And the planet would get a break. Making one cotton T-shirt takes about two thousand seven hundred liters of water.",
+   "gap": 0.3,
+   "caption": "And the planet would get a break. Making one cotton T-shirt takes about 2,700 liters of water."
+  },
+  {
+   "id": "n25",
+   "who": "narrator",
+   "text": "That's enough drinking water for one person for two and a half years.",
+   "gap": 0.35,
+   "caption": "That's enough drinking water for one person for 2.5 years."
+  },
+  {
+   "id": "n26",
+   "who": "narrator",
+   "text": "But it wouldn't all be great. Cooking bacon would become an extreme sport.",
+   "gap": 0.35
+  },
+  {
+   "id": "n27",
+   "who": "narrator",
+   "text": "Which is why aprons would be the one piece of clothing everybody owns.",
+   "gap": 0.4
+  },
+  {
+   "id": "n28",
+   "who": "narrator",
+   "text": "In cold countries, coats would work like umbrellas. You'd wear one outside, and drop it the second you got in.",
+   "gap": 0.35
+  },
+  {
+   "id": "n29",
+   "who": "narrator",
+   "text": "Invited to a fancy dinner? You'd dress up by wearing... a nice watch.",
+   "gap": 0.35
+  },
+  {
+   "id": "n30",
+   "who": "narrator",
+   "text": "And anyone who showed up fully dressed would get stared at, like they'd worn a Halloween costume to dinner.",
+   "gap": 0.4
+  },
+  {
+   "id": "suit",
+   "who": "suit",
+   "text": "Is this... not the costume party?",
+   "gap": 0.4
+  },
+  {
+   "id": "n31",
+   "who": "narrator",
+   "text": "Laundry would basically disappear. The average family washes about three hundred loads a year. Now it would just be towels.",
+   "gap": 0.35,
+   "caption": "Laundry would basically disappear. The average family washes about 300 loads a year. Now it would just be towels."
+  },
+  {
+   "id": "n32",
+   "who": "narrator",
+   "text": "And getting ready for bed would take exactly zero seconds.",
+   "gap": 0.35,
+   "caption": "And getting ready for bed would take exactly 0 seconds."
+  },
+  {
+   "id": "n33",
+   "who": "narrator",
+   "text": "In fact, the only one in your house still wearing clothes... would be your dog.",
+   "gap": 0.0
+  }
+ ],
+ "sfx": [
+  [
+   "n1+0.02",
+   "alarm",
+   0.28
+  ],
+  [
+   "n1@10+-0.05",
+   "tick",
+   0.35
+  ],
+  [
+   "n1@seconds+0.3",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n2@outfit",
+   "pop",
+   0.4
+  ],
+  [
+   "n2@iron",
+   "pop",
+   0.4
+  ],
+  [
+   "n2@socks",
+   "pop",
+   0.45
+  ],
+  [
+   "n3@thats+-0.1",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n3@pantry",
+   "tada",
+   0.3
+  ],
+  [
+   "n4@pockets+0.25",
+   "clatter",
+   0.55
+  ],
+  [
+   "n5@fanny+-0.1",
+   "zip",
+   0.5
+  ],
+  [
+   "n5@best+0.1",
+   "ding",
+   0.3
+  ],
+  [
+   "n6@skin+-0.2",
+   "whoosh",
+   0.22
+  ],
+  [
+   "n7@glitter",
+   "sparkle",
+   0.3
+  ],
+  [
+   "n7@tuxedo+-0.35",
+   "shutter",
+   0.5
+  ],
+  [
+   "n8@police+-0.1",
+   "whoop",
+   0.3
+  ],
+  [
+   "n9@chef",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n10@tie+-0.05",
+   "boing",
+   0.35
+  ],
+  [
+   "n11@scientists+-0.2",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n11@170+0.5",
+   "ding",
+   0.3
+  ],
+  [
+   "n12@lice",
+   "squeak",
+   0.4
+  ],
+  [
+   "n13@split+0.05",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n14@ancient+-0.15",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n14@naked+-0.05",
+   "dun",
+   0.45
+  ],
+  [
+   "n15@gymnasium+0.1",
+   "pop",
+   0.35
+  ],
+  [
+   "n15@naked+0.05",
+   "ding",
+   0.3
+  ],
+  [
+   "n16@loincloth+0.1",
+   "whoosh",
+   0.4
+  ],
+  [
+   "n16@won+0.05",
+   "cheer",
+   0.5
+  ],
+  [
+   "n17@towel+-0.1",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n18@towel+0.05",
+   "ding",
+   0.25
+  ],
+  [
+   "n19@sunscreen+-0.1",
+   "squirt",
+   0.45
+  ],
+  [
+   "n19@shot+0.2",
+   "pop",
+   0.3
+  ],
+  [
+   "n19@hours+-0.1",
+   "tick",
+   0.3
+  ],
+  [
+   "n20@name+0.1",
+   "squeak",
+   0.3
+  ],
+  [
+   "n21@thermostat",
+   "beep",
+   0.35
+  ],
+  [
+   "n21@82+0.1",
+   "cheer",
+   0.4
+  ],
+  [
+   "n22@terrible+0.2",
+   "deflate",
+   0.4
+  ],
+  [
+   "n23@17+0.2",
+   "kaching",
+   0.4
+  ],
+  [
+   "n23@disappear+0.1",
+   "deflate",
+   0.3
+  ],
+  [
+   "n24@water+-0.1",
+   "splash",
+   0.35
+  ],
+  [
+   "n24@2700+0.4",
+   "ding",
+   0.25
+  ],
+  [
+   "n25@25+0.1",
+   "gulp",
+   0.4
+  ],
+  [
+   "n26@bacon+-0.25",
+   "sizzle",
+   0.45
+  ],
+  [
+   "n26@extreme+-0.1",
+   "dun",
+   0.35
+  ],
+  [
+   "n27@aprons+-0.1",
+   "tada",
+   0.35
+  ],
+  [
+   "n28@cold+-0.25",
+   "wind",
+   0.45
+  ],
+  [
+   "n28@drop+0.05",
+   "whoosh",
+   0.3
+  ],
+  [
+   "n29@dinner+-0.1",
+   "doorbell",
+   0.4
+  ],
+  [
+   "n29@watch+-0.05",
+   "sparkle",
+   0.35
+  ],
+  [
+   "n30@dressed+0.05",
+   "scratch",
+   0.5
+  ],
+  [
+   "n31@300+0.4",
+   "ding",
+   0.25
+  ],
+  [
+   "n31@towels+-0.1",
+   "boing",
+   0.3
+  ],
+  [
+   "n32@0+-0.15",
+   "flop",
+   0.5
+  ],
+  [
+   "n33.end+0.08",
+   "arf",
+   0.55
+  ]
+ ],
+ "music": {
+  "volume": 0.42,
+  "duck": 0.35,
+  "stop": "n33@would+-0.12",
+  "sections": [
+   {
+    "at": 0,
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n6",
+    "style": "pop",
+    "gain": 0.9
+   },
+   {
+    "at": "n8",
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n11",
+    "style": "warm",
+    "gain": 0.85
+   },
+   {
+    "at": "n14",
+    "style": "party",
+    "gain": 0.8
+   },
+   {
+    "at": "n17",
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n20",
+    "style": "pop",
+    "gain": 0.85
+   },
+   {
+    "at": "n23",
+    "style": "warm",
+    "gain": 0.85
+   },
+   {
+    "at": "n26",
+    "style": "comedy",
+    "gain": 1.0
+   },
+   {
+    "at": "n29",
+    "style": "party",
+    "gain": 0.75
+   },
+   {
+    "at": "n31",
+    "style": "comedy",
+    "gain": 0.95
+   },
+   {
+    "at": "n32",
+    "style": "warm",
+    "gain": 0.85
+   }
+  ]
+ }
+}

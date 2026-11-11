@@ -126,6 +126,15 @@ class Prim:
                          np.where(np.sign(y) * a2 * y2 < kk, np.sqrt(x2 + y2) * il2 - r1,
                                   (np.sqrt(x2 * a2 * il2) + y * rr) * il2 - r1))
             return d
+        if k == "cyl":  # capped cylinder between a and b (flat ends), edges rounded by `round`
+            a, b = np.asarray(p["a"], np.float32), np.asarray(p["b"], np.float32)
+            rnd = p.get("round", 0.0)
+            ba = b - a; L = float(np.linalg.norm(ba)); u = ba / L
+            pa = P - a
+            along = pa @ u
+            x = np.linalg.norm(pa - along[:, None] * u, axis=1)
+            d = np.stack([x - (p["r"] - rnd), np.abs(along - L / 2) - (L / 2 - rnd)], 1)
+            return np.minimum(np.max(d, axis=1), 0) + np.linalg.norm(np.maximum(d, 0), axis=1) - rnd
         if k == "box":
             Q = np.abs(self._local(P, p["c"])) - (np.asarray(p["h"], np.float32) - p.get("round", 0.0))
             return (np.linalg.norm(np.maximum(Q, 0), axis=1) + np.minimum(np.max(Q, axis=1), 0) - p.get("round", 0.0))
@@ -150,7 +159,7 @@ class Prim:
         if k in ("ell", "box"):
             c, r = np.asarray(p["c"]), max(p.get("r", p.get("h")))
             return c - r, c + r
-        if k == "cap":
+        if k in ("cap", "cyl"):
             a, b = np.asarray(p["a"]), np.asarray(p["b"])
             return np.minimum(a, b) - p["r"], np.maximum(a, b) + p["r"]
         if k == "cone":
@@ -174,6 +183,7 @@ def sphere(c, r, color, **kw): return Prim("sphere", color, c=c, r=r, **kw)
 def ell(c, r, color, rot=None, **kw): return Prim("ell", color, c=c, r=r, **({"rot": rot} if rot else {}), **kw)
 def cap(a, b, r, color, **kw): return Prim("cap", color, a=a, b=b, r=r, **kw)
 def cone(a, b, ra, rb, color, **kw): return Prim("cone", color, a=a, b=b, ra=ra, rb=rb, **kw)
+def cyl(a, b, r, color, rnd=0.0, **kw): return Prim("cyl", color, a=a, b=b, r=r, round=rnd, **kw)
 def box(c, h, color, rot=None, rnd=0.0, **kw): return Prim("box", color, c=c, h=h, round=rnd, **({"rot": rot} if rot else {}), **kw)
 def torus(c, R, r, color, rot=None, **kw): return Prim("torus", color, c=c, R=R, r=r, **({"rot": rot} if rot else {}), **kw)
 def tube(pts, radii, color, **kw): return Prim("tube", color, pts=pts, radii=radii, **kw)

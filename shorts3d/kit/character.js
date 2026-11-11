@@ -45,6 +45,7 @@ export function material(kind) {
     case 'cloth': m = addFuzz(P({ roughness: 0.82, sheen: 0.5, sheenRoughness: 0.6, sheenColor: new THREE.Color(0.7, 0.7, 0.7) }), 0.15, 800); break;
     case 'glossy': m = P({ roughness: 0.28, clearcoat: 0.7, clearcoatRoughness: 0.15 }); break;
     case 'plastic': m = P({ roughness: 0.4, clearcoat: 0.3 }); break;
+    case 'metal': m = P({ roughness: 0.26, metalness: 0.85, clearcoat: 0.4 }); break;
     case 'wing': m = P({ roughness: 0.15, transparent: true, opacity: 0.42, side: THREE.DoubleSide, depthWrite: false, iridescence: 1.0, iridescenceIOR: 1.4, clearcoat: 0.5 }); break;
     default: m = P({ roughness: 0.7 });
   }

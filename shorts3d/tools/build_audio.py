@@ -292,6 +292,101 @@ def sfx(name: str) -> np.ndarray:
         f = 600 + 60 * np.sin(2 * np.pi * 1.3 * tt) + 25 * np.sin(2 * np.pi * 7 * tt)
         sig = np.sin(2 * np.pi * np.cumsum(f) / SR) + 0.4 * np.sin(4 * np.pi * np.cumsum(f) / SR)
         return (sig * np.sin(np.pi * tt / 1.8) ** 2 * 0.25).astype(np.float32)
+    noise = lambda d: rng.standard_normal(int(d * SR)).astype(np.float32)
+    if name == "tick":  # clock ticking, four ticks over a second
+        out = np.zeros(int(1.0 * SR), np.float32)
+        for k in range(4):
+            tt = t(0.03)
+            sig = np.sin(2 * np.pi * 3200 * tt) * np.exp(-tt * 300) + 0.4 * noise(0.03) * np.exp(-tt * 400)
+            i = int(k * 0.25 * SR); out[i:i + len(tt)] += sig.astype(np.float32) * (0.6 if k % 2 else 0.45)
+        return out
+    if name == "clatter":  # phone, keys and wallet hitting the floor
+        out = np.zeros(int(1.0 * SR), np.float32)
+        for at, g in ((0.0, 1.0), (0.13, 0.5)):
+            tt = t(0.08)
+            sig = (np.sin(2 * np.pi * 520 * tt) + 0.6 * np.sin(2 * np.pi * 1380 * tt)) * np.exp(-tt * 60) + 0.5 * noise(0.08) * np.exp(-tt * 120)
+            i = int(at * SR); out[i:i + len(tt)] += (sig * g * 0.6).astype(np.float32)
+        for k in range(10):
+            b = A._bell(3000 + rng.uniform(0, 3000), 0.18) * 0.12
+            i = int(rng.uniform(0.05, 0.4) * SR); out[i:i + len(b)] += b[: len(out) - i]
+        tt = t(0.12); i = int(0.3 * SR)
+        out[i:i + len(tt)] += A._lowpass(noise(0.12), 12) * np.exp(-tt * 40) * 1.5
+        return out
+    if name == "zip":  # zipper: clicks speeding up
+        tt = t(0.4)
+        saw = (np.cumsum(70 + 140 * tt / 0.4) / SR) % 1.0
+        n = noise(0.4)
+        return ((n - A._lowpass(n, 3)) * np.exp(-saw * 25) * np.sin(np.pi * tt / 0.4) ** 0.4 * 0.7).astype(np.float32)
+    if name == "shutter":  # three camera shutters
+        out = np.zeros(int(0.9 * SR), np.float32)
+        for at in (0.0, 0.22, 0.5):
+            tt = t(0.07); n = noise(0.07)
+            sig = (n - A._lowpass(n, 2)) * (np.exp(-tt * 120) + 0.7 * np.exp(-np.abs(tt - 0.045) * 250))
+            i = int(at * SR); out[i:i + len(tt)] += sig * 0.6
+        return out
+    if name == "whoop":  # police siren chirp, two sweeps
+        tt = t(0.7)
+        ph = tt % 0.35
+        f = 650 + 850 * (ph / 0.35) ** 0.7
+        sig = np.tanh(2.5 * np.sin(2 * np.pi * np.cumsum(f) / SR))
+        return (sig * np.minimum(1, ph * 60) * np.minimum(1, (0.35 - ph) * 30) * 0.3).astype(np.float32)
+    if name == "cheer":  # crowd: many detuned "yay" voices, noise and claps
+        d = 1.8; tt = t(d); out = np.zeros(len(tt), np.float32)
+        for k in range(14):
+            f0 = rng.uniform(170, 380)
+            f = f0 * (1 + 0.04 * np.sin(2 * np.pi * rng.uniform(4, 7) * tt + rng.uniform(0, 6))) * (1 + 0.15 * np.minimum(1, tt * 3))
+            v = A._lowpass((2 * ((np.cumsum(f) / SR) % 1.0) - 1).astype(np.float32), 6)
+            st = rng.uniform(0, 0.25)
+            out += v * np.clip((tt - st) * 5, 0, 1) * np.exp(-np.maximum(0, tt - st - 0.8) * 2.2) * 0.12
+        n = noise(d)
+        out += (A._lowpass(n, 3) - A._lowpass(n, 12)) * np.minimum(1, tt * 5) * np.exp(-np.maximum(0, tt - 0.9) * 2.2) * 0.5
+        for k in range(30):
+            i = int(rng.uniform(0, d - 0.05) * SR); tc = t(0.02)
+            out[i:i + len(tc)] += noise(0.02) * np.exp(-tc * 300) * 0.2
+        return out
+    if name == "squirt":  # lotion pump
+        tt = t(0.3)
+        sig = np.sin(2 * np.pi * np.cumsum(500 * np.exp(-tt * 8) + 120) / SR) * 0.5 + A._lowpass(noise(0.3), 5) * 0.6
+        return (sig * np.sin(np.pi * tt / 0.3) ** 0.6 * 0.5).astype(np.float32)
+    if name == "beep":  # thermostat buttons: five rising beeps
+        out = np.zeros(int(1.0 * SR), np.float32)
+        for k in range(5):
+            tt = t(0.06)
+            sig = np.sin(2 * np.pi * (1800 + k * 120) * tt) * np.minimum(1, tt * 500) * np.minimum(1, (0.06 - tt) * 500)
+            i = int(k * 0.17 * SR); out[i:i + len(tt)] += sig.astype(np.float32) * 0.35
+        return out
+    if name == "kaching":  # cash register
+        out = np.zeros(int(1.2 * SR), np.float32)
+        tt = t(0.15); out[:len(tt)] += A._lowpass(noise(0.15), 2) * np.exp(-tt * 40) * 0.5
+        b = A._bell(A._midi(93), 1.0) * 0.5 + A._bell(A._midi(100), 1.0) * 0.3
+        i = int(0.08 * SR); out[i:i + len(b)] += b[: len(out) - i]
+        return out
+    if name == "sizzle":  # bacon in a pan: hiss with crackles (2 s)
+        d = 2.0; tt = t(d); n = noise(d)
+        out = (n - A._lowpass(n, 2)) * 0.25 * (0.7 + 0.3 * np.sin(2 * np.pi * 0.7 * tt))
+        for k in range(90):
+            i = int(rng.uniform(0, d - 0.01) * SR); tc = t(0.006)
+            out[i:i + len(tc)] += noise(0.006) * np.exp(-tc * 900) * rng.uniform(0.3, 1.0)
+        return (out * np.minimum(1, tt * 8) * np.minimum(1, (d - tt) * 4)).astype(np.float32)
+    if name == "wind":  # winter wind (1.6 s)
+        d = 1.6; tt = t(d)
+        wh = np.sin(2 * np.pi * np.cumsum(420 + 120 * np.sin(2 * np.pi * 0.6 * tt)) / SR) * 0.08
+        return ((A._lowpass(noise(d), 30) * 3 + wh) * np.sin(np.pi * tt / d) ** 1.2 * 0.6).astype(np.float32)
+    if name == "doorbell":  # ding-dong
+        out = np.zeros(int(1.6 * SR), np.float32)
+        a = A._bell(A._midi(76), 1.0) * 0.5; b = A._bell(A._midi(72), 1.2) * 0.5
+        out[:len(a)] += a; i = int(0.42 * SR); out[i:i + len(b)] += b[: len(out) - i]
+        return out
+    if name == "flop":  # flopping onto a mattress: thud + springs
+        tt = t(0.6)
+        thud = A._lowpass(noise(0.6), 20) * np.exp(-tt * 14) * 3
+        spring = np.sin(2 * np.pi * np.cumsum(180 + 60 * np.sin(2 * np.pi * 11 * tt)) / SR) * np.exp(-tt * 6) * 0.15
+        return (thud + spring).astype(np.float32)
+    if name == "arf":  # small dog bark
+        tt = t(0.22)
+        ph = 2 * np.pi * np.cumsum(520 + 380 * np.exp(-tt * 25) - 200 * tt / 0.22) / SR
+        sig = sum(np.sin(ph * k) / k for k in range(1, 6)) + A._lowpass(noise(0.22), 3) * 0.4
+        return (np.tanh(sig * 1.2) * np.sin(np.pi * np.clip(tt / 0.22, 0, 1)) ** 0.4 * np.exp(-tt * 6) * 0.5).astype(np.float32)
     return A.sfx(name)
 
 
