@@ -75,15 +75,17 @@ function shotList() {
   add('n1@getting', 'bedroom', {
     update(c) {
       const R = c.S.R;
-      walkTo(R.sam, V(1.55, 0, -0.85), V(-2.15, 0, -0.45), c.t, at('n1@getting') - 0.2, 1.2, { head: [0, -0.15, 0], seed: 1 });
+      const arrived = walkTo(R.sam, V(1.55, 0, -0.85), V(-1.25, 0, -0.5), c.t, at('n1@getting') - 0.2, 1.2, { head: [0, -0.15, 0], seed: 1 });
+      if (arrived >= 1) R.sam.pose({ lids: blink(c.t, 1), head: [0, -0.45, 0], look: [-0.5, 0], jaw: 0.15, nodes: { ...REST } });
       R.ten.group.visible = c.t > at('n1@10') - 0.05;
-      R.ten.group.scale.setScalar(pop(c.t, at('n1@10') - 0.05));
+      R.ten.group.scale.setScalar(0.68 * pop(c.t, at('n1@10') - 0.05));
     },
     post(c) {
       const R = c.S.R, p = R.sam.root.position;
-      R.ten.group.position.set(p.x - 0.25, 1.98, p.z + 0.3); R.ten.group.lookAt(c.camera.position);
+      const tgt = V(p.x - 0.15, 1.68, p.z + 0.05), dir = c.camera.position.clone().sub(tgt).normalize();
+      R.ten.group.position.copy(tgt).addScaledVector(dir, 0.45).add(V(0, -0.16, 0)); R.ten.group.lookAt(c.camera.position);
     },
-    camera(cam, lt, c) { const p = c.S.R.sam.root.position; aim(cam, V(p.x - 1.75, 1.78, p.z + 0.75), V(p.x - 0.15, 1.68, p.z + 0.05), { fov: 30, t: c.t }); },
+    camera(cam, lt, c) { const p = c.S.R.sam.root.position; aim(cam, V(Math.max(-2.8, p.x - 1.5), 1.78, p.z + 0.9), V(p.x - 0.15, 1.68, p.z + 0.05), { fov: 30, t: c.t }); },
     dof: focusOn((c) => head(c.S.R.sam), 0.012),
   });
   const icon = (c) => {
