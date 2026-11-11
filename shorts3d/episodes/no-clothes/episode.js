@@ -352,7 +352,7 @@ function shotList() {
   add('n13@and', 'studio', { station: 'lice',
     update(c) {
       const R = c.S.R, t = c.t;
-      const kT = ease.inOut(ramp(t, at('n13@and') - 0.05, at('n13@split') - 0.2)), kB = ease.inOut(ramp(t, at('n13@split'), at('n13@split') + 0.7));
+      const kT = ease.out(ramp(t, at('n13@and') - 0.05, at('n13@and') + 0.55)), kB = ease.inOut(ramp(t, at('n13@split'), at('n13@split') + 0.7));
       const cnt = (m, k) => m.geometry.setDrawRange(0, Math.floor(k * m.geometry.index.count / 6) * 6);
       cnt(R.tubes[0], kT); cnt(R.tubes[1], kB); cnt(R.tubes[2], kB);
       R.node.scale.setScalar(pop(t, at('n13@split') - 0.15));

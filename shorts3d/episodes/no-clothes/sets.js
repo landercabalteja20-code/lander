@@ -407,21 +407,21 @@ function studio(engine) {
     const g = st('lice');
     const mk = (pts) => new THREE.CatmullRomCurve3(pts.map((p) => V(...p)));
     R.trunk = mk([[0, 0.0, 0], [0.04, 0.5, 0], [-0.03, 1.0, 0], [0, 1.4, 0]]);
-    R.brUp = mk([[0, 1.4, 0], [-0.15, 1.75, 0], [-0.5, 2.05, 0], [-0.62, 2.35, 0]]);
-    R.brDn = mk([[0, 1.4, 0], [0.15, 1.75, 0], [0.5, 2.05, 0], [0.62, 2.35, 0]]);
+    R.brUp = mk([[0, 1.4, 0], [-0.12, 1.75, 0], [-0.4, 2.05, 0], [-0.5, 2.35, 0]]);
+    R.brDn = mk([[0, 1.4, 0], [0.12, 1.75, 0], [0.4, 2.05, 0], [0.5, 2.35, 0]]);
     const lm = P.phys('#4a7fd6', { roughness: 0.3, clearcoat: 0.8, emissive: '#2a5ab0', emissiveIntensity: 0.2 });
     R.tubes = [R.trunk, R.brUp, R.brDn].map((cv) => { const m = P.mesh(new THREE.TubeGeometry(cv, 120, 0.045, 12, false), lm); g.add(m); return m; });
     R.node = P.mesh(new THREE.SphereGeometry(0.08, 24, 16), P.phys('#f2c64a', { emissive: '#f2c64a', emissiveIntensity: 0.25 }), { y: 1.4 }); g.add(R.node);
-    R.lblHead = T3('HEAD LICE', { size: 0.075, depth: 0.025, color: '#1d2a44' }); R.lblHead.group.position.set(-0.62, 2.95, 0); g.add(R.lblHead.group);
-    R.lblBody = T3('BODY LICE', { size: 0.075, depth: 0.025, color: '#1d2a44' }); R.lblBody.group.position.set(0.62, 2.95, 0); g.add(R.lblBody.group);
+    R.lblHead = T3('HEAD LICE', { size: 0.062, depth: 0.02, color: '#1d2a44' }); R.lblHead.group.position.set(-0.47, 2.92, 0); g.add(R.lblHead.group);
+    R.lblBody = T3('BODY LICE', { size: 0.062, depth: 0.02, color: '#1d2a44' }); R.lblBody.group.position.set(0.47, 2.92, 0); g.add(R.lblBody.group);
     R.lblYears = new THREE.Group(); R.lblYears.position.set(0, 1.12, 0.08); g.add(R.lblYears);
     const y1 = T3('170,000', { size: 0.12, depth: 0.04, color: '#c0392b' }), y2 = T3('YEARS AGO', { size: 0.055, depth: 0.02, color: '#c0392b' });
     y2.group.position.y = -0.1; R.lblYears.add(y1.group, y2.group); R.lblYears = { group: R.lblYears };
-    R.hair = P.mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.9, 10).rotateZ(PI / 2 - 0.25), P.phys('#3a2618', { roughness: 0.4 }), { x: -0.62, y: 2.62 }); g.add(R.hair);
+    R.hair = P.mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.9, 10).rotateZ(PI / 2 - 0.25), P.phys('#3a2618', { roughness: 0.4 }), { x: -0.5, y: 2.62 }); g.add(R.hair);
     const knit = canvasTex(256, 256, (c, w, h) => { c.fillStyle = '#c86a3a'; c.fillRect(0, 0, w, h); c.strokeStyle = '#9a4a24'; c.lineWidth = 6; for (let y = 0; y < h; y += 16) for (let x = 0; x < w; x += 16) { c.beginPath(); c.moveTo(x, y); c.lineTo(x + 8, y + 14); c.lineTo(x + 16, y); c.stroke(); } });
-    R.cloth = P.mesh(new THREE.BoxGeometry(0.62, 0.04, 0.45), P.phys('#ffffff', { map: knit, roughness: 0.95, sheen: 0.8 }), { x: 0.62, y: 2.4, rx: 0.35 }); g.add(R.cloth);
-    R.lh = person('headlouse'); R.lh.root.scale.setScalar(1.4); R.lh.root.position.set(-0.6, 2.63, 0.05); R.lh.root.rotation.set(0.5, 0.3, 0); g.add(R.lh.root);
-    R.lb = person('louse'); R.lb.root.scale.setScalar(1.4); R.lb.root.position.set(0.62, 2.46, 0.12); R.lb.root.rotation.set(0.5, -0.3, 0); g.add(R.lb.root);
+    R.cloth = P.mesh(new THREE.BoxGeometry(0.62, 0.04, 0.45), P.phys('#ffffff', { map: knit, roughness: 0.95, sheen: 0.8 }), { x: 0.5, y: 2.4, rx: 0.35 }); g.add(R.cloth);
+    R.lh = person('headlouse'); R.lh.root.scale.setScalar(1.4); R.lh.root.position.set(-0.48, 2.63, 0.05); R.lh.root.rotation.set(0.5, 0.3, 0); g.add(R.lh.root);
+    R.lb = person('louse'); R.lb.root.scale.setScalar(1.4); R.lb.root.position.set(0.5, 2.46, 0.12); R.lb.root.rotation.set(0.5, -0.3, 0); g.add(R.lb.root);
   }
   // --- a shot glass of sunscreen + every two hours
   {
