@@ -559,13 +559,15 @@ function street(engine) {
   // Sam's building: brick facade with a front door (x = 0, facade at z = -8.1)
   const brick = canvasTex(512, 512, (c, w, h) => { c.fillStyle = '#a65a3e'; c.fillRect(0, 0, w, h); c.fillStyle = '#c9b8a2'; for (let y = 0; y < h; y += 32) { c.fillRect(0, y, w, 4); for (let x = (y / 32) % 2 ? 0 : 32; x < w; x += 64) c.fillRect(x, y, 4, 32); } });
   brick.wrapS = brick.wrapT = THREE.RepeatWrapping; brick.repeat.set(3, 4);
-  scene.add(P.mesh(new THREE.BoxGeometry(11.6, 14, 12), P.phys('#ffffff', { map: brick, roughness: 0.9 }), { y: 7, z: -14.1 }));
+  const brickM = P.phys('#ffffff', { map: brick, roughness: 0.9 });
+  scene.add(P.mesh(new THREE.BoxGeometry(5.18, 14, 12), brickM, { x: -3.21, y: 7, z: -14.1 }), P.mesh(new THREE.BoxGeometry(5.18, 14, 12), brickM, { x: 3.21, y: 7, z: -14.1 }),
+    P.mesh(new THREE.BoxGeometry(1.24, 11.63, 12), brickM, { y: 8.185, z: -14.1 }));
+  scene.add(P.mesh(new THREE.BoxGeometry(1.22, 2.36, 3.0), new THREE.MeshBasicMaterial({ color: '#16110d', side: THREE.BackSide }), { y: 1.18, z: -9.6, cast: false }));
   const trim = P.phys('#efe9de', { roughness: 0.5 });
   scene.add(P.mesh(P.rbox(1.5, 0.15, 0.25, 0.03), trim, { y: 2.45, z: -8.05 }), P.mesh(P.rbox(0.15, 2.4, 0.2, 0.03), trim, { x: -0.68, y: 1.3, z: -8.05 }), P.mesh(P.rbox(0.15, 2.4, 0.2, 0.03), trim, { x: 0.68, y: 1.3, z: -8.05 }));
   R.doorHinge = new THREE.Group(); R.doorHinge.position.set(-0.6, 0.15, -8.08); scene.add(R.doorHinge);
   R.doorHinge.add(P.mesh(P.rbox(1.2, 2.2, 0.06, 0.02), P.phys('#2c5a3e', { roughness: 0.35, clearcoat: 0.6 }), { x: 0.6, y: 1.1 }));
   R.doorHinge.add(P.mesh(new THREE.SphereGeometry(0.035, 16, 12), P.phys('#d9b26a', { metalness: 0.9, roughness: 0.3 }), { x: 1.08, y: 1.05, z: 0.05 }));
-  scene.add(P.mesh(new THREE.PlaneGeometry(1.2, 2.2), P.std('#1a1410'), { y: 1.25, z: -8.12, cast: false }));
   scene.add(P.mesh(new THREE.BoxGeometry(1.6, 0.04, 0.6), P.phys('#3a2a20', { roughness: 0.9 }), { y: 0.17, z: -7.6 }));
   const num = signPlane(['42'], 0.3, 0.18, { bg: '#1c1c1c', fg: '#f2c64a' }); num.position.set(0, 2.65, -7.94); scene.add(num);
   // street furniture

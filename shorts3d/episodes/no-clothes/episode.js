@@ -162,7 +162,7 @@ function shotList() {
       R.sam.pose({ lids: blink(c.t, 2), head: [0.12, 0, 0], look: [0, -0.2], nodes: { ...REST, ...(c.t < at('n4') + 1.7 ? walkNodes((c.t - at('n4')) * 1.0 / 1.4 * PI * 2, 1, false) : {}), ...holding } });
       holdItems(c);
     },
-    camera: move(V(0.45, 1.75, -5.4), V(0.35, 1.72, -5.8), V(0, 1.68, -7.4), V(0, 1.66, -7.2), { fov: 28 }),
+    camera(cam, lt, c) { const h = head(c.S.R.sam); aim(cam, V(h.x + 0.35, h.y + 0.02, Math.max(h.z + 1.65, -6.4)), h.clone().add(V(0, -0.14, 0)), { fov: 30, t: c.t }); },
     dof: focusOn((c) => head(c.S.R.sam), 0.01),
   });
   add('n4@no', 'street', {
