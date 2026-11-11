@@ -512,7 +512,7 @@ function studio(engine) {
     R.basketN = i;
     R.baskets.castShadow = R.laundry.castShadow = true;
     g.add(R.baskets, R.laundry);
-    R.loads = T3('0 LOADS', { size: 0.3, depth: 0.09, color: '#e3342f', emissive: 0.1 }); R.loads.group.position.set(0, 3.45, 0.2); g.add(R.loads.group);
+    R.loads = T3('0 LOADS', { size: 0.3, depth: 0.09, color: '#e3342f', emissive: 0.1 }); R.loads.group.position.set(0, 3.1, 0.2); g.add(R.loads.group);
     R.puffs = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(0.2, 1), new THREE.MeshStandardMaterial({ color: '#ffffff', roughness: 1, transparent: true, opacity: 0.85 }), 40);
     g.add(R.puffs);
   }
