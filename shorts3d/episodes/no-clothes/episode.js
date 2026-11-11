@@ -662,7 +662,7 @@ function shotList() {
     camera: move(V(-0.75, 1.55, 1.55), V(-0.5, 1.5, 1.3), V(0, 1.3, -0.3), V(0, 1.3, -0.35), { fov: 36 }),
     dof: focusOn((c) => head(c.S.R.sam), 0.008) });
   add('n26@cooking', 'kitchen', {
-    update(c) { fry(c, 1); },
+    update(c) { fry(c, 1); c.S.R.sam.pose({ lids: 1, head: [0.35, 0, 0], look: [0, -0.4], dilate: 1.2, nodes: { ...REST, arm_r: [-0.6, 0, -0.25], fore_r: [-1.0, 0, 0.2], arm_l: [-0.3, 0, 0.1] } }); },
     camera: move(V(0.42, 1.18, 0.78), V(0.36, 1.14, 0.7), V(0, 0.98, 0.2), V(0, 0.98, 0.2), { fov: 32 }),
     dof: focusAt(V(0, 0.99, 0.2), 0.03), bloom: { strength: 0.5, threshold: 0.8 } });
   add('n26@extreme', 'kitchen', {

@@ -257,7 +257,7 @@ export function office(engine) {
       const row = Math.floor(j / 2), sv = Math.max(0, L * (row / segs));
       const q = path(sv);
       pa.setXYZ(j, q.x + (j % 2 ? 0.17 : -0.17), q.y, q.z);
-      uv.setY(j, 1 - (L - sv) / 6);
+      uv.setY(j, Math.min(0.97, (L - sv) / 6 + 0.36));   // text reads top-down along the hanging paper
     }
     pa.needsUpdate = true; uv.needsUpdate = true; R.billGeo.computeVertexNormals(); R.billGeo.computeBoundingSphere();
   };

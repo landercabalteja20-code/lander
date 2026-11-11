@@ -102,6 +102,8 @@ export class Engine {
       if (!build) throw new Error('unknown scene ' + name);
       const s = build(this);
       if (!s.scene.environment) s.scene.environment = this.roomEnv;
+      // instanced meshes change counts/matrices per frame; a bounding sphere cached at count 0 would cull them for good
+      s.scene.traverse((o) => { if (o.isInstancedMesh) o.frustumCulled = false; });
       this.sceneCache.set(name, s);
     }
     return this.sceneCache.get(name);
