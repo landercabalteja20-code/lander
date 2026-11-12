@@ -7,6 +7,7 @@ A reference for the next "In this town…" Roblox-style story video. It is built
 | `README.md` (this file) | The full style spec and a production checklist |
 | [`script-template.md`](script-template.md) | Fill-in-the-blank script, an original example script with a shot list, and premise ideas |
 | [`breakdowns.md`](breakdowns.md) | Beat-by-beat breakdown of each reference video |
+| [`tuesday-again/`](tuesday-again/) | Your "Tuesday, Again" script animated in this style: the timed script and the full source to re-render it |
 
 > The original reference videos and full transcripts are **not** in this repo, because the repo is public and the videos belong to another creator. They're saved on a private reference page that only you can open: https://claude.ai/artifact/FT4je37bQZ549P94xFFF9V
 

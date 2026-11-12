@@ -1,0 +1,1055 @@
+[
+ {
+  "i": 0,
+  "section": "hook",
+  "cap": "In this town, everyone wakes up on the same day.",
+  "say": "In this town, everyone wakes up on the same day.",
+  "start": 0.0,
+  "end": 2.239,
+  "gap": 0.4
+ },
+ {
+  "i": 1,
+  "section": "hook",
+  "cap": "Every morning at exactly 7:06, a yellow bus passes the church.",
+  "say": "Every morning at exactly seven oh six, a yellow bus passes the church.",
+  "start": 2.639,
+  "end": 6.131,
+  "gap": 0.4
+ },
+ {
+  "i": 2,
+  "section": "hook",
+  "cap": "At 8:15, a woman drops her coffee outside the bakery.",
+  "say": "At eight fifteen, a woman drops her coffee outside the bakery.",
+  "start": 6.531,
+  "end": 9.347,
+  "gap": 0.4
+ },
+ {
+  "i": 3,
+  "section": "hook",
+  "cap": "And at 4:30, a little boy loses his red balloon.",
+  "say": "And at four thirty, a little boy loses his red balloon.",
+  "start": 9.747,
+  "end": 12.212,
+  "gap": 0.45
+ },
+ {
+  "i": 4,
+  "section": "hook",
+  "cap": "Nothing unusual ever happens here.",
+  "say": "Nothing unusual ever happens here.",
+  "start": 12.662,
+  "end": 14.43,
+  "gap": 0.35
+ },
+ {
+  "i": 5,
+  "section": "hook",
+  "cap": "Except that tomorrow never comes.",
+  "say": "Except that tomorrow never comes.",
+  "start": 14.78,
+  "end": 16.449,
+  "gap": 0.55
+ },
+ {
+  "i": 6,
+  "section": "hook",
+  "cap": "Every night, at exactly 11:59, the town's clock stops.",
+  "say": "Every night, at exactly eleven fifty-nine, the town's clock stops.",
+  "start": 16.999,
+  "end": 20.212,
+  "gap": 0.45
+ },
+ {
+  "i": 7,
+  "section": "hook",
+  "cap": "The lights go out.",
+  "say": "The lights go out.",
+  "start": 20.662,
+  "end": 21.672,
+  "gap": 0.6
+ },
+ {
+  "i": 8,
+  "section": "hook",
+  "cap": "And when everyone opens their eyes, it's Tuesday again.",
+  "say": "And when everyone opens their eyes, it's Tuesday again.",
+  "start": 22.272,
+  "end": 24.692,
+  "gap": 0.45
+ },
+ {
+  "i": 9,
+  "section": "hook",
+  "cap": "For most people, this is perfectly normal.",
+  "say": "For most people, this is perfectly normal.",
+  "start": 25.142,
+  "end": 27.093,
+  "gap": 0.35
+ },
+ {
+  "i": 10,
+  "section": "hook",
+  "cap": "Because nobody remembers yesterday.",
+  "say": "Because nobody remembers yesterday.",
+  "start": 27.444,
+  "end": 29.269,
+  "gap": 0.4
+ },
+ {
+  "i": 11,
+  "section": "hook",
+  "cap": "Nobody, except a 17-year-old girl named Clara.",
+  "say": "Nobody, except a seventeen-year-old girl named Clara.",
+  "start": 29.669,
+  "end": 32.466,
+  "gap": 0.55
+ },
+ {
+  "i": 12,
+  "section": "exp",
+  "cap": "At first, Clara thinks she's dreaming.",
+  "say": "At first, Clara thinks she's dreaming.",
+  "start": 33.016,
+  "end": 34.745,
+  "gap": 0.35
+ },
+ {
+  "i": 13,
+  "section": "exp",
+  "cap": "She tries changing things.",
+  "say": "She tries changing things.",
+  "start": 35.095,
+  "end": 36.541,
+  "gap": 0.4
+ },
+ {
+  "i": 14,
+  "section": "exp",
+  "cap": "On her 8th loop, she stops the woman from spilling her coffee.",
+  "say": "On her eighth loop, she stops the woman from spilling her coffee.",
+  "start": 36.941,
+  "end": 39.654,
+  "gap": 0.4
+ },
+ {
+  "i": 15,
+  "section": "exp",
+  "cap": "On her 15th, she prevents a car accident.",
+  "say": "On her fifteenth, she prevents a car accident.",
+  "start": 40.054,
+  "end": 42.098,
+  "gap": 0.4
+ },
+ {
+  "i": 16,
+  "section": "exp",
+  "cap": "On her 23rd, she sets fire to an abandoned house.",
+  "say": "On her twenty-third, she sets fire to an abandoned house.",
+  "start": 42.498,
+  "end": 45.043,
+  "gap": 0.45
+ },
+ {
+  "i": 17,
+  "section": "exp",
+  "cap": "But whatever she does, the next morning, everything returns to normal.",
+  "say": "But whatever she does, the next morning, everything returns to normal.",
+  "start": 45.493,
+  "end": 48.609,
+  "gap": 0.4
+ },
+ {
+  "i": 18,
+  "section": "exp",
+  "cap": "The coffee spills.",
+  "say": "The coffee spills.",
+  "start": 49.009,
+  "end": 49.905,
+  "gap": 0.3
+ },
+ {
+  "i": 19,
+  "section": "exp",
+  "cap": "The accident happens.",
+  "say": "The accident happens.",
+  "start": 50.205,
+  "end": 51.42,
+  "gap": 0.3
+ },
+ {
+  "i": 20,
+  "section": "exp",
+  "cap": "The house is standing again.",
+  "say": "The house is standing again.",
+  "start": 51.72,
+  "end": 53.132,
+  "gap": 0.3
+ },
+ {
+  "i": 21,
+  "section": "exp",
+  "cap": "Even the people who died are alive.",
+  "say": "Even the people who died are alive.",
+  "start": 53.432,
+  "end": 55.109,
+  "gap": 0.45
+ },
+ {
+  "i": 22,
+  "section": "exp",
+  "cap": "Clara starts keeping a record of every repetition.",
+  "say": "Clara starts keeping a record of every repetition.",
+  "start": 55.559,
+  "end": 58.115,
+  "gap": 0.4
+ },
+ {
+  "i": 23,
+  "section": "exp",
+  "cap": "By the time she reaches her 99th loop, she's convinced there's only one way out.",
+  "say": "By the time she reaches her ninety-ninth loop, she's convinced there's only one way out.",
+  "start": 58.515,
+  "end": 62.492,
+  "gap": 0.4
+ },
+ {
+  "i": 24,
+  "section": "exp",
+  "cap": "She has to leave town before midnight.",
+  "say": "She has to leave town before midnight.",
+  "start": 62.892,
+  "end": 64.611,
+  "gap": 0.55
+ },
+ {
+  "i": 25,
+  "section": "road",
+  "cap": "At 10:47 that evening, Clara steals a car.",
+  "say": "At ten forty-seven that evening, Clara steals a car.",
+  "start": 65.161,
+  "end": 67.733,
+  "gap": 0.4
+ },
+ {
+  "i": 26,
+  "section": "road",
+  "cap": "She drives past the last houses, through the fields, and toward the highway.",
+  "say": "She drives past the last houses, through the fields, and toward the highway.",
+  "start": 68.133,
+  "end": 71.371,
+  "gap": 0.4
+ },
+ {
+  "i": 27,
+  "section": "road",
+  "cap": "But something strange happens.",
+  "say": "But something strange happens.",
+  "start": 71.771,
+  "end": 73.22,
+  "gap": 0.4
+ },
+ {
+  "i": 28,
+  "section": "road",
+  "cap": "The road doesn't lead back into town.",
+  "say": "The road doesn't lead back into town.",
+  "start": 73.62,
+  "end": 75.422,
+  "gap": 0.35
+ },
+ {
+  "i": 29,
+  "section": "road",
+  "cap": "It simply ends.",
+  "say": "It simply ends.",
+  "start": 75.772,
+  "end": 76.759,
+  "gap": 0.5
+ },
+ {
+  "i": 30,
+  "section": "road",
+  "cap": "Not at a wall.",
+  "say": "Not at a wall.",
+  "start": 77.259,
+  "end": 78.085,
+  "gap": 0.3
+ },
+ {
+  "i": 31,
+  "section": "road",
+  "cap": "Not at a cliff.",
+  "say": "Not at a cliff.",
+  "start": 78.385,
+  "end": 79.255,
+  "gap": 0.35
+ },
+ {
+  "i": 32,
+  "section": "road",
+  "cap": "At a perfectly straight line in the ground.",
+  "say": "At a perfectly straight line in the ground.",
+  "start": 79.605,
+  "end": 81.524,
+  "gap": 0.4
+ },
+ {
+  "i": 33,
+  "section": "road",
+  "cap": "Beyond it, there is nothing but darkness.",
+  "say": "Beyond it, there is nothing but darkness.",
+  "start": 81.924,
+  "end": 83.692,
+  "gap": 0.6
+ },
+ {
+  "i": 34,
+  "section": "road",
+  "cap": "Then she notices something beneath the road.",
+  "say": "Then she notices something beneath the road.",
+  "start": 84.292,
+  "end": 86.312,
+  "gap": 0.4
+ },
+ {
+  "i": 35,
+  "section": "road",
+  "cap": "A metal staircase.",
+  "say": "A metal staircase.",
+  "start": 86.712,
+  "end": 87.851,
+  "gap": 0.35
+ },
+ {
+  "i": 36,
+  "section": "road",
+  "cap": "It leads underground.",
+  "say": "It leads underground.",
+  "start": 88.201,
+  "end": 89.414,
+  "gap": 0.4
+ },
+ {
+  "i": 37,
+  "section": "road",
+  "cap": "And from somewhere below, she hears people shouting.",
+  "say": "And from somewhere below, she hears people shouting.",
+  "start": 89.814,
+  "end": 91.965,
+  "gap": 0.4
+ },
+ {
+  "i": 38,
+  "section": "road",
+  "cap": "She follows the voices.",
+  "say": "She follows the voices.",
+  "start": 92.365,
+  "end": 93.638,
+  "gap": 0.4
+ },
+ {
+  "i": 39,
+  "section": "road",
+  "cap": "After descending for what feels like an hour, she reaches a door.",
+  "say": "After descending for what feels like an hour, she reaches a door.",
+  "start": 94.038,
+  "end": 96.915,
+  "gap": 0.4
+ },
+ {
+  "i": 40,
+  "section": "road",
+  "cap": "On it are 3 words.",
+  "say": "On it are three words.",
+  "start": 97.315,
+  "end": 98.452,
+  "gap": 0.5
+ },
+ {
+  "i": 41,
+  "section": "road",
+  "cap": "TUESDAY, NUMBER 98.",
+  "say": "Tuesday. Number ninety-eight.",
+  "start": 98.952,
+  "end": 100.266,
+  "gap": 0.7
+ },
+ {
+  "i": 42,
+  "section": "twist",
+  "cap": "Clara opens the door.",
+  "say": "Clara opens the door.",
+  "start": 100.966,
+  "end": 102.264,
+  "gap": 0.4
+ },
+ {
+  "i": 43,
+  "section": "twist",
+  "cap": "And finds her town.",
+  "say": "And finds her town.",
+  "start": 102.664,
+  "end": 103.783,
+  "gap": 0.45
+ },
+ {
+  "i": 44,
+  "section": "twist",
+  "cap": "The same church.",
+  "say": "The same church.",
+  "start": 104.233,
+  "end": 105.142,
+  "gap": 0.3
+ },
+ {
+  "i": 45,
+  "section": "twist",
+  "cap": "The same bakery.",
+  "say": "The same bakery.",
+  "start": 105.442,
+  "end": 106.445,
+  "gap": 0.3
+ },
+ {
+  "i": 46,
+  "section": "twist",
+  "cap": "The same yellow bus.",
+  "say": "The same yellow bus.",
+  "start": 106.745,
+  "end": 107.96,
+  "gap": 0.4
+ },
+ {
+  "i": 47,
+  "section": "twist",
+  "cap": "But everything is destroyed.",
+  "say": "But everything is destroyed.",
+  "start": 108.36,
+  "end": 109.827,
+  "gap": 0.5
+ },
+ {
+  "i": 48,
+  "section": "twist",
+  "cap": "The buildings are damaged.",
+  "say": "The buildings are damaged.",
+  "start": 110.327,
+  "end": 111.553,
+  "gap": 0.3
+ },
+ {
+  "i": 49,
+  "section": "twist",
+  "cap": "The streets are flooded.",
+  "say": "The streets are flooded.",
+  "start": 111.853,
+  "end": 112.954,
+  "gap": 0.3
+ },
+ {
+  "i": 50,
+  "section": "twist",
+  "cap": "Hundreds of people are living inside the empty shops.",
+  "say": "Hundreds of people are living inside the empty shops.",
+  "start": 113.254,
+  "end": 115.848,
+  "gap": 0.45
+ },
+ {
+  "i": 51,
+  "section": "twist",
+  "cap": "Then a woman approaches her.",
+  "say": "Then a woman approaches her.",
+  "start": 116.298,
+  "end": 117.637,
+  "gap": 0.4
+ },
+ {
+  "i": 52,
+  "section": "twist",
+  "cap": "It's the woman who drops her coffee every morning.",
+  "say": "It's the woman who drops her coffee every morning.",
+  "start": 118.037,
+  "end": 120.275,
+  "gap": 0.4
+ },
+ {
+  "i": 53,
+  "section": "twist",
+  "cap": "Except this version looks exhausted.",
+  "say": "Except this version looks exhausted.",
+  "start": 120.675,
+  "end": 122.492,
+  "gap": 0.35
+ },
+ {
+  "i": 54,
+  "section": "twist",
+  "cap": "She has a scar across her face.",
+  "say": "She has a scar across her face.",
+  "start": 122.842,
+  "end": 124.428,
+  "gap": 0.45
+ },
+ {
+  "i": 55,
+  "section": "twist",
+  "cap": "Clara asks what happened to the town.",
+  "say": "Clara asks what happened to the town.",
+  "start": 124.878,
+  "end": 126.667,
+  "gap": 0.35
+ },
+ {
+  "i": 56,
+  "section": "twist",
+  "cap": "The woman looks at her.",
+  "say": "The woman looks at her.",
+  "start": 127.017,
+  "end": 128.072,
+  "gap": 0.35
+ },
+ {
+  "i": 57,
+  "section": "twist",
+  "cap": "\u201cWhat do you mean?\u201d",
+  "say": "What do you mean?",
+  "start": 128.422,
+  "end": 129.194,
+  "gap": 0.45
+ },
+ {
+  "i": 58,
+  "section": "twist",
+  "cap": "Clara explains the time loop.",
+  "say": "Clara explains the time loop.",
+  "start": 129.644,
+  "end": 131.23,
+  "gap": 0.35
+ },
+ {
+  "i": 59,
+  "section": "twist",
+  "cap": "And the woman begins laughing.",
+  "say": "And the woman begins laughing.",
+  "start": 131.58,
+  "end": 133.008,
+  "gap": 0.4
+ },
+ {
+  "i": 60,
+  "section": "twist",
+  "cap": "Then she says something Clara will never forget.",
+  "say": "Then she says something Clara will never forget.",
+  "start": 133.408,
+  "end": 135.417,
+  "gap": 0.5
+ },
+ {
+  "i": 61,
+  "section": "twist",
+  "cap": "\u201cSweetheart, time doesn't repeat here.\u201d",
+  "say": "Sweetheart, time doesn't repeat here.",
+  "start": 135.917,
+  "end": 137.669,
+  "gap": 0.45
+ },
+ {
+  "i": 62,
+  "section": "twist",
+  "cap": "\u201cEvery midnight, they build another town directly above us.\u201d",
+  "say": "Every midnight, they build another town directly above us.",
+  "start": 138.119,
+  "end": 140.865,
+  "gap": 0.4
+ },
+ {
+  "i": 63,
+  "section": "twist",
+  "cap": "\u201cThey copy our houses.",
+  "say": "They copy our houses.",
+  "start": 141.265,
+  "end": 142.468,
+  "gap": 0.25
+ },
+ {
+  "i": 64,
+  "section": "twist",
+  "cap": "Our streets.",
+  "say": "Our streets.",
+  "start": 142.718,
+  "end": 143.442,
+  "gap": 0.25
+ },
+ {
+  "i": 65,
+  "section": "twist",
+  "cap": "Even our people.\u201d",
+  "say": "Even our people.",
+  "start": 143.692,
+  "end": 144.548,
+  "gap": 0.4
+ },
+ {
+  "i": 66,
+  "section": "twist",
+  "cap": "\u201cAnd they leave the old ones underneath.\u201d",
+  "say": "And they leave the old ones underneath.",
+  "start": 144.948,
+  "end": 146.664,
+  "gap": 0.55
+ },
+ {
+  "i": 67,
+  "section": "horror",
+  "cap": "Clara looks around.",
+  "say": "Clara looks around.",
+  "start": 147.214,
+  "end": 148.353,
+  "gap": 0.4
+ },
+ {
+  "i": 68,
+  "section": "horror",
+  "cap": "The woman explains that there are 98 towns buried below the surface.",
+  "say": "The woman explains that there are ninety-eight towns buried below the surface.",
+  "start": 148.753,
+  "end": 151.991,
+  "gap": 0.4
+ },
+ {
+  "i": 69,
+  "section": "horror",
+  "cap": "Every single one is filled with people who believe they lived through an ordinary Tuesday.",
+  "say": "Every single one is filled with people who believe they lived through an ordinary Tuesday.",
+  "start": 152.391,
+  "end": 156.329,
+  "gap": 0.4
+ },
+ {
+  "i": 70,
+  "section": "horror",
+  "cap": "But at midnight, a new copy appears above them.",
+  "say": "But at midnight, a new copy appears above them.",
+  "start": 156.729,
+  "end": 158.828,
+  "gap": 0.35
+ },
+ {
+  "i": 71,
+  "section": "horror",
+  "cap": "The old town sinks underground.",
+  "say": "The old town sinks underground.",
+  "start": 159.178,
+  "end": 160.875,
+  "gap": 0.35
+ },
+ {
+  "i": 72,
+  "section": "horror",
+  "cap": "And the new residents wake up without any memory of what happened.",
+  "say": "And the new residents wake up without any memory of what happened.",
+  "start": 161.225,
+  "end": 163.93,
+  "gap": 0.45
+ },
+ {
+  "i": 73,
+  "section": "horror",
+  "cap": "Except Clara.",
+  "say": "Except Clara.",
+  "start": 164.38,
+  "end": 165.288,
+  "gap": 0.5
+ },
+ {
+  "i": 74,
+  "section": "horror",
+  "cap": "For some reason, every new version of Clara inherits the memories of the girl before her.",
+  "say": "For some reason, every new version of Clara inherits the memories of the girl before her.",
+  "start": 165.788,
+  "end": 169.895,
+  "gap": 0.45
+ },
+ {
+  "i": 75,
+  "section": "horror",
+  "cap": "The woman leads her to a room filled with photographs.",
+  "say": "The woman leads her to a room filled with photographs.",
+  "start": 170.345,
+  "end": 172.757,
+  "gap": 0.4
+ },
+ {
+  "i": 76,
+  "section": "horror",
+  "cap": "In every photograph, Clara is standing beside the clock tower.",
+  "say": "In every photograph, Clara is standing beside the clock tower.",
+  "start": 173.157,
+  "end": 176.032,
+  "gap": 0.4
+ },
+ {
+  "i": 77,
+  "section": "horror",
+  "cap": "There are 98 photographs.",
+  "say": "There are ninety-eight photographs.",
+  "start": 176.432,
+  "end": 177.984,
+  "gap": 0.35
+ },
+ {
+  "i": 78,
+  "section": "horror",
+  "cap": "98 different Claras.",
+  "say": "Ninety-eight different Claras.",
+  "start": 178.334,
+  "end": 179.841,
+  "gap": 0.5
+ },
+ {
+  "i": 79,
+  "section": "horror",
+  "cap": "Clara realizes something horrible.",
+  "say": "Clara realizes something horrible.",
+  "start": 180.341,
+  "end": 182.059,
+  "gap": 0.4
+ },
+ {
+  "i": 80,
+  "section": "horror",
+  "cap": "She hasn't been surviving the same day.",
+  "say": "She hasn't been surviving the same day.",
+  "start": 182.459,
+  "end": 184.292,
+  "gap": 0.4
+ },
+ {
+  "i": 81,
+  "section": "horror",
+  "cap": "She's been watching 98 different versions of herself replace one another.",
+  "say": "She's been watching ninety-eight different versions of herself replace one another.",
+  "start": 184.692,
+  "end": 188.159,
+  "gap": 0.4
+ },
+ {
+  "i": 82,
+  "section": "horror",
+  "cap": "And somewhere beneath her feet, all the previous versions are still alive.",
+  "say": "And somewhere beneath her feet, all the previous versions are still alive.",
+  "start": 188.559,
+  "end": 191.662,
+  "gap": 0.6
+ },
+ {
+  "i": 83,
+  "section": "final",
+  "cap": "Suddenly, the underground lights turn red.",
+  "say": "Suddenly, the underground lights turn red.",
+  "start": 192.262,
+  "end": 194.29,
+  "gap": 0.35
+ },
+ {
+  "i": 84,
+  "section": "final",
+  "cap": "A siren sounds.",
+  "say": "A siren sounds.",
+  "start": 194.64,
+  "end": 195.686,
+  "gap": 0.4
+ },
+ {
+  "i": 85,
+  "section": "final",
+  "cap": "The woman grabs Clara's arm.",
+  "say": "The woman grabs Clara's arm.",
+  "start": 196.086,
+  "end": 197.651,
+  "gap": 0.35
+ },
+ {
+  "i": 86,
+  "section": "final",
+  "cap": "\u201cYou need to get back upstairs.\u201d",
+  "say": "You need to get back upstairs!",
+  "start": 198.001,
+  "end": 199.463,
+  "gap": 0.4
+ },
+ {
+  "i": 87,
+  "section": "final",
+  "cap": "Clara asks why.",
+  "say": "Clara asks why.",
+  "start": 199.863,
+  "end": 201.006,
+  "gap": 0.35
+ },
+ {
+  "i": 88,
+  "section": "final",
+  "cap": "The woman points to the clock.",
+  "say": "The woman points to the clock.",
+  "start": 201.356,
+  "end": 202.711,
+  "gap": 0.4
+ },
+ {
+  "i": 89,
+  "section": "final",
+  "cap": "It's 11:58.",
+  "say": "It's eleven fifty-eight.",
+  "start": 203.111,
+  "end": 204.371,
+  "gap": 0.5
+ },
+ {
+  "i": 90,
+  "section": "final",
+  "cap": "Then the ground begins to shake.",
+  "say": "Then the ground begins to shake.",
+  "start": 204.871,
+  "end": 206.381,
+  "gap": 0.4
+ },
+ {
+  "i": 91,
+  "section": "final",
+  "cap": "Clara hears a deep mechanical noise coming from above.",
+  "say": "Clara hears a deep mechanical noise coming from above.",
+  "start": 206.781,
+  "end": 209.522,
+  "gap": 0.4
+ },
+ {
+  "i": 92,
+  "section": "final",
+  "cap": "She looks up through a crack in the ceiling.",
+  "say": "She looks up through a crack in the ceiling.",
+  "start": 209.922,
+  "end": 211.741,
+  "gap": 0.4
+ },
+ {
+  "i": 93,
+  "section": "final",
+  "cap": "And sees an entire new town slowly forming in the darkness.",
+  "say": "And sees an entire new town slowly forming in the darkness.",
+  "start": 212.141,
+  "end": 214.954,
+  "gap": 0.45
+ },
+ {
+  "i": 94,
+  "section": "final",
+  "cap": "Another church.",
+  "say": "Another church.",
+  "start": 215.404,
+  "end": 216.256,
+  "gap": 0.3
+ },
+ {
+  "i": 95,
+  "section": "final",
+  "cap": "Another bakery.",
+  "say": "Another bakery.",
+  "start": 216.556,
+  "end": 217.465,
+  "gap": 0.3
+ },
+ {
+  "i": 96,
+  "section": "final",
+  "cap": "Another yellow bus.",
+  "say": "Another yellow bus.",
+  "start": 217.765,
+  "end": 218.906,
+  "gap": 0.4
+ },
+ {
+  "i": 97,
+  "section": "final",
+  "cap": "And standing outside one of the houses\u2026",
+  "say": "And standing outside one of the houses...",
+  "start": 219.306,
+  "end": 221.19,
+  "gap": 0.45
+ },
+ {
+  "i": 98,
+  "section": "final",
+  "cap": "Another Clara.",
+  "say": "Another Clara.",
+  "start": 221.64,
+  "end": 222.57,
+  "gap": 0.6
+ },
+ {
+  "i": 99,
+  "section": "final",
+  "cap": "The new girl looks down through the same crack.",
+  "say": "The new girl looks down through the same crack.",
+  "start": 223.17,
+  "end": 225.23,
+  "gap": 0.4
+ },
+ {
+  "i": 100,
+  "section": "final",
+  "cap": "Their eyes meet.",
+  "say": "Their eyes meet.",
+  "start": 225.63,
+  "end": 226.508,
+  "gap": 0.6
+ },
+ {
+  "i": 101,
+  "section": "final",
+  "cap": "Then, from somewhere even deeper underground, hundreds of voices begin shouting the same thing.",
+  "say": "Then, from somewhere even deeper underground, hundreds of voices begin shouting the same thing.",
+  "start": 227.108,
+  "end": 231.478,
+  "gap": 0.35
+ },
+ {
+  "i": 102,
+  "section": "final",
+  "cap": "\u201cDON'T LET HER FIND THE STAIRS!\u201d",
+  "say": "Don't let her find the stairs!",
+  "start": 231.828,
+  "end": 233.185,
+  "gap": 0.55
+ },
+ {
+  "i": 103,
+  "section": "final",
+  "cap": "Clara turns to the woman.",
+  "say": "Clara turns to the woman.",
+  "start": 233.735,
+  "end": 235.075,
+  "gap": 0.35
+ },
+ {
+  "i": 104,
+  "section": "final",
+  "cap": "\u201cWhy?\u201d",
+  "say": "Why?",
+  "start": 235.425,
+  "end": 235.987,
+  "gap": 0.45
+ },
+ {
+  "i": 105,
+  "section": "final",
+  "cap": "The woman looks terrified.",
+  "say": "The woman looks terrified.",
+  "start": 236.437,
+  "end": 237.787,
+  "gap": 0.4
+ },
+ {
+  "i": 106,
+  "section": "final",
+  "cap": "\u201cBecause every time one of you finds out what this place is\u2026",
+  "say": "Because every time one of you finds out what this place is...",
+  "start": 238.187,
+  "end": 240.861,
+  "gap": 0.3
+ },
+ {
+  "i": 107,
+  "section": "final",
+  "cap": "She points toward the other underground towns.",
+  "say": "She points toward the other underground towns.",
+  "start": 241.161,
+  "end": 243.394,
+  "gap": 0.3
+ },
+ {
+  "i": 108,
+  "section": "final",
+  "cap": "\u2026you try to destroy it.\u201d",
+  "say": "you try to destroy it.",
+  "start": 243.694,
+  "end": 244.881,
+  "gap": 0.4
+ },
+ {
+  "i": 109,
+  "section": "final",
+  "cap": "A long silence follows.",
+  "say": "A long silence follows.",
+  "start": 245.281,
+  "end": 246.785,
+  "gap": 1.1
+ },
+ {
+  "i": 110,
+  "section": "final",
+  "cap": "Then she whispers:",
+  "say": "Then she whispers.",
+  "start": 247.885,
+  "end": 248.837,
+  "gap": 0.35
+ },
+ {
+  "i": 111,
+  "section": "final",
+  "cap": "\u201cAnd every time you destroy it, they have to build another one to keep you inside.\u201d",
+  "say": "And every time you destroy it, they have to build another one to keep you inside.",
+  "start": 249.187,
+  "end": 252.737,
+  "gap": 0.6
+ },
+ {
+  "i": 112,
+  "section": "final",
+  "cap": "The clock strikes midnight.",
+  "say": "The clock strikes midnight.",
+  "start": 253.337,
+  "end": 254.673,
+  "gap": 0.55
+ },
+ {
+  "i": 113,
+  "section": "final",
+  "cap": "The screen goes black.",
+  "say": "The screen goes black.",
+  "start": 255.223,
+  "end": 256.39,
+  "gap": 0.9
+ },
+ {
+  "i": 114,
+  "section": "final",
+  "cap": "And somewhere above them, a girl wakes up.",
+  "say": "And somewhere above them, a girl wakes up.",
+  "start": 257.29,
+  "end": 259.14,
+  "gap": 0.5
+ },
+ {
+  "i": 115,
+  "section": "final",
+  "cap": "It's Tuesday.",
+  "say": "It's Tuesday.",
+  "start": 259.64,
+  "end": 260.436,
+  "gap": 0.45
+ },
+ {
+  "i": 116,
+  "section": "final",
+  "cap": "Again.",
+  "say": "Again.",
+  "start": 260.886,
+  "end": 261.576,
+  "gap": 0.8
+ }
+]
