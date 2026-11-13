@@ -11,6 +11,7 @@ Your cinematic mystery script, animated as a Roblox-style story video in the for
 | Music and sound | Synthesized from scratch, so there is no third-party music to clear. The score follows the story: a music box for the town's rule, then piano. The music cuts out when the station clock stops. Drones play in the terminal, a heartbeat under the photographs and the basement, strings for the last goodbye, and an out-of-tune music box for the twist. The score sits about 9 dB under the voice |
 | Visuals | Rendered in code with three.js: the autumn town, the station and platform by day and night, the station hall, the abandoned terminal with its photo walls and records room, the family home with the hidden bedroom and the basement, the school office, and the present-day platform |
 
+- **[Download the video](https://github.com/landercabalteja20-code/lander/raw/claude/clever-edison-1qwk4p/this-town-videos/nobody-says-goodbye/nobody-says-goodbye.mp4)** ([`nobody-says-goodbye.mp4`](nobody-says-goodbye.mp4), 6:44, 83 MB, ready to upload to TikTok).
 - [`script.md`](script.md): your narration with the exact time each line starts. Use it if you re-record the voice or edit captions.
 - `source/`: everything needed to re-render or change the video (scenes, shots, voice, music and captions).
 
