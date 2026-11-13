@@ -44,10 +44,11 @@ bash pipeline/render_all.sh <frames-dir>
 # 3. sound and captions
 python pipeline/audio.py <work-dir>
 python pipeline/captions.py <work-dir> captions.ass 170
-# 4. final encode
-ffmpeg -framerate 30 -i <frames-dir>/f_%06d.jpg -i <work-dir>/mix.wav \
-  -filter_complex "[0:v]scale=1080:1920:flags=lanczos,ass=captions.ass:fontsdir=fonts[v];[1:a]loudnorm=I=-14:TP=-1.5:LRA=11[a]" \
-  -map "[v]" -map "[a]" -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart nobody-says-goodbye.mp4
+# 4. final encode (vignette overlay, then captions on top)
+python pipeline/vignette.py vignette.png
+ffmpeg -framerate 30 -i <frames-dir>/f_%06d.jpg -loop 1 -framerate 30 -i vignette.png -i <work-dir>/mix.wav \
+  -filter_complex "[0:v]scale=1080:1920:flags=lanczos[s];[s][1:v]overlay=0:0:shortest=1[o];[o]ass=captions.ass:fontsdir=fonts[v];[2:a]loudnorm=I=-14:TP=-1.5:LRA=11[a]" \
+  -map "[v]" -map "[a]" -c:v libx264 -crf 20 -preset slow -pix_fmt yuv420p -c:a aac -b:a 192k -movflags +faststart -shortest nobody-says-goodbye.mp4
 ```
 
 Fonts are not stored here. Download Poppins (ExtraBold, Black, Bold), Saira Stencil One and Permanent Marker from Google Fonts into `anim/fonts/`.

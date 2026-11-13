@@ -283,7 +283,7 @@ S.push((u, T) => { use('town', 'autumn'); const z = 42 - T * 3.2; walkers(10, T,
 S.push((u, T) => { use('st', 'overcast', 'cine', 0.7); pl(MOM, PM[0], PM[1], PM[2], -Math.PI / 2 + 0.45).idle(T, 0.4).expr('sad'); focus(-3, 0, -17, 20); cuM(PM[0], { d: 8.4, push: 1.0, e: ease }); });
 // --- the boy who was forgotten ---
 // 15 It happened at the train station.
-S.push((u, T) => { use('st', 'overcast'); SN.setClock(10, 4, T * 6); for (let i = 0; i < 6; i++) { const f = folk[i]; const z = 40 - ((hash(i) * 30 + T * 3) % 30); pl(f, -12 + i * 4.6, 0, z, Math.PI).walk(T * 5 + i, 0.9); } focus(0, 0, 10, 50); cam([0, 9, 74], [0, 8, 60], [0, 14, 8], [0, 15, 8], 46, easeOut); });
+S.push((u, T) => { use('st', 'overcast'); SN.setClock(10, 4, T * 6); for (let i = 0; i < 6; i++) { const f = folk[i]; const z = 40 - ((hash(i) * 30 + T * 3) % 30); pl(f, -12 + i * 4.6, 0, z, Math.PI).walk(T * 5 + i, 0.9); } focus(0, 0, 10, 50); cam([0, 9, 55], [0, 8, 44], [0, 14, 8], [0, 15, 8], 46, easeOut); });
 // 16 Elias was leaving town for university.
 S.push((u, T) => { use('st', 'overcast'); platformPair(T, 'smile', 'smile'); suitcase.position.set(0, 0, 0); E17.hold(suitcase, true); focus(-4, 0, -17, 25); pTwo(); });
 // 17 His mother hugged him, kissed his forehead, and whispered something she had never said before.
