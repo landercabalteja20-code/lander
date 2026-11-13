@@ -1,0 +1,1568 @@
+[
+ {
+  "i": 0,
+  "section": "rule",
+  "cap": "In this town, nobody is allowed to say goodbye.",
+  "say": "In this town, nobody is allowed to say goodbye.",
+  "start": 0.0,
+  "end": 2.275,
+  "gap": 0.4
+ },
+ {
+  "i": 1,
+  "section": "rule",
+  "cap": "When children leave for school, their parents say, \u201cSee you later.\u201d",
+  "say": "When children leave for school, their parents say, see you later.",
+  "start": 2.675,
+  "end": 5.319,
+  "gap": 0.38
+ },
+ {
+  "i": 2,
+  "section": "rule",
+  "cap": "When couples break up, they say, \u201cUntil next time.\u201d",
+  "say": "When couples break up, they say, until next time.",
+  "start": 5.699,
+  "end": 7.923,
+  "gap": 0.38
+ },
+ {
+  "i": 3,
+  "section": "rule",
+  "cap": "Even at funerals, people are forbidden from saying the word.",
+  "say": "Even at funerals, people are forbidden from saying the word.",
+  "start": 8.303,
+  "end": 11.039,
+  "gap": 0.42
+ },
+ {
+  "i": 4,
+  "section": "rule",
+  "cap": "Nobody knows exactly when the rule began.",
+  "say": "Nobody knows exactly when the rule began.",
+  "start": 11.459,
+  "end": 13.633,
+  "gap": 0.35
+ },
+ {
+  "i": 5,
+  "section": "rule",
+  "cap": "But everyone knows what happens when someone breaks it.",
+  "say": "But everyone knows what happens when someone breaks it.",
+  "start": 13.983,
+  "end": 16.302,
+  "gap": 0.4
+ },
+ {
+  "i": 6,
+  "section": "rule",
+  "cap": "The person they say goodbye to disappears.",
+  "say": "The person they say goodbye to disappears.",
+  "start": 16.702,
+  "end": 18.815,
+  "gap": 0.4
+ },
+ {
+  "i": 7,
+  "section": "rule",
+  "cap": "Not physically.",
+  "say": "Not physically.",
+  "start": 19.215,
+  "end": 20.031,
+  "gap": 0.35
+ },
+ {
+  "i": 8,
+  "section": "rule",
+  "cap": "They disappear from everyone\u2019s memories.",
+  "say": "They disappear from everyone\u2019s memories.",
+  "start": 20.381,
+  "end": 22.293,
+  "gap": 0.38
+ },
+ {
+  "i": 9,
+  "section": "rule",
+  "cap": "Their photographs change.",
+  "say": "Their photographs change.",
+  "start": 22.673,
+  "end": 24.008,
+  "gap": 0.25
+ },
+ {
+  "i": 10,
+  "section": "rule",
+  "cap": "Their belongings vanish.",
+  "say": "Their belongings vanish.",
+  "start": 24.258,
+  "end": 25.456,
+  "gap": 0.25
+ },
+ {
+  "i": 11,
+  "section": "rule",
+  "cap": "Even their names disappear from official records.",
+  "say": "Even their names disappear from official records.",
+  "start": 25.706,
+  "end": 27.992,
+  "gap": 0.38
+ },
+ {
+  "i": 12,
+  "section": "rule",
+  "cap": "And by the following morning, nobody remembers they ever existed.",
+  "say": "And by the following morning, nobody remembers they ever existed.",
+  "start": 28.372,
+  "end": 31.469,
+  "gap": 0.45
+ },
+ {
+  "i": 13,
+  "section": "rule",
+  "cap": "For 17-year-old Elias, this was nothing more than an old superstition.",
+  "say": "For seventeen-year-old Elias, this was nothing more than an old superstition.",
+  "start": 31.919,
+  "end": 35.577,
+  "gap": 0.38
+ },
+ {
+  "i": 14,
+  "section": "rule",
+  "cap": "Until the day his mother said goodbye.",
+  "say": "Until the day his mother said goodbye.",
+  "start": 35.957,
+  "end": 37.783,
+  "gap": 0.6
+ },
+ {
+  "i": 15,
+  "section": "forgot",
+  "cap": "It happened at the train station.",
+  "say": "It happened at the train station.",
+  "start": 38.383,
+  "end": 39.938,
+  "gap": 0.35
+ },
+ {
+  "i": 16,
+  "section": "forgot",
+  "cap": "Elias was leaving town for university.",
+  "say": "Elias was leaving town for university.",
+  "start": 40.288,
+  "end": 42.424,
+  "gap": 0.35
+ },
+ {
+  "i": 17,
+  "section": "forgot",
+  "cap": "His mother hugged him, kissed his forehead, and whispered something she had never said before.",
+  "say": "His mother hugged him, kissed his forehead, and whispered something she had never said before.",
+  "start": 42.774,
+  "end": 46.578,
+  "gap": 0.4
+ },
+ {
+  "i": 18,
+  "section": "forgot",
+  "cap": "\u201cGoodbye, Elias.\u201d",
+  "say": "Goodbye, Elias.",
+  "start": 46.978,
+  "end": 48.04,
+  "gap": 0.55
+ },
+ {
+  "i": 19,
+  "section": "forgot",
+  "cap": "The moment she spoke, the station clock stopped.",
+  "say": "The moment she spoke, the station clock stopped.",
+  "start": 48.59,
+  "end": 50.783,
+  "gap": 0.4
+ },
+ {
+  "i": 20,
+  "section": "forgot",
+  "cap": "His mother stepped backward.",
+  "say": "His mother stepped backward.",
+  "start": 51.183,
+  "end": 52.511,
+  "gap": 0.3
+ },
+ {
+  "i": 21,
+  "section": "forgot",
+  "cap": "She stared at him like he was a stranger.",
+  "say": "She stared at him like he was a stranger.",
+  "start": 52.811,
+  "end": 54.67,
+  "gap": 0.35
+ },
+ {
+  "i": 22,
+  "section": "forgot",
+  "cap": "Then she asked why he was holding her hand.",
+  "say": "Then she asked why he was holding her hand.",
+  "start": 55.02,
+  "end": 56.941,
+  "gap": 0.4
+ },
+ {
+  "i": 23,
+  "section": "forgot",
+  "cap": "Elias thought she was joking.",
+  "say": "Elias thought she was joking.",
+  "start": 57.341,
+  "end": 58.818,
+  "gap": 0.35
+ },
+ {
+  "i": 24,
+  "section": "forgot",
+  "cap": "But when he returned home, his bedroom was gone.",
+  "say": "But when he returned home, his bedroom was gone.",
+  "start": 59.168,
+  "end": 61.279,
+  "gap": 0.35
+ },
+ {
+  "i": 25,
+  "section": "forgot",
+  "cap": "His father insisted they never had a son.",
+  "say": "His father insisted they never had a son.",
+  "start": 61.629,
+  "end": 63.697,
+  "gap": 0.3
+ },
+ {
+  "i": 26,
+  "section": "forgot",
+  "cap": "His school had no record of him.",
+  "say": "His school had no record of him.",
+  "start": 63.997,
+  "end": 65.61,
+  "gap": 0.3
+ },
+ {
+  "i": 27,
+  "section": "forgot",
+  "cap": "And every family photograph showed his parents standing alone.",
+  "say": "And every family photograph showed his parents standing alone.",
+  "start": 65.91,
+  "end": 68.787,
+  "gap": 0.4
+ },
+ {
+  "i": 28,
+  "section": "forgot",
+  "cap": "Elias had been completely erased.",
+  "say": "Elias had been completely erased.",
+  "start": 69.187,
+  "end": 70.909,
+  "gap": 0.4
+ },
+ {
+  "i": 29,
+  "section": "forgot",
+  "cap": "Except he was still standing there.",
+  "say": "Except he was still standing there.",
+  "start": 71.309,
+  "end": 72.882,
+  "gap": 0.6
+ },
+ {
+  "i": 30,
+  "section": "lost",
+  "cap": "That night, Elias returned to the train station.",
+  "say": "That night, Elias returned to the train station.",
+  "start": 73.482,
+  "end": 75.688,
+  "gap": 0.35
+ },
+ {
+  "i": 31,
+  "section": "lost",
+  "cap": "He noticed a door behind the ticket office.",
+  "say": "He noticed a door behind the ticket office.",
+  "start": 76.038,
+  "end": 78.097,
+  "gap": 0.35
+ },
+ {
+  "i": 32,
+  "section": "lost",
+  "cap": "It had no handle, only a small sign.",
+  "say": "It had no handle, only a small sign.",
+  "start": 78.447,
+  "end": 80.385,
+  "gap": 0.4
+ },
+ {
+  "i": 33,
+  "section": "lost",
+  "cap": "LOST PASSENGERS.",
+  "say": "Lost passengers.",
+  "start": 80.785,
+  "end": 81.841,
+  "gap": 0.55
+ },
+ {
+  "i": 34,
+  "section": "lost",
+  "cap": "Inside, he discovered dozens of people living in what appeared to be an abandoned railway terminal.",
+  "say": "Inside, he discovered dozens of people living in what appeared to be an abandoned railway terminal.",
+  "start": 82.391,
+  "end": 86.8,
+  "gap": 0.4
+ },
+ {
+  "i": 35,
+  "section": "lost",
+  "cap": "An elderly woman approached him.",
+  "say": "An elderly woman approached him.",
+  "start": 87.2,
+  "end": 88.759,
+  "gap": 0.35
+ },
+ {
+  "i": 36,
+  "section": "lost",
+  "cap": "\u201cSomeone said goodbye to you, didn\u2019t they?\u201d",
+  "say": "Someone said goodbye to you, didn't they?",
+  "start": 89.109,
+  "end": 90.871,
+  "gap": 0.45
+ },
+ {
+  "i": 37,
+  "section": "lost",
+  "cap": "Elias nodded.",
+  "say": "Elias nodded.",
+  "start": 91.321,
+  "end": 92.276,
+  "gap": 0.35
+ },
+ {
+  "i": 38,
+  "section": "lost",
+  "cap": "She explained that everyone there had been forgotten.",
+  "say": "She explained that everyone there had been forgotten.",
+  "start": 92.626,
+  "end": 94.845,
+  "gap": 0.35
+ },
+ {
+  "i": 39,
+  "section": "lost",
+  "cap": "Some had been there for weeks.",
+  "say": "Some had been there for weeks.",
+  "start": 95.195,
+  "end": 96.565,
+  "gap": 0.25
+ },
+ {
+  "i": 40,
+  "section": "lost",
+  "cap": "Others for decades.",
+  "say": "Others for decades.",
+  "start": 96.815,
+  "end": 97.984,
+  "gap": 0.35
+ },
+ {
+  "i": 41,
+  "section": "lost",
+  "cap": "But none of them could remember how they arrived in Bellwether.",
+  "say": "But none of them could remember how they arrived in Bellwether.",
+  "start": 98.334,
+  "end": 100.896,
+  "gap": 0.4
+ },
+ {
+  "i": 42,
+  "section": "lost",
+  "cap": "Elias asked why they didn\u2019t simply leave.",
+  "say": "Elias asked why they didn\u2019t simply leave.",
+  "start": 101.296,
+  "end": 103.326,
+  "gap": 0.35
+ },
+ {
+  "i": 43,
+  "section": "lost",
+  "cap": "The woman pointed to the railway tracks.",
+  "say": "The woman pointed to the railway tracks.",
+  "start": 103.676,
+  "end": 105.498,
+  "gap": 0.35
+ },
+ {
+  "i": 44,
+  "section": "lost",
+  "cap": "They extended into the distance before disappearing beneath the earth.",
+  "say": "They extended into the distance before disappearing beneath the earth.",
+  "start": 105.848,
+  "end": 108.819,
+  "gap": 0.4
+ },
+ {
+  "i": 45,
+  "section": "lost",
+  "cap": "\u201cBecause every train that leaves this station comes back empty.\u201d",
+  "say": "Because every train that leaves this station comes back empty.",
+  "start": 109.219,
+  "end": 112.095,
+  "gap": 0.5
+ },
+ {
+  "i": 46,
+  "section": "lost",
+  "cap": "Elias noticed something strange.",
+  "say": "Elias noticed something strange.",
+  "start": 112.595,
+  "end": 114.259,
+  "gap": 0.35
+ },
+ {
+  "i": 47,
+  "section": "lost",
+  "cap": "Along the walls were thousands of photographs.",
+  "say": "Along the walls were thousands of photographs.",
+  "start": 114.609,
+  "end": 116.718,
+  "gap": 0.35
+ },
+ {
+  "i": 48,
+  "section": "lost",
+  "cap": "Every photograph showed a different group of people.",
+  "say": "Every photograph showed a different group of people.",
+  "start": 117.068,
+  "end": 119.331,
+  "gap": 0.35
+ },
+ {
+  "i": 49,
+  "section": "lost",
+  "cap": "Except one face appeared in almost all of them.",
+  "say": "Except one face appeared in almost all of them.",
+  "start": 119.681,
+  "end": 121.784,
+  "gap": 0.45
+ },
+ {
+  "i": 50,
+  "section": "lost",
+  "cap": "His own.",
+  "say": "His own.",
+  "start": 122.234,
+  "end": 122.875,
+  "gap": 0.65
+ },
+ {
+  "i": 51,
+  "section": "rev1",
+  "cap": "Elias found a photograph dated 1961.",
+  "say": "Elias found a photograph dated nineteen sixty-one.",
+  "start": 123.525,
+  "end": 126.115,
+  "gap": 0.35
+ },
+ {
+  "i": 52,
+  "section": "rev1",
+  "cap": "He was standing beside the station clock.",
+  "say": "He was standing beside the station clock.",
+  "start": 126.465,
+  "end": 128.38,
+  "gap": 0.35
+ },
+ {
+  "i": 53,
+  "section": "rev1",
+  "cap": "In another photograph from 1984, he was attending a wedding.",
+  "say": "In another photograph from nineteen eighty-four, he was attending a wedding.",
+  "start": 128.73,
+  "end": 131.925,
+  "gap": 0.35
+ },
+ {
+  "i": 54,
+  "section": "rev1",
+  "cap": "And in one dated 2003, he was holding a newborn baby.",
+  "say": "And in one dated two thousand three, he was holding a newborn baby.",
+  "start": 132.275,
+  "end": 135.368,
+  "gap": 0.4
+ },
+ {
+  "i": 55,
+  "section": "rev1",
+  "cap": "He looked different in every picture.",
+  "say": "He looked different in every picture.",
+  "start": 135.768,
+  "end": 137.332,
+  "gap": 0.35
+ },
+ {
+  "i": 56,
+  "section": "rev1",
+  "cap": "In the oldest, he appeared to be a man in his sixties.",
+  "say": "In the oldest, he appeared to be a man in his sixties.",
+  "start": 137.682,
+  "end": 140.049,
+  "gap": 0.35
+ },
+ {
+  "i": 57,
+  "section": "rev1",
+  "cap": "In the newest, he was 17.",
+  "say": "In the newest, he was seventeen.",
+  "start": 140.399,
+  "end": 141.959,
+  "gap": 0.4
+ },
+ {
+  "i": 58,
+  "section": "rev1",
+  "cap": "Elias asked the elderly woman how this was possible.",
+  "say": "Elias asked the elderly woman how this was possible.",
+  "start": 142.359,
+  "end": 144.891,
+  "gap": 0.35
+ },
+ {
+  "i": 59,
+  "section": "rev1",
+  "cap": "She brought him to a room filled with handwritten passenger records.",
+  "say": "She brought him to a room filled with handwritten passenger records.",
+  "start": 145.241,
+  "end": 148.055,
+  "gap": 0.35
+ },
+ {
+  "i": 60,
+  "section": "rev1",
+  "cap": "His name appeared hundreds of times.",
+  "say": "His name appeared hundreds of times.",
+  "start": 148.405,
+  "end": 150.208,
+  "gap": 0.35
+ },
+ {
+  "i": 61,
+  "section": "rev1",
+  "cap": "Each entry contained a date, an age, and 2 words.",
+  "say": "Each entry contained a date, an age, and two words.",
+  "start": 150.558,
+  "end": 152.957,
+  "gap": 0.45
+ },
+ {
+  "i": 62,
+  "section": "rev1",
+  "cap": "FAREWELL ACCEPTED.",
+  "say": "Farewell accepted.",
+  "start": 153.407,
+  "end": 154.509,
+  "gap": 0.55
+ },
+ {
+  "i": 63,
+  "section": "rev1",
+  "cap": "But something was wrong.",
+  "say": "But something was wrong.",
+  "start": 155.059,
+  "end": 156.274,
+  "gap": 0.4
+ },
+ {
+  "i": 64,
+  "section": "rev1",
+  "cap": "The earliest entry listed him as 67 years old.",
+  "say": "The earliest entry listed him as sixty-seven years old.",
+  "start": 156.674,
+  "end": 159.438,
+  "gap": 0.35
+ },
+ {
+  "i": 65,
+  "section": "rev1",
+  "cap": "The next listed him as 54.",
+  "say": "The next listed him as fifty-four.",
+  "start": 159.788,
+  "end": 161.5,
+  "gap": 0.3
+ },
+ {
+  "i": 66,
+  "section": "rev1",
+  "cap": "Then 39.",
+  "say": "Then thirty-nine.",
+  "start": 161.8,
+  "end": 162.829,
+  "gap": 0.28
+ },
+ {
+  "i": 67,
+  "section": "rev1",
+  "cap": "Then 25.",
+  "say": "Then twenty-five.",
+  "start": 163.109,
+  "end": 164.119,
+  "gap": 0.28
+ },
+ {
+  "i": 68,
+  "section": "rev1",
+  "cap": "And finally, 17.",
+  "say": "And finally, seventeen.",
+  "start": 164.399,
+  "end": 165.743,
+  "gap": 0.45
+ },
+ {
+  "i": 69,
+  "section": "rev1",
+  "cap": "He wasn\u2019t growing older.",
+  "say": "He wasn\u2019t growing older.",
+  "start": 166.193,
+  "end": 167.418,
+  "gap": 0.35
+ },
+ {
+  "i": 70,
+  "section": "rev1",
+  "cap": "Every time somebody said goodbye to him, he returned younger.",
+  "say": "Every time somebody said goodbye to him, he returned younger.",
+  "start": 167.768,
+  "end": 170.633,
+  "gap": 0.6
+ },
+ {
+  "i": 71,
+  "section": "rev2",
+  "cap": "Elias rushed home and confronted his mother.",
+  "say": "Elias rushed home and confronted his mother.",
+  "start": 171.233,
+  "end": 173.383,
+  "gap": 0.35
+ },
+ {
+  "i": 72,
+  "section": "rev2",
+  "cap": "At first, she pretended not to recognize him.",
+  "say": "At first, she pretended not to recognize him.",
+  "start": 173.733,
+  "end": 175.955,
+  "gap": 0.35
+ },
+ {
+  "i": 73,
+  "section": "rev2",
+  "cap": "But when he showed her the photographs, she started crying.",
+  "say": "But when he showed her the photographs, she started crying.",
+  "start": 176.305,
+  "end": 178.58,
+  "gap": 0.4
+ },
+ {
+  "i": 74,
+  "section": "rev2",
+  "cap": "She took him into the basement.",
+  "say": "She took him into the basement.",
+  "start": 178.98,
+  "end": 180.287,
+  "gap": 0.35
+ },
+ {
+  "i": 75,
+  "section": "rev2",
+  "cap": "Behind a locked cabinet were dozens of photo albums.",
+  "say": "Behind a locked cabinet were dozens of photo albums.",
+  "start": 180.637,
+  "end": 183.261,
+  "gap": 0.35
+ },
+ {
+  "i": 76,
+  "section": "rev2",
+  "cap": "Every album contained pictures of Elias.",
+  "say": "Every album contained pictures of Elias.",
+  "start": 183.611,
+  "end": 185.687,
+  "gap": 0.35
+ },
+ {
+  "i": 77,
+  "section": "rev2",
+  "cap": "Different birthdays.",
+  "say": "Different birthdays.",
+  "start": 186.037,
+  "end": 187.025,
+  "gap": 0.25
+ },
+ {
+  "i": 78,
+  "section": "rev2",
+  "cap": "Different childhoods.",
+  "say": "Different childhoods.",
+  "start": 187.275,
+  "end": 188.3,
+  "gap": 0.25
+ },
+ {
+  "i": 79,
+  "section": "rev2",
+  "cap": "Different names.",
+  "say": "Different names.",
+  "start": 188.55,
+  "end": 189.438,
+  "gap": 0.4
+ },
+ {
+  "i": 80,
+  "section": "rev2",
+  "cap": "In one photograph, he was a middle-aged man.",
+  "say": "In one photograph, he was a middle-aged man.",
+  "start": 189.838,
+  "end": 191.999,
+  "gap": 0.3
+ },
+ {
+  "i": 81,
+  "section": "rev2",
+  "cap": "In another, he was a teenager.",
+  "say": "In another, he was a teenager.",
+  "start": 192.299,
+  "end": 193.753,
+  "gap": 0.4
+ },
+ {
+  "i": 82,
+  "section": "rev2",
+  "cap": "Then Elias found the oldest photograph.",
+  "say": "Then Elias found the oldest photograph.",
+  "start": 194.153,
+  "end": 196.192,
+  "gap": 0.35
+ },
+ {
+  "i": 83,
+  "section": "rev2",
+  "cap": "It showed a little girl standing beside an elderly man.",
+  "say": "It showed a little girl standing beside an elderly man.",
+  "start": 196.542,
+  "end": 199.005,
+  "gap": 0.45
+ },
+ {
+  "i": 84,
+  "section": "rev2",
+  "cap": "The little girl was his mother.",
+  "say": "The little girl was his mother.",
+  "start": 199.455,
+  "end": 200.838,
+  "gap": 0.4
+ },
+ {
+  "i": 85,
+  "section": "rev2",
+  "cap": "The elderly man was Elias.",
+  "say": "The elderly man was Elias.",
+  "start": 201.238,
+  "end": 202.767,
+  "gap": 0.55
+ },
+ {
+  "i": 86,
+  "section": "rev2",
+  "cap": "He turned toward her.",
+  "say": "He turned toward her.",
+  "start": 203.317,
+  "end": 204.323,
+  "gap": 0.35
+ },
+ {
+  "i": 87,
+  "section": "rev2",
+  "cap": "\u201cWho am I?\u201d",
+  "say": "Who am I?",
+  "start": 204.673,
+  "end": 205.423,
+  "gap": 0.5
+ },
+ {
+  "i": 88,
+  "section": "rev2",
+  "cap": "His mother covered her mouth.",
+  "say": "His mother covered her mouth.",
+  "start": 205.923,
+  "end": 207.271,
+  "gap": 0.35
+ },
+ {
+  "i": 89,
+  "section": "rev2",
+  "cap": "And finally told him the truth.",
+  "say": "And finally told him the truth.",
+  "start": 207.621,
+  "end": 209.158,
+  "gap": 0.45
+ },
+ {
+  "i": 90,
+  "section": "rev2",
+  "cap": "\u201cYou\u2019re my father.\u201d",
+  "say": "You're my father.",
+  "start": 209.608,
+  "end": 210.475,
+  "gap": 0.7
+ },
+ {
+  "i": 91,
+  "section": "rev2",
+  "cap": "Elias couldn\u2019t speak.",
+  "say": "Elias couldn\u2019t speak.",
+  "start": 211.175,
+  "end": 212.359,
+  "gap": 0.4
+ },
+ {
+  "i": 92,
+  "section": "rev2",
+  "cap": "She explained that he had died when she was 7.",
+  "say": "She explained that he had died when she was seven.",
+  "start": 212.759,
+  "end": 214.773,
+  "gap": 0.35
+ },
+ {
+  "i": 93,
+  "section": "rev2",
+  "cap": "But the night of his funeral, she refused to say goodbye.",
+  "say": "But the night of his funeral, she refused to say goodbye.",
+  "start": 215.123,
+  "end": 217.605,
+  "gap": 0.4
+ },
+ {
+  "i": 94,
+  "section": "rev2",
+  "cap": "The next morning, he was standing outside their house.",
+  "say": "The next morning, he was standing outside their house.",
+  "start": 218.005,
+  "end": 220.275,
+  "gap": 0.4
+ },
+ {
+  "i": 95,
+  "section": "rev2",
+  "cap": "Alive.",
+  "say": "Alive.",
+  "start": 220.675,
+  "end": 221.386,
+  "gap": 0.4
+ },
+ {
+  "i": 96,
+  "section": "rev2",
+  "cap": "Except he was younger.",
+  "say": "Except he was younger.",
+  "start": 221.786,
+  "end": 222.882,
+  "gap": 0.35
+ },
+ {
+  "i": 97,
+  "section": "rev2",
+  "cap": "And nobody remembered his death.",
+  "say": "And nobody remembered his death.",
+  "start": 223.232,
+  "end": 224.882,
+  "gap": 0.4
+ },
+ {
+  "i": 98,
+  "section": "rev2",
+  "cap": "Over the following decades, his age continued reversing whenever she said goodbye to him.",
+  "say": "Over the following decades, his age continued reversing whenever she said goodbye to him.",
+  "start": 225.282,
+  "end": 229.638,
+  "gap": 0.35
+ },
+ {
+  "i": 99,
+  "section": "rev2",
+  "cap": "His identity changed with every return.",
+  "say": "His identity changed with every return.",
+  "start": 229.988,
+  "end": 232.075,
+  "gap": 0.35
+ },
+ {
+  "i": 100,
+  "section": "rev2",
+  "cap": "Eventually, he became younger than his own daughter.",
+  "say": "Eventually, he became younger than his own daughter.",
+  "start": 232.425,
+  "end": 234.761,
+  "gap": 0.35
+ },
+ {
+  "i": 101,
+  "section": "rev2",
+  "cap": "And the town began treating him as her son.",
+  "say": "And the town began treating him as her son.",
+  "start": 235.111,
+  "end": 237.046,
+  "gap": 0.6
+ },
+ {
+  "i": 102,
+  "section": "rev3",
+  "cap": "Elias asked why she kept saying goodbye if she knew what would happen.",
+  "say": "Elias asked why she kept saying goodbye if she knew what would happen.",
+  "start": 237.646,
+  "end": 240.578,
+  "gap": 0.4
+ },
+ {
+  "i": 103,
+  "section": "rev3",
+  "cap": "His mother didn\u2019t answer.",
+  "say": "His mother didn\u2019t answer.",
+  "start": 240.978,
+  "end": 242.195,
+  "gap": 0.35
+ },
+ {
+  "i": 104,
+  "section": "rev3",
+  "cap": "Instead, she opened a small wooden box.",
+  "say": "Instead, she opened a small wooden box.",
+  "start": 242.545,
+  "end": 244.593,
+  "gap": 0.35
+ },
+ {
+  "i": 105,
+  "section": "rev3",
+  "cap": "Inside were dozens of train tickets.",
+  "say": "Inside were dozens of train tickets.",
+  "start": 244.943,
+  "end": 246.725,
+  "gap": 0.35
+ },
+ {
+  "i": 106,
+  "section": "rev3",
+  "cap": "Every ticket bore his name.",
+  "say": "Every ticket bore his name.",
+  "start": 247.075,
+  "end": 248.514,
+  "gap": 0.3
+ },
+ {
+  "i": 107,
+  "section": "rev3",
+  "cap": "But each had a different destination.",
+  "say": "But each had a different destination.",
+  "start": 248.814,
+  "end": 250.467,
+  "gap": 0.4
+ },
+ {
+  "i": 108,
+  "section": "rev3",
+  "cap": "The last ticket had been issued that morning.",
+  "say": "The last ticket had been issued that morning.",
+  "start": 250.867,
+  "end": 252.82,
+  "gap": 0.35
+ },
+ {
+  "i": 109,
+  "section": "rev3",
+  "cap": "Its destination was blank.",
+  "say": "Its destination was blank.",
+  "start": 253.17,
+  "end": 254.731,
+  "gap": 0.45
+ },
+ {
+  "i": 110,
+  "section": "rev3",
+  "cap": "Elias noticed something written on the back.",
+  "say": "Elias noticed something written on the back.",
+  "start": 255.181,
+  "end": 257.118,
+  "gap": 0.4
+ },
+ {
+  "i": 111,
+  "section": "rev3",
+  "cap": "FINAL DEPARTURE. NO RETURN SERVICE.",
+  "say": "Final departure. No return service.",
+  "start": 257.518,
+  "end": 259.501,
+  "gap": 0.55
+ },
+ {
+  "i": 112,
+  "section": "rev3",
+  "cap": "His mother began shaking.",
+  "say": "His mother began shaking.",
+  "start": 260.051,
+  "end": 261.422,
+  "gap": 0.35
+ },
+ {
+  "i": 113,
+  "section": "rev3",
+  "cap": "She confessed that the people in the railway terminal weren\u2019t simply forgotten.",
+  "say": "She confessed that the people in the railway terminal weren\u2019t simply forgotten.",
+  "start": 261.772,
+  "end": 265.064,
+  "gap": 0.35
+ },
+ {
+  "i": 114,
+  "section": "rev3",
+  "cap": "They were people who had already reached the end of their lives.",
+  "say": "They were people who had already reached the end of their lives.",
+  "start": 265.414,
+  "end": 267.996,
+  "gap": 0.35
+ },
+ {
+  "i": 115,
+  "section": "rev3",
+  "cap": "People who had been brought back because someone couldn\u2019t accept losing them.",
+  "say": "People who had been brought back because someone couldn\u2019t accept losing them.",
+  "start": 268.346,
+  "end": 271.216,
+  "gap": 0.4
+ },
+ {
+  "i": 116,
+  "section": "rev3",
+  "cap": "And every time someone said goodbye, the town returned them at an earlier point in their lives.",
+  "say": "And every time someone said goodbye, the town returned them at an earlier point in their lives.",
+  "start": 271.616,
+  "end": 275.748,
+  "gap": 0.4
+ },
+ {
+  "i": 117,
+  "section": "rev3",
+  "cap": "But this couldn\u2019t continue forever.",
+  "say": "But this couldn\u2019t continue forever.",
+  "start": 276.148,
+  "end": 277.722,
+  "gap": 0.35
+ },
+ {
+  "i": 118,
+  "section": "rev3",
+  "cap": "Eventually, they would become too young to remember who they were.",
+  "say": "Eventually, they would become too young to remember who they were.",
+  "start": 278.072,
+  "end": 280.694,
+  "gap": 0.35
+ },
+ {
+  "i": 119,
+  "section": "rev3",
+  "cap": "And then they would disappear completely.",
+  "say": "And then they would disappear completely.",
+  "start": 281.044,
+  "end": 282.666,
+  "gap": 0.5
+ },
+ {
+  "i": 120,
+  "section": "rev3",
+  "cap": "Elias looked at the ticket again.",
+  "say": "Elias looked at the ticket again.",
+  "start": 283.166,
+  "end": 284.692,
+  "gap": 0.35
+ },
+ {
+  "i": 121,
+  "section": "rev3",
+  "cap": "For the first time, he understood.",
+  "say": "For the first time, he understood.",
+  "start": 285.042,
+  "end": 286.614,
+  "gap": 0.4
+ },
+ {
+  "i": 122,
+  "section": "rev3",
+  "cap": "His mother hadn\u2019t accidentally said goodbye at the station.",
+  "say": "His mother hadn\u2019t accidentally said goodbye at the station.",
+  "start": 287.014,
+  "end": 289.704,
+  "gap": 0.4
+ },
+ {
+  "i": 123,
+  "section": "rev3",
+  "cap": "She had done it deliberately.",
+  "say": "She had done it deliberately.",
+  "start": 290.104,
+  "end": 291.423,
+  "gap": 0.65
+ },
+ {
+  "i": 124,
+  "section": "final",
+  "cap": "\u201cWhy?\u201d he asked.",
+  "say": "Why? he asked.",
+  "start": 292.073,
+  "end": 292.926,
+  "gap": 0.4
+ },
+ {
+  "i": 125,
+  "section": "final",
+  "cap": "His mother began crying.",
+  "say": "His mother began crying.",
+  "start": 293.326,
+  "end": 294.666,
+  "gap": 0.4
+ },
+ {
+  "i": 126,
+  "section": "final",
+  "cap": "\u201cBecause you asked me to.\u201d",
+  "say": "Because you asked me to.",
+  "start": 295.066,
+  "end": 296.3,
+  "gap": 0.55
+ },
+ {
+  "i": 127,
+  "section": "final",
+  "cap": "She handed him one final photograph.",
+  "say": "She handed him one final photograph.",
+  "start": 296.85,
+  "end": 298.823,
+  "gap": 0.35
+ },
+ {
+  "i": 128,
+  "section": "final",
+  "cap": "It showed Elias standing outside the station.",
+  "say": "It showed Elias standing outside the station.",
+  "start": 299.173,
+  "end": 301.335,
+  "gap": 0.35
+ },
+ {
+  "i": 129,
+  "section": "final",
+  "cap": "He looked almost identical to how he looked now.",
+  "say": "He looked almost identical to how he looked now.",
+  "start": 301.685,
+  "end": 304.064,
+  "gap": 0.4
+ },
+ {
+  "i": 130,
+  "section": "final",
+  "cap": "On the back, written in his own handwriting, were the words:",
+  "say": "On the back, written in his own handwriting, were the words.",
+  "start": 304.464,
+  "end": 306.849,
+  "gap": 0.4
+ },
+ {
+  "i": 131,
+  "section": "final",
+  "cap": "\u201cWhen I come back, don\u2019t tell me who I am. Just let me live a normal life.\u201d",
+  "say": "When I come back, don't tell me who I am. Just let me live a normal life.",
+  "start": 307.249,
+  "end": 310.513,
+  "gap": 0.45
+ },
+ {
+  "i": 132,
+  "section": "final",
+  "cap": "Below that was another message.",
+  "say": "Below that was another message.",
+  "start": 310.963,
+  "end": 312.595,
+  "gap": 0.4
+ },
+ {
+  "i": 133,
+  "section": "final",
+  "cap": "\u201cAnd when the time comes, please let me go.\u201d",
+  "say": "And when the time comes, please let me go.",
+  "start": 312.995,
+  "end": 314.998,
+  "gap": 0.6
+ },
+ {
+  "i": 134,
+  "section": "final",
+  "cap": "Elias realized that every time he returned, he eventually discovered the truth.",
+  "say": "Elias realized that every time he returned, he eventually discovered the truth.",
+  "start": 315.598,
+  "end": 319.244,
+  "gap": 0.35
+ },
+ {
+  "i": 135,
+  "section": "final",
+  "cap": "And every time, he begged his daughter to release him.",
+  "say": "And every time, he begged his daughter to release him.",
+  "start": 319.594,
+  "end": 321.801,
+  "gap": 0.4
+ },
+ {
+  "i": 136,
+  "section": "final",
+  "cap": "But she couldn\u2019t.",
+  "say": "But she couldn\u2019t.",
+  "start": 322.201,
+  "end": 323.017,
+  "gap": 0.35
+ },
+ {
+  "i": 137,
+  "section": "final",
+  "cap": "So she brought him back again.",
+  "say": "So she brought him back again.",
+  "start": 323.367,
+  "end": 324.718,
+  "gap": 0.3
+ },
+ {
+  "i": 138,
+  "section": "final",
+  "cap": "And again.",
+  "say": "And again.",
+  "start": 325.018,
+  "end": 325.682,
+  "gap": 0.4
+ },
+ {
+  "i": 139,
+  "section": "final",
+  "cap": "Until this morning.",
+  "say": "Until this morning.",
+  "start": 326.082,
+  "end": 327.13,
+  "gap": 0.55
+ },
+ {
+  "i": 140,
+  "section": "final",
+  "cap": "Elias looked at her.",
+  "say": "Elias looked at her.",
+  "start": 327.68,
+  "end": 328.74,
+  "gap": 0.35
+ },
+ {
+  "i": 141,
+  "section": "final",
+  "cap": "\u201cThen why didn\u2019t you let me leave?\u201d",
+  "say": "Then why didn't you let me leave?",
+  "start": 329.09,
+  "end": 330.53,
+  "gap": 0.45
+ },
+ {
+  "i": 142,
+  "section": "final",
+  "cap": "His mother whispered:",
+  "say": "His mother whispered.",
+  "start": 330.98,
+  "end": 331.976,
+  "gap": 0.4
+ },
+ {
+  "i": 143,
+  "section": "final",
+  "cap": "\u201cBecause I was 7 when you died.\u201d",
+  "say": "Because I was seven when you died.",
+  "start": 332.376,
+  "end": 334.045,
+  "gap": 0.45
+ },
+ {
+  "i": 144,
+  "section": "final",
+  "cap": "\u201cAnd I thought if I could just keep you here long enough\u2026\u201d",
+  "say": "And I thought if I could just keep you here long enough...",
+  "start": 334.495,
+  "end": 336.809,
+  "gap": 0.35
+ },
+ {
+  "i": 145,
+  "section": "final",
+  "cap": "\u201c\u2026eventually, I\u2019d be old enough to lose you.\u201d",
+  "say": "eventually, I'd be old enough to lose you.",
+  "start": 337.159,
+  "end": 339.313,
+  "gap": 0.7
+ },
+ {
+  "i": 146,
+  "section": "final",
+  "cap": "A train whistle echoed through the station.",
+  "say": "A train whistle echoed through the station.",
+  "start": 340.013,
+  "end": 341.944,
+  "gap": 0.4
+ },
+ {
+  "i": 147,
+  "section": "final",
+  "cap": "Elias turned toward the window.",
+  "say": "Elias turned toward the window.",
+  "start": 342.344,
+  "end": 343.917,
+  "gap": 0.35
+ },
+ {
+  "i": 148,
+  "section": "final",
+  "cap": "For the first time, a train was waiting at the platform.",
+  "say": "For the first time, a train was waiting at the platform.",
+  "start": 344.267,
+  "end": 346.616,
+  "gap": 0.45
+ },
+ {
+  "i": 149,
+  "section": "final",
+  "cap": "His mother reached for his hand.",
+  "say": "His mother reached for his hand.",
+  "start": 347.066,
+  "end": 348.55,
+  "gap": 0.35
+ },
+ {
+  "i": 150,
+  "section": "final",
+  "cap": "He smiled.",
+  "say": "He smiled.",
+  "start": 348.9,
+  "end": 349.613,
+  "gap": 0.4
+ },
+ {
+  "i": 151,
+  "section": "final",
+  "cap": "\u201cSee you later.\u201d",
+  "say": "See you later.",
+  "start": 350.013,
+  "end": 350.842,
+  "gap": 0.5
+ },
+ {
+  "i": 152,
+  "section": "final",
+  "cap": "She shook her head.",
+  "say": "She shook her head.",
+  "start": 351.342,
+  "end": 352.272,
+  "gap": 0.4
+ },
+ {
+  "i": 153,
+  "section": "final",
+  "cap": "\u201cNo, Dad.\u201d",
+  "say": "No, Dad.",
+  "start": 352.672,
+  "end": 353.422,
+  "gap": 0.6
+ },
+ {
+  "i": 154,
+  "section": "final",
+  "cap": "Then, after almost 70 years, she finally said it.",
+  "say": "Then, after almost seventy years, she finally said it.",
+  "start": 354.022,
+  "end": 356.356,
+  "gap": 0.6
+ },
+ {
+  "i": 155,
+  "section": "final",
+  "cap": "\u201cGoodbye.\u201d",
+  "say": "Goodbye.",
+  "start": 356.956,
+  "end": 357.682,
+  "gap": 0.9
+ },
+ {
+  "i": 156,
+  "section": "final",
+  "cap": "The screen fades to black.",
+  "say": "The screen fades to black.",
+  "start": 358.582,
+  "end": 359.947,
+  "gap": 0.8
+ },
+ {
+  "i": 157,
+  "section": "final",
+  "cap": "But just before the video ends, we see the oldest photograph again.",
+  "say": "But just before the video ends, we see the oldest photograph again.",
+  "start": 360.747,
+  "end": 363.741,
+  "gap": 0.4
+ },
+ {
+  "i": 158,
+  "section": "final",
+  "cap": "The little girl is standing outside the station.",
+  "say": "The little girl is standing outside the station.",
+  "start": 364.141,
+  "end": 366.287,
+  "gap": 0.4
+ },
+ {
+  "i": 159,
+  "section": "final",
+  "cap": "Alone.",
+  "say": "Alone.",
+  "start": 366.687,
+  "end": 367.447,
+  "gap": 0.5
+ },
+ {
+  "i": 160,
+  "section": "final",
+  "cap": "And behind her, through one of the train windows, is an elderly man.",
+  "say": "And behind her, through one of the train windows, is an elderly man.",
+  "start": 367.947,
+  "end": 370.83,
+  "gap": 0.45
+ },
+ {
+  "i": 161,
+  "section": "final",
+  "cap": "It\u2019s Elias.",
+  "say": "It\u2019s Elias.",
+  "start": 371.28,
+  "end": 372.044,
+  "gap": 0.6
+ },
+ {
+  "i": 162,
+  "section": "final",
+  "cap": "He never returned from the train.",
+  "say": "He never returned from the train.",
+  "start": 372.644,
+  "end": 374.216,
+  "gap": 0.35
+ },
+ {
+  "i": 163,
+  "section": "final",
+  "cap": "He was never resurrected.",
+  "say": "He was never resurrected.",
+  "start": 374.566,
+  "end": 375.934,
+  "gap": 0.45
+ },
+ {
+  "i": 164,
+  "section": "final",
+  "cap": "Everything that happened in Bellwether was what his daughter imagined her life could have been if she had never lost him.",
+  "say": "Everything that happened in Bellwether was what his daughter imagined her life could have been if she had never lost him.",
+  "start": 376.384,
+  "end": 381.098,
+  "gap": 0.5
+ },
+ {
+  "i": 165,
+  "section": "final",
+  "cap": "And the station?",
+  "say": "And the station?",
+  "start": 381.598,
+  "end": 382.47,
+  "gap": 0.45
+ },
+ {
+  "i": 166,
+  "section": "final",
+  "cap": "It was the last place she saw him alive.",
+  "say": "It was the last place she saw him alive.",
+  "start": 382.92,
+  "end": 384.802,
+  "gap": 0.8
+ },
+ {
+  "i": 167,
+  "section": "epi",
+  "cap": "A very old woman sits alone at a train station outside Bellwether.",
+  "say": "A very old woman sits alone at a train station outside Bellwether.",
+  "start": 385.602,
+  "end": 388.75,
+  "gap": 0.4
+ },
+ {
+  "i": 168,
+  "section": "epi",
+  "cap": "She\u2019s holding a ticket printed with a date from 1961.",
+  "say": "She's holding a ticket printed with a date from nineteen sixty-one.",
+  "start": 389.15,
+  "end": 392.016,
+  "gap": 0.45
+ },
+ {
+  "i": 169,
+  "section": "epi",
+  "cap": "A conductor approaches and asks:",
+  "say": "A conductor approaches and asks.",
+  "start": 392.466,
+  "end": 394.218,
+  "gap": 0.35
+ },
+ {
+  "i": 170,
+  "section": "epi",
+  "cap": "\u201cAre you waiting for somebody?\u201d",
+  "say": "Are you waiting for somebody?",
+  "start": 394.568,
+  "end": 395.973,
+  "gap": 0.5
+ },
+ {
+  "i": 171,
+  "section": "epi",
+  "cap": "She answers:",
+  "say": "She answers.",
+  "start": 396.473,
+  "end": 397.209,
+  "gap": 0.35
+ },
+ {
+  "i": 172,
+  "section": "epi",
+  "cap": "\u201cNo. I think somebody\u2019s been waiting for me.\u201d",
+  "say": "No. I think somebody's been waiting for me.",
+  "start": 397.559,
+  "end": 399.441,
+  "gap": 0.6
+ },
+ {
+  "i": 173,
+  "section": "epi",
+  "cap": "And behind her, the station clock begins moving backward.",
+  "say": "And behind her, the station clock begins moving backward.",
+  "start": 400.041,
+  "end": 402.738,
+  "gap": 1.2
+ }
+]
