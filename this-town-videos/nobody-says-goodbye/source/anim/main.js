@@ -379,7 +379,7 @@ S.push((u, T) => { use('term', 'records'); pt(0, -78, 8, 1, '#ffd9a8', 120); FOC
 // 61 Each entry contained a date, an age, and 2 words.
 S.push((u, T) => { use('term', 'records'); pt(0, -78, 8, 1, '#ffd9a8', 120); FOCUS.copy(V3(-78, 3.6, 0.2)); FOCUS_R = 8; camW(V3(-79.2, 6.2, 0.7), V3(-79.0, 3.63, -0.4), 36, [0, 0, -1]); });
 // 62 FAREWELL ACCEPTED.
-S.push((u, T) => { use('term', 'records', 'cine', 0.75); pt(0, -78, 8, 1, '#ffd9a8', 120); FOCUS.copy(V3(-78, 3.6, 0.2)); FOCUS_R = 8; camW(V3(-77.2, lerp(9.4, 8.8, ease(u)), -0.4), V3(-77.2, 3.63, -0.6), 34, [0, 0, -1]); });
+S.push((u, T) => { use('term', 'records', 'cine', 0.75); pt(0, -78, 8, 1, '#ffd9a8', 120); FOCUS.copy(V3(-78, 3.6, 0.2)); FOCUS_R = 8; camW(V3(-77.05, lerp(10.1, 9.6, ease(u)), 0.85), V3(-77.05, 3.63, 0.65), 34, [0, 0, -1]); });
 // 63 But something was wrong.
 S.push((u, T) => { use('term', 'records', 'cine', 0.75); pl(E17, -78, 0, 4.0, Math.PI - 0.15).expr('worried'); E17.look(0.3, 0); pt(0, -75, 8, 0, '#ffcf80', 150); focus(-78, 0, 3, 10); cu(-78, 4.25, 4.0, Math.PI - 0.75, { d: 7.2 }); });
 // 64-68 the ages, one Elias version per line, lined up along the back of the records room
@@ -515,9 +515,9 @@ S.push((u, T) => { use('home', 'basement', 'cine', 0.7); pl(E17, BE[0], BE[1], B
 // 130 On the back, written in his own handwriting, were the words:
 S.push((u, T) => { use('home', 'basement'); const c = card(PH.final, 0, 300, 0, 0, Math.PI * ease(seg(u, 0.25, 0.85)), 0.02, 4, PH.backText); pt(0, 0, 303, 7, '#ffe6c0', 150); pt(1, 0, 303, -7, '#ffe6c0', 150); FOCUS.copy(V3(0, 300, 0)); FOCUS_R = 8; camW(V3(0, 300, 9.6), V3(0, 300, 0), 44); });
 // 131 "When I come back, don't tell me who I am. Just let me live a normal life."
-S.push((u, T) => { use('home', 'basement', 'cine', 0.72); card(PH.final, 0, 300, 0, 0, Math.PI, 0.02, 4, PH.backText); pt(1, 0, 303, 7, '#ffe6c0', 180); FOCUS.copy(V3(0, 300, 0)); FOCUS_R = 8; camW(V3(-0.45, 300.62, lerp(8.4, 7.6, ease(u))), V3(-0.45, 300.62, 0), 40); });
+S.push((u, T) => { use('home', 'basement', 'cine', 0.72); card(PH.final, 0, 300, 0, 0, Math.PI, 0.02, 4, PH.backText); pt(1, 0, 303, 7, '#ffe6c0', 180); FOCUS.copy(V3(0, 300, 0)); FOCUS_R = 8; camW(V3(-0.45, 299.7, lerp(8.4, 7.6, ease(u))), V3(-0.45, 299.7, 0), 40); });
 // 132 Below that was another message.
-S.push((u, T) => { use('home', 'basement', 'cine', 0.72); card(PH.final, 0, 300, 0, 0, Math.PI, 0.02, 4, PH.backText); pt(1, 0, 303, 7, '#ffe6c0', 180); FOCUS.copy(V3(0, 300, 0)); FOCUS_R = 8; const y = lerp(300.62, 299.3, ease(u)); camW(V3(-0.45, y, 8.2), V3(-0.45, y, 0), 40); });
+S.push((u, T) => { use('home', 'basement', 'cine', 0.72); card(PH.final, 0, 300, 0, 0, Math.PI, 0.02, 4, PH.backText); pt(1, 0, 303, 7, '#ffe6c0', 180); FOCUS.copy(V3(0, 300, 0)); FOCUS_R = 8; const y = lerp(299.7, 299.3, ease(u)); camW(V3(-0.45, y, 8.2), V3(-0.45, y, 0), 40); });
 // 133 "And when the time comes, please let me go."
 S.push((u, T) => { use('home', 'basement', 'cine', 0.72); card(PH.final, 0, 300, 0, 0, Math.PI, 0.02, 4, PH.backText); pt(1, 0, 303, 7, '#ffe6c0', 180); FOCUS.copy(V3(0, 300, 0)); FOCUS_R = 8; camW(V3(-0.45, 299.3, lerp(7.8, 7.0, ease(u))), V3(-0.45, 299.3, 0), 40); });
 // 134 Elias realized that every time he returned, he eventually discovered the truth.
